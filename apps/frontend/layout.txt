@@ -1,0 +1,41 @@
+Layout from who knows where.
+
++--------------------------------------------------------------------------------+
+| Inventory Management System                                    Admin | 🔔 | 👤 |
++----------------------+---------------------------------------------------------+
+| Dashboard            | Inventory Overview                                      |
+| Products             |---------------------------------------------------------|
+| Categories           | Search: [_____________________] [+ Add Product]         |
+| Stock In             |                                                         |
+| Stock Out            |---------------------------------------------------------|
+| Reports              | SKU     Product         Category    Stock   Status      |
+| Settings             |---------------------------------------------------------|
+|                      | P001    Laptop          Electronics   35    In Stock    |
+|                      | P002    Mouse           Accessories    8    Low         |
+|                      | P003    Keyboard        Accessories    0    Out         |
+|                      | P004    Monitor         Electronics   22    In Stock    |
+|                      |                                                         |
+|                      | [Edit] [Delete] [View Details]                          |
++----------------------+---------------------------------------------------------+
+| Total Products: 245  | Low Stock: 12 | Out of Stock: 5 | Total Value: $54,200  |
++--------------------------------------------------------------------------------+
+
++------------------+  +------------------+  +------------------+  +------------------+
+| Total Products   |  | Low Stock Items  |  | Sales Today      |  | Inventory Value  |
+|      245         |  |        12        |  |      $1,250      |  |     $54,200      |
++------------------+  +------------------+  +------------------+  +------------------+
+
++--------------------------------------+
+| Add New Product                      |
++--------------------------------------+
+| Product Name: [___________________]  |
+| SKU:          [___________________]  |
+| Category:     [ Electronics       ]  |
+| Supplier:     [___________________]  |
+| Purchase Price[$________]            |
+| Selling Price [$________]            |
+| Quantity:     [________]             |
+| Reorder Level:[________]             |
+|                                      |
+| [ Save ]   [ Cancel ]                |
++--------------------------------------+
