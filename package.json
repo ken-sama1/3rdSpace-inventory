@@ -1,0 +1,23 @@
+{
+  "name": "3rdSpace-inventory",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "apps:dev": "pnpm -F \"./apps/*\" run dev",
+    "apps:build": "pnpm -F \"./apps/*\" run build",
+    "packages:build": "pnpm -F \"./packages/*\" run build",
+    "packages:dev": "pnpm -F shared run dev"
+  },
+  "author": "Ken-Sama1",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.15.1",
+      "onFail": "download"
+    }
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6"
+  }
+}

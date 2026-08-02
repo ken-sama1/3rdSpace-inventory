@@ -1,0 +1,7 @@
+import { create } from "./create.service.js";
+import { update } from "./update.service.js";
+
+export const inventoryItemsService = {
+  create,
+  update,
+};

@@ -1,0 +1,2742 @@
+[
+  {
+    "_id": "6a204c227e9351714f57d04f",
+    "name": "Fried Chicken",
+    "description": "Served with rice, sides, and appetizer",
+    "price": 170,
+    "category": "3rd Space - House Plates",
+    "image": "https://cdn.3rdspace.shop/menu/e377ebc7-77bd-4849-95e3-baf538b0a56a.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-08-01T13:33:00.727Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 130
+  },
+  {
+    "_id": "6a204c227e9351714f57d04e",
+    "name": "Crispy Liempo",
+    "description": "Served with rice, sides, and appetizer",
+    "price": 170,
+    "category": "3rd Space - House Plates",
+    "image": "https://cdn.3rdspace.shop/menu/009197ce-37dd-4b7a-a3a1-14d038ab4a2a.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-30T00:35:37.179Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 130
+  },
+  {
+    "_id": "6a204c227e9351714f57d055",
+    "name": "Hungarian Sausage",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/2edbd19e-1beb-419e-8a1c-0b4f70f6e3d0.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-24T14:11:04.999Z",
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Hard Cooked Steamed Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Sauce", "price": 15 },
+          { "label": "Egg", "price": 15 },
+          { "label": "Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 120
+  },
+  {
+    "_id": "6a204c227e9351714f57d052",
+    "name": "Beef Flakes",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/646a0c86-23b5-43f8-b708-9807cf961c7b.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T06:52:44.305Z",
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 120
+  },
+  {
+    "_id": "6a204c227e9351714f57d054",
+    "name": "Glazed Chicken Pops",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/3eeadfa6-610f-4085-8a71-fab839c07688.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T09:37:24.654Z",
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 100
+  },
+  {
+    "_id": "6a204c227e9351714f57d051",
+    "name": "Tapa",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/0040f90c-b080-44a3-8a24-2457b5ccdeaa.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T03:08:09.021Z",
+    "options": [
+      {
+        "name": "Variant",
+        "type": "single",
+        "required": true,
+        "choices": [
+          { "label": "Chicken", "price": 0 },
+          { "label": "Beef", "price": 0 }
+        ]
+      },
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 100
+  },
+  {
+    "_id": "6a204c227e9351714f57d050",
+    "name": "Bacon & Luncheon",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/4136f03d-e1b8-4e31-946a-2750feab1957.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:53:39.958Z",
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 110
+  },
+  {
+    "_id": "6a204c227e9351714f57d053",
+    "name": "Longganisa",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/84599f95-86ed-4409-a0bb-4b5765557c25.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T09:14:39.523Z",
+    "options": [
+      {
+        "name": "Variant",
+        "type": "single",
+        "required": true,
+        "choices": [
+          { "label": "Garlic", "price": 0 },
+          { "label": "Hamonado", "price": 0 },
+          { "label": "Mixed", "price": 0 }
+        ]
+      },
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Sauce", "price": 15 },
+          { "label": "Egg", "price": 15 },
+          { "label": "Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 110
+  },
+  {
+    "_id": "6a3b42adbab101849ce2889f",
+    "name": "Chicken Nuggets",
+    "description": "Served with rice and egg",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/70ed2a75-3bad-4759-b3a2-7ae534c7567f.webp",
+    "available": true,
+    "variants": [],
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "createdAt": "2026-06-24T02:36:29.250Z",
+    "updatedAt": "2026-07-26T09:48:29.686Z",
+    "__v": 0,
+    "cost": 100
+  },
+  {
+    "_id": "6a525928ca8f2deb32e5ef0b",
+    "name": "Pork Tocino",
+    "description": "",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/fa093d0e-280e-442e-b004-6bbf45dd4b32.webp",
+    "available": true,
+    "variants": [],
+    "options": [
+      {
+        "name": "Egg Style",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": " Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 25 }
+        ]
+      }
+    ],
+    "cost": 95,
+    "createdAt": "2026-07-11T14:54:32.849Z",
+    "updatedAt": "2026-07-28T04:32:42.849Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a6b4fd6546084f9fb482dae",
+    "name": "Classic Pork Adobo",
+    "description": "",
+    "price": 149,
+    "category": "3rd Space - House Savory Meals",
+    "image": "https://cdn.3rdspace.shop/menu/f56b491d-f50c-41ca-98c7-f804d7a39e3f.webp",
+    "available": false,
+    "variants": [],
+    "options": [
+      {
+        "name": "Egg",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Poached Style Steamed Egg", "price": 0 },
+          { "label": "Steamed Hard Cooked Egg", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Sauce", "price": 15 },
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Add Rice", "price": 20 }
+        ]
+      }
+    ],
+    "cost": null,
+    "createdAt": "2026-07-30T13:21:26.385Z",
+    "updatedAt": "2026-08-01T01:24:53.264Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a204c227e9351714f57d05a",
+    "name": "Ramen",
+    "description": "Noodles & soup",
+    "price": 130,
+    "category": "3rd Space - Noodles & Soup",
+    "image": "https://cdn.3rdspace.shop/menu/dec3827a-31ff-4016-ad87-1a8d6ac0dc8b.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T01:02:53.933Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Egg", "price": 15 },
+          { "label": "Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": ["Spicy", "Mild"],
+    "cost": 90
+  },
+  {
+    "_id": "6a204c227e9351714f57d059",
+    "name": "Canton Al Uovo",
+    "description": "Noodles & soup",
+    "price": 80,
+    "category": "3rd Space - Noodles & Soup",
+    "image": "https://cdn.3rdspace.shop/menu/78c9c367-8249-4663-986e-4e085021ef71.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T04:56:37.885Z",
+    "cost": 50,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Egg", "price": 15 },
+          { "label": "Rice", "price": 20 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d058",
+    "name": "Chicken Pops Spaghetti",
+    "description": "Spaghetti with chicken poppers",
+    "price": 160,
+    "category": "3rd Space - Pasta",
+    "image": "https://cdn.3rdspace.shop/menu/d40771f6-d089-42ff-914b-1e73cfacf7e5.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T09:37:29.344Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 120
+  },
+  {
+    "_id": "6a204c227e9351714f57d057",
+    "name": "Spanish Sardines Pasta",
+    "description": "Pasta with Spanish sardines",
+    "price": 160,
+    "category": "3rd Space - Pasta",
+    "image": "https://cdn.3rdspace.shop/menu/9aa017fe-9dc0-4077-9143-9a53a3a2e01b.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:50:22.424Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": ["Mild", "Spicy"],
+    "cost": 120
+  },
+  {
+    "_id": "6a204c227e9351714f57d056",
+    "name": "Beef Chili Pasta",
+    "description": "Pasta with beef chili sauce",
+    "price": 160,
+    "category": "3rd Space - Pasta",
+    "image": "https://cdn.3rdspace.shop/menu/9172cfe3-c864-4b70-b7cc-c24111387712.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T03:08:06.182Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 120
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d098",
+    "name": "Sauce (Add-On)",
+    "description": "Sauce add-on",
+    "price": 30,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-10T23:37:15.736Z",
+    "cost": 20,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d097",
+    "name": "Syrup (Add-On)",
+    "description": "Flavored syrup add-on",
+    "price": 30,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-11T00:39:17.124Z",
+    "cost": 20,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d099",
+    "name": "Vanilla Ice Cream (Add-On)",
+    "description": "Vanilla ice cream add-on",
+    "price": 30,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-11T00:38:46.140Z",
+    "cost": 20,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d096",
+    "name": "Espresso Shots (Add-On)",
+    "description": "Extra espresso shots",
+    "price": 30,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-11T00:39:47.253Z",
+    "cost": 15,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d061",
+    "name": "Rice",
+    "description": "Add-on rice",
+    "price": 20,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "cost": 15,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a204c227e9351714f57d060",
+    "name": "Egg",
+    "description": "Add-on egg",
+    "price": 15,
+    "category": "Add-Ons",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "cost": 10,
+    "options": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d05c",
+    "name": "Nuggets & Fries",
+    "description": "Chicken nuggets with fries",
+    "price": 100,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/55228ff6-a10b-4881-9be3-a1f4105e502e.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T15:24:12.919Z",
+    "options": [
+      {
+        "name": "Sauce",
+        "type": "multi",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 70
+  },
+  {
+    "_id": "6a204c227e9351714f57d05e",
+    "name": "Fries (À La Carte)",
+    "description": "Plain fries",
+    "price": 100,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/e990ff44-34de-498e-959e-55570ca3328f.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-11T00:39:57.876Z",
+    "options": [
+      {
+        "name": "Sauce",
+        "type": "multi",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice ", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 50
+  },
+  {
+    "_id": "6a204c227e9351714f57d05d",
+    "name": "Poppers & Fries",
+    "description": "Chicken poppers with fries",
+    "price": 100,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/31b4e824-3b01-4b5b-9f0f-39d962ff90fb.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T09:37:34.642Z",
+    "options": [
+      {
+        "name": "Sauce",
+        "type": "multi",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 70
+  },
+  {
+    "_id": "6a204c227e9351714f57d05f",
+    "name": "Mixed Platter",
+    "description": "Nuggets, poppers, and fries",
+    "price": 200,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/76049413-85da-47ad-94b5-cc7858c957a3.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T09:37:33.296Z",
+    "cost": 150,
+    "options": [
+      {
+        "name": "Sauce",
+        "type": "multi",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d05b",
+    "name": "Hash Brown",
+    "description": "Crispy hash brown",
+    "price": 80,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/859cbfec-59e3-4157-bd7d-6a3edda2bbbc.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T04:57:12.430Z",
+    "cost": 50,
+    "options": [
+      {
+        "name": "Sauce",
+        "type": "multi",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a2f676935c98b8d912b997b",
+    "name": "Grilled Egg Sandwich",
+    "description": "",
+    "price": 100,
+    "category": "Appetizers & Snack Platters",
+    "image": "https://cdn.3rdspace.shop/menu/460cf55c-9d5a-481a-9e60-a448a897dc8d.webp",
+    "available": true,
+    "variants": ["Chicken", "Tuna", "Ham", "Bacon"],
+    "createdAt": "2026-06-15T02:46:01.537Z",
+    "updatedAt": "2026-07-23T07:40:21.197Z",
+    "__v": 0,
+    "options": [
+      {
+        "name": "Variant",
+        "type": "single",
+        "required": true,
+        "choices": [
+          { "label": "Chicken", "price": 0 },
+          { "label": "Tuna", "price": 0 },
+          { "label": "Ham", "price": 0 },
+          { "label": "Bacon", "price": 0 }
+        ]
+      },
+      {
+        "name": "Sauce",
+        "type": "single",
+        "required": false,
+        "max": 2,
+        "choices": [
+          { "label": "Garlic Mayo", "price": 0 },
+          { "label": "Ketchup", "price": 0 },
+          { "label": "Sweet Chili", "price": 0 },
+          { "label": "Honey Mustard", "price": 0 },
+          { "label": "Toyo Calamansi", "price": 0 },
+          { "label": "Vinegar", "price": 0 },
+          { "label": "Tonkatsu Sauce", "price": 0 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Rice", "price": 20 },
+          { "label": "Egg", "price": 15 }
+        ]
+      }
+    ],
+    "cost": 80
+  },
+  {
+    "_id": "6a4d03a818302b113fdfa25b",
+    "name": "Cookies",
+    "description": "",
+    "price": 15,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/5f0d9382-5253-473e-9fb1-c26cbc017901.webp",
+    "available": false,
+    "variants": [],
+    "options": [],
+    "createdAt": "2026-07-07T13:48:24.959Z",
+    "updatedAt": "2026-07-24T02:21:44.797Z",
+    "__v": 0,
+    "cost": 12
+  },
+  {
+    "_id": "6a4d11da52b1238196f0ca29",
+    "name": "Crinkles",
+    "description": "",
+    "price": 35,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/64afd626-aeab-43e6-8a8c-3adbf8f0a59c.webp",
+    "available": false,
+    "variants": [],
+    "options": [],
+    "createdAt": "2026-07-07T14:48:58.842Z",
+    "updatedAt": "2026-07-22T07:11:20.883Z",
+    "__v": 0,
+    "cost": 27
+  },
+  {
+    "_id": "6a4dc3dcec9578d828bfeac0",
+    "name": "Banana Cake Slice",
+    "description": "",
+    "price": 40,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/5772a1c1-9edd-4ab6-a01b-c4e36740cb0e.webp",
+    "available": false,
+    "variants": [],
+    "options": [],
+    "createdAt": "2026-07-08T03:28:28.865Z",
+    "updatedAt": "2026-07-22T07:11:18.786Z",
+    "__v": 0,
+    "cost": 32
+  },
+  {
+    "_id": "6a4dc40cec9578d828bfeb1e",
+    "name": "Dubai Chewy Cookie",
+    "description": "",
+    "price": 105,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/172f6bdd-b2e8-47ee-8b88-af09c187ce0e.webp",
+    "available": false,
+    "variants": [],
+    "options": [],
+    "createdAt": "2026-07-08T03:29:16.176Z",
+    "updatedAt": "2026-07-11T12:55:50.426Z",
+    "__v": 0,
+    "cost": 97
+  },
+  {
+    "_id": "6a67260d8140a51a920c5335",
+    "name": "Butterscotch",
+    "description": "",
+    "price": 60,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/b8a63c0d-39db-47b3-bc1a-aa22f75fa848.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": null,
+    "createdAt": "2026-07-27T09:34:05.674Z",
+    "updatedAt": "2026-07-27T09:34:05.674Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a67266a275ee0543d245555",
+    "name": "Brownies Overload",
+    "description": "",
+    "price": 60,
+    "category": "Baked Treats",
+    "image": "https://cdn.3rdspace.shop/menu/f31185d6-e9b0-4e74-9243-cece8e495627.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": null,
+    "createdAt": "2026-07-27T09:35:38.577Z",
+    "updatedAt": "2026-07-27T09:35:38.577Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a5cbb0a5b1f408b08506ec2",
+    "name": "Sea Salt Spanish",
+    "description": "",
+    "price": 160,
+    "category": "Coffee - Sea Salt Cloud Series",
+    "image": "https://cdn.3rdspace.shop/menu/3bcaa882-41e4-4cfb-acde-c896b6e43ae5.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 100,
+    "createdAt": "2026-07-19T11:54:50.874Z",
+    "updatedAt": "2026-07-31T11:34:05.757Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a5cbb43c7e429e1a5c4d7d5",
+    "name": "Sea Salt Caramel",
+    "description": "",
+    "price": 170,
+    "category": "Coffee - Sea Salt Cloud Series",
+    "image": "https://cdn.3rdspace.shop/menu/2bd53f09-6a9c-417e-9988-49c6d18204e9.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 110,
+    "createdAt": "2026-07-19T11:55:47.553Z",
+    "updatedAt": "2026-07-26T05:28:10.021Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a5cbb895b1f408b08508ce1",
+    "name": "Sea Salt Mocha",
+    "description": "",
+    "price": 180,
+    "category": "Coffee - Sea Salt Cloud Series",
+    "image": "https://cdn.3rdspace.shop/menu/01cbf524-a3fa-4e3c-9b2f-fd168f244e47.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 120,
+    "createdAt": "2026-07-19T11:56:57.895Z",
+    "updatedAt": "2026-07-26T05:28:10.835Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a204c227e9351714f57d06c",
+    "name": "Hot Caramel Macchiato",
+    "description": "Layered espresso with vanilla and caramel",
+    "price": 139,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/12081dd3-c2a2-4db4-9d0d-a2df31673a46.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:17.140Z",
+    "cost": 95,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d066",
+    "name": "Hot Spanish Latte",
+    "description": "Espresso with condensed milk",
+    "price": 129,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/fa6f0970-9211-4397-a766-87db4e84c86a.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:36:35.885Z",
+    "cost": 90,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d068",
+    "name": "Hot Caramel Latte",
+    "description": "Latte with caramel syrup",
+    "price": 139,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/62661446-f1d6-43af-9e79-f7d0eb084c4c.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:18.731Z",
+    "cost": 90,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d062",
+    "name": "Hot Americano",
+    "description": "Classic hot americano",
+    "price": 79,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/283ec4c1-29db-41d7-aecb-6cdc8a3a9e25.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:37:08.376Z",
+    "cost": 45,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d064",
+    "name": "Hot Café Latte",
+    "description": "Espresso with steamed milk",
+    "price": 109,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/45ed00dc-e1fe-473a-a6ce-e6d7ba912262.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T03:59:10.279Z",
+    "cost": 75,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d06e",
+    "name": "Hot Mocha",
+    "description": "Espresso with chocolate",
+    "price": 139,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/c6169fb4-415a-4490-b77a-b94e37756337.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:16.011Z",
+    "cost": 95,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d06a",
+    "name": "Hot Roasted Almond",
+    "description": "Latte with roasted almond flavor",
+    "price": 139,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/0bef90ad-cc27-404c-8661-6457771a2ee0.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T10:35:53.492Z",
+    "cost": 90,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d070",
+    "name": "Hot White Choco",
+    "description": "Latte with white chocolate",
+    "price": 139,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/71a37923-6277-49c0-a81e-44e5e54b8389.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:37:01.914Z",
+    "cost": 95,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d074",
+    "name": "Hot Biscoff Latte",
+    "description": "Latte with Biscoff spread",
+    "price": 159,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/863ac20b-9322-4f92-a438-4a943f62f451.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T03:58:09.029Z",
+    "cost": 140,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d072",
+    "name": "Hot Sea salt Latte",
+    "description": "Latte with a hint of sea salt",
+    "price": 149,
+    "category": "Coffee Hot",
+    "image": "https://cdn.3rdspace.shop/menu/b2266031-3366-4295-9100-7a37a54aaf7a.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T11:34:18.150Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d06d",
+    "name": "Iced Caramel Macchiato",
+    "description": "Iced layered espresso with vanilla and caramel",
+    "price": 149,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/9ae26b45-2955-4654-adde-1a1207b5cf87.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T11:28:20.131Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d071",
+    "name": "Iced White Choco",
+    "description": "Iced latte with white chocolate",
+    "price": 149,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/83da8fc2-4d08-4802-b33c-c22686156e1c.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:35:50.643Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d069",
+    "name": "Iced Caramel Latte",
+    "description": "Iced latte with caramel syrup",
+    "price": 149,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/f27f8b3c-25cb-4cae-8fb1-0e9a69c0a403.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:22.711Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d065",
+    "name": "Iced Café Latte",
+    "description": "Espresso with cold milk",
+    "price": 119,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/fd994564-b6f2-4225-a6c0-e241ef801777.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T04:00:35.324Z",
+    "cost": 85,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d067",
+    "name": "Iced Spanish Latte",
+    "description": "Iced espresso with condensed milk",
+    "price": 139,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/1a3ac592-cb4a-4ffa-810a-b3e36a2d71c5.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:36:15.562Z",
+    "cost": 95,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d075",
+    "name": "Iced Biscoff Latte",
+    "description": "Iced latte with Biscoff spread",
+    "price": 169,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/2fcfc939-027a-4133-bea9-42bb1cea9419.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T04:01:29.403Z",
+    "cost": 140,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d08f",
+    "name": "Iced Orange Espresso",
+    "description": "Americano + Orange Juice",
+    "price": 100,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/ceb2aed2-4987-4a96-afc2-7fab58bc02ec.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T04:00:15.532Z",
+    "cost": 80,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d06b",
+    "name": "Iced Roasted Almond",
+    "description": "Iced latte with roasted almond flavor",
+    "price": 149,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/7854de35-1dc8-4a1d-b650-61f6e90b8fd1.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T04:01:05.997Z",
+    "cost": 90,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d073",
+    "name": "Iced Sea Salt Latte",
+    "description": "Iced latte with Sea Salt Cream",
+    "price": 159,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/3a8e8940-47ed-4b3e-ba61-b497f93ed70e.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T11:34:24.491Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 30 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d06f",
+    "name": "Iced Mocha",
+    "description": "Iced espresso with chocolate",
+    "price": 149,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/ee1867b1-4272-48b5-a202-2a61af3425ac.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:25.686Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d063",
+    "name": "Iced Americano",
+    "description": "Classic iced americano",
+    "price": 89,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/524c0cf5-9847-4d4c-a1a9-009ce051d7ca.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T07:36:20.649Z",
+    "cost": 50,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a60890d5b7fb4a1dd96243e",
+    "name": "Iced Creamy Shot",
+    "description": "",
+    "price": 100,
+    "category": "Coffee Iced",
+    "image": "https://cdn.3rdspace.shop/menu/68e5c005-dd38-441f-bc6b-a2434bc944c5.webp",
+    "available": true,
+    "variants": [],
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "cost": 80,
+    "createdAt": "2026-07-22T09:10:37.770Z",
+    "updatedAt": "2026-07-23T07:34:48.835Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a204c227e9351714f57d077",
+    "name": "Chocolate Milk (Iced)",
+    "description": "Iced Chocolate Milk",
+    "price": 149,
+    "category": "Drinks - Caffeine Free",
+    "image": "https://cdn.3rdspace.shop/menu/fd7da86c-0886-43aa-9113-1a6f1f86cf70.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:27.494Z",
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 100
+  },
+  {
+    "_id": "6a204c227e9351714f57d076",
+    "name": "Hot Choco",
+    "description": "Warm chocolate milk",
+    "price": 139,
+    "category": "Drinks - Caffeine Free",
+    "image": "https://cdn.3rdspace.shop/menu/a7e552da-d6bc-4bfa-b067-a0ba705e2ab1.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:28.497Z",
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 100
+  },
+  {
+    "_id": "6a204c227e9351714f57d079",
+    "name": "Creamy Biscoff (Iced)",
+    "description": "Iced creamy Biscoff drink",
+    "price": 189,
+    "category": "Drinks - Caffeine Free",
+    "image": "https://cdn.3rdspace.shop/menu/254b7122-bda9-4714-a87c-8e0b84e5f28c.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-22T09:34:16.679Z",
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 140
+  },
+  {
+    "_id": "6a204c227e9351714f57d093",
+    "name": "Lemon Soda",
+    "description": "Lemon flavored soda",
+    "price": 99,
+    "category": "Drinks - Flavored Soda",
+    "image": "https://cdn.3rdspace.shop/menu/40a57674-cef2-44f2-a134-8604e1e4f88e.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-28T10:48:49.832Z",
+    "cost": 60,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d090",
+    "name": "Blueberry Soda",
+    "description": "Blueberry flavored soda",
+    "price": 99,
+    "category": "Drinks - Flavored Soda",
+    "image": "https://cdn.3rdspace.shop/menu/0c6878ef-68b6-4694-9980-ba35ce39f687.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:47:48.650Z",
+    "cost": 60,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d092",
+    "name": "Honey Peach Soda",
+    "description": "Honey peach flavored soda",
+    "price": 99,
+    "category": "Drinks - Flavored Soda",
+    "image": "https://cdn.3rdspace.shop/menu/50d0053b-bb10-4929-b04a-b9037848bebb.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:48:26.473Z",
+    "cost": 60,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d091",
+    "name": "Green Apple Soda",
+    "description": "Green apple flavored soda",
+    "price": 99,
+    "category": "Drinks - Flavored Soda",
+    "image": "https://cdn.3rdspace.shop/menu/207ec20f-af5e-41b0-8fdf-5f316385c0d1.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:48:10.624Z",
+    "cost": 60,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d086",
+    "name": "Iced Strawberry Matcha ",
+    "description": "Iced matcha with strawberry",
+    "price": 169,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/9302b075-bd63-4aae-bc38-d28cf51661b1.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-30T06:04:31.943Z",
+    "cost": 110,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d087",
+    "name": "Hot Sea Salt Matcha ",
+    "description": "Matcha with sea salt cream",
+    "price": 169,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/94d370b4-1aac-4480-9f9d-be5cd9f81f6d.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T11:34:32.236Z",
+    "cost": 110,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d083",
+    "name": "Hot Matcha Latte ",
+    "description": "Classic hot matcha latte",
+    "price": 149,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/7c3d4af6-ecaf-40f8-9b9c-f549668e779f.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-30T07:06:54.978Z",
+    "cost": 100,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d084",
+    "name": "Iced Matcha Latte",
+    "description": "Classic iced matcha latte",
+    "price": 159,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/2bbb1a41-26c6-4628-98e8-15d2b2bd0b8b.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T08:31:16.397Z",
+    "cost": 110,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d088",
+    "name": "Iced Sea Salt Matcha ",
+    "description": "Iced matcha with sea salt cream",
+    "price": 179,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/29f8cb32-b768-494e-a71f-469a09c04444.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T11:34:35.464Z",
+    "cost": 120,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a61cfa56ff646a774dcc90c",
+    "name": "Hot Strawberry Matcha",
+    "description": "",
+    "price": 159,
+    "category": "Drinks - Matcha Oat Series",
+    "image": "https://cdn.3rdspace.shop/menu/8e2ef4c6-7e12-4ea5-87fb-01380536bd59.webp",
+    "available": false,
+    "variants": [],
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "cost": null,
+    "createdAt": "2026-07-23T08:24:05.549Z",
+    "updatedAt": "2026-07-31T02:59:27.584Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a204c227e9351714f57d07a",
+    "name": "Banana Oat Cream (Iced)",
+    "description": "Iced banana oat cream drink",
+    "price": 189,
+    "category": "Drinks - Oat milk Series",
+    "image": "https://cdn.3rdspace.shop/menu/26989c75-98b7-4a29-ba38-44fa78591e98.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:47:29.472Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 150
+  },
+  {
+    "_id": "6a204c227e9351714f57d08a",
+    "name": "Blueberry Bliss Oat",
+    "description": "Blueberry oat milk drink",
+    "price": 119,
+    "category": "Drinks - Oat milk Series",
+    "image": "https://cdn.3rdspace.shop/menu/f2a9a45f-4482-4204-a5c9-222d4aa49b29.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:41:46.314Z",
+    "cost": 85,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d08b",
+    "name": "Golden Peach Oat",
+    "description": "Peach oat milk drink",
+    "price": 119,
+    "category": "Drinks - Oat milk Series",
+    "image": "https://cdn.3rdspace.shop/menu/7efa67d3-3a1f-4180-ba95-aa9efe76a15c.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T08:00:17.853Z",
+    "cost": 80,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d089",
+    "name": "Green Apple Oatmilk",
+    "description": "Apple-flavored oat milk drink",
+    "price": 119,
+    "category": "Drinks - Oat milk Series",
+    "image": "https://cdn.3rdspace.shop/menu/f4917285-0f94-4f79-9c9d-26dcfa868b48.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:59:32.018Z",
+    "cost": 85,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d078",
+    "name": "Strawberry Oat Milk (Iced)",
+    "description": "Iced strawberry oat milk",
+    "price": 149,
+    "category": "Drinks - Oat milk Series",
+    "image": "https://cdn.3rdspace.shop/menu/24ca4e3c-97bc-45cc-9676-d823598dc588.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T11:52:10.556Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 120
+  },
+  {
+    "_id": "6a204c227e9351714f57d07e",
+    "name": "Green Tea (Iced)",
+    "description": "Iced green tea",
+    "price": 109,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/f3ca443e-ba95-4258-948a-76e58eade687.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:33:25.695Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 75
+  },
+  {
+    "_id": "6a204c227e9351714f57d07c",
+    "name": "Hibiscus Tea  (Iced)",
+    "description": "Iced blend of Hibiscus Tea",
+    "price": 109,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/f9b5ea32-cc31-4151-9317-526bc96355c7.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-31T02:56:43.172Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [{ "label": "Add Syrup", "price": 30 }]
+      }
+    ],
+    "variants": [],
+    "cost": 75
+  },
+  {
+    "_id": "6a204c227e9351714f57d07d",
+    "name": "Green Tea (Hot)",
+    "description": "Classic green tea",
+    "price": 99,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/91c22948-666f-40f8-bf4e-dab76bdfcba9.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:34:28.178Z",
+    "cost": 60,
+    "options": [
+      {
+        "name": "Milk",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "Regular Milk", "price": 0 },
+          { "label": "Oat Milk", "price": 50 }
+        ]
+      },
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d082",
+    "name": "Peppermint Tea (Iced)",
+    "description": "Iced Peppermint Tea",
+    "price": 109,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/a08be5ba-5d0a-43de-841d-fc677832f6c9.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T02:55:45.058Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 75
+  },
+  {
+    "_id": "6a204c227e9351714f57d081",
+    "name": "Peppermint Tea (Hot)",
+    "description": "Soothing Peppermint Tea",
+    "price": 99,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/3cb4508f-1141-476b-a481-50e8611a7712.webp",
+    "available": false,
+    "__v": 0,
+    "updatedAt": "2026-07-31T02:55:46.178Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 60
+  },
+  {
+    "_id": "6a204c227e9351714f57d07b",
+    "name": "Hibiscus Tea (Hot)",
+    "description": "Blend of Hibiscus Tea",
+    "price": 99,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/ace9c215-00ca-449d-8adb-0458c7110427.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-31T02:58:40.125Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [{ "label": "Add Syrup", "price": 30 }]
+      }
+    ],
+    "variants": [],
+    "cost": 60
+  },
+  {
+    "_id": "6a204c227e9351714f57d07f",
+    "name": "Lemon and Ginger Tea (Hot)",
+    "description": "Lemon and ginger herbal tea",
+    "price": 99,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/3fd42beb-847c-4cc6-84da-21860f522c33.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:39.238Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 60
+  },
+  {
+    "_id": "6a204c227e9351714f57d080",
+    "name": "Lemon and Ginger Tea (Iced)",
+    "description": "Iced lemon and ginger tea",
+    "price": 109,
+    "category": "Drinks - Tea Collection",
+    "image": "https://cdn.3rdspace.shop/menu/551350d0-ddef-474f-92a9-60a082dc83da.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-26T05:28:38.712Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 75
+  },
+  {
+    "_id": "6a5f5e0eb8468e9758aea986",
+    "name": " Velvet",
+    "description": "Irish Cream (Whisky and Coffee)",
+    "price": 100,
+    "category": "Drinks - Wander",
+    "image": "https://cdn.3rdspace.shop/menu/e6996f9b-ec37-4f6c-a3a2-40d01d94c30c.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 60,
+    "createdAt": "2026-07-21T11:54:54.138Z",
+    "updatedAt": "2026-07-26T05:28:41.499Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a5f5e7eb8468e9758aed594",
+    "name": "Berry Risky",
+    "description": "Whisky and Blueberry",
+    "price": 100,
+    "category": "Drinks - Wander",
+    "image": "https://cdn.3rdspace.shop/menu/18972c6b-1eec-47ff-a8b6-f90e894f1c9e.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 60,
+    "createdAt": "2026-07-21T11:56:46.887Z",
+    "updatedAt": "2026-07-21T13:32:31.354Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a5f5f91f533bdb0e3f06e0b",
+    "name": "Whisky Sour",
+    "description": "Whisky and Lemon",
+    "price": 100,
+    "category": "Drinks - Wander",
+    "image": "https://cdn.3rdspace.shop/menu/c07013e3-378e-4430-9b8f-181b6c49dcc5.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "cost": 60,
+    "createdAt": "2026-07-21T12:01:21.967Z",
+    "updatedAt": "2026-07-26T09:48:47.069Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a42215c4f400fccd2b3f822",
+    "name": "Chilibog Garlic",
+    "description": "",
+    "price": 95,
+    "category": "In Store",
+    "image": "https://cdn.3rdspace.shop/menu/81038742-df22-42d2-8fc4-fc400c1af4c9.webp",
+    "available": true,
+    "variants": [],
+    "options": [
+      {
+        "name": "Variants",
+        "type": "single",
+        "required": true,
+        "choices": [
+          { "label": "Mild", "price": 0 },
+          { "label": "Wild", "price": 0 }
+        ]
+      },
+      {
+        "name": "Pick One",
+        "type": "single",
+        "required": false,
+        "choices": [
+          { "label": "114 grams", "price": 0 },
+          { "label": "220 grams", "price": 75 },
+          { "label": "330 grams", "price": 150 }
+        ]
+      }
+    ],
+    "createdAt": "2026-06-29T07:40:12.693Z",
+    "updatedAt": "2026-07-22T11:32:22.585Z",
+    "__v": 0,
+    "cost": 75
+  },
+  {
+    "_id": "6a5ba92479c5fd65b814c723",
+    "name": "Enchante Fragrance",
+    "description": "",
+    "price": 80,
+    "category": "In Store",
+    "image": "https://cdn.3rdspace.shop/menu/e941f6b6-b4aa-43f6-8a35-f6fce0a95f7f.webp",
+    "available": true,
+    "variants": [],
+    "options": [
+      {
+        "name": "Variant",
+        "type": "multi",
+        "required": true,
+        "choices": [
+          { "label": "30 ml", "price": 120 },
+          { "label": "10 ml", "price": 0 }
+        ]
+      }
+    ],
+    "cost": 75,
+    "createdAt": "2026-07-18T16:26:12.968Z",
+    "updatedAt": "2026-07-20T15:17:12.393Z",
+    "__v": 0
+  },
+  {
+    "variants": [],
+    "_id": "6a2a64bec7ce408cfae6f0ad",
+    "name": "Tonkatsu Sauce",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/c8a417ca-77a6-45e9-8cee-b2dd65bffd27.webp",
+    "available": true,
+    "updatedAt": "2026-07-20T15:16:18.121Z",
+    "__v": 0,
+    "cost": 5,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a62f4c7ce408cfae6ef1b",
+    "name": "Garlic Mayo",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/5840b749-b40c-411e-befa-8fbd71908bfb.webp",
+    "available": true,
+    "updatedAt": "2026-07-20T15:16:46.803Z",
+    "__v": 0,
+    "cost": 5,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a642ec7ce408cfae6f003",
+    "name": "Ketchup",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/7302142d-1f0a-4175-9dc3-40421095c6a6.webp",
+    "available": true,
+    "updatedAt": "2026-07-20T15:16:50.474Z",
+    "__v": 0,
+    "cost": 2,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a6446c7ce408cfae6f025",
+    "name": "Sweet Chili",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/5f95e513-7a0d-442c-bf61-613ec2022276.webp",
+    "available": true,
+    "updatedAt": "2026-07-20T15:16:42.375Z",
+    "__v": 0,
+    "cost": 3,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a6463c7ce408cfae6f047",
+    "name": "Honey Mustard",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/23dabaa9-2a03-4257-b0cb-320776a24dda.webp",
+    "available": true,
+    "updatedAt": "2026-07-29T06:48:32.443Z",
+    "__v": 0,
+    "cost": 5,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a648dc7ce408cfae6f069",
+    "name": "Toyo Calamansi",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/1a2c9c2b-34fc-436b-b195-662c110bcdf3.webp",
+    "available": false,
+    "updatedAt": "2026-07-28T04:44:02.345Z",
+    "__v": 0,
+    "cost": 1,
+    "options": []
+  },
+  {
+    "variants": [],
+    "_id": "6a2a64a4c7ce408cfae6f08b",
+    "name": "Vinegar",
+    "description": "",
+    "price": 0,
+    "category": "Sauces",
+    "image": "https://cdn.3rdspace.shop/menu/1b67d87d-b1e6-4d2e-8166-845f6776527f.webp",
+    "available": true,
+    "updatedAt": "2026-07-20T15:16:25.618Z",
+    "__v": 0,
+    "cost": 1,
+    "options": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d09b",
+    "name": "Matcha Substitution",
+    "description": "Substitute with matcha base",
+    "price": 30,
+    "category": "Substitutions",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-19T06:57:19.245Z",
+    "cost": 30,
+    "options": [],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d09a",
+    "name": "Oatmilk Substitution",
+    "description": "Substitute regular milk with oat milk",
+    "price": 30,
+    "category": "Substitutions",
+    "image": "",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-23T01:14:48.906Z",
+    "cost": 30,
+    "options": [],
+    "variants": []
+  },
+  {
+    "_id": "6a204c227e9351714f57d095",
+    "name": "Caramel Brownie Sundae",
+    "description": "Brownies topped with vanilla ice cream drizzled with caramel",
+    "price": 130,
+    "category": "The Desserts",
+    "image": "https://cdn.3rdspace.shop/menu/0afda105-b525-4043-9019-418ce7b8a4af.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-27T09:37:54.914Z",
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": [],
+    "cost": 80
+  },
+  {
+    "_id": "6a204c227e9351714f57d094",
+    "name": "Vanilla Affogato",
+    "description": "Espresso poured over vanilla ice cream",
+    "price": 120,
+    "category": "The Desserts",
+    "image": "https://cdn.3rdspace.shop/menu/65202bee-53d5-493c-9812-21e25bc782cf.webp",
+    "available": true,
+    "__v": 0,
+    "updatedAt": "2026-07-21T07:36:38.926Z",
+    "cost": 34,
+    "options": [
+      {
+        "name": "Add-Ons",
+        "type": "multi",
+        "required": false,
+        "choices": [
+          { "label": "Add Espresso Shot", "price": 30 },
+          { "label": "Add Syrup", "price": 30 },
+          { "label": "Add Sauce", "price": 30 },
+          { "label": "Add Vanilla Ice Cream", "price": 30 }
+        ]
+      }
+    ],
+    "variants": []
+  },
+  {
+    "_id": "6a4d08aaac2f50105afec083",
+    "name": "Pastillas",
+    "description": "",
+    "price": 20,
+    "category": "The Desserts",
+    "image": "https://cdn.3rdspace.shop/menu/047804bb-97d8-4028-8540-7273569f5ff4.webp",
+    "available": true,
+    "variants": [],
+    "options": [],
+    "createdAt": "2026-07-07T14:09:46.315Z",
+    "updatedAt": "2026-07-21T07:37:01.685Z",
+    "__v": 0,
+    "cost": 10
+  },
+  {
+    "_id": "6a2f609063b377f26e0a8bd1",
+    "name": "2 Pcs Honey Waffle",
+    "description": "",
+    "price": 90,
+    "category": "Waffles",
+    "image": "https://3rdspace.shop/cdn/menu/711968ea-a09c-4d49-94ea-d7d6f6b46872.png",
+    "available": true,
+    "createdAt": "2026-06-15T02:16:48.367Z",
+    "updatedAt": "2026-07-11T05:35:31.680Z",
+    "__v": 0,
+    "options": [],
+    "variants": [],
+    "cost": 80
+  },
+  {
+    "_id": "6a2f644f53b7af19321f66ba",
+    "name": "2 Pcs Caramel Waffle",
+    "description": "",
+    "price": 100,
+    "category": "Waffles",
+    "image": "https://3rdspace.shop/cdn/menu/e8873f90-1124-4ed9-aa17-e6c660930df9.png",
+    "available": true,
+    "createdAt": "2026-06-15T02:32:47.760Z",
+    "updatedAt": "2026-07-11T06:13:10.975Z",
+    "__v": 0,
+    "variants": [],
+    "options": [],
+    "cost": 90
+  },
+  {
+    "_id": "6a2f647353b7af19321f66bd",
+    "name": "2 Pcs Biscoff Waffle",
+    "description": "",
+    "price": 110,
+    "category": "Waffles",
+    "image": "https://3rdspace.shop/cdn/menu/cddf3e6e-9d28-49c3-b0f5-102c06135861.png",
+    "available": true,
+    "createdAt": "2026-06-15T02:33:23.607Z",
+    "updatedAt": "2026-07-11T06:13:19.201Z",
+    "__v": 0,
+    "variants": [],
+    "options": [],
+    "cost": 100
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "name": "@repo/database",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "npx prisma generate && rimraf dist && tsc -b"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "prisma": "~6.19.3",
+    "rimraf": "^6.1.3",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@prisma/client": "~6.19.3",
+    "dotenv": "^17.4.2"
+  }
+}
