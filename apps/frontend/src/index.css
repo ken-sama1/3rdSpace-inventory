@@ -1,23 +1,67 @@
 @import "tailwindcss";
+@import "@/assets/css/utils.css";
+@import "@/assets/css/inputs.css";
+@import "@/assets/css/buttons.css";
+@import "@/assets/css/styles.css";
 
 :root {
-  --primary-dark: var(--color-gray-950);
-  --accent-dark: var(--color-blue-600);
-  --text-dark: var(--color-gray-300);
-  --heading-dark: var(--color-white);
-  --line-dark: color-mix(in oklab, var(--color-white) 10%, transparent);
+  --primary: var(--color-gray-950);
+  --text: var(--color-gray-300);
+  --heading: var(--color-white);
+  --line: color-mix(in oklab, var(--color-white) 10%, transparent);
 
-  --primary-light: var(--color-white);
-  --accent-light: var(--color-blue-600);
-  --text-light: var(--color-gray-700);
-  --heading-light: var(--color-gray-950);
-  --line-light: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
+  --accent: var(--color-blue-600);
+  --destruct: var(--color-red-500);
 
-  --primary: var(--primary-dark);
-  --accent: var(--accent-dark);
-  --text: var(--text-dark);
-  --heading: var(--heading-dark);
-  --line: var(--line-dark);
+  --bg-warning: color-mix(in oklab, var(--color-amber-500) 10%, transparent);
+  --line-warning: color-mix(in oklab, var(--color-amber-500) 20%, tarnsparent);
+  --text-warning: var(--color-amber-400);
+
+  --bg-alert: color-mix(in oklab, var(--color-rose-500) 10%, transparent);
+  --line-alert: color-mix(in oklab, var(--color-rose-500) 20%, transparent);
+  --text-alert: var(--color-rose-400);
+
+  --bg-success: color-mix(in oklab, var(--color-emerald-500) 10%, transparent);
+  --line-success: color-mix(
+    in oklab,
+    var(--color-emerald-500) 20%,
+    transparent
+  );
+  --text-success: var(--color-emerald-400);
+
+  --bg-info: color-mix(in oklab, var(--color-blue-500) 10%, transparent);
+  --line-info: color-mix(in oklab, var(--color-blue-500) 20%, transparent);
+  --text-info: var(--color-blue-400);
+}
+
+[data-theme="light"] {
+  --primary: var(--color-white);
+  --text: var(--color-gray-700);
+  --heading: var(--color-gray-950);
+  --line: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
+
+  --text-warning: var(--color-amber-600);
+  --text-alert: var(--color-rose-600);
+
+  --bg-warning: color-mix(in oklab, var(--color-amber-700) 10%, transparent);
+  --line-warning: color-mix(in oklab, var(--color-amber-700) 20%, tarnsparent);
+  --text-warning: var(--color-amber-600);
+
+  --bg-alert: color-mix(in oklab, var(--color-rose-700) 10%, transparent);
+  --line-alert: color-mix(in oklab, var(--color-rose-700) 20%, transparent);
+  --text-alert: var(--color-rose-600);
+
+  --bg-success: color-mix(in oklab, var(--color-emerald-700) 10%, transparent);
+  --line-success: color-mix(
+    in oklab,
+    var(--color-emerald-700) 20%,
+    transparent
+  );
+  --text-success: var(--color-emerald-600);
+
+  --bg-info: color-mix(in oklab, var(--color-blue-700) 10%, transparent);
+  --line-info: color-mix(in oklab, var(--color-blue-700) 20%, transparent);
+  --text-info: var(--color-blue-600);
 }
 
 * {
@@ -55,4 +99,12 @@ h2 {
 
 h3 {
   font-size: 1.25rem;
+}
+
+a {
+  @apply group-hover:text-(--accent) cursor-pointer;
+
+  &:hover {
+    color: var(--accent);
+  }
 }

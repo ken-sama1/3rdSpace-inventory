@@ -1,0 +1,35 @@
+.button-accent {
+  @apply bg-(--accent) stroke-(--heading) text-(--heading) px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
+
+  &:hover {
+    @apply bg-(--accent)/90 text-(--text) stroke-(--text) nice-transition;
+  }
+
+  &:active {
+    @apply scale-95;
+  }
+}
+
+.button-destruct {
+  @apply bg-(--destruct) stroke-(--heading) text-(--heading) px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
+
+  &:hover {
+    @apply bg-(--destruct)/90 text-(--text) stroke-(--text) nice-transition;
+  }
+
+  &:active {
+    @apply scale-95;
+  }
+}
+
+.button-outlined {
+  @apply border-(--accent) border outline-0 stroke-(--heading) text-(--heading) px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
+
+  &:hover {
+    @apply bg-(--accent)/10 text-(--text) stroke-(--text) nice-transition;
+  }
+
+  &:active {
+    @apply scale-95;
+  }
+}

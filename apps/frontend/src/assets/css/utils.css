@@ -1,0 +1,11 @@
+@utility nice-hover {
+  @apply nice-transition;
+
+  &:hover {
+    @apply bg-(--line);
+  }
+}
+
+@utility nice-transition {
+  @apply transition-all duration-100 ease-in;
+}
