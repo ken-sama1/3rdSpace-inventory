@@ -32,24 +32,29 @@
   --bg-info: color-mix(in oklab, var(--color-blue-500) 10%, transparent);
   --line-info: color-mix(in oklab, var(--color-blue-500) 20%, transparent);
   --text-info: var(--color-blue-400);
+
+  --bg-disabled: color-mix(in oklab, var(--color-neutral-500) 10%, transparent);
+  --line-disabled: color-mix(
+    in oklab,
+    var(--color-neutral-500) 10%,
+    transparent
+  );
+  --text-disabled: var(--color-neutral-500);
 }
 
 [data-theme="light"] {
   --primary: var(--color-white);
   --text: var(--color-gray-700);
   --heading: var(--color-gray-950);
-  --line: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
-
-  --text-warning: var(--color-amber-600);
-  --text-alert: var(--color-rose-600);
+  --line: color-mix(in oklab, var(--color-gray-950) 20%, transparent);
 
   --bg-warning: color-mix(in oklab, var(--color-amber-700) 10%, transparent);
   --line-warning: color-mix(in oklab, var(--color-amber-700) 20%, tarnsparent);
   --text-warning: var(--color-amber-600);
 
-  --bg-alert: color-mix(in oklab, var(--color-rose-700) 10%, transparent);
-  --line-alert: color-mix(in oklab, var(--color-rose-700) 20%, transparent);
-  --text-alert: var(--color-rose-600);
+  --bg-danger: color-mix(in oklab, var(--color-rose-700) 10%, transparent);
+  --line-danger: color-mix(in oklab, var(--color-rose-700) 20%, transparent);
+  --text-danger: var(--color-rose-600);
 
   --bg-success: color-mix(in oklab, var(--color-emerald-700) 10%, transparent);
   --line-success: color-mix(

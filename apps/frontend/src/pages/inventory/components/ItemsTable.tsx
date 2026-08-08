@@ -2,11 +2,22 @@ import { getInventoryItems } from "@/api/inventory-items.api";
 import Table from "@/components/ui/Table";
 import type { GetInventoryItemsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
-import { base } from "motion/react-client";
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
+import EditItemModal from "./EditItemModal";
 
 const ItemsTable = () => {
-  const { data, isLoading, isError } = useQuery<GetInventoryItemsResult>({
+  const [editModal, setEditModal] = useState<
+    | {
+        isOpen: false;
+        itemId: null;
+      }
+    | { isOpen: true; itemId: string }
+  >({
+    isOpen: false,
+    itemId: null,
+  });
+
+  const { data, isLoading } = useQuery<GetInventoryItemsResult>({
     queryKey: ["inventory-items"],
     queryFn: ({ signal }) => getInventoryItems({}, { signal }),
   });
@@ -14,6 +25,18 @@ const ItemsTable = () => {
   console.log(data);
   return (
     <div className="h-full">
+      {editModal.isOpen && (
+        <EditItemModal
+          isOpen={editModal.isOpen}
+          onClose={() =>
+            setEditModal({
+              isOpen: false,
+              itemId: null,
+            })
+          }
+          itemId={editModal.itemId}
+        />
+      )}
       {!isLoading && data && (
         <Table
           className="border"
@@ -26,7 +49,10 @@ const ItemsTable = () => {
             },
             row: {
               onClick: (item) => {
-                console.log(item.itemId);
+                setEditModal({
+                  isOpen: true,
+                  itemId: item.itemId,
+                });
               },
               style: (rowData): CSSProperties => {
                 const lowStock = rowData.quantity <= 1000;
@@ -77,7 +103,7 @@ const ItemsTable = () => {
                 },
               },
             },
-            exlude: ["itemId", "description", "imageUrl"],
+            exlude: ["itemId", "description", "imageUrl", "category"],
           }}
         />
       )}

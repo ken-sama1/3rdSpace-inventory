@@ -11,13 +11,9 @@ export const create = async (
     data: {
       ...args,
     },
-    select: {
-      id: true,
-      description: true,
-      imageUrl: true,
-      name: true,
-      quantity: true,
-      unit: true,
+    omit: {
+      createdAt: true,
+      updatedAt: true,
     },
   });
 

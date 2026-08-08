@@ -21,13 +21,9 @@ export const update = async (
       ...(unit && { unit }),
       ...(quantity !== undefined && { quantity }),
     },
-    select: {
-      id: true,
-      description: true,
-      imageUrl: true,
-      name: true,
-      unit: true,
-      quantity: true,
+    omit: {
+      createdAt: true,
+      updatedAt: true,
     },
   });
 

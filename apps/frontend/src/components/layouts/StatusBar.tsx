@@ -52,7 +52,7 @@ const StatusBar = () => {
           <div
             className="
             w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
-            border border-(--line-warning) bg-(--bg-warning) stroke-(--text-warning) text-(--text-warning)!"
+            border status-warning stroke-(--text-warning)"
           >
             <AlertTriangle className="stroke-2 stroke-inherit! h-full" />
             <span className="text-xs! text-inherit! flex items-center">
@@ -68,7 +68,7 @@ const StatusBar = () => {
           <div
             className="
             w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
-            border border-(--line-danger) bg-(--bg-danger) stroke-(--text-danger) text-(--text-danger)!"
+            border status-danger stroke-(--text-danger)"
           >
             <PackageX className="stroke-2 stroke-inherit! h-full" />
             <span className="text-xs! text-inherit! flex items-center">

@@ -1,3 +1,19 @@
 .divider {
   @apply w-full h-0.5 bg-(--line) my-5;
 }
+
+.status-success {
+  @apply bg-(--bg-success) text-(--text-success) border-(--line-success) px-2 py-1;
+}
+
+.status-danger {
+  @apply bg-(--bg-danger) text-(--text-danger) border-(--line-danger) px-2 py-1;
+}
+
+.status-info {
+  @apply bg-(--bg-info) text-(--text-info) border-(--line-info) px-2 py-1;
+}
+
+.status-warning {
+  @apply bg-(--bg-warning) text-(--text-warning) border-(--line-warning) px-2 py-1;
+}

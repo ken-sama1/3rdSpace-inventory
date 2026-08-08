@@ -7,4 +7,5 @@ export type InventoryItemDto = {
   quantity: number;
   unit: InventoryItemUnit;
   imageUrl: string | null;
+  category: string | null;
 };

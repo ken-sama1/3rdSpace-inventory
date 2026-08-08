@@ -29,6 +29,7 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
       const quantity = form.get("item-quantity") as number | null;
       const description = form.get("item-description") as string | null;
       const imageUrl = form.get("item-image") as string | null;
+      const category = form.get("item-category") as string | null;
 
       await createInventoryItem({
         name: form.get("item-name") as string,
@@ -38,6 +39,7 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
         }),
         ...(quantity && { quantity }),
         ...(imageUrl && { imageUrl }),
+        ...(category && { category }),
       });
     },
     onSuccess: () => {
@@ -119,7 +121,7 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
               onConfirm={handleSave}
             >
               <div className="w-74">
-                <span className="font-semibold! text-sm!">
+                <span className="flex justify-center items-center font-semibold! text-sm!">
                   Do you really want to add this item?
                 </span>
               </div>
@@ -144,21 +146,37 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
                 />
               </div>
 
-              {/* Description */}
+              {/* Category */}
               <div className="grid col-span-2 gap-y-2">
                 <label
-                  htmlFor="item-description"
+                  htmlFor="item-category"
                   className="text-sm! text-(--heading)! font-semibold!"
                 >
-                  Description:
+                  Category
                 </label>
                 <input
-                  id="item-description"
+                  id="item-category"
                   type="text"
-                  name="item-description"
+                  name="item-category"
                   className="rounded-md! h-7! text-xs!"
                 />
               </div>
+
+              {/* Description */}
+              {/* <div className="grid col-span-2 gap-y-2"> */}
+              {/*   <label */}
+              {/*     htmlFor="item-description" */}
+              {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+              {/*   > */}
+              {/*     Description: */}
+              {/*   </label> */}
+              {/*   <input */}
+              {/*     id="item-description" */}
+              {/*     type="text" */}
+              {/*     name="item-description" */}
+              {/*     className="rounded-md! h-7! text-xs!" */}
+              {/*   /> */}
+              {/* </div> */}
 
               {/* Quantity */}
               <div className="grid col-span-2 gap-y-2">

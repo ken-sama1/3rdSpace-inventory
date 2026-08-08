@@ -27,6 +27,7 @@ inventoryItemsRouter
     validateReqBody(updateInventoryItemSchema),
     inventoryItemsController.update
   )
-  .delete(inventoryItemsController.delete);
+  .delete(inventoryItemsController.delete)
+  .get(inventoryItemsController.getById);
 
 export { inventoryItemsRouter };

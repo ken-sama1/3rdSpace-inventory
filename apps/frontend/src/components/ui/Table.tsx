@@ -135,6 +135,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                     <span
                       className="size-full"
                       style={{
+                        ...cellStyle,
                         alignItems: "center",
                         display: "flex",
                       }}

@@ -10,7 +10,7 @@
   }
 }
 
-.button-destruct {
+.button-danger {
   @apply bg-(--destruct) stroke-(--heading) text-(--heading) px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
 
   &:hover {

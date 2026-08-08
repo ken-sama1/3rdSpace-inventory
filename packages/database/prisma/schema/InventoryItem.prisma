@@ -13,6 +13,7 @@ model InventoryItem {
   quantity    Int               @default(0)
   unit        InventoryItemUnit @default(G)
   imageUrl    String?
+  category    String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 

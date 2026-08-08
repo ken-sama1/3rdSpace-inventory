@@ -14,6 +14,7 @@ export const createInventoryItemSchema = z.object({
   quantity: z.coerce.number().optional().default(0),
   unit: inventoryItemUnitSchema.default("G"),
   imageUrl: z.union([z.string(), z.null()]).default(null),
+  category: z.union([z.string(), z.null()]).default(null),
 });
 
 export type CreateInventoryItemInput = z.input<
@@ -45,3 +46,7 @@ export type DeleteInventoryItemResBody = ResponseBody<DeleteInventoryResult>;
 // --- Get ---
 export type GetInventoryItemsResult = InventoryItemDto[];
 export type GetInventoryItemsResBody = ResponseBody<GetInventoryItemsResult>;
+
+// --- Get By Id ---
+export type GetInventoryItemResult = InventoryItemDto & DateMetaData;
+export type GetInventoryItemResBody = ResponseBody<GetInventoryItemResult>;

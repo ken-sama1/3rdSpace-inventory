@@ -7,7 +7,7 @@ interface DialogProps {
   isOpen: boolean;
   onClose?: () => void;
   onConfirm?: () => void;
-  variant?: "destructive" | "accent";
+  variant?: "danger" | "accent";
   cancelText?: string;
   confirmText?: string;
 }
