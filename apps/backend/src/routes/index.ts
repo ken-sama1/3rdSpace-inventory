@@ -1,5 +1,5 @@
 import express, { type Router } from "express";
-import { inventoryItemsRouter } from "./inventory-items.routes.js";
+import { inventoryItemsRouter } from "./inventory-items.route.js";
 
 const apiV1Router: Router = express.Router();
 

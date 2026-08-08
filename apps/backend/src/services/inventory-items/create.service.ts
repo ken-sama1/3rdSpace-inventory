@@ -5,11 +5,11 @@ import type {
 } from "@repo/shared";
 
 export const create = async (
-  data: CreateInventoryItemSchema,
+  args: CreateInventoryItemSchema
 ): Promise<CreateInventoryItemResult> => {
-  const result = await prisma.inventoryItem.create({
+  const { id: itemId, ...rest } = await prisma.inventoryItem.create({
     data: {
-      ...data,
+      ...args,
     },
     select: {
       id: true,
@@ -21,5 +21,5 @@ export const create = async (
     },
   });
 
-  return result;
+  return { itemId, ...rest };
 };

@@ -17,9 +17,9 @@
   --line-warning: color-mix(in oklab, var(--color-amber-500) 20%, tarnsparent);
   --text-warning: var(--color-amber-400);
 
-  --bg-alert: color-mix(in oklab, var(--color-rose-500) 10%, transparent);
-  --line-alert: color-mix(in oklab, var(--color-rose-500) 20%, transparent);
-  --text-alert: var(--color-rose-400);
+  --bg-danger: color-mix(in oklab, var(--color-rose-500) 10%, transparent);
+  --line-danger: color-mix(in oklab, var(--color-rose-500) 20%, transparent);
+  --text-danger: var(--color-rose-400);
 
   --bg-success: color-mix(in oklab, var(--color-emerald-500) 10%, transparent);
   --line-success: color-mix(

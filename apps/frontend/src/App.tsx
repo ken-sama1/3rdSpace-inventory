@@ -30,7 +30,7 @@ const App = () => {
         </Routes>
       </div>
       <StatusBar />
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </div>
   );
 };

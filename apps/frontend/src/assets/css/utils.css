@@ -9,3 +9,12 @@
 @utility nice-transition {
   @apply transition-all duration-100 ease-in;
 }
+
+@utility no-scrollbar {
+  -ms-overflow-style: none; /* IE and old Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

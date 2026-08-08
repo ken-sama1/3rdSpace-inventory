@@ -1,10 +1,16 @@
 import { prisma } from "@repo/database";
-import type { UpdateInventoryItemSchema } from "@repo/shared";
+import type {
+  UpdateInventoryItemSchema,
+  UpdateInventoryResult,
+} from "@repo/shared";
 
-export const update = async (id: string, data: UpdateInventoryItemSchema) => {
+export const update = async (
+  id: string,
+  data: UpdateInventoryItemSchema
+): Promise<UpdateInventoryResult> => {
   const { name, description, imageUrl, unit, quantity } = data;
 
-  const result = await prisma.inventoryItem.update({
+  const { id: itemId, ...rest } = await prisma.inventoryItem.update({
     where: {
       id,
     },
@@ -25,5 +31,8 @@ export const update = async (id: string, data: UpdateInventoryItemSchema) => {
     },
   });
 
-  return result;
+  return {
+    itemId,
+    ...rest,
+  };
 };

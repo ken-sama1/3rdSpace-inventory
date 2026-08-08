@@ -2,8 +2,7 @@ import { createInventoryItem } from "@/api/inventory-items.api";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import Toast from "@/components/ui/Toast";
-import { inventoryItemUnits } from "@/const/inventoryItemUnits";
-import type { InventoryItemUnit } from "@repo/shared";
+import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 
@@ -27,9 +26,18 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (form: FormData) => {
+      const quantity = form.get("item-quantity") as number | null;
+      const description = form.get("item-description") as string | null;
+      const imageUrl = form.get("item-image") as string | null;
+
       await createInventoryItem({
         name: form.get("item-name") as string,
         unit: form.get("item-unit") as InventoryItemUnit,
+        ...(description && {
+          description,
+        }),
+        ...(quantity && { quantity }),
+        ...(imageUrl && { imageUrl }),
       });
     },
     onSuccess: () => {
@@ -63,7 +71,7 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
       console.log(e);
       setToastStyle({
         isOpen: true,
-        variant: "alert",
+        variant: "danger",
         children: "Something went wrong",
       });
     }

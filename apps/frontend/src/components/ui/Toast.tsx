@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, type FC, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-type ToastVariant = "warning" | "success" | "alert" | "info";
+type ToastVariant = "warning" | "success" | "danger" | "info";
 
 interface ToastProps {
   children: ReactNode;
@@ -26,7 +26,6 @@ const Toast: FC<ToastProps> = ({
   duration = 2000,
   variant = "info",
 }) => {
-  const iconClassName = `stroke-(--text-${variant})! size-10`;
   const toastRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,22 +58,46 @@ const Toast: FC<ToastProps> = ({
             exit={{
               x: 1000,
             }}
-            className={`
-            text-(--text-${variant})! bg-(--bg-${variant})! border-(--line-${variant})!
+            style={{
+              color: `var(--text-${variant})`,
+              backgroundColor: `var(--bg-${variant})`,
+              borderColor: `var(--border-${variant})`,
+            }}
+            className="
             fixed z-99 border overflow-hidden bottom-15 right-5 w-auto min-w-64 px-2 min-h-12 rounded-lg
             flex justify-start items-center gap-2 m-0! top-auto! left-auto!
-            `}
+            "
             popover="manual"
             ref={toastRef}
           >
-            {variant === "info" && <InfoIcon className={iconClassName} />}
+            {variant === "info" && (
+              <InfoIcon
+                style={{
+                  stroke: `var(--text-${variant})`,
+                }}
+              />
+            )}
             {variant === "success" && (
-              <CircleCheckIcon className={iconClassName} />
+              <CircleCheckIcon
+                style={{
+                  stroke: `var(--text-${variant})`,
+                }}
+              />
             )}
             {variant === "warning" && (
-              <CircleAlertIcon className={iconClassName} />
+              <CircleAlertIcon
+                style={{
+                  stroke: `var(--text-${variant})`,
+                }}
+              />
             )}
-            {variant === "alert" && <CircleXIcon className={iconClassName} />}
+            {variant === "danger" && (
+              <CircleXIcon
+                style={{
+                  stroke: `var(--text-${variant})`,
+                }}
+              />
+            )}
 
             <div className="w-full h-full flex flex-col">{children}</div>
             <button

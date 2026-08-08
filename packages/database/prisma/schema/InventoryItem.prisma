@@ -2,6 +2,8 @@ enum InventoryItemUnit {
   KG
   G
   ML
+  MG
+  PCS
 }
 
 model InventoryItem {

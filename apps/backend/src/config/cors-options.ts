@@ -3,7 +3,7 @@ import { ALLOWED_ORIGINS } from "./const.js";
 
 const origin: CorsOptions["origin"] = (
   reqFrom: string | undefined,
-  callback,
+  callback
 ) => {
   if (!reqFrom) return callback(null, true);
 
