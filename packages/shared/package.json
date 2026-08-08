@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "rimraf dist && tsc -w",
-    "build": "node ./generate-index.js && rimraf dist && tsc -b"
+    "build": "rimraf ./src/index.ts && node ./generate-index.js && rimraf dist && tsc -b"
   },
   "dependencies": {
     "zod": "^4.4.3"

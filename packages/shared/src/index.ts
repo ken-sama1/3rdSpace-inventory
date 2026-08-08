@@ -4,4 +4,5 @@ export * from "./common/types.js";
 export * from "./inventory-items/const.js";
 export * from "./inventory-items/schema.js";
 export * from "./inventory-items/types.js";
+export * from "./products/schema.js";
 export * from "./utils/validate-schema.util.js";

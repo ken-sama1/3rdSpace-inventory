@@ -2,6 +2,7 @@ import z from "zod";
 import type { ResponseBody } from "../Response.js";
 import type { InventoryItemDto } from "./types.js";
 import type { DateMetaData } from "../common/types.js";
+import { stringNullableSchema } from "../common/schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
 
@@ -9,12 +10,12 @@ export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
 
 // --- Create ---
 export const createInventoryItemSchema = z.object({
-  name: z.string(),
-  description: z.union([z.string(), z.null()]).default(null),
+  name: z.string().min(1, "Name is required"),
+  description: stringNullableSchema,
   quantity: z.coerce.number().optional().default(0),
   unit: inventoryItemUnitSchema.default("G"),
-  imageUrl: z.union([z.string(), z.null()]).default(null),
-  category: z.union([z.string(), z.null()]).default(null),
+  imageUrl: stringNullableSchema,
+  category: stringNullableSchema,
 });
 
 export type CreateInventoryItemInput = z.input<

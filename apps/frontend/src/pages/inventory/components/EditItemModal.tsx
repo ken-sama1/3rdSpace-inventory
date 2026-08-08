@@ -27,6 +27,8 @@ type ToastProps = Parameters<typeof Toast>[0];
 const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
   const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
+
+  const [hasChanges, setHasChanges] = useState<boolean>(false);
   const [dialogStyle, setDialogStyle] = useState<DialogProps>({
     isOpen: false,
     children: null,
@@ -169,7 +171,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
               children: (
                 <div className="w-74">
                   <span className="flex items-center justify-center font-semibold! text-sm!">
-                    Do you want to save the changes?
+                    Do you really want to save the changes?
                   </span>
                 </div>
               ),
@@ -189,6 +191,9 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
                 Name:
               </label>
               <input
+                onChange={() => {
+                  if (!hasChanges) setHasChanges(true);
+                }}
                 defaultValue={data.name}
                 required
                 type="text"
@@ -207,6 +212,9 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
                 Category
               </label>
               <input
+                onChange={() => {
+                  if (!hasChanges) setHasChanges(true);
+                }}
                 defaultValue={data.category ?? ""}
                 id="item-category"
                 type="text"
@@ -240,6 +248,10 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
                 Quantity:
               </label>
               <input
+                defaultValue={data.quantity}
+                onChange={() => {
+                  if (!hasChanges) setHasChanges(true);
+                }}
                 id="item-quantity"
                 type="number"
                 name="item-quantity"
@@ -256,6 +268,9 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
                 Unit:
               </label>
               <select
+                onChange={() => {
+                  if (!hasChanges) setHasChanges(true);
+                }}
                 defaultValue={data.unit}
                 required
                 id="item-unit"
@@ -332,7 +347,11 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
               </button>
 
               {/* Save Button */}
-              <button type="submit" className="button-accent h-7! py-0!">
+              <button
+                disabled={!hasChanges}
+                type="submit"
+                className={`${hasChanges ? "button-accent" : "button-disabled"} h-7! py-0!`}
+              >
                 Save
               </button>
             </div>

@@ -21,7 +21,7 @@ const fileFilter = (file) => {
 const filePaths = files.filter((f) => fileFilter(f));
 
 const exports = filePaths.map((file) => {
-  return `export * from "./${file.replace(/ts/g, "js")}";`;
+  return `export * from "./${file.replace(/\.ts/g, ".js")}";`;
 });
 
 fs.writeFileSync(indexFile, exports.join("\n"));

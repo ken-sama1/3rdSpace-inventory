@@ -10,12 +10,14 @@ model InventoryItem {
   id          String            @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
-  quantity    Int               @default(0)
+  quantity    Float             @default(0)
   unit        InventoryItemUnit @default(G)
   imageUrl    String?
   category    String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+
+  recipeItems RecipeItem[]
 
   @@map("inventory_items")
 }

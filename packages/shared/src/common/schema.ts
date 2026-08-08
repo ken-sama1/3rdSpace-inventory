@@ -10,3 +10,8 @@ export const idParamSchema = z.object({
 });
 
 export type IdParam = z.infer<typeof idParamSchema>;
+
+// --- Union ---
+export const stringNullableSchema = z
+  .union([z.string(), z.null()])
+  .default(null);

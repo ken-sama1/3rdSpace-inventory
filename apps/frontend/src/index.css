@@ -11,7 +11,7 @@
   --line: color-mix(in oklab, var(--color-white) 10%, transparent);
 
   --accent: var(--color-blue-600);
-  --destruct: var(--color-red-500);
+  --danger: var(--color-red-500);
 
   --bg-warning: color-mix(in oklab, var(--color-amber-500) 10%, transparent);
   --line-warning: color-mix(in oklab, var(--color-amber-500) 20%, tarnsparent);

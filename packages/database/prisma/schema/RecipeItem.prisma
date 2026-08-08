@@ -1,0 +1,13 @@
+model RecipeItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+
+  inventoryItemId String        @db.ObjectId
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  quantity Float
+  unit     InventoryItemUnit
+
+  @@map("recipe_items")
+}
