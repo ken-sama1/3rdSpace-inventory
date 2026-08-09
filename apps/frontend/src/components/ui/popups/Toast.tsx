@@ -17,6 +17,8 @@ interface ToastProps {
   onClose?: () => void;
   duration?: number;
   variant?: ToastVariant;
+  /** Render on top of an open dialog if there is any*/
+  forceToTop?: boolean;
 }
 
 const Toast: FC<ToastProps> = ({
@@ -25,6 +27,7 @@ const Toast: FC<ToastProps> = ({
   onClose,
   duration = 2000,
   variant = "info",
+  forceToTop = false,
 }) => {
   const toastRef = useRef<HTMLDivElement>(null);
 
@@ -113,7 +116,9 @@ const Toast: FC<ToastProps> = ({
         </>
       ) : null}
     </AnimatePresence>,
-    document.querySelector("dialog[open]") ?? document.body
+    !forceToTop
+      ? document.body
+      : (document.querySelector("dialog[open]") ?? document.body)
   );
 };
 

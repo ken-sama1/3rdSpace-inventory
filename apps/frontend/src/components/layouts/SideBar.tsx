@@ -4,7 +4,11 @@ import { NavLink } from "react-router-dom";
 const SideBar = () => {
   return (
     // SideBar Container
-    <nav className="h-[calc(100dvh-96px)] inset-x-o w-2xs relative top-12 z-10 border-r border-(--line)">
+    <nav
+      className="
+      shadow-black/10 shadow-[2px_0_8px_0] 
+      h-[calc(100dvh-96px)] w-2xs relative top-12 z-10 border-r border-(--line)"
+    >
       {/* Wrapper */}
       <div className="size-full bg-(--primary) p-2 overflow-auto">
         {/* Navigation Section Start*/}

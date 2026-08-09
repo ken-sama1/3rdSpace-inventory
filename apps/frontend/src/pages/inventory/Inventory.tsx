@@ -1,6 +1,6 @@
 import { LayersPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
-import AddItemModal from "./components/AddItemModal";
+import CreateItemModal from "./components/CreateItemModal";
 import ItemsTable from "./components/ItemsTable";
 
 const Inventory = () => {
@@ -46,11 +46,11 @@ const Inventory = () => {
       {/* Literally just a line */}
       <div className="divider"></div>
 
-      <section className="size-full h-[65dvh] overflow-auto">
+      <section className="w-full h-[65dvh] overflow-auto">
         <ItemsTable />
       </section>
 
-      <AddItemModal
+      <CreateItemModal
         isOpen={openAddItem}
         onClose={() => setOpenAddItem(false)}
       />

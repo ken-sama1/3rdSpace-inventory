@@ -1,5 +1,5 @@
 import Categories from "@/pages/Categories";
-import Dashboard from "@/pages/Dashboard";
+import Dashboard from "@/pages/dashboard/Dashboard";
 import Inventory from "@/pages/inventory/Inventory";
 import Products from "@/pages/products/Products";
 import Reports from "@/pages/Reports";

@@ -1,10 +1,9 @@
-import { createInventoryItem } from "@/api/inventory-items.api";
-import Dialog from "@/components/ui/Dialog";
-import Modal from "@/components/ui/Modal";
-import Toast from "@/components/ui/Toast";
+import Dialog from "@/components/ui/popups/Dialog";
+import Modal from "@/components/ui/popups/Modal";
+import Toast from "@/components/ui/popups/Toast";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
+import useCreateInventoryItem from "../hooks/useCreateInventoryItem";
 
 interface AddItemModalProps {
   isOpen: boolean;
@@ -13,8 +12,9 @@ interface AddItemModalProps {
 
 type ToastStyle = Parameters<typeof Toast>[0];
 
-const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
-  const queryClient = useQueryClient();
+const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
+  const { create } = useCreateInventoryItem();
+
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [toastStyle, setToastStyle] = useState<ToastStyle>({
     children: "How'd you do that?",
@@ -24,14 +24,31 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { mutateAsync } = useMutation({
-    mutationFn: async (form: FormData) => {
+  if (!isOpen) return <></>;
+
+  const handleCloseAll = () => {
+    setShowDialog(false);
+    if (onClose) {
+      onClose();
+      setToastStyle({
+        children: null,
+        isOpen: false,
+      });
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      if (!formRef.current) throw new Error("No form reference found");
+
+      const form = new FormData(formRef.current);
+
       const quantity = form.get("item-quantity") as number | null;
       const description = form.get("item-description") as string | null;
       const imageUrl = form.get("item-image") as string | null;
       const category = form.get("item-category") as string | null;
 
-      await createInventoryItem({
+      await create({
         name: form.get("item-name") as string,
         unit: form.get("item-unit") as InventoryItemUnit,
         ...(description && {
@@ -41,34 +58,15 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
         ...(imageUrl && { imageUrl }),
         ...(category && { category }),
       });
-    },
-    onSuccess: () => {
+
+      formRef.current.reset();
+      setShowDialog(false);
+
       setToastStyle({
         isOpen: true,
         variant: "success",
         children: "Item added successfully",
       });
-      queryClient.invalidateQueries({
-        queryKey: ["inventory-items"],
-      });
-    },
-  });
-
-  if (!isOpen) return <></>;
-
-  const handleCloseAll = () => {
-    setShowDialog(false);
-    if (onClose) onClose();
-  };
-
-  const handleSave = async () => {
-    try {
-      if (!formRef.current) throw new Error("No form reference found");
-
-      const formData = new FormData(formRef.current);
-      await mutateAsync(formData);
-      formRef.current.reset();
-      setShowDialog(false);
     } catch (e) {
       console.log(e);
       setToastStyle({
@@ -261,4 +259,4 @@ const AddItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
   );
 };
 
-export default AddItemModal;
+export default CreateItemModal;

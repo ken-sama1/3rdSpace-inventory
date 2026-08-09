@@ -1,18 +1,16 @@
-import {
-  deleteInventoryItem,
-  getInventoryItem,
-  updateInventoryItem,
-} from "@/api/inventory-items.api";
-import Dialog from "@/components/ui/Dialog";
-import Modal from "@/components/ui/Modal";
+import { inventoryItemApi } from "@/api/inventory-items.api";
+import Dialog from "@/components/ui/popups/Dialog";
+import Modal from "@/components/ui/popups/Modal";
+import Toast from "@/components/ui/popups/Toast";
 import {
   inventoryItemUnits,
   type GetInventoryItemResult,
   type InventoryItemUnit,
 } from "@repo/shared";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRef, useState, type FC } from "react";
-import Toast from "@/components/ui/Toast";
+import useDeleteInventoryItem from "../hooks/useDeleteInventoryItem";
+import useUpdateInventoryItem from "../hooks/useUpdateInventoryItem";
 
 interface EditItemModalProps {
   isOpen: boolean;
@@ -25,7 +23,6 @@ type DialogProps = Parameters<typeof Dialog>[0];
 type ToastProps = Parameters<typeof Toast>[0];
 
 const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
-  const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
 
   const [hasChanges, setHasChanges] = useState<boolean>(false);
@@ -40,52 +37,51 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
 
   const { data, isLoading } = useQuery<GetInventoryItemResult>({
     queryKey: ["inventory-item", itemId],
-    queryFn: ({ signal }) => getInventoryItem(itemId, { signal }),
+    queryFn: ({ signal }) => inventoryItemApi.get(itemId, { signal }),
   });
 
   const handleCloseAll = () => {
-    if (onClose) {
-      onClose();
-    }
-
     setDialogStyle({
       isOpen: false,
       children: null,
     });
+
+    if (onClose) {
+      onClose();
+    }
     setToastStyle({
-      isOpen: false,
       children: null,
+      isOpen: false,
     });
   };
 
-  const { mutateAsync: handleDelete } = useMutation({
-    mutationFn: () => deleteInventoryItem(itemId),
-    onSuccess: () => {
+  const handleDelete = async () => {
+    try {
+      await deleteItem(itemId);
+
       setDialogStyle({
         isOpen: false,
         children: null,
       });
+
       setToastStyle({
         isOpen: true,
         children: "Item successfully deleted",
         variant: "success",
         onClose: handleCloseAll,
       });
-      queryClient.invalidateQueries({
-        queryKey: ["inventory-items"],
-      });
-    },
-    onError: () => {
+    } catch (error) {
+      console.error(error);
       setToastStyle({
         isOpen: true,
         children: "Something went wrong!",
         variant: "danger",
       });
-    },
-  });
+    }
+  };
 
-  const { mutateAsync: handleUpdate } = useMutation({
-    mutationFn: async () => {
+  const handleUpdate = async () => {
+    try {
       if (!formRef.current) throw new Error("No form reference found");
 
       const formData = new FormData(formRef.current);
@@ -97,35 +93,50 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
       const category = formData.get("item-category") as string | undefined;
       const description = formData.get("item-description") as
         string | undefined;
-      await updateInventoryItem(itemId, {
-        ...(name && { name }),
-        ...(quantity && { quantity }),
-        ...(unit && { unit }),
-        ...(imageUrl && { imageUrl }),
-        ...(category && { category }),
-        ...(description && { description }),
+
+      await updateItem({
+        id: itemId,
+        data: {
+          ...(name && { name }),
+          ...(quantity && { quantity }),
+          ...(unit && { unit }),
+          ...(imageUrl && { imageUrl }),
+          ...(category && { category }),
+          ...(description && { description }),
+        },
       });
-    },
-    onSuccess: () => {
+
       setDialogStyle({
         isOpen: false,
         children: null,
       });
+
       setToastStyle({
         isOpen: true,
         children: "Item successfully updated",
         variant: "success",
         onClose: handleCloseAll,
       });
-    },
-    onError: () => {
+    } catch (error) {
+      console.error(error);
+
+      setDialogStyle({
+        isOpen: false,
+        children: null,
+      });
       setToastStyle({
         isOpen: true,
         children: "Something went wrong!",
         variant: "danger",
       });
-    },
-  });
+    }
+  };
+
+  const { delete: deleteItem, isPending: deletePending } =
+    useDeleteInventoryItem();
+
+  const { update: updateItem, isPending: updatePending } =
+    useUpdateInventoryItem();
 
   if (!isOpen) return <></>;
 
@@ -240,24 +251,24 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             {/* </div> */}
 
             {/* Quantity */}
-            <div className="grid col-span-2 gap-y-2">
-              <label
-                htmlFor="item-quantity"
-                className="text-sm! text-(--heading)! font-semibold!"
-              >
-                Quantity:
-              </label>
-              <input
-                defaultValue={data.quantity}
-                onChange={() => {
-                  if (!hasChanges) setHasChanges(true);
-                }}
-                id="item-quantity"
-                type="number"
-                name="item-quantity"
-                className="rounded-md! h-7! text-xs!"
-              />
-            </div>
+            {/* <div className="grid col-span-2 gap-y-2"> */}
+            {/*   <label */}
+            {/*     htmlFor="item-quantity" */}
+            {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+            {/*   > */}
+            {/*     Quantity: */}
+            {/*   </label> */}
+            {/*   <input */}
+            {/*     defaultValue={data.quantity} */}
+            {/*     onChange={() => { */}
+            {/*       if (!hasChanges) setHasChanges(true); */}
+            {/*     }} */}
+            {/*     id="item-quantity" */}
+            {/*     type="number" */}
+            {/*     name="item-quantity" */}
+            {/*     className="rounded-md! h-7! text-xs!" */}
+            {/*   /> */}
+            {/* </div> */}
 
             {/* Unit  */}
             <div className="grid col-span-2 gap-y-2">
@@ -313,6 +324,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             <div className="flex items-center justify-start">
               {/* Delete Button */}
               <button
+                disabled={deletePending}
                 onClick={() => {
                   setDialogStyle({
                     isOpen: true,
@@ -348,7 +360,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
 
               {/* Save Button */}
               <button
-                disabled={!hasChanges}
+                disabled={!hasChanges || updatePending}
                 type="submit"
                 className={`${hasChanges ? "button-accent" : "button-disabled"} h-7! py-0!`}
               >

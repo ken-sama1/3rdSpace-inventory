@@ -1,4 +1,4 @@
-import { getInventoryItems } from "@/api/inventory-items.api";
+import { inventoryItemApi } from "@/api/inventory-items.api";
 import type { GetInventoryItemsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, /* Banknote,*/ Boxes, PackageX } from "lucide-react";
@@ -8,7 +8,7 @@ const StatusBar = () => {
   const { data, isLoading } = useQuery<GetInventoryItemsResult>({
     queryKey: ["inventory-items"],
     queryFn: ({ signal }) =>
-      getInventoryItems(
+      inventoryItemApi.getAll(
         {},
         {
           signal,
@@ -29,7 +29,11 @@ const StatusBar = () => {
 
   return (
     // Footer Container
-    <footer className="w-full border-t-(--line) border h-12 z-10 fixed bottom-0">
+    <footer
+      className="
+      w-full border-(--line) border-t
+      h-12 z-10 fixed bottom-0 shadow-[0_-2px_8px_0] shadow-black/10"
+    >
       {/* Wrapper */}
       <div className="size-full bg-(--primary) flex justify-between items-center px-5">
         {/* Left Side Section */}

@@ -1,8 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-interface TableData {
-  [x: string]: unknown;
-}
+type TableData = Record<string, any>;
 
 type TableColumnOption<T extends TableData> = {
   [K in keyof T]?: {

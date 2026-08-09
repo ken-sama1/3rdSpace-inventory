@@ -1,6 +1,5 @@
-import { getInventoryItems } from "@/api/inventory-items.api";
+import { inventoryItemApi } from "@/api/inventory-items.api";
 import Table from "@/components/ui/Table";
-import type { GetInventoryItemsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import { useState, type CSSProperties } from "react";
 import EditItemModal from "./EditItemModal";
@@ -17,9 +16,9 @@ const ItemsTable = () => {
     itemId: null,
   });
 
-  const { data, isLoading } = useQuery<GetInventoryItemsResult>({
+  const { data, isLoading } = useQuery({
     queryKey: ["inventory-items"],
-    queryFn: ({ signal }) => getInventoryItems({}, { signal }),
+    queryFn: ({ signal }) => inventoryItemApi.getAll({}, { signal }),
   });
 
   console.log(data);

@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 
 const TopBar = () => {
   return (
-    <header className="border-(--line)! inset-x-0 border-b h-12 w-full fixed top-0 z-10">
+    <header
+      className="
+      shadow-[0_2px_8px_0] shadow-black/10
+      border-(--line) border-b h-12 w-full fixed top-0 z-10"
+    >
       <div className="size-full relative flex justify-start items-center bg-(--primary)">
         {/* Logo Section */}
         <div className="h-8 absolute left-5 flex items-center justify-center">

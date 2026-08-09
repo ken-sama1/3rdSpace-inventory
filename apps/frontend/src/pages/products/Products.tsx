@@ -1,6 +1,12 @@
+import { cloudinaryApi } from "@/api/cloudinary.api";
+import LOGO from "@/assets/react.svg";
 import { ListFilter, PlusCircle } from "lucide-react";
+import useCreateInventoryItem from "../inventory/hooks/useCreateInventoryItem";
+import ProductCard from "./components/ProductCard";
 
 const Products = () => {
+  const { create } = useCreateInventoryItem();
+
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
       {/* Idk the top section? */}
@@ -39,6 +45,22 @@ const Products = () => {
 
       {/* Literally just a line */}
       <div className="divider"></div>
+
+      <section className="w-full h-[65dvh] flex gap-6 overflow-auto">
+        <ProductCard imageUrl={LOGO} />
+
+        <button
+          className="button-accent py-0!"
+          onClick={async () => {
+            let res = await cloudinaryApi.upload(
+              "https://cdn.3rdspace.shop/menu/524c0cf5-9847-4d4c-a1a9-009ce051d7ca.webp"
+            );
+            console.log(res);
+          }}
+        >
+          Button
+        </button>
+      </section>
     </main>
   );
 };
