@@ -1,4 +1,4 @@
-import { navRoutes } from "@/const/navRoutes";
+import { navRoutes } from "@/routes/navRoutes";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {

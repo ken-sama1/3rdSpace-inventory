@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, type FC, type ReactNode } from "react";
 
-interface DialogProps {
+export interface DialogProps {
   children: ReactNode;
   title?: string;
   isOpen: boolean;
@@ -10,6 +10,7 @@ interface DialogProps {
   variant?: "danger" | "accent";
   cancelText?: string;
   confirmText?: string;
+  noBackdrop?: boolean;
 }
 
 const Dialog: FC<DialogProps> = ({
@@ -21,6 +22,7 @@ const Dialog: FC<DialogProps> = ({
   variant = "accent",
   confirmText = "Confirm",
   cancelText = "Cancel",
+  noBackdrop = false,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -64,7 +66,7 @@ const Dialog: FC<DialogProps> = ({
         ref={dialogRef}
         className={`
         absolute top-1/2 left-1/2 -translate-1/2 inset-0 z-99 overflow-hidden rounded-lg
-        border-3 border-(--accent)/80 outline-0 backdrop:bg-black/60 backdrop:black-blur-sm`}
+        border-3 border-(--accent)/80 outline-0 backdrop:black-blur-sm ${noBackdrop ? "" : "backdrop:bg-black/60"}`}
       >
         {/* Dialog Container*/}
         <div className="flex flex-col w-full h-full bg-(--primary) p-3 gap-3">
@@ -72,7 +74,7 @@ const Dialog: FC<DialogProps> = ({
             <>
               {/* Dialog Header */}
               <div className="flex justify-between items-center">
-                <h3 className="text-lg!">{title}</h3>
+                <h3 className="text-lg! tracking-wide">{title}</h3>
               </div>
 
               {/* Divider */}

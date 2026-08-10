@@ -1,22 +1,20 @@
 import Dialog from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
-import Toast from "@/components/ui/popups/Toast";
+import Toast, { type ToastProps } from "@/components/ui/popups/Toast";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
 import { useRef, useState } from "react";
-import useCreateInventoryItem from "../hooks/useCreateInventoryItem";
+import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
 
-interface AddItemModalProps {
+export interface CreateItemModal {
   isOpen: boolean;
   onClose?: () => void;
 }
 
-type ToastStyle = Parameters<typeof Toast>[0];
-
-const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
+const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
   const { create } = useCreateInventoryItem();
 
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [toastStyle, setToastStyle] = useState<ToastStyle>({
+  const [toastStyle, setToastStyle] = useState<ToastProps>({
     children: "How'd you do that?",
     variant: "info",
     isOpen: false,
@@ -65,7 +63,7 @@ const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
       setToastStyle({
         isOpen: true,
         variant: "success",
-        children: "Item added successfully",
+        children: "Item created successfully",
       });
     } catch (e) {
       console.log(e);
@@ -97,7 +95,7 @@ const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
         {toastStyle.children}
       </Toast>
 
-      <Modal onClose={handleCloseAll} isOpen={isOpen} title="Add New Item">
+      <Modal onClose={handleCloseAll} isOpen={isOpen} title="Create Item">
         <div className="w-lg">
           {/* Form Obviously */}
           <form
@@ -115,12 +113,12 @@ const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
               }}
               cancelText="No"
               confirmText="Yes"
-              title="Add Item?"
+              title="Create Item?"
               onConfirm={handleSave}
             >
               <div className="w-74">
                 <span className="flex justify-center items-center font-semibold! text-sm!">
-                  Do you really want to add this item?
+                  Do you really want to create this item?
                 </span>
               </div>
             </Dialog>
@@ -249,7 +247,7 @@ const CreateItemModal = ({ isOpen, onClose }: AddItemModalProps) => {
 
               {/* Save Button */}
               <button type="submit" className="button-accent h-7! py-0!">
-                Add
+                Create
               </button>
             </div>
           </form>

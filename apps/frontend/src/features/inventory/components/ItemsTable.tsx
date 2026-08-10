@@ -1,6 +1,5 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
 import Table from "@/components/ui/Table";
-import { useQuery } from "@tanstack/react-query";
+import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import { useState, type CSSProperties } from "react";
 import EditItemModal from "./EditItemModal";
 
@@ -16,12 +15,8 @@ const ItemsTable = () => {
     itemId: null,
   });
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["inventory-items"],
-    queryFn: ({ signal }) => inventoryItemApi.getAll({}, { signal }),
-  });
+  const { data, isLoading } = useGetInventoryItems();
 
-  console.log(data);
   return (
     <div className="h-full">
       {editModal.isOpen && (

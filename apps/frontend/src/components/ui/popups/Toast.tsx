@@ -11,7 +11,7 @@ import { createPortal } from "react-dom";
 
 type ToastVariant = "warning" | "success" | "danger" | "info";
 
-interface ToastProps {
+export interface ToastProps {
   children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;

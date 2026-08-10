@@ -40,11 +40,11 @@
   @apply shadow-xs shadow-black/60
   bg-neutral-500 stroke-(--heading) text-white px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
 
-  &:hover {
-    @apply bg-neutral-500/90 stroke-(--text) nice-transition;
-  }
+  /* &:hover { */
+  /*   @apply bg-neutral-500/90 stroke-(--text) nice-transition; */
+  /* } */
 
-  &:active {
-    @apply scale-95;
-  }
+  /* &:active { */
+  /*   @apply scale-95; */
+  /* } */
 }

@@ -16,7 +16,7 @@ import { api } from "./api";
 
 const baseUrl = "/inventory-items";
 
-const getInventoryItem = async (
+const get = async (
   id: string,
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemResult> => {
@@ -30,7 +30,7 @@ const getInventoryItem = async (
 /**
  * Remember to add filter
  * */
-const getInventoryItems = async (
+const getAll = async (
   _filter?: {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
@@ -41,7 +41,7 @@ const getInventoryItems = async (
   return data.data;
 };
 
-const createInventoryItem = async (
+const create = async (
   item: CreateInventoryItemInput
 ): Promise<CreateInventoryItemResult> => {
   const { data } = await api.post<CreateInventoryItemResBody>(
@@ -52,7 +52,7 @@ const createInventoryItem = async (
   return data.data;
 };
 
-const updateInventoryItem = async (
+const update = async (
   id: string,
   fields: UpdateInventoryItemInput
 ): Promise<UpdateInventoryResult> => {
@@ -64,9 +64,7 @@ const updateInventoryItem = async (
   return data.data;
 };
 
-const deleteInventoryItem = async (
-  id: string
-): Promise<DeleteInventoryResult> => {
+const remove = async (id: string): Promise<DeleteInventoryResult> => {
   const { data } = await api.delete<DeleteInventoryItemResBody>(
     `${baseUrl}/${id}`
   );
@@ -75,9 +73,9 @@ const deleteInventoryItem = async (
 };
 
 export const inventoryItemApi = {
-  get: getInventoryItem,
-  getAll: getInventoryItems,
-  create: createInventoryItem,
-  update: updateInventoryItem,
-  delete: deleteInventoryItem,
+  get,
+  getAll,
+  create,
+  update,
+  delete: remove,
 };

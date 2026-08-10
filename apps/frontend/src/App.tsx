@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import SideBar from "./components/layouts/SideBar";
 import StatusBar from "./components/layouts/StatusBar";
 import TopBar from "./components/layouts/TopBar";
-import { navRoutes } from "./const/navRoutes";
+import { navRoutes } from "./routes/navRoutes";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const App = () => {

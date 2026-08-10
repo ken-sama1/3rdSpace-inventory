@@ -1,11 +1,12 @@
-import { cloudinaryApi } from "@/api/cloudinary.api";
 import LOGO from "@/assets/react.svg";
 import { ListFilter, PlusCircle } from "lucide-react";
-import useCreateInventoryItem from "../inventory/hooks/useCreateInventoryItem";
-import ProductCard from "./components/ProductCard";
+import CreateProductModal from "@/features/products/components/CreateProductModal";
+import ProductCard from "@/features/products/components/ProductCard";
+import { useState } from "react";
 
 const Products = () => {
-  const { create } = useCreateInventoryItem();
+  const [showCreateProductModal, setShowProductModal] =
+    useState<boolean>(false);
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
@@ -32,6 +33,7 @@ const Products = () => {
 
         {/* Add new item */}
         <button
+          onClick={() => setShowProductModal(true)}
           title="Add Item"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
@@ -48,19 +50,12 @@ const Products = () => {
 
       <section className="w-full h-[65dvh] flex gap-6 overflow-auto">
         <ProductCard imageUrl={LOGO} />
-
-        <button
-          className="button-accent py-0!"
-          onClick={async () => {
-            let res = await cloudinaryApi.upload(
-              "https://cdn.3rdspace.shop/menu/524c0cf5-9847-4d4c-a1a9-009ce051d7ca.webp"
-            );
-            console.log(res);
-          }}
-        >
-          Button
-        </button>
       </section>
+
+      <CreateProductModal
+        isOpen={showCreateProductModal}
+        onClose={() => setShowProductModal(false)}
+      />
     </main>
   );
 };

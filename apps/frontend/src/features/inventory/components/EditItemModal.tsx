@@ -1,7 +1,7 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
-import Dialog from "@/components/ui/popups/Dialog";
+import Dialog, { type DialogProps } from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
-import Toast from "@/components/ui/popups/Toast";
+import Toast, { type ToastProps } from "@/components/ui/popups/Toast";
 import {
   inventoryItemUnits,
   type GetInventoryItemResult,
@@ -9,18 +9,14 @@ import {
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState, type FC } from "react";
-import useDeleteInventoryItem from "../hooks/useDeleteInventoryItem";
-import useUpdateInventoryItem from "../hooks/useUpdateInventoryItem";
+import useDeleteInventoryItem from "@/hooks/inventory/useDeleteInventoryItem";
+import useUpdateInventoryItem from "@/hooks/inventory/useUpdateInventoryItem";
 
-interface EditItemModalProps {
+export interface EditItemModalProps {
   isOpen: boolean;
   onClose?: () => void;
   itemId: string;
 }
-
-type DialogProps = Parameters<typeof Dialog>[0];
-
-type ToastProps = Parameters<typeof Toast>[0];
 
 const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
   const formRef = useRef<HTMLFormElement>(null);

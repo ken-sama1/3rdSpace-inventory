@@ -7,7 +7,9 @@ import { api } from "./api";
 
 const baseUrl = "/products";
 
-const createProduct = async (
+const get = async (productId: string) => {};
+
+const create = async (
   product: CreateProductInput
 ): Promise<CreateProductResult> => {
   const { data } = await api.post<CreateProductResBody>(
@@ -19,5 +21,6 @@ const createProduct = async (
 };
 
 export const productsApi = {
-  create: createProduct,
+  create,
+  get,
 };

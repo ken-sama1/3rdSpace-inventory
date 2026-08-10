@@ -1,7 +1,7 @@
 import { LayersPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
-import CreateItemModal from "./components/CreateItemModal";
-import ItemsTable from "./components/ItemsTable";
+import CreateItemModal from "@/features/inventory/components/CreateItemModal";
+import ItemsTable from "@/features/inventory/components/ItemsTable";
 
 const Inventory = () => {
   const [openAddItem, setOpenAddItem] = useState(false);

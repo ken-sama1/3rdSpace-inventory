@@ -1,4 +1,4 @@
-import { ImageOffIcon, ShoppingBagIcon } from "lucide-react";
+import { ImageOffIcon, Minus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { FC } from "react";
 
@@ -17,7 +17,7 @@ const statusMap: Record<string, { label: string; class: string }> = {
   },
 };
 
-interface ProductCardProps {
+export interface ProductCardProps {
   name?: string;
   category?: string;
   price?: number;
@@ -82,9 +82,11 @@ const ProductCard: FC<ProductCardProps> = ({
 
           {/* Details  */}
           <div className="mt-3 flex flex-col gap-1">
-            <span className="text-[11px]! font-medium uppercase tracking-wider text-(--text-disabled)!">
-              {category}
-            </span>
+            {category && (
+              <span className="text-[11px]! font-medium uppercase tracking-wider text-(--text-disabled)!">
+                {category}
+              </span>
+            )}
             <h3 className="line-clamp-1 text-sm!">{name}</h3>
           </div>
 
@@ -106,8 +108,8 @@ const ProductCard: FC<ProductCardProps> = ({
               type="button"
               className="button-accent flex h-8 items-center gap-1.5 rounded-lg! px-3! text-xs! font-medium!"
             >
-              <ShoppingBagIcon className="size-3.5" />
-              <span>Purchase</span>
+              <Minus className="size-3.5" />
+              <span>Deduct</span>
             </button>
           </div>
         </div>

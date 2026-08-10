@@ -1,4 +1,3 @@
-import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 
 const useCloudinary = () => {
@@ -10,6 +9,7 @@ const useCloudinary = () => {
     },
   });
 
+  const someShi = cld.image("");
   return <div></div>;
 };
 

@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 type TableData = Record<string, any>;
 
-type TableColumnOption<T extends TableData> = {
+export type TableColumnOption<T extends TableData> = {
   [K in keyof T]?: {
     /** Display an alias instead of the field name*/
     as?: string;
@@ -19,7 +19,7 @@ type TableColumnOption<T extends TableData> = {
   };
 };
 
-type TableOptions<T extends TableData> = {
+export type TableOptions<T extends TableData> = {
   column?: TableColumnOption<T>;
   /** Set table columns. Default 12 */
   columns?: number;
@@ -37,7 +37,7 @@ type TableOptions<T extends TableData> = {
   exlude?: (keyof T)[];
 };
 
-type TableProps<T extends TableData> = {
+export type TableProps<T extends TableData> = {
   data: T[];
   className?: string;
   options?: TableOptions<T>;
