@@ -1,5 +1,8 @@
 import {
   PrismaClient,
+  type Prisma,
+  type Product,
+  type RecipeItem,
   type InventoryItem,
   type InventoryItemUnit,
 } from "@prisma/client";
@@ -16,4 +19,4 @@ export const prisma = new PrismaClient({
   log: ["info", "query", "warn", "error"],
 });
 
-export type { InventoryItem, InventoryItemUnit };
+export type { InventoryItem, InventoryItemUnit, Product, RecipeItem, Prisma };

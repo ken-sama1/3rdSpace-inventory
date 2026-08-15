@@ -4,7 +4,7 @@ model Product {
   description String?
   imageUrl    String?
   category    String?
-  price       Int?         @default(0)
+  price       Int          @default(0)
   recipeItems RecipeItem[]
   createdAt   DateTime?    @default(now())
   updatedAt   DateTime?    @updatedAt

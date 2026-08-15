@@ -7,7 +7,9 @@ import { api } from "./api";
 
 const baseUrl = "/products";
 
-const get = async (productId: string) => {};
+const get = async (productId: string) => {
+  productId;
+};
 
 const create = async (
   product: CreateProductInput

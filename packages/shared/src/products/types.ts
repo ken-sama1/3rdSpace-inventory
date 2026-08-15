@@ -1,16 +1,14 @@
 import type { InventoryItemUnit } from "../inventory-items/schema.js";
-// import type { InventoryItemDto } from "../inventory-items/types.js";
-//
+import type { InventoryItemDto } from "../inventory-items/types.js";
 export interface RecipeItemDto {
-  recipeItemId: string;
+  id: string;
   inventoryItemId: string;
-  // inventoryItem: InventoryItemDto;
   quantity: number;
   unit: InventoryItemUnit;
 }
 
 export interface ProductDto {
-  productId: string;
+  id: string;
   name: string;
   description: string | null;
   imageUrl: string | null;
@@ -18,3 +16,9 @@ export interface ProductDto {
   price: number;
   recipeItems: RecipeItemDto[];
 }
+
+export type ProductWithInventoryItemsDto = Omit<ProductDto, "recipeItems"> & {
+  recipeItems: (RecipeItemDto & {
+    inventoryItem: InventoryItemDto;
+  })[];
+};

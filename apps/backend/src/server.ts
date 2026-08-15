@@ -3,9 +3,9 @@ import cors from "cors";
 import { errorHandler } from "./middleware/error-handler.middleware.js";
 import { apiV1Router } from "./routes/index.js";
 import { corsOptions } from "./config/cors-options.js";
-import { ALLOWED_ORIGINS } from "./config/const.js";
 
-const PORT = process.env["PORT"];
+import { ALLOWED_ORIGINS } from "./config/const.js";
+const PORT = process.env["PORT"] || 3000;
 const app: Express = express();
 
 app.use(cors(corsOptions));

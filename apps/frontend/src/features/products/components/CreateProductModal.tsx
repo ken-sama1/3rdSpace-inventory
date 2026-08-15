@@ -201,9 +201,9 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
 
             await create({
               name,
-              recipeItems: recipeItems.map(({ quantity, itemId, unit }) => {
+              recipeItems: recipeItems.map(({ quantity, id, unit }) => {
                 return {
-                  inventoryItemId: itemId,
+                  inventoryItemId: id,
                   quantity,
                   unit,
                 };

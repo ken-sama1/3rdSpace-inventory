@@ -1,3 +1,4 @@
+import { cloudinaryApi } from "@/api/cloudinary.api";
 import { productsApi } from "@/api/products.api";
 import type { CreateProductInput, CreateProductResult } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -7,7 +8,14 @@ const useCreateProduct = () => {
 
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
     useMutation<CreateProductResult, Error, CreateProductInput>({
-      mutationFn: productsApi.create,
+      mutationFn: async ({ imageUrl, ...rest }) => {
+        return await productsApi.create({
+          ...rest,
+          ...(imageUrl && {
+            imageUrl: await cloudinaryApi.upload(imageUrl),
+          }),
+        });
+      },
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: ["products"],

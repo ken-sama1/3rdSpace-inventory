@@ -17,7 +17,8 @@ model InventoryItem {
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
-  recipeItems RecipeItem[]
+  recipeItems   RecipeItem[]
+  inventoryLogs InventoryLog[]
 
   @@map("inventory_items")
 }

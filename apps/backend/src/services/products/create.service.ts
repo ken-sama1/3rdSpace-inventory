@@ -1,5 +1,6 @@
 import { prisma } from "@repo/database";
 import type { CreateProductResult, CreateProductSchema } from "@repo/shared";
+import { toProductDto } from "../utils/product.mapper.js";
 
 export const create = async (
   data: CreateProductSchema
@@ -23,30 +24,12 @@ export const create = async (
     },
     include: {
       recipeItems: {
-        select: {
-          id: true,
-          inventoryItemId: true,
-          quantity: true,
-          unit: true,
+        include: {
+          inventoryItem: true,
         },
       },
     },
   });
 
-  return {
-    productId: result.id,
-    name: result.name,
-    price: result.price ?? 0,
-    category: result.category,
-    description: result.description,
-    imageUrl: result.imageUrl,
-    recipeItems: result.recipeItems.map((recipe) => {
-      return {
-        quantity: recipe.quantity,
-        inventoryItemId: recipe.inventoryItemId,
-        recipeItemId: recipe.id,
-        unit: recipe.unit,
-      };
-    }),
-  };
+  return toProductDto(result);
 };

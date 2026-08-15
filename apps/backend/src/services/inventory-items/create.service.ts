@@ -3,19 +3,16 @@ import type {
   CreateInventoryItemResult,
   CreateInventoryItemSchema,
 } from "@repo/shared";
+import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const create = async (
   args: CreateInventoryItemSchema
 ): Promise<CreateInventoryItemResult> => {
-  const { id: itemId, ...rest } = await prisma.inventoryItem.create({
+  const result = await prisma.inventoryItem.create({
     data: {
       ...args,
     },
-    omit: {
-      createdAt: true,
-      updatedAt: true,
-    },
   });
 
-  return { itemId, ...rest };
+  return toInventoryItemDto(result);
 };

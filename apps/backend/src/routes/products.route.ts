@@ -11,4 +11,6 @@ productsRouter.post(
   productsController.create
 );
 
+productsRouter.get("/", productsController.list);
+
 export { productsRouter };

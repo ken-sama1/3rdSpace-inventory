@@ -11,10 +11,9 @@ export const getById = async (id: string): Promise<GetInventoryItemResult> => {
 
   if (!result) throw new AppError("Item not found", 404);
 
-  const { id: itemId, createdAt, updatedAt, ...rest } = result;
+  const { createdAt, updatedAt, ...rest } = result;
 
   return {
-    itemId,
     createdAt: createdAt?.toISOString(),
     updatedAt: updatedAt?.toISOString(),
     ...rest,

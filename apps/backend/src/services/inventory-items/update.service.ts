@@ -3,6 +3,7 @@ import type {
   UpdateInventoryItemSchema,
   UpdateInventoryResult,
 } from "@repo/shared";
+import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const update = async (
   id: string,
@@ -10,7 +11,7 @@ export const update = async (
 ): Promise<UpdateInventoryResult> => {
   const { name, description, imageUrl, unit, quantity } = data;
 
-  const { id: itemId, ...rest } = await prisma.inventoryItem.update({
+  const result = await prisma.inventoryItem.update({
     where: {
       id,
     },
@@ -21,14 +22,7 @@ export const update = async (
       ...(unit && { unit }),
       ...(quantity !== undefined && { quantity }),
     },
-    omit: {
-      createdAt: true,
-      updatedAt: true,
-    },
   });
 
-  return {
-    itemId,
-    ...rest,
-  };
+  return toInventoryItemDto(result);
 };

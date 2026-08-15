@@ -45,7 +45,7 @@ const ItemsTable = () => {
               onClick: (item) => {
                 setEditModal({
                   isOpen: true,
-                  itemId: item.itemId,
+                  itemId: item.id,
                 });
               },
               style: (rowData): CSSProperties => {
@@ -97,7 +97,7 @@ const ItemsTable = () => {
                 },
               },
             },
-            exlude: ["itemId", "description", "imageUrl", "category"],
+            exlude: ["id", "description", "imageUrl", "category"],
           }}
         />
       )}
