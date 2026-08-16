@@ -76,7 +76,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
               {selectedItems.map((item) => {
                 return (
                   <div
-                    key={`inventory-items-${item.itemId}`}
+                    key={`inventory-items-${item.id}`}
                     className="w-auto border flex gap-x-3 items-center status-info rounded-md"
                   >
                     <span className="line-clamp-1">
@@ -86,7 +86,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                     <button
                       onClick={() => {
                         setSelectedItems((prev) =>
-                          prev.filter((f) => f.itemId !== item.itemId)
+                          prev.filter((f) => f.id !== item.id)
                         );
                       }}
                       className="cursor-pointer"
@@ -109,9 +109,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
 
           {items.data &&
             items.data.map((item) => {
-              const isSelected = selectedItems.find(
-                (e) => e.itemId === item.itemId
-              );
+              const isSelected = selectedItems.find((e) => e.id === item.id);
               if (isSelected) return;
 
               let quantity: number = 0;
@@ -165,7 +163,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                       children: element,
                     });
                   }}
-                  key={`inventory-items-${item.itemId}`}
+                  key={`inventory-items-${item.id}`}
                   className="col-span-1 border border-(--accent)/60 flex justify-start items-center button-outlined"
                 >
                   <span className="text-sm! line-clamp-1 w-full">

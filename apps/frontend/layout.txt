@@ -39,3 +39,16 @@ Layout from who knows where.
 |                                      |
 | [ Save ]   [ Cancel ]                |
 +--------------------------------------+
+
++-------------------------------------------------------------+
+|  [Image]  Americano                                   [ X ] |
+|           Category: Coffee | Price: ₱70.00                   |
+|           Status: Missing Ingredients (0 Servings Possible)  |
++-------------------------------------------------------------+
+| RECIPE BREAKDOWN                                            |
+|                                                             |
+| - Coffee Beans:     18 g required  | 206 g available  [OK]  |
+| - Full Cream Milk:  200 ml req.    | 0 ml available   [MISS]|
++-------------------------------------------------------------+
+| [ Delete Product ]                [ Edit ]  [ Deduct Stock ]|
++-------------------------------------------------------------+

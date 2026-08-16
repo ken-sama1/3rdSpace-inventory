@@ -150,6 +150,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
           })
         }
         {...{ ...toastStyle }}
+        forceToTop={true}
       >
         {toastStyle.children}
       </Toast>
@@ -176,10 +177,10 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
               confirmText: "Yes",
               cancelText: "No",
               children: (
-                <div className="w-74">
-                  <span className="flex items-center justify-center font-semibold! text-sm!">
-                    Do you really want to save the changes?
-                  </span>
+                <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
+                  <p className="text-xs text-(--text-muted) mt-1">
+                    Your updates will take effect immediately.
+                  </p>
                 </div>
               ),
               title: `Update ${data.name}?`,
@@ -325,10 +326,13 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
                   setDialogStyle({
                     isOpen: true,
                     children: (
-                      <div className="w-full">
-                        <span className="w-full flex justify-center items-center status-danger border rounded-md font-semibold! text-sm!">
-                          This will action will permanently delete this item
-                        </span>
+                      <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
+                        <div className="w-full py-2 px-3 rounded-md border status-danger">
+                          <p className="text-xs opacity-90 mt-0.5">
+                            This will permanently delete this item from your
+                            inventory.
+                          </p>
+                        </div>
                       </div>
                     ),
                     onConfirm: handleDelete,

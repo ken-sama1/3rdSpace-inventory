@@ -1,7 +1,6 @@
-import LOGO from "@/assets/react.svg";
-import { ListFilter, PlusCircle } from "lucide-react";
 import CreateProductModal from "@/features/products/components/CreateProductModal";
-import ProductCard from "@/features/products/components/ProductCard";
+import ProductsTable from "@/features/products/components/ProductsTable";
+import { ListFilter, PlusCircle } from "lucide-react";
 import { useState } from "react";
 
 const Products = () => {
@@ -49,7 +48,7 @@ const Products = () => {
       <div className="divider"></div>
 
       <section className="w-full h-[65dvh] flex gap-6 overflow-auto">
-        <ProductCard imageUrl={LOGO} />
+        <ProductsTable />
       </section>
 
       <CreateProductModal

@@ -79,6 +79,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
     <>
       {/* Toaster, why did they even call it a toaster */}
       <Toast
+        forceToTop={true}
         isOpen={toastStyle.isOpen}
         variant={toastStyle.variant}
         onClose={() => {
@@ -116,10 +117,10 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               title="Create Item?"
               onConfirm={handleSave}
             >
-              <div className="w-74">
-                <span className="flex justify-center items-center font-semibold! text-sm!">
-                  Do you really want to create this item?
-                </span>
+              <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
+                <p className="text-xs text-(--text-muted) mt-1">
+                  This will save the new item to your inventory immediately.
+                </p>
               </div>
             </Dialog>
 

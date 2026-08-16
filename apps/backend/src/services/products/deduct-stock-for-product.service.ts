@@ -33,7 +33,7 @@ export const deductStockForProduct = async (
 
     if (requiredQuantity > stockQuantity)
       throw new AppError(
-        `Insufficient stock ${recipeItem.inventoryItem.name}. Required: ${recipeItem.quantity} Available Stock: ${stockQuantity}"`,
+        `Insufficient stock of "${recipeItem.inventoryItem.name}". Required: ${recipeItem.quantity} Available Stock: ${stockQuantity}`,
         400
       );
   }
@@ -43,10 +43,9 @@ export const deductStockForProduct = async (
       data: recipeItems.map(
         (item) =>
           ({
-            quantityChange: -(item.quantity * productQuantity),
+            quantityChange: -Math.abs(item.quantity * productQuantity),
             reason: `Production/Sale of ${product.name}`,
             inventoryItemId: item.inventoryItemId,
-            unit: item.inventoryItem.unit,
           }) satisfies Prisma.InventoryLogCreateArgs["data"]
       ),
     });

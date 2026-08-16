@@ -11,9 +11,10 @@ const useCreateProduct = () => {
       mutationFn: async ({ imageUrl, ...rest }) => {
         return await productsApi.create({
           ...rest,
-          ...(imageUrl && {
-            imageUrl: await cloudinaryApi.upload(imageUrl),
-          }),
+          ...(imageUrl !== undefined &&
+            imageUrl !== null && {
+              imageUrl: await cloudinaryApi.upload(imageUrl),
+            }),
         });
       },
       onSuccess: () => {

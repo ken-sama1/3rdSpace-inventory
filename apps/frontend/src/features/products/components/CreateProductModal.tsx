@@ -1,12 +1,11 @@
-import { cloudinaryApi } from "@/api/cloudinary.api";
 import SelectRecipeItemsModal from "@/components/shared/SelectRecipeItemsModal";
 import Dialog, { type DialogProps } from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
 import type { ToastProps } from "@/components/ui/popups/Toast";
 import Toast from "@/components/ui/popups/Toast";
+import useCreateProduct from "@/hooks/products/useCreateProduct";
 import type { InventoryItemDto } from "@repo/shared";
 import { useRef, useState, type FC } from "react";
-import useCreateProduct from "@/hooks/products/useCreateProduct";
 
 export interface CreateProductModalProps {
   isOpen: boolean;
@@ -34,11 +33,15 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
   const { create, isPending } = useCreateProduct();
 
   return (
-    <Modal isOpen={isOpen} title="Create Product">
+    <Modal isOpen={isOpen} onClose={onClose} title="Create Product">
       <div className="w-lg">
         <form
           onSubmit={(e) => {
             e.preventDefault();
+
+            setDialogStyle({
+              isOpen: true,
+            });
           }}
           ref={formRef}
           className="relative size-full flex flex-col gap-5"
@@ -151,16 +154,11 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
               Cancel
             </button>
             <button
-              disabled={isPending}
-              onClick={() => {
-                setDialogStyle({
-                  isOpen: true,
-                });
-              }}
               type="submit"
+              disabled={isPending}
               className="button-accent"
             >
-              Create
+              {isPending ? "Creating..." : "Create"}
             </button>
           </div>
         </form>
@@ -189,7 +187,9 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
           const price = formData.get("product-price") as number | null;
           const description = formData.get("product-description") as
             string | null;
-          const image = formData.get("product-image") as string | null;
+          const image = formData.get("product-image") as {
+            name: string;
+          } | null;
           const category = formData.get("product-category") as string | null;
 
           try {
@@ -197,23 +197,18 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
               isOpen: false,
             });
 
-            const imageUrl = image ? await cloudinaryApi.upload(image) : null;
-
             await create({
               name,
-              recipeItems: recipeItems.map(({ quantity, id, unit }) => {
+              recipeItems: recipeItems.map(({ quantity, id }) => {
                 return {
                   inventoryItemId: id,
                   quantity,
-                  unit,
                 };
               }),
               price: price ?? 0,
               ...(description && { description }),
               ...(category && { category }),
-              ...(imageUrl && {
-                imageUrl,
-              }),
+              ...(image?.name && { imageUrl: image.name }),
             });
 
             setToastStyle({
@@ -230,7 +225,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             setToastStyle({
               isOpen: true,
               variant: "danger",
-              children: "Something wnet wrong!",
+              children: "Something went wrong!",
             });
             console.error(error);
           }
@@ -243,12 +238,15 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
           })
         }
       >
-        <span className="w-full px-10 text-nowrap font-semibold! text-sm!">
-          Do you really want to create this product?
-        </span>
+        <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
+          <p className="text-xs text-(--text-muted) mt-1">
+            This will be added to products immediately.
+          </p>
+        </div>
       </Dialog>
       <Toast
         {...{ ...toastStyle }}
+        forceToTop={true}
         onClose={() =>
           setToastStyle({
             isOpen: false,

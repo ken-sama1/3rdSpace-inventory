@@ -12,11 +12,13 @@ export const create = async (
       description: data.description,
       imageUrl: data.imageUrl,
       price: data.price,
-      recipeItems: {
-        createMany: {
-          data: [...data.recipeItems],
+      ...(data.recipeItems.length && {
+        recipeItems: {
+          createMany: {
+            data: [...data.recipeItems],
+          },
         },
-      },
+      }),
     },
     omit: {
       updatedAt: true,

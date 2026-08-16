@@ -1,10 +1,17 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
+import useStockConfig from "@/hooks/useStockConfig";
 import type { GetInventoryItemsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, /* Banknote,*/ Boxes, PackageX } from "lucide-react";
+import {
+  AlertTriangle,
+  /* Banknote,*/ Boxes,
+  Check,
+  PackageX,
+} from "lucide-react";
 import { useMemo } from "react";
 
 const StatusBar = () => {
+  const { getStatus } = useStockConfig();
   const { data, isLoading } = useQuery<GetInventoryItemsResult>({
     queryKey: ["inventory-items"],
     queryFn: ({ signal }) =>
@@ -16,14 +23,22 @@ const StatusBar = () => {
       ),
   });
 
-  const { lowStockCount, noStockCount } = useMemo(() => {
-    if (!data?.length && !isLoading) return {};
-    const lowStock = data?.filter((d) => d.quantity <= 1000 && d.quantity >= 1);
-    const noStock = data?.filter((d) => d.quantity <= 0);
+  const {
+    lowStockCount = 0,
+    noStockCount = 0,
+    inStockCount = 0,
+  } = useMemo(() => {
+    if (!data) return {};
+
+    const lowStock = data.filter(
+      (v) => getStatus(v.quantity, v.unit) === "low"
+    );
+    const noStock = data.filter((v) => getStatus(v.quantity, v.unit) === "out");
 
     return {
-      lowStockCount: lowStock?.length ?? 0,
-      noStockCount: noStock?.length ?? 0,
+      lowStockCount: lowStock.length ?? 0,
+      noStockCount: noStock.length ?? 0,
+      inStockCount: data.length - (noStock.length + lowStock.length),
     };
   }, [data?.length, isLoading]);
 
@@ -67,7 +82,6 @@ const StatusBar = () => {
             </strong>
           </div>
           {/* Low Stock End */}
-
           {/* Out of Stock */}
           <div
             className="
@@ -83,18 +97,19 @@ const StatusBar = () => {
             </strong>
           </div>
           {/* Out of Stock End */}
-
-          {/* Total Valuation */}
-          {/* <div */}
-          {/*   className=" */}
-          {/*   w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md */}
-          {/*   border border-(--line-success) bg-(--bg-success) stroke-(--text-success) text-(--text-heathy)!" */}
-          {/* > */}
-          {/*   <Banknote className="stroke-2 stroke-inherit! size-4.5" /> */}
-          {/*   <span className="text-xs! text-inherit!">Revenue:</span> */}
-          {/*   <strong className="text-xs! font-bold text-inherit!">6700</strong> */}
-          {/* </div> */}
-          {/* Total Valuation End*/}
+          {/* In Stock */}
+          <div
+            className="
+            w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
+            border border-(--line-success) bg-(--bg-success) stroke-(--text-success) text-(--text-heathy)!"
+          >
+            <Check className="stroke-2 stroke-inherit! size-4.5" />
+            <span className="text-xs! text-inherit!">In Stock:</span>
+            <strong className="text-xs! font-bold text-inherit!">
+              {inStockCount}
+            </strong>
+          </div>
+          {/* In Stock End*/}
         </div>
         {/* Right Side Section End  */}
       </div>

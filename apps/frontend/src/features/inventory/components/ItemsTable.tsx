@@ -1,9 +1,13 @@
+import StockStatus from "@/components/ui/badges/StockStatus";
 import Table from "@/components/ui/Table";
 import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
-import { useState, type CSSProperties } from "react";
+import useStockConfig from "@/hooks/useStockConfig";
+import { useState } from "react";
 import EditItemModal from "./EditItemModal";
 
 const ItemsTable = () => {
+  const { getStatus } = useStockConfig();
+
   const [editModal, setEditModal] = useState<
     | {
         isOpen: false;
@@ -48,35 +52,17 @@ const ItemsTable = () => {
                   itemId: item.id,
                 });
               },
-              style: (rowData): CSSProperties => {
-                const lowStock = rowData.quantity <= 1000;
-                const noStock = rowData.quantity <= 0;
+              style: {
+                cursor: "pointer",
+              },
+              element: (rowData) => {
+                const stockStatus = getStatus(rowData.quantity, rowData.unit);
 
-                const baseStyle: CSSProperties = {
-                  cursor: "pointer",
-                  paddingLeft: "10px",
-                  borderLeft: "6px solid",
-                  borderRadius: "4px 0 0 4px",
-                };
-
-                if (noStock) {
-                  return {
-                    ...baseStyle,
-                    borderLeftColor: "var(--color-red-500)",
-                  };
-                }
-
-                if (lowStock) {
-                  return {
-                    ...baseStyle,
-                    borderLeftColor: "var(--color-amber-500)",
-                  };
-                }
-
-                return {
-                  ...baseStyle,
-                  borderLeftColor: "var(--color-emerald-500)",
-                };
+                return (
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2">
+                    <StockStatus variant={stockStatus} />
+                  </div>
+                );
               },
             },
             columns: 7,

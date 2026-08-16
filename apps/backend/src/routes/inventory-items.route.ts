@@ -30,4 +30,12 @@ inventoryItemsRouter
   .delete(inventoryItemsController.delete)
   .get(inventoryItemsController.getById);
 
+inventoryItemsRouter.post(
+  "/:id/stock-in",
+  validateReqParams(idParamSchema),
+  inventoryItemsController.stockIn
+);
+
+inventoryItemsRouter.post("/:id/stock-out", inventoryItemsController.stockOut);
+
 export { inventoryItemsRouter };

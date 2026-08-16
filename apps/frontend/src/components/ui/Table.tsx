@@ -1,6 +1,15 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactElement, ReactNode } from "react";
 
 type TableData = Record<string, any>;
+
+export type TableCustomColumn = {
+  /** Column Headet */
+  as: string;
+  /** Column Value*/
+  value: ReactNode;
+  style?: CSSProperties;
+  colspan?: number;
+};
 
 export type TableColumnOption<T extends TableData> = {
   [K in keyof T]?: {
@@ -12,7 +21,7 @@ export type TableColumnOption<T extends TableData> = {
     index?: number;
     /**
      * Apply cutom style on the column.
-     * Will overwrite style property defined in `row`
+     * Will overwrite styles defined in `row`
      * */
     style?: CSSProperties | ((cellData: T[K]) => CSSProperties);
     colspan?: number;
@@ -20,10 +29,14 @@ export type TableColumnOption<T extends TableData> = {
 };
 
 export type TableOptions<T extends TableData> = {
+  /** Properties that will be applied on the table head*/
+  head?: {
+    style?: CSSProperties;
+  };
   column?: TableColumnOption<T>;
   /** Set table columns. Default 12 */
   columns?: number;
-  /** Properties that will be apply to every cell*/
+  /** Properties that will be apply to every cell */
   cell?: {
     style?: CSSProperties | ((cellData: T[keyof T]) => CSSProperties);
   };
@@ -32,6 +45,8 @@ export type TableOptions<T extends TableData> = {
     style?: CSSProperties | ((rowData: T) => CSSProperties);
     /** Triggered when a row is clicked and pass row data as argument */
     onClick?: (rowData: T) => void;
+    /** Add  Add this element on every row*/
+    element?: ReactElement | ((rowData: T) => ReactElement);
   };
   /** Excluded keys will not be displayed on the table */
   exlude?: (keyof T)[];
@@ -44,9 +59,9 @@ export type TableProps<T extends TableData> = {
 };
 
 const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
-  const { exlude, columns = 12, row = {} } = options;
+  const { exlude, columns = 12, row = {}, head } = options;
 
-  const tableDataOrder = Object.keys(data[0])
+  const tableDataOrder = [...Object.keys(data[0])]
     .map((k: keyof T) => {
       if (exlude && exlude.includes(k)) return null;
 
@@ -69,16 +84,19 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
       >
         {tableDataOrder.map((d, idx) => {
           const colspan = options.column?.[d]?.colspan ?? 1;
+          const alias = options.column?.[d]?.as ?? d;
+          const headStyle = head?.style ?? {};
           return (
             <div
               className="size-full flex items-center"
               key={`${String(d)}-${idx}`}
               style={{
+                ...headStyle,
                 gridColumn: `span ${colspan} / span ${colspan}`,
               }}
             >
-              <span className="size-full flex items-center justify-start uppercase font-bold text-sm!">
-                {String(d)}
+              <span className="h-full uppercase font-bold text-inherit!">
+                {String(alias)}
               </span>
             </div>
           );
@@ -88,6 +106,10 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
       {/* Table Body */}
       <div className="w-full h-[calc(100%-40px)] py-1 overflow-auto no-scrollbar bg-(--primary)">
         {data.map((rowData, idx) => {
+          const element =
+            typeof row.element === "function"
+              ? row.element(rowData)
+              : row.element;
           const rowKey = `row-data-${idx}`;
           const rowStyle = row?.style
             ? typeof row.style === "function"
@@ -104,7 +126,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                 }
               }}
               key={rowKey}
-              className="h-10 w-full border-b border-(--line) nice-hover"
+              className="h-10 w-full items-center relative border-b border-(--line) nice-hover"
               style={{
                 ...rowStyle,
                 display: "grid",
@@ -115,6 +137,11 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                 const cell = options.column?.[k];
                 const colspan = cell?.colspan ?? 1;
                 const cellData = rowData?.[k];
+                const cellValue = cell?.value
+                  ? typeof cell.value === "function"
+                    ? cell.value(cellData)
+                    : cell.value
+                  : null;
                 const cellStyle = cell?.style
                   ? typeof cell.style === "function"
                     ? cell.style(cellData)
@@ -124,25 +151,26 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                 /* Table Cell  */
                 return (
                   <div
+                    className="w-fit"
                     key={`cell-data-${idx}-${String(k)}`}
-                    className="w-full size-full flex"
                     style={{
                       gridColumn: `span ${colspan} / span ${colspan}`,
                     }}
                   >
                     <span
-                      className="size-full"
                       style={{
                         ...cellStyle,
                         alignItems: "center",
                         display: "flex",
                       }}
                     >
-                      {String(cellData)}
+                      {cellValue ? cellValue : String(cellData)}
                     </span>
                   </div>
                 );
               })}
+
+              {element && element}
             </button>
           );
         })}

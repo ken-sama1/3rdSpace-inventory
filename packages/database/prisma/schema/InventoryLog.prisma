@@ -1,9 +1,10 @@
 model InventoryLog {
-  id              String            @id @default(auto()) @map("_id") @db.ObjectId
-  inventoryItemId String            @db.ObjectId
-  inventoryItem   InventoryItem     @relation(fields: [inventoryItemId], references: [id])
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  inventoryItemId String        @db.ObjectId
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
   quantityChange  Float
-  unit            InventoryItemUnit
   reason          String
-  createdAt       DateTime          @default(now())
+  createdAt       DateTime      @default(now())
+
+  @@map("inventory_logs")
 }

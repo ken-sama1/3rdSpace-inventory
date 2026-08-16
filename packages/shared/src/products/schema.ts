@@ -1,15 +1,13 @@
 import z from "zod";
-import { stringNullableSchema } from "../common/schema.js";
-import { inventoryItemUnitSchema } from "../inventory-items/schema.js";
-import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
 import type { ResponseBody } from "../Response.js";
+import { stringNullableSchema } from "../common/schema.js";
 import type { InventoryItemDto } from "../inventory-items/types.js";
+import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
 
 // --- Recipe Item ---
 export const recipeItemSchema = z.object({
   inventoryItemId: z.string().min(1, "Inventory Item is required"),
   quantity: z.coerce.number().positive("Quantity must be greater than zero"),
-  unit: inventoryItemUnitSchema,
 });
 
 export type RecipeItemSchema = z.infer<typeof recipeItemSchema>;
@@ -38,11 +36,7 @@ export type GetProductByIdResult = ProductWithInventoryItemsDto;
 export type GetProductsByIdResBody = ResponseBody<GetProductByIdResult>;
 
 // --- Update ---
-export const updateProductSchema = z
-  .object({
-    ...createProductSchema.shape,
-  })
-  .partial();
+export const updateProductSchema = createProductSchema.partial();
 
 export type UpdateProductSchema = z.infer<typeof updateProductSchema>;
 export type UpdateProductInput = z.input<typeof updateProductSchema>;
@@ -56,6 +50,14 @@ export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 // --- Deduct Stock for Product ---
 export const deductStockForProductSchema = z.object({
   quantity: z.coerce.number(),
+  recipeItems: z
+    .array(
+      z.object({
+        inventoryItemId: z.string(),
+        quantity: z.string(),
+      })
+    )
+    .optional(),
 });
 
 export type DeductStockForProductSchema = z.infer<

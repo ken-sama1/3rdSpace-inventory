@@ -5,7 +5,6 @@ import type { DateMetaData } from "../common/types.js";
 import { stringNullableSchema } from "../common/schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
-
 export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
 
 // --- Create ---
@@ -17,7 +16,6 @@ export const createInventoryItemSchema = z.object({
   imageUrl: stringNullableSchema,
   category: stringNullableSchema,
 });
-
 export type CreateInventoryItemInput = z.input<
   typeof createInventoryItemSchema
 >;
@@ -29,8 +27,9 @@ export type CreateInventoryItemResBody =
   ResponseBody<CreateInventoryItemResult>;
 
 // --- Update ---
-export const updateInventoryItemSchema = createInventoryItemSchema.partial();
-
+export const updateInventoryItemSchema = createInventoryItemSchema
+  .omit({ quantity: true })
+  .partial();
 export type UpdateInventoryItemInput = z.input<
   typeof updateInventoryItemSchema
 >;
@@ -51,3 +50,32 @@ export type GetInventoryItemsResBody = ResponseBody<GetInventoryItemsResult>;
 // --- Get By Id ---
 export type GetInventoryItemResult = InventoryItemDto & DateMetaData;
 export type GetInventoryItemResBody = ResponseBody<GetInventoryItemResult>;
+
+// --- Stock In ---
+export const stockInInventoryItemSchema = z.object({
+  quantity: z.coerce.number(),
+});
+export type StockInInventoryItemSchema = z.infer<
+  typeof stockInInventoryItemSchema
+>;
+export type StockInInventoryItemInput = z.input<
+  typeof stockInInventoryItemSchema
+>;
+export type StockInInventoryItemResult = InventoryItemDto;
+export type StockInInventoryItemResBody =
+  ResponseBody<StockInInventoryItemResult>;
+
+// --- Stock Out ---
+export const stockOutInventoryItemSchema = z.object({
+  quantity: z.coerce.number(),
+  reason: z.string(),
+});
+export type StockOutInventoryItemSchema = z.infer<
+  typeof stockOutInventoryItemSchema
+>;
+export type StockOutInventoryItemInput = z.input<
+  typeof stockInInventoryItemSchema
+>;
+export type StockOutInventoryItemResult = InventoryItemDto;
+export type StockOutInventoryItemResBody =
+  ResponseBody<StockOutInventoryItemResult>;
