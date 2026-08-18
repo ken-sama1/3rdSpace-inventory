@@ -8,31 +8,18 @@ import EditItemModal from "./EditItemModal";
 const ItemsTable = () => {
   const { getStatus } = useStockConfig();
 
-  const [editModal, setEditModal] = useState<
-    | {
-        isOpen: false;
-        itemId: null;
-      }
-    | { isOpen: true; itemId: string }
-  >({
-    isOpen: false,
-    itemId: null,
-  });
+  const [itemId, setItemId] = useState<string | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const { data, isLoading } = useGetInventoryItems();
 
   return (
     <div className="h-full">
-      {editModal.isOpen && (
+      {itemId && (
         <EditItemModal
-          isOpen={editModal.isOpen}
-          onClose={() =>
-            setEditModal({
-              isOpen: false,
-              itemId: null,
-            })
-          }
-          itemId={editModal.itemId}
+          isOpen={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          itemId={itemId}
         />
       )}
       {!isLoading && data && (
@@ -47,10 +34,8 @@ const ItemsTable = () => {
             },
             row: {
               onClick: (item) => {
-                setEditModal({
-                  isOpen: true,
-                  itemId: item.id,
-                });
+                setShowEditModal(true);
+                setItemId(item.id);
               },
               style: {
                 cursor: "pointer",

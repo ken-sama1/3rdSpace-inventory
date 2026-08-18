@@ -53,7 +53,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
   const handleDelete = async () => {
     try {
       await deleteItem(itemId);
-      // handleCloseAll();
+      handleCloseAll();
       setToast({
         variant: "success",
         message: "Item successfully deleted",
@@ -83,9 +83,6 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
       const category = formData.get("item-category") as string | undefined;
       const description = formData.get("item-description") as
         string | undefined;
-
-      setDialog(null);
-
       await updateItem({
         id: itemId,
         data: {
@@ -98,7 +95,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
         },
       });
 
-      // handleCloseAll();
+      handleCloseAll();
       setToast({
         variant: "success",
         message: "Item successfully updated",
@@ -275,6 +272,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
 
       {toast && (
         <Toast
+          forceToTop={Boolean(toast.forceToTop)}
           isOpen={true}
           variant={toast.variant}
           onClose={() => {
