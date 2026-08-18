@@ -29,6 +29,7 @@ const Toast: FC<ToastProps> = ({
   variant = "info",
   forceToTop = false,
 }) => {
+  const modal = document.getElementById("modal");
   const toastRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -102,7 +103,9 @@ const Toast: FC<ToastProps> = ({
               />
             )}
 
-            <div className="w-full h-full flex flex-col">{children}</div>
+            <div className="w-full h-full flex flex-col text-sm!">
+              {children}
+            </div>
             <button
               onClick={() => {
                 if (onClose) onClose();
@@ -118,7 +121,9 @@ const Toast: FC<ToastProps> = ({
     </AnimatePresence>,
     !forceToTop
       ? document.body
-      : (document.querySelector("dialog[open]") ?? document.body)
+      : modal
+        ? modal
+        : (document.querySelector("dialog[open]") ?? document.body)
   );
 };
 

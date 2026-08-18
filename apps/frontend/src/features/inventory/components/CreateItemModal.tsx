@@ -1,37 +1,34 @@
 import Dialog from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
-import Toast, { type ToastProps } from "@/components/ui/popups/Toast";
+import Toast from "@/components/ui/popups/Toast";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
 import { useRef, useState } from "react";
 import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
+import AlertBanner from "@/components/ui/banners/AlertBanner";
 
-export interface CreateItemModal {
+export interface CreateItemModalProps {
   isOpen: boolean;
   onClose?: () => void;
 }
 
-const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
-  const { create } = useCreateInventoryItem();
+const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
+  const { create, isPending } = useCreateInventoryItem();
 
-  const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [toastStyle, setToastStyle] = useState<ToastProps>({
-    children: "How'd you do that?",
-    variant: "info",
-    isOpen: false,
-  });
+  const [dialog, setDialog] = useState<"confirm" | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    variant: "success" | "danger" | "info";
+  } | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  if (!isOpen) return <></>;
+  if (!isOpen) return null;
 
   const handleCloseAll = () => {
-    setShowDialog(false);
+    setDialog(null);
+    setToast(null);
     if (onClose) {
       onClose();
-      setToastStyle({
-        children: null,
-        isOpen: false,
-      });
     }
   };
 
@@ -41,89 +38,52 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
 
       const form = new FormData(formRef.current);
 
-      const quantity = form.get("item-quantity") as number | null;
+      const quantity = form.get("item-quantity")
+        ? Number(form.get("item-quantity"))
+        : null;
       const description = form.get("item-description") as string | null;
       const imageUrl = form.get("item-image") as string | null;
       const category = form.get("item-category") as string | null;
 
+      setDialog(null);
+
       await create({
         name: form.get("item-name") as string,
         unit: form.get("item-unit") as InventoryItemUnit,
-        ...(description && {
-          description,
-        }),
-        ...(quantity && { quantity }),
+        ...(description && { description }),
+        ...(quantity !== null && !isNaN(quantity) && { quantity }),
         ...(imageUrl && { imageUrl }),
         ...(category && { category }),
       });
 
       formRef.current.reset();
-      setShowDialog(false);
 
-      setToastStyle({
-        isOpen: true,
+      setToast({
         variant: "success",
-        children: "Item created successfully",
+        message: "Item created successfully",
       });
     } catch (e) {
-      console.log(e);
-      setToastStyle({
-        isOpen: true,
+      console.error(e);
+      setDialog(null);
+      setToast({
         variant: "danger",
-        children: "Something went wrong",
+        message: "Something went wrong",
       });
     }
   };
 
   return (
     <>
-      {/* Toaster, why did they even call it a toaster */}
-      <Toast
-        forceToTop={true}
-        isOpen={toastStyle.isOpen}
-        variant={toastStyle.variant}
-        onClose={() => {
-          setToastStyle((prev) => {
-            {
-              return {
-                ...prev,
-                isOpen: false,
-              };
-            }
-          });
-        }}
-      >
-        {toastStyle.children}
-      </Toast>
-
       <Modal onClose={handleCloseAll} isOpen={isOpen} title="Create Item">
         <div className="w-lg">
-          {/* Form Obviously */}
           <form
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
-              setShowDialog(true);
+              setDialog("confirm");
             }}
             className="relative w-full h-full flex flex-col gap-5"
           >
-            <Dialog
-              isOpen={showDialog}
-              onClose={() => {
-                setShowDialog(false);
-              }}
-              cancelText="No"
-              confirmText="Yes"
-              title="Create Item?"
-              onConfirm={handleSave}
-            >
-              <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
-                <p className="text-xs text-(--text-muted) mt-1">
-                  This will save the new item to your inventory immediately.
-                </p>
-              </div>
-            </Dialog>
-
             {/* Form Content Wrapper */}
             <div className="h-auto grid grid-cols-4 gap-y-2 gap-x-5">
               {/* Name */}
@@ -159,22 +119,6 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
                 />
               </div>
 
-              {/* Description */}
-              {/* <div className="grid col-span-2 gap-y-2"> */}
-              {/*   <label */}
-              {/*     htmlFor="item-description" */}
-              {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
-              {/*   > */}
-              {/*     Description: */}
-              {/*   </label> */}
-              {/*   <input */}
-              {/*     id="item-description" */}
-              {/*     type="text" */}
-              {/*     name="item-description" */}
-              {/*     className="rounded-md! h-7! text-xs!" */}
-              {/*   /> */}
-              {/* </div> */}
-
               {/* Quantity */}
               <div className="grid col-span-2 gap-y-2">
                 <label
@@ -191,7 +135,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
                 />
               </div>
 
-              {/* Unit  */}
+              {/* Unit */}
               <div className="grid col-span-2 gap-y-2">
                 <label
                   htmlFor="item-unit"
@@ -205,39 +149,20 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
                   name="item-unit"
                   className="rounded-md! h-7! text-xs!"
                 >
-                  <option hidden value={""}>
+                  <option hidden value="">
                     Select Unit
                   </option>
-                  {inventoryItemUnits.map((item) => {
-                    return (
-                      <option key={`option-${item}`} value={item}>
-                        {item}
-                      </option>
-                    );
-                  })}
+                  {inventoryItemUnits.map((item) => (
+                    <option key={`option-${item}`} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
-
-              {/* Image */}
-              {/* <div className="grid col-span-2 gap-y-2"> */}
-              {/*   <label */}
-              {/*     htmlFor="item-image" */}
-              {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
-              {/*   > */}
-              {/*     Image */}
-              {/*   </label> */}
-              {/*   <input */}
-              {/*     id="item-image" */}
-              {/*     type="file" */}
-              {/*     name="item-image" */}
-              {/*     className="rounded-md! h-7! text-xs!" */}
-              {/*   /> */}
-              {/* </div> */}
             </div>
 
             {/* Buttons */}
             <div className="w-full flex gap-2 items-center justify-end">
-              {/* Close Button */}
               <button
                 onClick={handleCloseAll}
                 type="button"
@@ -246,14 +171,44 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
                 Close
               </button>
 
-              {/* Save Button */}
-              <button type="submit" className="button-accent h-7! py-0!">
-                Create
+              <button
+                type="submit"
+                disabled={isPending}
+                className="button-accent h-7! py-0!"
+              >
+                {isPending ? "Creating..." : "Create"}
               </button>
             </div>
           </form>
         </div>
       </Modal>
+
+      {dialog && (
+        <Dialog
+          isOpen={true}
+          onClose={() => setDialog(null)}
+          cancelText="No"
+          confirmText="Yes"
+          title="Create Item?"
+          onConfirm={handleSave}
+        >
+          <AlertBanner
+            message="This will save the new item to your inventory immediately."
+            variant="info"
+          />
+        </Dialog>
+      )}
+
+      {toast && (
+        <Toast
+          forceToTop
+          isOpen
+          variant={toast.variant}
+          onClose={() => setToast(null)}
+        >
+          {toast.message}
+        </Toast>
+      )}
     </>
   );
 };

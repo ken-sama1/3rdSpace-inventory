@@ -58,6 +58,7 @@ const Modal: FC<ModalProps> = ({
         }}
         onClose={onClose}
         ref={dialogRef}
+        id="modal"
         className={`
         fixed top-1/2 left-1/2 -translate-1/2 inset-0 z-99 overflow-hidden
         max-w-2/3 max-h-[calc(100dvh-60px)] rounded-lg 
