@@ -17,13 +17,13 @@ const ToggleSwitch: FC<ToggleSwitchProps> = ({ onToggle }) => {
       className={`flex items-center cursor-pointer w-12 h-7 rounded-full p-1 border transition-colors duration-200 ${
         isOn
           ? "bg-(--bg-info) border-(--line-info)"
-          : "bg-(--bg-disabled) border-(--line-disabled)"
+          : "bg-(--bg-muted) border-(--line-muted)"
       }`}
       type="button"
     >
       <motion.div
         className={`h-full aspect-square rounded-full transition-colors duration-200 ${
-          isOn ? "bg-(--text-info)" : "bg-(--text-disabled)"
+          isOn ? "bg-(--text-info)" : "bg-(--text-muted)"
         }`}
         animate={{ x: isOn ? 20 : 0 }}
         transition={{

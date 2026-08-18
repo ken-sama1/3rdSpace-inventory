@@ -36,7 +36,7 @@
   }
 }
 
-.button-disabled {
+.button-muted {
   @apply shadow-xs shadow-black/60
   bg-neutral-500 stroke-(--heading) text-white px-3.5 py-1.5 rounded-md cursor-pointer text-sm;
 

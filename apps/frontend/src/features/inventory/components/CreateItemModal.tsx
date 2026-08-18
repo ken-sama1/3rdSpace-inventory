@@ -130,7 +130,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               <div className="grid col-span-2 gap-y-2">
                 <label
                   htmlFor="item-name"
-                  className="text-sm! text-(--heading)! font-semibold!"
+                  className="text-sm! text-(--text-muted)! font-semibold!"
                 >
                   Name:
                 </label>
@@ -147,7 +147,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               <div className="grid col-span-2 gap-y-2">
                 <label
                   htmlFor="item-category"
-                  className="text-sm! text-(--heading)! font-semibold!"
+                  className="text-sm! text-(--text-muted)! font-semibold!"
                 >
                   Category
                 </label>
@@ -163,7 +163,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               {/* <div className="grid col-span-2 gap-y-2"> */}
               {/*   <label */}
               {/*     htmlFor="item-description" */}
-              {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+              {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
               {/*   > */}
               {/*     Description: */}
               {/*   </label> */}
@@ -179,7 +179,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               <div className="grid col-span-2 gap-y-2">
                 <label
                   htmlFor="item-quantity"
-                  className="text-sm! text-(--heading)! font-semibold!"
+                  className="text-sm! text-(--text-muted)! font-semibold!"
                 >
                   Quantity:
                 </label>
@@ -195,7 +195,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               <div className="grid col-span-2 gap-y-2">
                 <label
                   htmlFor="item-unit"
-                  className="text-sm! text-(--heading)! font-semibold!"
+                  className="text-sm! text-(--text-muted)! font-semibold!"
                 >
                   Unit:
                 </label>
@@ -222,7 +222,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModal) => {
               {/* <div className="grid col-span-2 gap-y-2"> */}
               {/*   <label */}
               {/*     htmlFor="item-image" */}
-              {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+              {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
               {/*   > */}
               {/*     Image */}
               {/*   </label> */}

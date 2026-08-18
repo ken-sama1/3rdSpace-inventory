@@ -43,6 +43,13 @@ const stockStatusByUnitMap: Record<
 
 type StockStatus = "low" | "out" | "in";
 
+type RecipeItemsBreakdown = {
+  required: number;
+  available: number;
+  name: string;
+  unit: InventoryItemUnit;
+};
+
 const useStockConfig = () => {
   const getStatus = (stock: number, unit: InventoryItemUnit): StockStatus => {
     const status = stockStatusByUnitMap[unit];
@@ -58,10 +65,18 @@ const useStockConfig = () => {
   const getMaxServings = (recipeItems: RecipeItemWithInventoryItemDto[]) => {
     let missingItemsCount: number = 0;
     let maxServingsCount: number = Infinity;
+    const recipeItemsBreakdown: RecipeItemsBreakdown[] = [];
 
     for (const recipeItem of recipeItems) {
       const required = recipeItem.quantity;
       const available = recipeItem.inventoryItem.quantity;
+
+      recipeItemsBreakdown.push({
+        required,
+        available,
+        name: recipeItem.inventoryItem.name,
+        unit: recipeItem.inventoryItem.unit,
+      });
 
       if (required > available) {
         missingItemsCount++;
@@ -77,6 +92,7 @@ const useStockConfig = () => {
     return {
       missingItemsCount,
       maxServingsCount,
+      recipeItemsBreakdown,
     };
   };
 

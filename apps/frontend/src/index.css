@@ -33,13 +33,9 @@
   --line-info: color-mix(in oklab, var(--color-blue-500) 20%, transparent);
   --text-info: var(--color-blue-400);
 
-  --bg-disabled: color-mix(in oklab, var(--color-neutral-500) 10%, transparent);
-  --line-disabled: color-mix(
-    in oklab,
-    var(--color-neutral-500) 10%,
-    transparent
-  );
-  --text-disabled: var(--color-neutral-500);
+  --bg-muted: color-mix(in oklab, var(--color-neutral-500) 10%, transparent);
+  --line-muted: color-mix(in oklab, var(--color-neutral-500) 10%, transparent);
+  --text-muted: var(--color-neutral-500);
 }
 
 [data-theme="light"] {

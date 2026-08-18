@@ -194,7 +194,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="item-name"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Name:
               </label>
@@ -215,7 +215,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="item-category"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Category
               </label>
@@ -235,7 +235,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             {/* <div className="grid col-span-2 gap-y-2"> */}
             {/*   <label */}
             {/*     htmlFor="item-description" */}
-            {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+            {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
             {/*   > */}
             {/*     Description: */}
             {/*   </label> */}
@@ -251,7 +251,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             {/* <div className="grid col-span-2 gap-y-2"> */}
             {/*   <label */}
             {/*     htmlFor="item-quantity" */}
-            {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+            {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
             {/*   > */}
             {/*     Quantity: */}
             {/*   </label> */}
@@ -271,7 +271,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="item-unit"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Unit:
               </label>
@@ -302,7 +302,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             {/* <div className="grid col-span-2 gap-y-2"> */}
             {/*   <label */}
             {/*     htmlFor="item-image" */}
-            {/*     className="text-sm! text-(--heading)! font-semibold!" */}
+            {/*     className="text-sm! text-(--text-muted)! font-semibold!" */}
             {/*   > */}
             {/*     Image */}
             {/*   </label> */}
@@ -362,7 +362,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
               <button
                 disabled={!hasChanges || updatePending}
                 type="submit"
-                className={`${hasChanges ? "button-accent" : "button-disabled"} h-7! py-0!`}
+                className={`${hasChanges ? "button-accent" : "button-muted"} h-7! py-0!`}
               >
                 Save
               </button>

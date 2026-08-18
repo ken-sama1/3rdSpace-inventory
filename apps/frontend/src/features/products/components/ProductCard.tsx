@@ -59,7 +59,7 @@ const ProductCard: FC<ProductCardProps> = ({
             className="
             relative aspect-square h-full min-h-50 p-2 
             overflow-hidden rounded-xl border
-            border-(--line)/40 bg-(--disabled)/20"
+            border-(--line)/40 bg-(--muted)/20"
           >
             {imageUrl ? (
               <img
@@ -69,7 +69,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
               />
             ) : (
-              <div className="flex size-full items-center justify-center text-(--text-disabled)">
+              <div className="flex size-full items-center justify-center text-(--text-muted)">
                 <ImageOffIcon strokeWidth={1.5} className="size-8" />
               </div>
             )}
@@ -83,7 +83,7 @@ const ProductCard: FC<ProductCardProps> = ({
           {/* Details  */}
           <div className="mt-3 flex flex-col gap-1">
             {category && (
-              <span className="text-[11px]! font-medium uppercase tracking-wider text-(--text-disabled)!">
+              <span className="text-[11px]! font-medium uppercase tracking-wider text-(--text-muted)!">
                 {category}
               </span>
             )}
@@ -95,7 +95,7 @@ const ProductCard: FC<ProductCardProps> = ({
           {/* Footer  */}
           <div className="flex items-center justify-end">
             {/* <div className="flex flex-col"> */}
-            {/*   <span className="text-[10px]! text-(--text-disabled)! "> */}
+            {/*   <span className="text-[10px]! text-(--text-muted)! "> */}
             {/*     Price */}
             {/*   </span> */}
             {/**/}
