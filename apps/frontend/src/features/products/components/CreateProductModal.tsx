@@ -51,7 +51,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-name"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Name:
               </label>
@@ -68,7 +68,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-price"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Price:
               </label>
@@ -84,7 +84,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-description"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Description:
               </label>
@@ -100,7 +100,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-category"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Category:
               </label>
@@ -116,7 +116,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-image"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Image:
               </label>
@@ -132,7 +132,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             <div className="grid col-span-2 gap-y-2">
               <label
                 htmlFor="product-recipe"
-                className="text-sm! text-(--heading)! font-semibold!"
+                className="text-sm! text-(--text-muted)! font-semibold!"
               >
                 Recipe Items:
               </label>
@@ -239,7 +239,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
         }
       >
         <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
-          <p className="text-xs text-(--text-muted) mt-1">
+          <p className="text-xs text-(--text-muted)! mt-1">
             This will be added to products immediately.
           </p>
         </div>

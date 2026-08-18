@@ -8,6 +8,7 @@ const useCreateProduct = () => {
 
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
     useMutation<CreateProductResult, Error, CreateProductInput>({
+      mutationKey: ["products", "create"],
       mutationFn: async ({ imageUrl, ...rest }) => {
         return await productsApi.create({
           ...rest,

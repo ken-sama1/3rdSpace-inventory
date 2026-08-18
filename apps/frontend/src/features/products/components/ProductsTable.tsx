@@ -1,7 +1,6 @@
 import Table from "@/components/ui/Table";
 import useGetProducts from "@/hooks/products/useGetProducts";
 import useStockConfig from "@/hooks/useStockConfig";
-import type { ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState } from "react";
 import ProductDetailModal from "./ProductDetailModal";
 import ProductStatusBadge from "./ProductStatusBadge";
@@ -10,9 +9,7 @@ const ProductsTable = () => {
   const { data } = useGetProducts();
   const { getMaxServings } = useStockConfig();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [product, setProduct] = useState<ProductWithInventoryItemsDto | null>(
-    null
-  );
+  const [productId, setProductId] = useState<string | null>(null);
 
   return (
     <section className="w-full ">
@@ -22,7 +19,7 @@ const ProductsTable = () => {
           options={{
             row: {
               onClick: (v) => {
-                setProduct(v);
+                setProductId(v.id);
                 setShowModal(true);
               },
               style: {
@@ -69,11 +66,11 @@ const ProductsTable = () => {
         />
       )}
 
-      {product && (
+      {productId && (
         <ProductDetailModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
-          product={product}
+          productId={productId}
         />
       )}
     </section>

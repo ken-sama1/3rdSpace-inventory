@@ -1,22 +1,31 @@
+import QuantityStepper from "@/components/ui/forms/QuantityStepper";
 import Modal from "@/components/ui/popups/Modal";
+import useDeductStockForProduct from "@/hooks/products/useDeductStockForProduct";
+import useDeleteProduct from "@/hooks/products/useDeleteProduct";
+import useGetProductById from "@/hooks/products/useGetProductById";
 import useStockConfig from "@/hooks/useStockConfig";
-import type { ProductWithInventoryItemsDto } from "@repo/shared";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 
 export interface ProductDetailModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  product: ProductWithInventoryItemsDto;
+  productId: string;
 }
 
 const ProductDetailModal: FC<ProductDetailModalProps> = ({
   isOpen,
   onClose,
-  product,
+  productId,
 }) => {
+  const { isPending, deduct } = useDeductStockForProduct();
+  const { delete: deleteProduct, isPending: isDeleting } = useDeleteProduct();
+  const { data: product } = useGetProductById(productId);
+  const [productQuantity, setProductQuantity] = useState<number>(0);
   const { getMaxServings } = useStockConfig();
   const { maxServingsCount, missingItemsCount, recipeItemsBreakdown } =
-    getMaxServings(product.recipeItems);
+    getMaxServings(product?.recipeItems ?? []);
+
+  if (!product) return <></>;
 
   return (
     <Modal isOpen={isOpen} title={product.name} onClose={onClose}>
@@ -50,11 +59,11 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
                 Status:
               </span>
               <span
-                className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${maxServingsCount >= 6 ? "status-success" : maxServingsCount <= 5 ? "status-warning" : "status-danger"}`}
+                className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${maxServingsCount >= 6 ? "status-success" : maxServingsCount >= 1 ? "status-warning" : "status-danger"}`}
               >
-                {maxServingsCount
+                {maxServingsCount >= 1
                   ? `Possible Servings (${maxServingsCount})`
-                  : `Missing Items (${missingItemsCount} Possible Servings)`}
+                  : `Missing Items ${missingItemsCount} (0 Possible Servings)`}
               </span>
             </div>
           </div>
@@ -82,7 +91,7 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
                 Available
               </span>
 
-              <span className="col-span-2 font-semibold flex justify-end text-sm uppercase">
+              <span className="col-span-2 font-semibold flex justify-center text-sm uppercase">
                 Status
               </span>
             </div>
@@ -93,7 +102,7 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
                 return (
                   <li
                     key={item.name}
-                    className="grid grid-cols-12 items-center py-2 px-3 border-b border-(--line) last:border-none text-sm hover:bg-(--surface-hover)/50 transition-colors"
+                    className="grid grid-cols-12 items-center py-2 px-3 border-b border-(--line) text-sm hover:bg-(--surface-hover)/50 transition-colors"
                   >
                     {/* Name */}
                     <span className="col-span-4 font-medium truncate">
@@ -115,7 +124,7 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
                     </span>
 
                     {/* Status Badge */}
-                    <div className="col-span-2 flex justify-end">
+                    <div className="col-span-2 flex justify-center">
                       {item.required > item.available ? (
                         <span className="px-2 py-0.5 text-xs font-semibold rounded-md border status-danger">
                           Missing
@@ -133,9 +142,27 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
           </div>
         </div>
 
+        <div className="size-full mt-3">
+          <div className="w-full flex justify-end gap-2 items-center">
+            <QuantityStepper
+              max={maxServingsCount}
+              callback={(v) => {
+                setProductQuantity(v);
+              }}
+            />
+          </div>
+        </div>
+
         <div className="mt-5 flex justify-between items-center w-full">
           <div className="w-1/2 flex justify-start items-center">
-            <button type="button" className="button-danger py-1!">
+            <button
+              onClick={() => {
+                deleteProduct(productId);
+              }}
+              disabled={isDeleting}
+              type="button"
+              className="button-danger py-1!"
+            >
               Delete
             </button>
           </div>
@@ -143,7 +170,17 @@ const ProductDetailModal: FC<ProductDetailModalProps> = ({
             <button type="button" className="button-outlined py-1!">
               Edit
             </button>
-            <button type="button" className="button-accent py-1!">
+            <button
+              disabled={isPending}
+              onClick={async () => {
+                await deduct({
+                  id: product.id,
+                  quantity: productQuantity,
+                });
+              }}
+              type="button"
+              className="button-accent py-1!"
+            >
               Deduct
             </button>
           </div>

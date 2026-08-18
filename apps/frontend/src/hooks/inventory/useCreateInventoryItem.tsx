@@ -6,14 +6,14 @@ import type {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useCreateInventoryItem = () => {
-  const quieryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { data, error, isPending, isError, mutateAsync, isSuccess } =
     useMutation<CreateInventoryItemResult, Error, CreateInventoryItemInput>({
       mutationKey: ["inventory-items", "create"],
       mutationFn: inventoryItemApi.create,
       onSuccess: () => {
-        quieryClient.invalidateQueries({
+        queryClient.invalidateQueries({
           queryKey: ["inventory-items"],
         });
       },

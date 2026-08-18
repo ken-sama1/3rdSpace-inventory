@@ -33,7 +33,7 @@ export type GetProductsResBody = ResponseBody<GetProductsResult>;
 
 // --- Get by Id ---
 export type GetProductByIdResult = ProductWithInventoryItemsDto;
-export type GetProductsByIdResBody = ResponseBody<GetProductByIdResult>;
+export type GetProductByIdResBody = ResponseBody<GetProductByIdResult>;
 
 // --- Update ---
 export const updateProductSchema = createProductSchema.partial();
@@ -50,14 +50,14 @@ export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 // --- Deduct Stock for Product ---
 export const deductStockForProductSchema = z.object({
   quantity: z.coerce.number(),
-  recipeItems: z
-    .array(
-      z.object({
-        inventoryItemId: z.string(),
-        quantity: z.string(),
-      })
-    )
-    .optional(),
+  // recipeItems: z
+  //   .array(
+  //     z.object({
+  //       inventoryItemId: z.string(),
+  //       quantity: z.string(),
+  //     })
+  //   )
+  //   .optional(),
 });
 
 export type DeductStockForProductSchema = z.infer<

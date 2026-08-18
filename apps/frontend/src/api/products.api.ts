@@ -2,24 +2,36 @@ import type {
   CreateProductInput,
   CreateProductResBody,
   CreateProductResult,
+  DeductStockForProductInput,
   DeductStockForProductResBody,
   DeductStockForProductResult,
   DeleteProductResBody,
   DeleteProductResult,
-  GetProductsByIdResBody,
+  GetProductByIdResBody,
+  GetProductByIdResult,
   GetProductsResBody,
   GetProductsResult,
   UpdateProductInput,
   UpdateProductResBody,
   UpdateProductResult,
 } from "@repo/shared";
-import { api } from "./api";
 import type { AxiosRequestConfig } from "axios";
+import { api } from "./api";
 
 const baseUrl = "/products";
 
-const get = async (productId: string) => {
-  productId;
+const get = async (
+  productId: string,
+  config?: AxiosRequestConfig
+): Promise<GetProductByIdResult> => {
+  const { data } = await api.get<GetProductByIdResBody>(
+    `${baseUrl}/${productId}`,
+    {
+      ...config,
+    }
+  );
+
+  return data.data;
 };
 
 const getAll = async (
@@ -61,10 +73,12 @@ const remove = async (id: string): Promise<DeleteProductResult> => {
 };
 
 const deductStockForProduct = async (
-  id: string
+  id: string,
+  { quantity }: DeductStockForProductInput
 ): Promise<DeductStockForProductResult> => {
   const { data } = await api.post<DeductStockForProductResBody>(
-    `${baseUrl}/${id}/deduct-stock`
+    `${baseUrl}/${id}/deduct-stock`,
+    { quantity }
   );
 
   return data.data;
