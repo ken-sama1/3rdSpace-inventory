@@ -18,14 +18,15 @@ export const update = async (
       ...(name !== undefined && name !== null && { name }),
       ...(price !== undefined && { price }),
       ...(imageUrl !== undefined && { imageUrl }),
-      ...(!recipeItems !== undefined && {
-        recipeItems: {
-          deleteMany: {},
-          createMany: {
-            data: recipeItems ?? [],
+      ...(recipeItems !== undefined &&
+        recipeItems.length >= 1 && {
+          recipeItems: {
+            deleteMany: {},
+            createMany: {
+              data: recipeItems,
+            },
           },
-        },
-      }),
+        }),
     },
     include: {
       recipeItems: {

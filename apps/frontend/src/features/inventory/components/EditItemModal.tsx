@@ -1,7 +1,10 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
+import AlertBanner from "@/components/ui/banners/AlertBanner";
 import Dialog from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
-import Toast from "@/components/ui/popups/Toast";
+import { useToastContext } from "@/context/ToastContext";
+import useDeleteInventoryItem from "@/hooks/inventory/useDeleteInventoryItem";
+import useUpdateInventoryItem from "@/hooks/inventory/useUpdateInventoryItem";
 import {
   inventoryItemUnits,
   type GetInventoryItemResult,
@@ -9,9 +12,6 @@ import {
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState, type FC } from "react";
-import useDeleteInventoryItem from "@/hooks/inventory/useDeleteInventoryItem";
-import useUpdateInventoryItem from "@/hooks/inventory/useUpdateInventoryItem";
-import AlertBanner from "@/components/ui/banners/AlertBanner";
 
 export interface EditItemModalProps {
   isOpen: boolean;
@@ -24,13 +24,6 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
 
   const [hasChanges, setHasChanges] = useState<boolean>(false);
   const [dialog, setDialog] = useState<"update" | "delete" | null>(null);
-  const [toast, setToast] = useState<{
-    message: string;
-    variant: "success" | "danger" | "info";
-    forceToTop?: boolean;
-    onCloseAction?: () => void;
-  } | null>(null);
-
   const { data, isLoading } = useQuery<GetInventoryItemResult>({
     queryKey: ["inventory-item", itemId],
     queryFn: ({ signal }) => inventoryItemApi.get(itemId, { signal }),
@@ -42,8 +35,9 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
   const { update: updateItem, isPending: updatePending } =
     useUpdateInventoryItem();
 
+  const { showToast } = useToastContext();
+
   const handleCloseAll = () => {
-    // setToast(null);
     setDialog(null);
     if (onClose) {
       onClose();
@@ -54,14 +48,14 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
     try {
       await deleteItem(itemId);
       handleCloseAll();
-      setToast({
+      showToast({
         variant: "success",
         message: "Item successfully deleted",
       });
     } catch (error) {
       console.error(error);
       setDialog(null);
-      setToast({
+      showToast({
         variant: "danger",
         message: "Something went wrong!",
         forceToTop: true,
@@ -96,14 +90,14 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
       });
 
       handleCloseAll();
-      setToast({
+      showToast({
         variant: "success",
         message: "Item successfully updated",
       });
     } catch (error) {
       console.error(error);
       setDialog(null);
-      setToast({
+      showToast({
         variant: "danger",
         message: "Something went wrong!",
         forceToTop: true,
@@ -260,7 +254,7 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
               message="This will permanently delete this item from your inventory."
             />
           ) : (
-            <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
+            <div className="w-full flex flex-col items-center justify-center text-center p-2">
               <AlertBanner
                 variant="info"
                 message="Your updates will take effect immediately."
@@ -268,23 +262,6 @@ const EditItemModal: FC<EditItemModalProps> = ({ isOpen, onClose, itemId }) => {
             </div>
           )}
         </Dialog>
-      )}
-
-      {toast && (
-        <Toast
-          forceToTop={Boolean(toast.forceToTop)}
-          isOpen={true}
-          variant={toast.variant}
-          onClose={() => {
-            if (toast.onCloseAction) {
-              toast.onCloseAction();
-            } else {
-              setToast(null);
-            }
-          }}
-        >
-          {toast.message}
-        </Toast>
       )}
     </>
   );

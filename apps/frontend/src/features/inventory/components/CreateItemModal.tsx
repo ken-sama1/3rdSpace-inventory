@@ -1,10 +1,10 @@
+import AlertBanner from "@/components/ui/banners/AlertBanner";
 import Dialog from "@/components/ui/popups/Dialog";
 import Modal from "@/components/ui/popups/Modal";
-import Toast from "@/components/ui/popups/Toast";
+import { useToastContext } from "@/context/ToastContext";
+import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
 import { useRef, useState } from "react";
-import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
-import AlertBanner from "@/components/ui/banners/AlertBanner";
 
 export interface CreateItemModalProps {
   isOpen: boolean;
@@ -15,18 +15,15 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
   const { create, isPending } = useCreateInventoryItem();
 
   const [dialog, setDialog] = useState<"confirm" | null>(null);
-  const [toast, setToast] = useState<{
-    message: string;
-    variant: "success" | "danger" | "info";
-  } | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
+
+  const { showToast } = useToastContext();
 
   if (!isOpen) return null;
 
   const handleCloseAll = () => {
     setDialog(null);
-    setToast(null);
     if (onClose) {
       onClose();
     }
@@ -58,16 +55,18 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
 
       formRef.current.reset();
 
-      setToast({
+      showToast({
         variant: "success",
         message: "Item created successfully",
+        forceToTop: true,
       });
     } catch (e) {
       console.error(e);
       setDialog(null);
-      setToast({
+      showToast({
         variant: "danger",
         message: "Something went wrong",
+        forceToTop: true,
       });
     }
   };
@@ -197,17 +196,6 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
             variant="info"
           />
         </Dialog>
-      )}
-
-      {toast && (
-        <Toast
-          forceToTop
-          isOpen
-          variant={toast.variant}
-          onClose={() => setToast(null)}
-        >
-          {toast.message}
-        </Toast>
       )}
     </>
   );

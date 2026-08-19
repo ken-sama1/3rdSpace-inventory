@@ -1,5 +1,6 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
 import type {
+  IdParam,
   UpdateInventoryItemInput,
   UpdateInventoryResult,
 } from "@repo/shared";
@@ -14,8 +15,7 @@ const useUpdateInventoryItem = () => {
       Error,
       {
         data: UpdateInventoryItemInput;
-        id: string;
-      }
+      } & IdParam
     >({
       mutationFn: ({ id, data }) => inventoryItemApi.update(id, data),
       mutationKey: ["inventory-items", "update"],

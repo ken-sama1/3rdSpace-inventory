@@ -1,47 +1,56 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
-import type { GetInventoryItemsResult, InventoryItemDto } from "@repo/shared";
-import { useQueries } from "@tanstack/react-query";
+import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
+import type { InventoryItemUnit } from "@repo/shared";
 import { X } from "lucide-react";
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import Dialog, { type DialogProps } from "../ui/popups/Dialog";
 import Modal from "../ui/popups/Modal";
 
+export interface SelectRecipeItemsSelectedItem {
+  // Inventory item id
+  id: string;
+  name: string;
+  // Damn it, I wrote too many quantity even I starting to get confuse
+  /** Quantity of the item requires by the product*/
+  quantity: number;
+  unit: InventoryItemUnit;
+}
+
 export interface SelectRecipeItemsModalProps {
-  productId?: string;
   isOpen: boolean;
   onClose?: () => void;
-  onSave?: (recipeItems: InventoryItemDto[]) => void;
+  onSave?: (recipeItems: SelectRecipeItemsSelectedItem[]) => void;
+  /** Select all ids by default */
+  initialSelectedItems?: SelectRecipeItemsSelectedItem[];
 }
 
 const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
-  productId,
   isOpen,
   onClose,
   onSave,
+  initialSelectedItems = [],
 }) => {
-  const [selectedItems, setSelectedItems] = useState<GetInventoryItemsResult>(
-    []
-  );
+  const [selectedItems, setSelectedItems] = useState<
+    SelectRecipeItemsSelectedItem[]
+  >([]);
 
-  const [dialogStyle, setDialogStyle] = useState<Omit<DialogProps, "onClose">>({
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setSelectedItems(initialSelectedItems);
+  }, [isOpen]);
+
+  const [dialog, setDialog] = useState<Omit<DialogProps, "onClose">>({
     isOpen: false,
     children: null,
   });
-  const [items] = useQueries({
-    queries: [
-      {
-        queryKey: ["items-inventory"],
-        queryFn: ({ signal }) => inventoryItemApi.getAll({}, { signal }),
-      },
-      {
-        queryKey: ["products", productId],
-        queryFn: () => [],
-      },
-    ],
-  });
+
+  const { data: items } = useGetInventoryItems();
+
+  if (!items) return <></>;
 
   return (
     <Modal
+      noBackdrop
       title="Select Recipe Items"
       isOpen={isOpen}
       onClose={() => {
@@ -52,9 +61,9 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
     >
       <Dialog
         noBackdrop={true}
-        {...{ ...dialogStyle }}
+        {...{ ...dialog }}
         onClose={() =>
-          setDialogStyle({
+          setDialog({
             isOpen: false,
             children: null,
           })
@@ -107,8 +116,8 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
             Available Inventory Items
           </h4>
 
-          {items.data &&
-            items.data.map((item) => {
+          {items &&
+            items.map((item) => {
               const isSelected = selectedItems.find((e) => e.id === item.id);
               if (isSelected) return;
 
@@ -143,7 +152,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                 <button
                   title={item.name}
                   onClick={() => {
-                    setDialogStyle({
+                    setDialog({
                       title: item.name,
                       confirmText: "Set",
                       isOpen: true,
@@ -155,7 +164,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                             quantity,
                           },
                         ]);
-                        setDialogStyle({
+                        setDialog({
                           isOpen: false,
                           children: null,
                         });

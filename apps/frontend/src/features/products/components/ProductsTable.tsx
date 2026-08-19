@@ -2,7 +2,7 @@ import Table from "@/components/ui/Table";
 import useGetProducts from "@/hooks/products/useGetProducts";
 import useStockConfig from "@/hooks/useStockConfig";
 import { useState } from "react";
-import ProductDetailModal from "./ProductDetailModal";
+import ProductDetailModal from "./ProductModal";
 import ProductStatusBadge from "./ProductStatusBadge";
 
 const ProductsTable = () => {
@@ -31,12 +31,14 @@ const ProductsTable = () => {
                 );
 
                 return (
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                    <ProductStatusBadge
-                      maxServings={maxServingsCount}
-                      missingItems={missingItemsCount}
-                    />
-                  </div>
+                  <>
+                    <div className="absolute right-10 top-1/2 -translate-y-1/2">
+                      <ProductStatusBadge
+                        maxServings={maxServingsCount}
+                        missingItems={missingItemsCount}
+                      />
+                    </div>
+                  </>
                 );
               },
             },
@@ -48,10 +50,6 @@ const ProductsTable = () => {
               price: {
                 index: 1,
                 colspan: 1,
-              },
-              description: {
-                index: 2,
-                colspan: 3,
               },
               category: {
                 colspan: 2,

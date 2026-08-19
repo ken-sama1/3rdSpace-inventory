@@ -7,9 +7,9 @@ export interface AlertBannerProps {
 
 const AlertBanner: FC<AlertBannerProps> = ({ message, variant = "info" }) => {
   return (
-    <div className="w-full max-w-xs flex flex-col items-center justify-center text-center p-2">
-      <div className={`w-full py-2 px-3 rounded-md border status-${variant}`}>
-        <p className="text-xs opacity-90 mt-0.5">{message}</p>
+    <div className="min-w-sm w-full flex flex-col items-center justify-center text-center p-2">
+      <div className={`w-full py-2 border px-3 rounded-md status-${variant}`}>
+        <p className="text-sm opacity-90">{message}</p>
       </div>
     </div>
   );
