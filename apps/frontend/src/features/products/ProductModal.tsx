@@ -21,6 +21,7 @@ const ProductModal: FC<ProductModalProps> = ({
   if (!product) return <></>;
 
   const handleOnClose = () => {
+    setView("produce");
     if (onClose) {
       onClose();
     }

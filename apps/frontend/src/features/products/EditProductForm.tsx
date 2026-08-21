@@ -7,7 +7,6 @@ import useGetProductById from "@/hooks/products/useGetProductById";
 import useUpdateProduct from "@/hooks/products/useUpdateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
-import { Origami } from "lucide-react";
 
 export interface EditProductFormProps {
   productId: string;

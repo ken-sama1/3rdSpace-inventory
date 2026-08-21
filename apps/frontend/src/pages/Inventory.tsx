@@ -2,9 +2,11 @@ import { LayersPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemsTable from "@/features/inventory/ItemsTable";
+import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 
 const Inventory = () => {
   const [openAddItem, setOpenAddItem] = useState(false);
+  const { data } = useGetInventoryItems();
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
@@ -47,7 +49,7 @@ const Inventory = () => {
       <div className="divider"></div>
 
       <section className="w-full h-[65dvh] overflow-auto">
-        <ItemsTable />
+        {data && <ItemsTable items={data} />}
       </section>
 
       <CreateItemModal

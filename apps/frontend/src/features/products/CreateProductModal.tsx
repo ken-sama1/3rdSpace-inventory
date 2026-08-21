@@ -36,8 +36,9 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
         <div className="w-lg">
           <ProductForm
             formRef={formRef}
-            onSubmit={() => {
+            onSubmit={(_, items) => {
               setDialog("confirm");
+              setRequiredItems(items);
             }}
           />
 

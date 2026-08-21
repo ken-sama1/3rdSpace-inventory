@@ -7,7 +7,10 @@ import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
 // --- Recipe Item ---
 export const recipeItemSchema = z.object({
   inventoryItemId: z.string().min(1, "Inventory Item is required"),
-  quantity: z.coerce.number().positive("Quantity must be greater than zero"),
+  quantity: z.union([
+    z.number(),
+    z.coerce.number().positive("Quantity must be greater than zero"),
+  ]),
 });
 
 export type RecipeItemSchema = z.infer<typeof recipeItemSchema>;
@@ -49,7 +52,7 @@ export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 
 // --- Deduct Stock for Product ---
 export const deductStockForProductSchema = z.object({
-  quantity: z.coerce.number(),
+  quantity: z.union([z.number(), z.coerce.number()]),
   // recipeItems: z
   //   .array(
   //     z.object({

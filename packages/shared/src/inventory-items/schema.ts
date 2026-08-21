@@ -11,7 +11,7 @@ export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
 export const createInventoryItemSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: stringNullableSchema,
-  quantity: z.coerce.number().optional().default(0),
+  quantity: z.union([z.number(), z.coerce.number()]).default(0),
   unit: inventoryItemUnitSchema.default("G"),
   imageUrl: stringNullableSchema,
   category: stringNullableSchema,
@@ -53,7 +53,7 @@ export type GetInventoryItemResBody = ResponseBody<GetInventoryItemResult>;
 
 // --- Stock In ---
 export const stockInInventoryItemSchema = z.object({
-  quantity: z.coerce.number(),
+  quantity: z.union([z.number(), z.coerce.number()]),
 });
 export type StockInInventoryItemSchema = z.infer<
   typeof stockInInventoryItemSchema
@@ -67,14 +67,14 @@ export type StockInInventoryItemResBody =
 
 // --- Stock Out ---
 export const stockOutInventoryItemSchema = z.object({
-  quantity: z.coerce.number(),
+  ...stockInInventoryItemSchema.shape,
   reason: z.string(),
 });
 export type StockOutInventoryItemSchema = z.infer<
   typeof stockOutInventoryItemSchema
 >;
 export type StockOutInventoryItemInput = z.input<
-  typeof stockInInventoryItemSchema
+  typeof stockOutInventoryItemSchema
 >;
 export type StockOutInventoryItemResult = InventoryItemDto;
 export type StockOutInventoryItemResBody =

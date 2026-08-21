@@ -126,7 +126,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
               const element = (
                 <div className="flex flex-col gap-y-3 py-1 w-76">
                   <p className="text-sm!">
-                    Set how much of this item will be used in each purchase
+                    Set how much of this item will be used per production.
                   </p>
 
                   <div className="flex size-full gap-2">

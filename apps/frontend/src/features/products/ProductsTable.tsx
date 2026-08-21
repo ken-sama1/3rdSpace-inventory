@@ -48,17 +48,17 @@ const ProductsTable = () => {
                 colspan: 3,
               },
               price: {
-                index: 1,
+                index: 2,
                 colspan: 1,
               },
               category: {
-                colspan: 2,
+                colspan: 4,
                 value: (v) => {
                   return v ? v : "Uncategorized";
                 },
               },
             },
-            columns: 7,
+            columns: 10,
             exlude: ["id", "recipeItems", "imageUrl", "description"],
           }}
         />

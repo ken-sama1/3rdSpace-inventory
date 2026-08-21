@@ -8,6 +8,12 @@ import type {
   GetInventoryItemResult,
   GetInventoryItemsResBody,
   GetInventoryItemsResult,
+  StockInInventoryItemInput,
+  StockInInventoryItemResBody,
+  StockInInventoryItemResult,
+  StockOutInventoryItemInput,
+  StockOutInventoryItemResBody,
+  StockOutInventoryItemResult,
   UpdateInventoryItemInput,
   UpdateInventoryResult,
 } from "@repo/shared";
@@ -72,10 +78,36 @@ const remove = async (id: string): Promise<DeleteInventoryResult> => {
   return data.data;
 };
 
+const stockIn = async (
+  id: string,
+  { quantity }: StockInInventoryItemInput
+): Promise<StockInInventoryItemResult> => {
+  const { data } = await api.post<StockInInventoryItemResBody>(
+    `${baseUrl}/${id}/stock-in`,
+    { quantity }
+  );
+
+  return data.data;
+};
+
+const stockOut = async (
+  id: string,
+  { quantity, reason }: StockOutInventoryItemInput
+): Promise<StockOutInventoryItemResult> => {
+  const { data } = await api.post<StockOutInventoryItemResBody>(
+    `${baseUrl}/${id}/stock-out`,
+    { quantity, reason }
+  );
+
+  return data.data;
+};
+
 export const inventoryItemApi = {
   get,
   getAll,
   create,
   update,
   delete: remove,
+  stockOut,
+  stockIn,
 };
