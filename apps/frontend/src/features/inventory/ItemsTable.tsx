@@ -1,13 +1,12 @@
 import StockStatus from "@/components/ui/badges/StockStatus";
+import Dialog from "@/components/ui/popups/Dialog";
 import Table from "@/components/ui/Table";
-import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
+import { useToastContext } from "@/context/ToastContext";
+import useStockInInventoryItem from "@/hooks/inventory/useStockInInventoryItem";
 import useStockConfig from "@/hooks/useStockConfig";
+import type { InventoryItemDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import EditItemModal from "./EditItemModal";
-import type { InventoryItemDto } from "@repo/shared";
-import Dialog from "@/components/ui/popups/Dialog";
-import useStockInInventoryItem from "@/hooks/inventory/useStockInInventoryItem";
-import { useToastContext } from "@/context/ToastContext";
 
 interface ItemsTableProps {
   onClickEvent?: "edit" | "stock-in" | "stock-out";

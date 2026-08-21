@@ -3,7 +3,6 @@ import type {
   IdParam,
   StockInInventoryItemInput,
   StockInInventoryItemResult,
-  StockOutInventoryItemInput,
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

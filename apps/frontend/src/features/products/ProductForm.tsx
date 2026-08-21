@@ -18,7 +18,16 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
     useState<boolean>(false);
   const [requiredItems, setRequiredItems] = useState<
     SelectRecipeItemsSelectedItem[]
-  >([]);
+  >(
+    product?.recipeItems.map(({ id, unit, quantity, inventoryItem }) => {
+      return {
+        id,
+        quantity,
+        unit,
+        name: inventoryItem.name,
+      };
+    }) ?? []
+  );
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -151,7 +160,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
                 ? `${requiredItems.length} item${
                     requiredItems.length > 1 ? "s" : ""
                   } selected`
-                : "Select Recipe"}
+                : "Recipe Items"}
             </button>
           </div>
         </div>
