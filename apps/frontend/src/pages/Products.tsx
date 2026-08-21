@@ -1,5 +1,5 @@
-import CreateProductModal from "@/features/products/components/CreateProductModal";
-import ProductsTable from "@/features/products/components/ProductsTable";
+import CreateProductModal from "@/features/products/CreateProductModal";
+import ProductsTable from "@/features/products/ProductsTable";
 import { ListFilter, PlusCircle } from "lucide-react";
 import { useState } from "react";
 

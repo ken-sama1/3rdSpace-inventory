@@ -18,7 +18,7 @@ export const createProductSchema = z.object({
   description: stringNullableSchema,
   imageUrl: stringNullableSchema,
   category: stringNullableSchema,
-  price: z.coerce.number().nonnegative(),
+  price: z.union([z.number(), z.coerce.number().nonnegative()]),
   recipeItems: z.array(recipeItemSchema).default([]),
 });
 

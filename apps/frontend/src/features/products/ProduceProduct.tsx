@@ -210,7 +210,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
             setShowDialog(false);
             showToast({
               variant: "success",
-              message: `Produced ${product.name} ${productQuantity}`,
+              message: `Produced ${productQuantity} ${product.name}`,
               forceToTop: true,
             });
           } catch (error) {

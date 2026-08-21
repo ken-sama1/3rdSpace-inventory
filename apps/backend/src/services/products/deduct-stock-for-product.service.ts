@@ -50,6 +50,15 @@ export const deductStockForProduct = async (
       ),
     });
 
+    await tx.transaction.create({
+      data: {
+        quantity: productQuantity,
+        unitPrice: product.price,
+        transactionPrice: product.price * productQuantity,
+        productId: product.id,
+      },
+    });
+
     return await Promise.all(
       recipeItems.map((item) => {
         const totalDeduction = item.quantity * productQuantity;
