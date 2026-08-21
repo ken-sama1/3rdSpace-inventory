@@ -8,7 +8,7 @@ import useUpdateProduct from "@/hooks/products/useUpdateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 
-export interface EditProductFormProps {
+interface EditProductFormProps {
   productId: string;
   onCancel?: () => void;
   onSave?: () => void;

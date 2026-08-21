@@ -7,7 +7,7 @@ import useGetProductById from "@/hooks/products/useGetProductById";
 import useStockConfig from "@/hooks/useStockConfig";
 import { useState, type FC } from "react";
 
-export interface ProduceProductProps {
+interface ProduceProductProps {
   productId: string;
   onClose?: () => void;
   onEdit?: () => void;

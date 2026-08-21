@@ -4,7 +4,7 @@ import SelectRecipeItemsModal, {
 import type { ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC, type RefObject, type SubmitEvent } from "react";
 
-export interface ProductFormProps {
+interface ProductFormProps {
   onSubmit?: (
     formData: FormData,
     requiredItems: SelectRecipeItemsSelectedItem[]

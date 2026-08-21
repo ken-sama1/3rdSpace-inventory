@@ -17,7 +17,7 @@ const statusMap: Record<string, { label: string; class: string }> = {
   },
 };
 
-export interface ProductCardProps {
+interface ProductCardProps {
   name?: string;
   category?: string;
   price?: number;

@@ -4,7 +4,7 @@ import { useState, type FC } from "react";
 import EditProductForm from "./EditProductForm";
 import ProduceProduct from "./ProduceProduct";
 
-export interface ProductModalProps {
+interface ProductModalProps {
   isOpen: boolean;
   onClose?: () => void;
   productId: string;

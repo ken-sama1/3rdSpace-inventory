@@ -9,7 +9,7 @@ import useCreateProduct from "@/hooks/products/useCreateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 
-export interface CreateProductModalProps {
+interface CreateProductModalProps {
   isOpen: boolean;
   onClose?: () => void;
 }

@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-export interface ProductStatusBadgeProps {
+interface ProductStatusBadgeProps {
   maxServings: number;
   missingItems?: number;
 }

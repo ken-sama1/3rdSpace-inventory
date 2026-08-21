@@ -9,7 +9,7 @@ export const update = async (
   id: string,
   data: UpdateInventoryItemSchema
 ): Promise<UpdateInventoryResult> => {
-  const { name, description, imageUrl, unit } = data;
+  const { name, description, imageUrl, unit, category } = data;
 
   const result = await prisma.inventoryItem.update({
     where: {
@@ -20,6 +20,7 @@ export const update = async (
       ...(description !== undefined && { description }),
       ...(imageUrl !== undefined && { imageUrl }),
       ...(unit && { unit }),
+      ...(category && { category }),
     },
   });
 

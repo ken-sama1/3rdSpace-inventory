@@ -6,7 +6,7 @@ import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
 import { useRef, useState } from "react";
 
-export interface CreateItemModalProps {
+interface CreateItemModalProps {
   isOpen: boolean;
   onClose?: () => void;
 }
