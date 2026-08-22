@@ -14,9 +14,15 @@ interface EditItemFormProps {
   onCancel?: () => void;
   onSave?: () => void;
   item: InventoryItemDto;
+  isActive: boolean;
 }
 
-const EditItemForm: FC<EditItemFormProps> = ({ onCancel, onSave, item }) => {
+const EditItemForm: FC<EditItemFormProps> = ({
+  onCancel,
+  onSave,
+  item,
+  isActive,
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [hasChanges, setHasChanges] = useState<boolean>(false);
@@ -104,12 +110,17 @@ const EditItemForm: FC<EditItemFormProps> = ({ onCancel, onSave, item }) => {
   return (
     <>
       <form
+        style={{
+          ...(!isActive && {
+            display: "none",
+          }),
+        }}
         ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
           setDialog("update");
         }}
-        className="relative w-lg h-full flex flex-col gap-5"
+        className="relative size-full flex flex-col gap-5"
       >
         {/* Form Content Wrapper */}
         <div className="h-auto grid grid-cols-4 gap-y-2 gap-x-5">

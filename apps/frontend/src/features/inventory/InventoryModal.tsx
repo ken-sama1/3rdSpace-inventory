@@ -2,6 +2,7 @@ import Modal from "@/components/ui/popups/Modal";
 import useGetInventoryItem from "@/hooks/inventory/useGetInventoryItem";
 import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";
+import UpdateStockForm from "./UpdateStockForm";
 
 interface InventoryModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ const InventoryModal: FC<InventoryModalProps> = ({
   onClose,
   itemId,
 }) => {
-  const [view, setView] = useState<"stock" | "edit">("edit");
+  const [view, setView] = useState<"stock" | "edit">("stock");
 
   const { data: item, isLoading } = useGetInventoryItem({ itemId });
 
@@ -26,15 +27,23 @@ const InventoryModal: FC<InventoryModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      {view === "edit" && (
+      <div className="w-lg">
         <EditItemForm
           onCancel={() => setView("stock")}
           onSave={onClose}
           item={item}
+          isActive={view === "edit"}
         />
-      )}
 
-      {view === "stock"}
+        <UpdateStockForm
+          isActive={view === "stock"}
+          itemId={itemId}
+          onEdit={() => setView("edit")}
+          onSave={() => {
+            if (onClose) onClose();
+          }}
+        />
+      </div>
     </Modal>
   );
 };

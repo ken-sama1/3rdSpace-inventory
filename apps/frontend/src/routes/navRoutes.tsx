@@ -54,18 +54,18 @@ export const navRoutes: NavRoute[] = [
     element: <Inventory />,
     path: "/inventory",
   },
-  {
-    label: "Stock In",
-    icon: PackagePlusIcon,
-    element: <StockIn />,
-    path: "/stockin",
-  },
-  {
-    label: "Stock Out",
-    icon: PackageMinusIcon,
-    element: <StockOut />,
-    path: "/stockout",
-  },
+  // {
+  //   label: "Stock In",
+  //   icon: PackagePlusIcon,
+  //   element: <StockIn />,
+  //   path: "/stockin",
+  // },
+  // {
+  //   label: "Stock Out",
+  //   icon: PackageMinusIcon,
+  //   element: <StockOut />,
+  //   path: "/stockout",
+  // },
   {
     label: "Reports",
     icon: BarChart3Icon,

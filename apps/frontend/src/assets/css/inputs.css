@@ -23,6 +23,7 @@ input[type="number"] {
 }
 
 input,
+textarea,
 select {
   all: unset;
   @apply px-1.5 border-0 outline-1 outline-(--line) text-sm py-0.5

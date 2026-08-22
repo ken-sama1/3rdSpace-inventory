@@ -86,24 +86,6 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
             />
           </div>
 
-          {/* Description */}
-          <div className="grid col-span-2 gap-y-2">
-            <label
-              htmlFor="product-description"
-              className="text-sm! text-(--text-muted)! font-semibold!"
-            >
-              Description:
-            </label>
-
-            <input
-              defaultValue={product?.description ?? ""}
-              id="product-description"
-              type="text"
-              name="product-description"
-              className="rounded-md! h-7! text-xs!"
-            />
-          </div>
-
           {/* Category */}
           <div className="grid col-span-2 gap-y-2">
             <label
@@ -141,10 +123,10 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
           </div>
 
           {/* Recipe Items */}
-          <div className="grid col-span-2 gap-y-2">
+          <div className="flex flex-col items-start col-span-2 gap-y-2">
             <label
               htmlFor="product-recipe"
-              className="text-sm! text-(--text-muted)! font-semibold!"
+              className="text-sm! text-(--text-muted)! font-semibold! w-full"
             >
               Recipe Items:
             </label>
@@ -154,7 +136,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
                 setShowSelectRecipeModal(true);
               }}
               type="button"
-              className="button-accent rounded-md! h-7! text-xs!"
+              className="button-accent rounded-md! h-7! w-full text-xs!"
             >
               {requiredItems.length > 0
                 ? `${requiredItems.length} item${
@@ -162,6 +144,24 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
                   } selected`
                 : "Recipe Items"}
             </button>
+          </div>
+
+          {/* Description */}
+          <div className="grid col-span-2 gap-y-2">
+            <label
+              htmlFor="product-description"
+              className="text-sm! text-(--text-muted)! font-semibold!"
+            >
+              Description:
+            </label>
+
+            <textarea
+              rows={4}
+              defaultValue={product?.description ?? ""}
+              id="product-description"
+              name="product-description"
+              className="rounded-md! text-auto! text-xs!"
+            />
           </div>
         </div>
       </form>
