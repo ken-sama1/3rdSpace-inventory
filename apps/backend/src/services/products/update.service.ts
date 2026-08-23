@@ -1,5 +1,6 @@
 import { prisma } from "@repo/database";
 import type { UpdateProductResult, UpdateProductSchema } from "@repo/shared";
+import { AppError } from "../../errors/AppError.js";
 import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
 
 export const update = async (
@@ -7,6 +8,21 @@ export const update = async (
   data: UpdateProductSchema
 ): Promise<UpdateProductResult> => {
   const { category, description, name, price, imageUrl, recipeItems } = data;
+
+  const product = await prisma.product.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!product)
+    throw new AppError({
+      message: "Product not found",
+      code: "NOT_FOUND",
+    });
 
   const result = await prisma.product.update({
     where: {

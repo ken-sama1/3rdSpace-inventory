@@ -1,12 +1,18 @@
-import type { GetProductsResBody } from "@repo/shared";
+import {
+  productFilterSchema,
+  validateSchema,
+  type GetProductsResBody,
+  type ProductFilterInput,
+} from "@repo/shared";
 import type { Request, Response } from "express";
 import { productsService } from "../../services/products/index.js";
 
 export const list = async (
-  _req: Request,
+  req: Request<{}, GetProductsResBody, {}, ProductFilterInput>,
   res: Response<GetProductsResBody>
 ): Promise<void> => {
-  const result = await productsService.list();
+  const filter = validateSchema(productFilterSchema, req.query);
+  const result = await productsService.list(filter);
 
   res.status(200).json({
     message: "success",

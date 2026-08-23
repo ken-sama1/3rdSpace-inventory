@@ -16,12 +16,14 @@ export const stockOut = async (
       select: { quantity: true },
     });
 
-    if (!item) {
-      throw new AppError("Item not found", 404);
-    }
+    if (!item)
+      throw new AppError({ message: "Item not found", code: "NOT_FOUND" });
 
     if (quantity > item.quantity) {
-      throw new AppError("Insufficient stock available", 400);
+      throw new AppError({
+        message: "Stock insufficient",
+        code: "STOCK_INSUFFICIENT",
+      });
     }
 
     const updatedItem = await tx.inventoryItem.update({

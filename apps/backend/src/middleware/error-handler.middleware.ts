@@ -7,7 +7,7 @@ export const errorHandler = (
   err: Error,
   _req: Request,
   res: Response<ResponseError>,
-  _next: NextFunction,
+  _next: NextFunction
 ) => {
   if (err instanceof ZodError) {
     res.status(400).json({
@@ -16,6 +16,7 @@ export const errorHandler = (
         field: issue.path.join("."),
         message: issue.message,
       })),
+      code: "VALIDATION_ERROR",
     });
 
     return;
@@ -25,6 +26,7 @@ export const errorHandler = (
     res.status(err.statusCode).json({
       message: err.message,
       errors: err.errors,
+      code: err.code,
     });
 
     return;
@@ -33,5 +35,6 @@ export const errorHandler = (
   res.status(500).json({
     message: "Internal server error",
     errors: [err],
+    code: "INTERNAL_ERROR",
   });
 };

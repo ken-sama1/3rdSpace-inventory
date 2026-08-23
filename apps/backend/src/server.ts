@@ -10,6 +10,7 @@ const app: Express = express();
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.set("query parser", "extended");
 
 app.get("/health", (_, res) => {
   res.send(ALLOWED_ORIGINS);

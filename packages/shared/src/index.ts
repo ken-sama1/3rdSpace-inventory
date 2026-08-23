@@ -1,11 +1,15 @@
 export * from "./Response.js";
 export * from "./common/schema.js";
 export * from "./common/types.js";
+export * from "./errors/ApiError.js";
 export * from "./inventory-items/enums.js";
+export * from "./inventory-items/filter-schema.js";
 export * from "./inventory-items/schema.js";
 export * from "./inventory-items/types.js";
+export * from "./products/filter-schema.js";
 export * from "./products/schema.js";
 export * from "./products/types.js";
 export * from "./products/utils.js";
 export * from "./types/PartialSome.js";
 export * from "./utils/validate-schema.util.js";
+

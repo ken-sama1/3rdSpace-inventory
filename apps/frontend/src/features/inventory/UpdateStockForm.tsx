@@ -3,6 +3,12 @@ import Dialog from "@/components/ui/popups/Dialog";
 import { useToastContext } from "@/context/ToastContext";
 import useStockInInventoryItem from "@/hooks/inventory/useStockInInventoryItem";
 import useStockOutInventoryItem from "@/hooks/inventory/useStockOutInventoryItem";
+import {
+  API_ERROR_CODE_TO_MESSAGE,
+  type ApiErrorCode,
+  type ResponseError,
+} from "@repo/shared";
+import { isAxiosError } from "axios";
 import { useRef, useState, type FC } from "react";
 
 interface UpdateStockFormProps {
@@ -93,10 +99,16 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
     } catch (error) {
       console.error(error);
 
+      let code: ApiErrorCode | undefined;
+
+      if (isAxiosError<ResponseError>(error)) {
+        code = error.response?.data.code;
+      }
+
       setDialog(false);
 
       showToast({
-        message: "Something went wrong!",
+        message: API_ERROR_CODE_TO_MESSAGE[code ?? "UNKNOWN_ERROR"],
         variant: "danger",
       });
     }

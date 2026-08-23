@@ -4,10 +4,14 @@ import { useToastContext } from "@/context/ToastContext";
 import useDeleteInventoryItem from "@/hooks/inventory/useDeleteInventoryItem";
 import useUpdateInventoryItem from "@/hooks/inventory/useUpdateInventoryItem";
 import {
+  API_ERROR_CODE_TO_MESSAGE,
+  ApiErrorCode,
   inventoryItemUnits,
   type InventoryItemDto,
   type InventoryItemUnit,
+  type ResponseError,
 } from "@repo/shared";
+import { isAxiosError } from "axios";
 import { useRef, useState, type FC } from "react";
 
 interface EditItemFormProps {
@@ -55,11 +59,17 @@ const EditItemForm: FC<EditItemFormProps> = ({
         message: "Item successfully deleted",
       });
     } catch (error) {
-      console.error(error);
+      let code: ApiErrorCode | undefined;
+
       setDialog(null);
+
+      if (isAxiosError<ResponseError>(error)) {
+        code = error.response?.data.code;
+      }
+
       showToast({
         variant: "danger",
-        message: "Something went wrong!",
+        message: API_ERROR_CODE_TO_MESSAGE[code ?? "UNKNOWN_ERROR"],
         forceToTop: true,
       });
     }

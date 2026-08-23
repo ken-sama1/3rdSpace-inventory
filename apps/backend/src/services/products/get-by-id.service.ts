@@ -16,7 +16,11 @@ export const getById = async (id: string) => {
     },
   });
 
-  if (!result) throw new AppError("Product not found", 404);
+  if (!result)
+    throw new AppError({
+      message: "Product not found",
+      code: "NOT_FOUND",
+    });
 
   return toProductWithInventoryItemsDto(result);
 };

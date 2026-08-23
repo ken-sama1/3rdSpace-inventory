@@ -5,6 +5,12 @@ import { useToastContext } from "@/context/ToastContext";
 import useDeductStockForProduct from "@/hooks/products/useDeductStockForProduct";
 import useGetProductById from "@/hooks/products/useGetProductById";
 import useStockConfig from "@/hooks/useStockConfig";
+import {
+  API_ERROR_CODE_TO_MESSAGE,
+  type ApiErrorCode,
+  type ResponseError,
+} from "@repo/shared";
+import { isAxiosError } from "axios";
 import { useState, type FC } from "react";
 
 interface ProduceProductProps {
@@ -214,11 +220,17 @@ const ProduceProduct: FC<ProduceProductProps> = ({
               forceToTop: true,
             });
           } catch (error) {
-            console.error(error);
             setShowDialog(false);
+            console.error(error);
+            let code: ApiErrorCode | undefined;
+
+            if (isAxiosError<ResponseError>(error)) {
+              code = error.response?.data.code;
+            }
+
             showToast({
               variant: "danger",
-              message: "Something went wrong!",
+              message: API_ERROR_CODE_TO_MESSAGE[code ?? "STOCK_INSUFFICIENT"],
               forceToTop: true,
             });
           }

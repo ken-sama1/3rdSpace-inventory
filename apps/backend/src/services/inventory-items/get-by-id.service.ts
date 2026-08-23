@@ -9,7 +9,11 @@ export const getById = async (id: string): Promise<GetInventoryItemResult> => {
     },
   });
 
-  if (!result) throw new AppError("Item not found", 404);
+  if (!result)
+    throw new AppError({
+      message: "Item Not Found",
+      code: "NOT_FOUND",
+    });
 
   const { createdAt, updatedAt, ...rest } = result;
 

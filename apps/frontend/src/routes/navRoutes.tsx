@@ -4,16 +4,12 @@ import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
 import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
-import StockIn from "@/pages/StockIn";
-import StockOut from "@/pages/StockOut";
 import {
   BarChart3Icon,
   FolderTreeIcon,
   LayersIcon,
   LayoutDashboardIcon,
   PackageIcon,
-  PackageMinusIcon,
-  PackagePlusIcon,
   SettingsIcon,
   type LucideProps,
 } from "lucide-react";
@@ -54,18 +50,6 @@ export const navRoutes: NavRoute[] = [
     element: <Inventory />,
     path: "/inventory",
   },
-  // {
-  //   label: "Stock In",
-  //   icon: PackagePlusIcon,
-  //   element: <StockIn />,
-  //   path: "/stockin",
-  // },
-  // {
-  //   label: "Stock Out",
-  //   icon: PackageMinusIcon,
-  //   element: <StockOut />,
-  //   path: "/stockout",
-  // },
   {
     label: "Reports",
     icon: BarChart3Icon,

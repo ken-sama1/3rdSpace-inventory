@@ -23,7 +23,17 @@ export const deductStockForProduct = async (
     },
   });
 
-  if (!product) throw new AppError("Product not found", 404);
+  if (!product)
+    throw new AppError({
+      message: "Product not found",
+      code: "NOT_FOUND",
+    });
+
+  const insufficientStocks: {
+    name: string;
+    required: number;
+    available: number;
+  }[] = [];
 
   const recipeItems = product.recipeItems;
 
@@ -32,10 +42,19 @@ export const deductStockForProduct = async (
     const stockQuantity = recipeItem.inventoryItem.quantity;
 
     if (requiredQuantity > stockQuantity)
-      throw new AppError(
-        `Insufficient stock of "${recipeItem.inventoryItem.name}". Required: ${recipeItem.quantity} Available Stock: ${stockQuantity}`,
-        400
-      );
+      insufficientStocks.push({
+        name: recipeItem.inventoryItem.name,
+        required: recipeItem.quantity,
+        available: recipeItem.inventoryItem.quantity,
+      });
+  }
+
+  if (insufficientStocks.length) {
+    throw new AppError({
+      message: "Stock insufficient",
+      code: "STOCK_INSUFFICIENT",
+      errors: insufficientStocks,
+    });
   }
 
   const updatedItems = await prisma.$transaction(async (tx) => {
