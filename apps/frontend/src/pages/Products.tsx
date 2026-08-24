@@ -1,11 +1,30 @@
 import CreateProductModal from "@/features/products/CreateProductModal";
 import ProductsTable from "@/features/products/ProductsTable";
+import useGetProducts from "@/hooks/products/useGetProducts";
+import { debounce } from "@/utils/debounce";
 import { ListFilter, PlusCircle } from "lucide-react";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import qs from "qs";
+import type { InventoryItemFilterSchema } from "@repo/shared";
 
 const Products = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramsEntries = Array.from(searchParams.entries()).map(([k, v]) => [
+    k,
+    v,
+  ]);
+  const params = Object.fromEntries(paramsEntries);
+
   const [showCreateProductModal, setShowProductModal] =
     useState<boolean>(false);
+  const { data: products } = useGetProducts(
+    qs.parse(params) as InventoryItemFilterSchema
+  );
+
+  const updateSearch = debounce((query: string) => {
+    setSearchParams(qs.stringify({ name: query }));
+  }, 1000);
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
@@ -14,6 +33,9 @@ const Products = () => {
         {/* Search Bar & Filter */}
         <div className="flex gap-2">
           <input
+            onChange={(e) => {
+              updateSearch(e.target.value);
+            }}
             type="search"
             className="text-xs! rounded-sm! w-50! h-full! py-0!"
             placeholder="Search products..."
@@ -48,7 +70,7 @@ const Products = () => {
       <div className="divider"></div>
 
       <section className="w-full h-[65dvh] flex gap-6 overflow-auto">
-        <ProductsTable />
+        {products && <ProductsTable products={products} />}
       </section>
 
       <CreateProductModal

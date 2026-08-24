@@ -1,4 +1,4 @@
-import StockStatus from "@/components/ui/badges/StockStatus";
+import StockStatus from "@/components/ui/StockStatus";
 import Table from "@/components/ui/Table";
 import useStockConfig from "@/hooks/useStockConfig";
 import type { InventoryItemDto } from "@repo/shared";

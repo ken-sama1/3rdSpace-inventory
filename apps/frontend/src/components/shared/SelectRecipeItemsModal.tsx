@@ -2,8 +2,8 @@ import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import type { InventoryItemUnit } from "@repo/shared";
 import { X } from "lucide-react";
 import { useEffect, useState, type FC } from "react";
-import Dialog, { type DialogProps } from "../ui/popups/Dialog";
-import Modal from "../ui/popups/Modal";
+import Dialog, { type DialogProps } from "../ui/Dialog";
+import Modal from "../ui/Modal";
 
 export interface SelectRecipeItemsSelectedItem {
   // Inventory item id

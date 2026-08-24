@@ -11,6 +11,7 @@ import type {
   GetProductByIdResult,
   GetProductsResBody,
   GetProductsResult,
+  ProductFilterSchema,
   UpdateProductInput,
   UpdateProductResBody,
   UpdateProductResult,
@@ -35,10 +36,13 @@ const get = async (
 };
 
 const getAll = async (
-  _filter: {},
+  filter: ProductFilterSchema = {},
   config: AxiosRequestConfig
 ): Promise<GetProductsResult> => {
-  const { data } = await api.get<GetProductsResBody>(baseUrl, { ...config });
+  const { data } = await api.get<GetProductsResBody>(baseUrl, {
+    ...config,
+    params: filter,
+  });
 
   return data.data;
 };

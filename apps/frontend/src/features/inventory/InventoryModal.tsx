@@ -1,4 +1,4 @@
-import Modal from "@/components/ui/popups/Modal";
+import Modal from "@/components/ui/Modal";
 import useGetInventoryItem from "@/hooks/inventory/useGetInventoryItem";
 import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";

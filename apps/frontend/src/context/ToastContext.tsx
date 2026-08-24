@@ -1,5 +1,5 @@
-import type { ToastProps } from "@/components/ui/popups/Toast";
-import Toast from "@/components/ui/popups/Toast";
+import type { ToastProps } from "@/components/ui/Toast";
+import Toast from "@/components/ui/Toast";
 import {
   createContext,
   useContext,

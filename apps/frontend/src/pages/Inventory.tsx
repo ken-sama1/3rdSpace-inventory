@@ -1,12 +1,46 @@
-import { LayersPlus, ListFilter } from "lucide-react";
-import { useState } from "react";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemsTable from "@/features/inventory/ItemsTable";
 import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
+import { debounce } from "@/utils/debounce";
+import type { InventoryItemFilterSchema } from "@repo/shared";
+import { LayersPlus, ListFilter } from "lucide-react";
+import qs from "qs";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Inventory = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const paramsEntries = Array.from(searchParams.entries()).map(([k, v]) => [
+    k,
+    v,
+  ]);
+  const params = Object.fromEntries(paramsEntries);
+
   const [openAddItem, setOpenAddItem] = useState(false);
-  const { data } = useGetInventoryItems();
+  const { data } = useGetInventoryItems(
+    qs.parse(params) as InventoryItemFilterSchema
+  );
+
+  const updateSearch = debounce((query: string) => {
+    setSearchParams(qs.stringify({ name: query }));
+    if (searchParams.size) updateFilter();
+  }, 1000);
+
+  const updateFilter = debounce(() => {
+    const filter = {
+      quantity: {
+        gte: 100,
+      },
+    };
+
+    setSearchParams(() => {
+      return qs.stringify({
+        ...params,
+        ...filter,
+      });
+    });
+  }, 1000);
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
@@ -15,6 +49,9 @@ const Inventory = () => {
         {/* Search Bar & Filter */}
         <div className="flex gap-2">
           <input
+            onChange={(e) => {
+              updateSearch(e.target.value);
+            }}
             type="search"
             className="text-xs! rounded-sm! w-50! h-full! py-0!"
             placeholder="Search items..."

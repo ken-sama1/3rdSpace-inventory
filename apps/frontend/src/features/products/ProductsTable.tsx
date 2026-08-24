@@ -1,21 +1,24 @@
 import Table from "@/components/ui/Table";
-import useGetProducts from "@/hooks/products/useGetProducts";
 import useStockConfig from "@/hooks/useStockConfig";
-import { useState } from "react";
+import type { ProductWithInventoryItemsDto } from "@repo/shared";
+import { useState, type FC } from "react";
 import ProductDetailModal from "./ProductModal";
 import ProductStatusBadge from "./ProductStatusBadge";
 
-const ProductsTable = () => {
-  const { data } = useGetProducts();
+interface ProductsTableProps {
+  products: ProductWithInventoryItemsDto[];
+}
+
+const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
   const { getMaxServings } = useStockConfig();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [productId, setProductId] = useState<string | null>(null);
 
   return (
     <section className="w-full ">
-      {data && data.length > 0 && (
+      {products && products.length > 0 && (
         <Table
-          data={data}
+          data={products}
           options={{
             row: {
               onClick: (v) => {
@@ -25,9 +28,9 @@ const ProductsTable = () => {
               style: {
                 cursor: "pointer",
               },
-              element: (rowData) => {
+              element: (rowproducts) => {
                 const { maxServingsCount, missingItemsCount } = getMaxServings(
-                  rowData.recipeItems
+                  rowproducts.recipeItems
                 );
 
                 return (

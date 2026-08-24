@@ -1,6 +1,6 @@
-import AlertBanner from "@/components/ui/banners/AlertBanner";
-import Dialog from "@/components/ui/popups/Dialog";
-import Modal from "@/components/ui/popups/Modal";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog from "@/components/ui/Dialog";
+import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
 import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
 import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";

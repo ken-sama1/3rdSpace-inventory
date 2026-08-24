@@ -1,10 +1,11 @@
 import { productsApi } from "@/api/products.api";
+import type { ProductFilterSchema } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetProducts = () => {
+const useGetProducts = (filter: ProductFilterSchema = {}) => {
   const { isLoading, data, isError, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: ({ signal }) => productsApi.getAll({}, { signal }),
+    queryKey: ["products", filter],
+    queryFn: ({ signal }) => productsApi.getAll(filter, { signal }),
   });
 
   return {

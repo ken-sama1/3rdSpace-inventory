@@ -1,9 +1,9 @@
 import SelectRecipeItemsModal, {
   type SelectRecipeItemsSelectedItem,
 } from "@/components/shared/SelectRecipeItemsModal";
-import AlertBanner from "@/components/ui/banners/AlertBanner";
-import Dialog from "@/components/ui/popups/Dialog";
-import Modal from "@/components/ui/popups/Modal";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog from "@/components/ui/Dialog";
+import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
 import useCreateProduct from "@/hooks/products/useCreateProduct";
 import { useRef, useState, type FC } from "react";

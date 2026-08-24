@@ -1,6 +1,6 @@
 import type { SelectRecipeItemsSelectedItem } from "@/components/shared/SelectRecipeItemsModal";
-import AlertBanner from "@/components/ui/banners/AlertBanner";
-import Dialog from "@/components/ui/popups/Dialog";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
 import useDeleteProduct from "@/hooks/products/useDeleteProduct";
 import useGetProductById from "@/hooks/products/useGetProductById";

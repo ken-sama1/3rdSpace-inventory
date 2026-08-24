@@ -8,6 +8,7 @@ import type {
   GetInventoryItemResult,
   GetInventoryItemsResBody,
   GetInventoryItemsResult,
+  InventoryItemFilterSchema,
   StockInInventoryItemInput,
   StockInInventoryItemResBody,
   StockInInventoryItemResult,
@@ -37,11 +38,15 @@ const get = async (
  * Remember to add filter
  * */
 const getAll = async (
-  _filter?: {},
+  filter: InventoryItemFilterSchema = {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
+  console.log(filter);
   const { data } = await api.get<GetInventoryItemsResBody>(baseUrl, {
     ...config,
+    params: {
+      ...filter,
+    },
   });
 
   return data.data;

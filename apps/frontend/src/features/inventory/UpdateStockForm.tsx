@@ -1,5 +1,5 @@
-import AlertBanner from "@/components/ui/banners/AlertBanner";
-import Dialog from "@/components/ui/popups/Dialog";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
 import useStockInInventoryItem from "@/hooks/inventory/useStockInInventoryItem";
 import useStockOutInventoryItem from "@/hooks/inventory/useStockOutInventoryItem";
