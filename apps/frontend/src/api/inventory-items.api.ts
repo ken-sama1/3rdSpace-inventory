@@ -41,7 +41,6 @@ const getAll = async (
   filter: InventoryItemFilterSchema = {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
-  console.log(filter);
   const { data } = await api.get<GetInventoryItemsResBody>(baseUrl, {
     ...config,
     params: {

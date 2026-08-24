@@ -1,11 +1,5 @@
-import Collapsible from "@/components/ui/Collapsible";
-
 const Categories = () => {
-  return (
-    <div>
-      <Collapsible isOpen>nu</Collapsible>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Categories;

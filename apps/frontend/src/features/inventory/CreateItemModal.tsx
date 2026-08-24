@@ -20,7 +20,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
 
   const { showToast } = useToastContext();
 
-  if (!isOpen) return null;
+  if (!isOpen) return <></>;
 
   const handleCloseAll = () => {
     setDialog(null);
