@@ -1,4 +1,4 @@
-import type { InventoryItem } from "@repo/database";
+import type { InventoryItem, InventoryItemCategory } from "@repo/database";
 import type { InventoryItemDto, PartialSome } from "@repo/shared";
 
 export const toInventoryItemDto = ({
@@ -9,11 +9,14 @@ export const toInventoryItemDto = ({
   imageUrl,
   name,
   unit,
-}: PartialSome<InventoryItem, "createdAt" | "updatedAt">): InventoryItemDto => {
+}: PartialSome<
+  InventoryItem & { category: InventoryItemCategory | null },
+  "createdAt" | "updatedAt" | "category"
+>): InventoryItemDto => {
   return {
     id,
     quantity,
-    category,
+    category: category?.name ?? null,
     description,
     imageUrl,
     name,

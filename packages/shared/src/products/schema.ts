@@ -20,7 +20,7 @@ export const createProductSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: stringNullableSchema,
   imageUrl: stringNullableSchema,
-  category: stringNullableSchema,
+  categoryId: stringNullableSchema,
   price: z.union([z.number(), z.coerce.number().nonnegative()]),
   recipeItems: z.array(recipeItemSchema).default([]),
 });

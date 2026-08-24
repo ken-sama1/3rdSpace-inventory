@@ -25,7 +25,11 @@ export const remove = async (id: string) => {
     include: {
       recipeItems: {
         include: {
-          inventoryItem: true,
+          inventoryItem: {
+            include: {
+              category: true,
+            },
+          },
         },
       },
     },

@@ -10,7 +10,11 @@ export const getById = async (id: string) => {
     include: {
       recipeItems: {
         include: {
-          inventoryItem: true,
+          inventoryItem: {
+            include: {
+              category: true,
+            },
+          },
         },
       },
     },

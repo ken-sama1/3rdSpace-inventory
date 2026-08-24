@@ -13,7 +13,7 @@ export const stockOut = async (
   const result = await prisma.$transaction(async (tx) => {
     const item = await tx.inventoryItem.findUnique({
       where: { id },
-      select: { quantity: true },
+      select: { quantity: true, name: true },
     });
 
     if (!item)
@@ -33,12 +33,16 @@ export const stockOut = async (
           decrement: quantity,
         },
       },
+      include: {
+        category: true,
+      },
     });
 
     await tx.inventoryLog.create({
       data: {
         inventoryItemId: id,
         quantityChange: -Math.abs(quantity),
+        itemName: item.name,
         reason,
       },
     });

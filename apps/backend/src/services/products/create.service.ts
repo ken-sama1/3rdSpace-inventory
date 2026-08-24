@@ -8,7 +8,7 @@ export const create = async (
   const result = await prisma.product.create({
     data: {
       name: data.name,
-      category: data.category,
+      categoryId: data.category,
       description: data.description,
       imageUrl: data.imageUrl,
       price: data.price,
@@ -27,7 +27,11 @@ export const create = async (
     include: {
       recipeItems: {
         include: {
-          inventoryItem: true,
+          inventoryItem: {
+            include: {
+              category: true,
+            },
+          },
         },
       },
     },

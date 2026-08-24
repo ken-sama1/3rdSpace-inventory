@@ -1,13 +1,14 @@
 model Product {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
   imageUrl    String?
-  category    String?
-  price       Int          @default(0)
+  categoryId  String?          @db.ObjectId
+  category    ProductCategory? @relation(fields: [categoryId], references: [id])
+  price       Int              @default(0)
   recipeItems RecipeItem[]
-  createdAt   DateTime?    @default(now())
-  updatedAt   DateTime?    @updatedAt
+  createdAt   DateTime?        @default(now())
+  updatedAt   DateTime?        @updatedAt
 
   transactions Transaction[]
 

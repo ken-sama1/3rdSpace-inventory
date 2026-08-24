@@ -103,7 +103,7 @@ const Toast: FC<ToastProps> = ({
               />
             )}
 
-            <div className="w-full h-full flex flex-col text-inherit! text-sm!">
+            <div className="w-full h-full flex flex-col text-sm!">
               {children}
             </div>
             <button

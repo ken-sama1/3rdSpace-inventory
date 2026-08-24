@@ -74,7 +74,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
           const price = formData.get("product-price") as number | null;
           const description = formData.get("product-description") as
             string | undefined;
-          const category = formData.get("product-category") as
+          const categoryId = formData.get("product-category") as
             string | undefined;
           const image = formData.get("product-image") as
             { name: string } | undefined;
@@ -83,9 +83,9 @@ const EditProductForm: FC<EditProductFormProps> = ({
             id: productId,
             data: {
               name,
-              price: Number(price),
+              price,
               description,
-              category,
+              categoryId,
               imageUrl: image?.name,
               ...(requiredItems.length >= 1 && {
                 recipeItems: requiredItems.map((item) => {

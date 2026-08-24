@@ -15,7 +15,7 @@ export const list = async (
   filter?: InventoryItemFilterSchema
 ): Promise<GetInventoryItemsResult> => {
   const {
-    category = null,
+    categoryId = null,
     name = null,
     description = null,
     quantity = null,
@@ -35,7 +35,7 @@ export const list = async (
           ...toNumberFilter(quantity),
         },
       }),
-      ...(category !== null && { category: toInFilter(category) }),
+      ...(categoryId !== null && { categoryId: toInFilter(categoryId) }),
       ...(unit !== null && { unit: toInFilter(unit) }),
       ...(description !== null && {
         description: {
@@ -48,6 +48,9 @@ export const list = async (
           ...toDateFilter(createdAt),
         },
       }),
+    },
+    include: {
+      category: true,
     },
   });
 

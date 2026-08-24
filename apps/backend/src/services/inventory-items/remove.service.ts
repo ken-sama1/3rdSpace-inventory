@@ -1,6 +1,7 @@
 import { prisma } from "@repo/database";
 import type { DeleteInventoryResult } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
+import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const remove = async (id: string): Promise<DeleteInventoryResult> => {
   const item = await prisma.inventoryItem.findUnique({
@@ -37,11 +38,14 @@ export const remove = async (id: string): Promise<DeleteInventoryResult> => {
     where: {
       id,
     },
+    include: {
+      category: true,
+    },
   });
 
   return {
     createdAt: createdAt.toISOString(),
     updatedAt: createdAt.toISOString(),
-    ...rest,
+    ...toInventoryItemDto(rest),
   };
 };

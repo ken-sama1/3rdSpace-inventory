@@ -3,6 +3,8 @@ model InventoryLog {
   inventoryItemId String        @db.ObjectId
   inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
   quantityChange  Float
+  itemName        String
+  price           Float         @default(0)
   reason          String
   createdAt       DateTime      @default(now())
 

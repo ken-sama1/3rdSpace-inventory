@@ -1,4 +1,9 @@
-import type { InventoryItem, Product, RecipeItem } from "@repo/database";
+import type {
+  InventoryItem,
+  Product,
+  ProductCategory,
+  RecipeItem,
+} from "@repo/database";
 import type {
   PartialSome,
   ProductDto,
@@ -8,8 +13,8 @@ import type {
 import { toInventoryItemDto } from "./inventory-item.mapper.js";
 
 type ToProductWithInventoryItemsDto = PartialSome<
-  Product,
-  "createdAt" | "updatedAt"
+  Product & { category: ProductCategory },
+  "createdAt" | "updatedAt" | "category"
 > & {
   recipeItems: (PartialSome<RecipeItem, "productId"> & {
     product?: ProductDto;
@@ -25,11 +30,13 @@ export const toProductDto = ({
   imageUrl,
   price,
   recipeItems,
-}: ToProductWithInventoryItemsDto): ProductDto => {
+}: ToProductWithInventoryItemsDto & {
+  category?: ProductCategory;
+}): ProductDto => {
   return {
     price,
     id,
-    category,
+    category: category?.name ?? null,
     description,
     imageUrl,
     name,
@@ -55,7 +62,7 @@ export const toProductWithInventoryItemsDto = ({
 }: ToProductWithInventoryItemsDto): ProductWithInventoryItemsDto => {
   return {
     id,
-    category,
+    category: category?.name ?? null,
     description,
     imageUrl,
     name,

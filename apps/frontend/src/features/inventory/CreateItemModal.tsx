@@ -40,17 +40,17 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
         : null;
       const description = form.get("item-description") as string | null;
       const imageUrl = form.get("item-image") as string | null;
-      const category = form.get("item-category") as string | null;
+      const categoryId = form.get("item-category") as string | null;
 
       setDialog(null);
 
       await create({
         name: form.get("item-name") as string,
         unit: form.get("item-unit") as InventoryItemUnit,
-        ...(description && { description }),
-        ...(quantity !== null && !isNaN(quantity) && { quantity }),
-        ...(imageUrl && { imageUrl }),
-        ...(category && { category }),
+        quantity,
+        description,
+        imageUrl,
+        categoryId,
       });
 
       formRef.current.reset();

@@ -82,22 +82,19 @@ const EditItemForm: FC<EditItemFormProps> = ({
       const formitem = new FormData(formRef.current);
 
       const name = formitem.get("item-name") as string | undefined;
-      const quantityStr = formitem.get("item-quantity") as string | null;
-      const quantity = quantityStr ? Number(quantityStr) : undefined;
       const unit = formitem.get("item-unit") as InventoryItemUnit | undefined;
       const imageUrl = formitem.get("item-image") as string | undefined;
-      const category = formitem.get("item-category") as string | undefined;
+      const categoryId = formitem.get("item-category") as string | undefined;
       const description = formitem.get("item-description") as
         string | undefined;
       await updateItem({
         id: item.id,
         data: {
-          ...(name && { name }),
-          ...(quantity !== undefined && !isNaN(quantity) && { quantity }),
-          ...(unit && { unit }),
-          ...(imageUrl && { imageUrl }),
-          ...(category && { category }),
-          ...(description && { description }),
+          name,
+          categoryId,
+          description,
+          unit,
+          imageUrl,
         },
       });
 

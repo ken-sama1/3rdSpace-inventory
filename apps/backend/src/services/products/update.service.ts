@@ -7,7 +7,7 @@ export const update = async (
   id: string,
   data: UpdateProductSchema
 ): Promise<UpdateProductResult> => {
-  const { category, description, name, price, imageUrl, recipeItems } = data;
+  const { categoryId, description, name, price, imageUrl, recipeItems } = data;
 
   const product = await prisma.product.findUnique({
     where: {
@@ -29,7 +29,7 @@ export const update = async (
       id,
     },
     data: {
-      ...(category !== undefined && { category }),
+      ...(categoryId !== undefined && { categoryId }),
       ...(description !== undefined && { description }),
       ...(name !== undefined && name !== null && { name }),
       ...(price !== undefined && { price }),

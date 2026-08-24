@@ -16,6 +16,7 @@ export const stockIn = async (
     },
     select: {
       id: true,
+      name: true,
     },
   });
 
@@ -35,12 +36,16 @@ export const stockIn = async (
           increment: quantity,
         },
       },
+      include: {
+        category: true,
+      },
     }),
     prisma.inventoryLog.create({
       data: {
         inventoryItemId: id,
         quantityChange: quantity,
         reason: `Stock in`,
+        itemName: item.name,
       },
     }),
   ]);

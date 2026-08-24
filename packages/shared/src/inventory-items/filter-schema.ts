@@ -5,7 +5,7 @@ import { isoDateFilterSchema, numberFilterSchema } from "../common/schema.js";
 export const inventoryItemFilterSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
-  category: z.array(z.string()).optional(),
+  categoryId: z.array(z.string()).optional(),
   createdAt: isoDateFilterSchema.optional(),
   quantity: numberFilterSchema.optional(),
   unit: z.array(inventoryItemUnitSchema).optional(),

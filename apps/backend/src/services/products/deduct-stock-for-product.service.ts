@@ -65,6 +65,7 @@ export const deductStockForProduct = async (
             quantityChange: -Math.abs(item.quantity * productQuantity),
             reason: `Production/Sale of ${product.name}`,
             inventoryItemId: item.inventoryItemId,
+            itemName: item.inventoryItem.name,
           }) satisfies Prisma.InventoryLogCreateArgs["data"]
       ),
     });
@@ -90,6 +91,9 @@ export const deductStockForProduct = async (
             quantity: {
               decrement: totalDeduction,
             },
+          },
+          include: {
+            category: true,
           },
         });
       })

@@ -14,7 +14,7 @@ export const createInventoryItemSchema = z.object({
   quantity: z.union([z.number(), z.coerce.number()]).default(0),
   unit: inventoryItemUnitSchema.default("G"),
   imageUrl: stringNullableSchema,
-  category: stringNullableSchema,
+  categoryId: stringNullableSchema,
 });
 export type CreateInventoryItemInput = z.input<
   typeof createInventoryItemSchema

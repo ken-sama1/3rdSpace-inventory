@@ -1,5 +1,4 @@
 import { prisma } from "@repo/database";
-import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
 import type { GetProductsResult, ProductFilterSchema } from "@repo/shared";
 import {
   toDateFilter,
@@ -7,6 +6,7 @@ import {
   toNumberFilter,
   toStringFilter,
 } from "../utils/filter.mapper.js";
+import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
 
 export const list = async (
   filter?: ProductFilterSchema
@@ -14,7 +14,7 @@ export const list = async (
   const {
     name = null,
     description = null,
-    category = null,
+    categoryId = null,
     price = null,
     createdAt = null,
   } = filter ?? {};
@@ -32,8 +32,8 @@ export const list = async (
           mode: "insensitive",
         },
       }),
-      ...(category !== null && {
-        category: toInFilter(category),
+      ...(categoryId !== null && {
+        categoryId: toInFilter(categoryId),
       }),
       ...(price !== null && { price: toNumberFilter(price) }),
       ...(createdAt !== null && { createdAt: toDateFilter(createdAt) }),
@@ -45,7 +45,11 @@ export const list = async (
     include: {
       recipeItems: {
         include: {
-          inventoryItem: true,
+          inventoryItem: {
+            include: {
+              category: true,
+            },
+          },
         },
       },
     },

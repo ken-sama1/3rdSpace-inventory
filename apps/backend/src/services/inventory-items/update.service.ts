@@ -10,7 +10,7 @@ export const update = async (
   id: string,
   data: UpdateInventoryItemSchema
 ): Promise<UpdateInventoryResult> => {
-  const { name, description, imageUrl, unit, category } = data;
+  const { name, description, imageUrl, unit, categoryId } = data;
 
   const item = await prisma.inventoryItem.findUnique({
     where: {
@@ -33,7 +33,10 @@ export const update = async (
       ...(description !== undefined && { description }),
       ...(imageUrl !== undefined && { imageUrl }),
       ...(unit && { unit }),
-      ...(category && { category }),
+      ...(categoryId && { categoryId }),
+    },
+    include: {
+      category: true,
     },
   });
 
