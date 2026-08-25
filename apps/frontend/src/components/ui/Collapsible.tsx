@@ -43,16 +43,16 @@ const Collapsible: FC<CollapsibleProps> = ({
         <motion.div
           ref={containerRef}
           initial={{
+            height: 10,
             opacity: 0,
-            scale: 0,
           }}
           animate={{
             opacity: 1,
-            scale: 1,
+            height: "100%",
           }}
           exit={{
             opacity: 0,
-            scale: 0,
+            height: 10,
           }}
           transition={{
             type: "spring",

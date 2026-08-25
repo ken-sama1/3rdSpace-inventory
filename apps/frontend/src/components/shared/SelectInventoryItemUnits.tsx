@@ -21,7 +21,7 @@ const SelectInventoryItemUnits: FC<SelectInventoryItemUnitsProps> = ({
     if (isSelectedAll) setSelectedUnits([]);
 
     if (onChange) onChange(selectedUnits);
-  }, [selectedUnits]);
+  }, [selectedUnits, onChange]);
 
   return (
     <div className="size-full  grid">
