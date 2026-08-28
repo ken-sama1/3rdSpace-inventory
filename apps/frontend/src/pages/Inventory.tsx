@@ -6,6 +6,8 @@ import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import { debounce } from "@/utils/debounce";
 import {
   getInventoryItemsReqQuerySchema,
+  inventoryItemOptionsSchema,
+  type GetInventoryItemsReqQuery,
   type InventoryItemFilterSchema,
 } from "@repo/shared";
 import { LayersPlus, SlidersHorizontal } from "lucide-react";
@@ -32,13 +34,12 @@ const Inventory = () => {
     );
   }, 1000);
 
-  const updateFilter = debounce(
-    ({
-      description,
-      categoryId,
-      quantity,
-      unit,
-    }: InventoryItemFilterSchema = {}) => {
+  const updateSearchParams = debounce(
+    ({ filter = {}, options = {} }: GetInventoryItemsReqQuery) => {
+      const { description, categoryId, quantity, unit } = filter;
+
+      const { sortBy, order } = options;
+
       setSearchParams(() => {
         return qs.stringify({
           filter: {
@@ -47,7 +48,13 @@ const Inventory = () => {
             categoryId,
             quantity,
             unit,
-          },
+          } satisfies InventoryItemFilterSchema,
+
+          options: {
+            ...parsedParams?.options,
+            sortBy,
+            order,
+          } satisfies inventoryItemOptionsSchema,
         });
       });
     },
@@ -88,7 +95,12 @@ const Inventory = () => {
             >
               <ItemFilter
                 initialFilter={parsedParams}
-                onChange={(value) => updateFilter(value.filter)}
+                onChange={(value) => {
+                  updateSearchParams({
+                    filter: value.filter,
+                    options: value.options,
+                  });
+                }}
               />
             </Collapsible>
           </div>

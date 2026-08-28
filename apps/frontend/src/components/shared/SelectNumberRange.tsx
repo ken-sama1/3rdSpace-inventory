@@ -110,7 +110,7 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
       <div className="flex w-2/6">
         <select
           value={mode}
-          className="py-0.5! w-full!"
+          className="py-1! w-full! text-center!"
           onChange={(e) => {
             setMode(e.target.value as typeof mode);
           }}

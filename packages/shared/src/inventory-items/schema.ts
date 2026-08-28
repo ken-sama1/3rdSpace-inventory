@@ -11,7 +11,7 @@ import {
   isoDateFilterSchema,
   numberFilterSchema,
 } from "../common/filter-schema.js";
-import { orderSchema } from "../common/options-schema.js";
+import { sortOrderSchema } from "../common/options-schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
 export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
@@ -29,7 +29,7 @@ export type InventoryItemSortBySchema = z.infer<
 // --- Options ---
 export const inventoryItemOptionsSchema = z.object({
   sortBy: inventoryItemSortBySchema.optional(),
-  order: orderSchema.optional(),
+  order: sortOrderSchema.optional(),
   lastItemId: objectIdSchema.optional(),
 });
 export type inventoryItemOptionsSchema = z.infer<

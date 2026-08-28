@@ -1,3 +1,4 @@
+import type { SortOrderSchema } from "../common/options-schema.js";
 import type { InventoryItemSortBySchema, InventoryItemUnit } from "./schema.js";
 
 export const inventoryItemUnits: InventoryItemUnit[] = [
@@ -14,3 +15,5 @@ export const inventoryItemSortBy: InventoryItemSortBySchema[] = [
   "unit",
   "category",
 ];
+
+export const inventoryItemSortOrder: SortOrderSchema[] = ["asc", "desc"];
