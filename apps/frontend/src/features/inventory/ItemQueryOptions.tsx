@@ -5,7 +5,7 @@ import {
   inventoryItemSortOrder,
   type GetInventoryItemsReqQuery,
   type InventoryItemFilterSchema,
-  type inventoryItemOptionsSchema,
+  type InventoryItemOptionsSchema,
   type InventoryItemSortBySchema,
   type SortOrderSchema,
 } from "@repo/shared";
@@ -23,7 +23,7 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
   const [filter, setFilter] = useState<InventoryItemFilterSchema>(
     initialFilter.filter ?? {}
   );
-  const [options, seOptions] = useState<inventoryItemOptionsSchema>(
+  const [options, seOptions] = useState<InventoryItemOptionsSchema>(
     initialFilter.options ?? {}
   );
 

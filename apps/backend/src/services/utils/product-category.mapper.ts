@@ -1,4 +1,4 @@
-import type { Product, ProductCategory, RecipeItem } from "@repo/database";
+import type { ProductCategory } from "@repo/database";
 import type {
   ProductCategoryDto,
   ProductCategoryWithProductsDto,

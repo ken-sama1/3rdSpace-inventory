@@ -2,7 +2,7 @@ import { prisma } from "@repo/database";
 import type {
   GetInventoryItemsResult,
   InventoryItemFilterSchema,
-  inventoryItemOptionsSchema,
+  InventoryItemOptionsSchema,
 } from "@repo/shared";
 import {
   toDateFilter,
@@ -14,7 +14,7 @@ import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const list = async (
   filter?: InventoryItemFilterSchema,
-  options?: inventoryItemOptionsSchema
+  options?: InventoryItemOptionsSchema
 ): Promise<GetInventoryItemsResult> => {
   const {
     categoryId = null,
