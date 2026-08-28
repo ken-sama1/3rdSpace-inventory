@@ -1,6 +1,8 @@
 model ProductCategory {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   products Product[]
 

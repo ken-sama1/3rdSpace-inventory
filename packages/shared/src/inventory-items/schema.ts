@@ -32,7 +32,7 @@ export const inventoryItemOptionsSchema = z.object({
   order: sortOrderSchema.optional(),
   lastItemId: objectIdSchema.optional(),
 });
-export type inventoryItemOptionsSchema = z.infer<
+export type InventoryItemOptionsSchema = z.infer<
   typeof inventoryItemOptionsSchema
 >;
 

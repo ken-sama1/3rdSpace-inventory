@@ -2,11 +2,11 @@ import CreateProductModal from "@/features/products/CreateProductModal";
 import ProductsTable from "@/features/products/ProductsTable";
 import useGetProducts from "@/hooks/products/useGetProducts";
 import { debounce } from "@/utils/debounce";
-import { ListFilter, PlusCircle } from "lucide-react";
+import type { InventoryItemFilterSchema } from "@repo/shared";
+import { ListFilter, PackagePlus } from "lucide-react";
+import qs from "qs";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import qs from "qs";
-import type { InventoryItemFilterSchema } from "@repo/shared";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,22 +46,16 @@ const Products = () => {
             className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
           >
             <ListFilter className="stroke-2 h-5 stroke-inherit!" />
-            <span className="flex justify-center items-center text-xs! text-inherit!">
-              Filter
-            </span>
           </button>
         </div>
 
         {/* Add new item */}
         <button
           onClick={() => setShowProductModal(true)}
-          title="Add Item"
+          title="New Product"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
-          <PlusCircle className="stroke-2 h-5 stroke-inherit!" />
-          <span className="flex justify-center items-center text-xs! text-inherit!">
-            Add
-          </span>
+          <PackagePlus className="stroke-2 h-5 stroke-inherit!" />
         </button>
       </div>
       {/* End of idk the top section? */}

@@ -7,6 +7,7 @@ import {
 } from "../common/schema.js";
 import type { InventoryItemDto } from "../inventory-items/types.js";
 import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
+import type { DateMetaData } from "../common/types.js";
 
 // --- Recipe Item ---
 export const recipeItemSchema = z.object({
@@ -51,7 +52,7 @@ export type UpdateProductResult = ProductWithInventoryItemsDto;
 export type UpdateProductResBody = ResponseBody<UpdateProductResult>;
 
 // --- Delete ---
-export type DeleteProductResult = ProductDto;
+export type DeleteProductResult = ProductDto & DateMetaData;
 export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 
 // --- Deduct Stock for Product ---

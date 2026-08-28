@@ -6,7 +6,7 @@ import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import { debounce } from "@/utils/debounce";
 import {
   getInventoryItemsReqQuerySchema,
-  inventoryItemOptionsSchema,
+  type InventoryItemOptionsSchema,
   type GetInventoryItemsReqQuery,
   type InventoryItemFilterSchema,
 } from "@repo/shared";
@@ -49,12 +49,11 @@ const Inventory = () => {
             quantity,
             unit,
           } satisfies InventoryItemFilterSchema,
-
           options: {
             ...parsedParams?.options,
             sortBy,
             order,
-          } satisfies inventoryItemOptionsSchema,
+          } satisfies InventoryItemOptionsSchema,
         });
       });
     },
@@ -109,13 +108,10 @@ const Inventory = () => {
         {/* Add new item */}
         <button
           onClick={() => setOpenAddItem(true)}
-          title="Add Item"
+          title="New Item"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
           <LayersPlus className="stroke-2 h-5 stroke-inherit!" />
-          <span className="flex justify-center items-center text-xs! text-inherit!">
-            Add
-          </span>
         </button>
       </div>
       {/* End of idk the top section? */}

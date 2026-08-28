@@ -58,6 +58,7 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
             name: {
               index: 0,
               colspan: 3,
+              as: "ITEM",
             },
             quantity: {
               index: 1,

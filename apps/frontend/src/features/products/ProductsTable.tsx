@@ -49,6 +49,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               name: {
                 index: 0,
                 colspan: 3,
+                as: "PRODUCT",
               },
               price: {
                 index: 2,

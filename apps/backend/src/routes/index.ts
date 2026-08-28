@@ -6,5 +6,6 @@ const apiV1Router: Router = express.Router();
 
 apiV1Router.use("/inventory-items", inventoryItemsRouter);
 apiV1Router.use("/products", productsRouter);
+apiV1Router.use("/inventory-item-categories", inventoryItemsRouter);
 
 export { apiV1Router };
