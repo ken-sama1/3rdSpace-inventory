@@ -1,15 +1,19 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
 import type {
+  GetInventoryItemsReqQuery,
   GetInventoryItemsResult,
-  InventoryItemFilterSchema,
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetInventoryItems = (filter: InventoryItemFilterSchema = {}) => {
+const useGetInventoryItems = ({
+  filter,
+  options,
+}: GetInventoryItemsReqQuery = {}) => {
   const { data, isLoading, isError, error } = useQuery<GetInventoryItemsResult>(
     {
-      queryKey: ["inventory-items", filter],
-      queryFn: ({ signal }) => inventoryItemApi.getAll(filter, { signal }),
+      queryKey: ["inventory-items", filter, options],
+      queryFn: ({ signal }) =>
+        inventoryItemApi.getAll({ filter, options }, { signal }),
     }
   );
 

@@ -1,8 +1,8 @@
 import Modal from "@/components/ui/Modal";
-import useGetInventoryItem from "@/hooks/inventory/useGetInventoryItem";
 import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";
 import UpdateStockForm from "./UpdateStockForm";
+import useGetInventoryItemById from "@/hooks/inventory/useGetInventoryItemById";
 
 interface InventoryModalProps {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const InventoryModal: FC<InventoryModalProps> = ({
 }) => {
   const [view, setView] = useState<"stock" | "edit">("stock");
 
-  const { data: item, isLoading } = useGetInventoryItem({ itemId });
+  const { data: item, isLoading } = useGetInventoryItemById({ itemId });
 
   if (!item) return <></>;
 

@@ -19,7 +19,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
   onCancel,
   onSave,
 }) => {
-  const { data: product } = useGetProductById(productId);
+  const { data: product } = useGetProductById({ productId });
   const [requiredItems, setRequiredItems] = useState<
     SelectRecipeItemsSelectedItem[]
   >([]);

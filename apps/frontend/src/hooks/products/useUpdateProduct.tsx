@@ -19,7 +19,7 @@ const useUpdateProduct = () => {
   >({
     mutationKey: ["products", "update"],
     mutationFn: async ({ id, data }) => {
-      const { name, imageUrl, price, category, description, recipeItems } =
+      const { name, imageUrl, price, categoryId, description, recipeItems } =
         data;
       return productsApi.update(id, {
         ...(name && name !== null && { name }),
@@ -28,7 +28,7 @@ const useUpdateProduct = () => {
         }),
         ...(description && { description }),
         ...(typeof price === "number" && { price }),
-        ...(category && { category }),
+        ...(categoryId && { categoryId }),
         ...(recipeItems &&
           recipeItems.length >= 1 && {
             recipeItems,

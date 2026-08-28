@@ -25,7 +25,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
   onEdit,
 }) => {
   const { isPending, deduct } = useDeductStockForProduct();
-  const { data: product } = useGetProductById(productId);
+  const { data: product } = useGetProductById({ productId });
   const [productQuantity, setProductQuantity] = useState<number>(0);
   const { getMaxServings } = useStockConfig();
   const { maxServingsCount, missingItemsCount, recipeItemsBreakdown } =

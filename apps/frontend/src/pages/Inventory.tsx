@@ -1,31 +1,35 @@
 import Collapsible from "@/components/ui/Collapsible";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
-import ItemFilter from "@/features/inventory/ItemFilter";
+import ItemFilter from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
 import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import { debounce } from "@/utils/debounce";
-import type { InventoryItemFilterSchema } from "@repo/shared";
-import { LayersPlus, ListFilter } from "lucide-react";
+import {
+  getInventoryItemsReqQuerySchema,
+  type InventoryItemFilterSchema,
+} from "@repo/shared";
+import { LayersPlus, SlidersHorizontal } from "lucide-react";
 import qs from "qs";
 import { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const Inventory = () => {
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const paramsEntries = Array.from(searchParams.entries()).map(([k, v]) => [
-    k,
-    v,
-  ]);
-  const params = Object.fromEntries(paramsEntries);
-  const parsedParams = qs.parse(params) as InventoryItemFilterSchema;
+  const [_, setSearchParams] = useSearchParams();
+
+  const params = qs.parse(window.location.search.substring(1));
+  const parsedParams = getInventoryItemsReqQuerySchema.safeParse(params).data;
 
   const [openAddItem, setOpenAddItem] = useState(false);
   const [openCollapsible, setOpenCollapsible] = useState(false);
-  const { data } = useGetInventoryItems(parsedParams);
+  const { data } = useGetInventoryItems({
+    ...parsedParams,
+  });
 
   const updateSearch = debounce((query: string) => {
-    setSearchParams(qs.stringify({ ...params, name: query || undefined }));
+    setSearchParams(
+      qs.stringify({ filter: { ...parsedParams?.filter, name: query } })
+    );
   }, 1000);
 
   const updateFilter = debounce(
@@ -37,11 +41,13 @@ const Inventory = () => {
     }: InventoryItemFilterSchema = {}) => {
       setSearchParams(() => {
         return qs.stringify({
-          ...parsedParams,
-          description,
-          categoryId,
-          quantity,
-          unit,
+          filter: {
+            ...parsedParams?.filter,
+            description,
+            categoryId,
+            quantity,
+            unit,
+          },
         });
       });
     },
@@ -68,13 +74,10 @@ const Inventory = () => {
             onClick={() => {
               setOpenCollapsible(!openCollapsible);
             }}
-            title="Filter"
+            title="Filter & Sort"
             className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
           >
-            <ListFilter className="stroke-2 h-5 stroke-inherit!" />
-            <span className="flex justify-center items-center text-xs! text-inherit!">
-              Filter
-            </span>
+            <SlidersHorizontal className="stroke-2 h-5 stroke-inherit!" />
           </button>
 
           <div className="absolute z-1 w-md top-full left-0 translate-y-10">
@@ -84,8 +87,8 @@ const Inventory = () => {
               refs={[filterButtonRef]}
             >
               <ItemFilter
-                initialFilter={qs.parse(params)}
-                onChange={(filter) => updateFilter(filter)}
+                initialFilter={parsedParams}
+                onChange={(value) => updateFilter(value.filter)}
               />
             </Collapsible>
           </div>

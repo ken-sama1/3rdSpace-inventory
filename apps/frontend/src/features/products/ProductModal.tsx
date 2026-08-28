@@ -15,7 +15,7 @@ const ProductModal: FC<ProductModalProps> = ({
   onClose,
   productId,
 }) => {
-  const { data: product } = useGetProductById(productId);
+  const { data: product } = useGetProductById({ productId });
   const [view, setView] = useState<"produce" | "edit">("produce");
 
   if (!product) return <></>;

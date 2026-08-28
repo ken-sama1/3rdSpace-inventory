@@ -8,7 +8,7 @@ export const create = async (
   const result = await prisma.product.create({
     data: {
       name: data.name,
-      categoryId: data.category,
+      categoryId: data.categoryId,
       description: data.description,
       imageUrl: data.imageUrl,
       price: data.price,

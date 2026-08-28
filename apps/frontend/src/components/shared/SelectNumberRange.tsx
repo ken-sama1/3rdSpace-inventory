@@ -8,39 +8,53 @@ export interface SelectNumberRangeProps {
 
 const SelectNumberRange: FC<SelectNumberRangeProps> = ({
   onChange,
-  initialRange,
+  initialRange = null,
 }) => {
-  const [mode, setMode] = useState<"number" | "range">("range");
-  const [range, setRange] = useState<NumberFilterSchema | null>(
-    initialRange ?? null
+  const [range, setRange] = useState<NumberFilterSchema | null>(initialRange);
+  const [mode, setMode] = useState<"number" | "range">(
+    typeof range === "number" ? "number" : "range"
   );
 
   useEffect(() => {
+    console.log(range);
     onChange?.(range);
   }, [range, onChange]);
 
   return (
     <div className="flex size-full items-center justify-start gap-2">
-      <div className="w-4/5 flex">
+      <div className="w-4/6 flex">
         {mode === "number" && (
           <input
-            defaultValue={typeof range === "number" ? range : ""}
+            value={typeof range === "number" ? String(range) : ""}
             className="w-full! py-1!"
             type="number"
             onChange={(e) => {
+              if (!e.target.value) return setRange(null);
               setRange(Number(e.target.value));
             }}
           />
         )}
 
         {mode === "range" && (
-          <div className="flex items-center gap-x-2">
+          <div className="flex justify-center items-center gap-x-2">
             <input
-              defaultValue={typeof range !== "number" ? range?.gte : ""}
               className="w-1/2! py-1!"
               type="number"
               placeholder="Min"
+              value={typeof range === "object" ? (range?.gte ?? "") : ""}
               onChange={(e) => {
+                console.log("value: ", range);
+                if (!e.target.value) {
+                  setRange((prev) => {
+                    if (typeof prev === "object")
+                      setRange({
+                        ...prev,
+                        gte: undefined,
+                      });
+                  });
+                  return;
+                }
+
                 const value = Number(e.target.value);
 
                 setRange((prev) => {
@@ -49,7 +63,10 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
                       gte: value,
                     };
 
-                  return (prev.gte = value);
+                  return {
+                    ...prev,
+                    gte: value,
+                  };
                 });
               }}
             />
@@ -60,16 +77,29 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
               className="w-1/2! py-1!"
               type="number"
               placeholder="Max"
-              defaultValue={typeof range !== "number" ? range?.lte : ""}
+              value={typeof range === "object" ? (range?.lte ?? "") : ""}
               onChange={(e) => {
+                if (!e.target.value) {
+                  return setRange((prev) => {
+                    if (typeof prev === "object")
+                      setRange({
+                        ...prev,
+                        lte: undefined,
+                      });
+                  });
+                }
+
                 const value = Number(e.target.value);
                 setRange((prev) => {
                   if (typeof prev === "number" || !prev)
                     return {
-                      gte: value,
+                      lte: value,
                     };
 
-                  return (prev.gte = value);
+                  return {
+                    ...prev,
+                    lte: value,
+                  };
                 });
               }}
             />
@@ -77,15 +107,17 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
         )}
       </div>
 
-      <div className="flex w-1/5">
+      <div className="flex w-2/6">
         <select
-          defaultValue="number"
-          className="py-0.5!"
+          value={mode}
+          className="py-0.5! w-full!"
           onChange={(e) => {
             setMode(e.target.value as typeof mode);
           }}
         >
-          <option value="number">Number</option>
+          <option value="number" className="text-center">
+            Number
+          </option>
           <option value="range">Range</option>
         </select>
       </div>

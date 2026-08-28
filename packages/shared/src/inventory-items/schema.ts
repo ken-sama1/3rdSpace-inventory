@@ -1,11 +1,57 @@
 import z from "zod";
+import {
+  objectIdNullableSchema,
+  objectIdSchema,
+  stringNullableSchema,
+} from "../common/schema.js";
+import type { DateMetaData } from "../common/types.js";
 import type { ResponseBody } from "../Response.js";
 import type { InventoryItemDto } from "./types.js";
-import type { DateMetaData } from "../common/types.js";
-import { stringNullableSchema } from "../common/schema.js";
+import {
+  isoDateFilterSchema,
+  numberFilterSchema,
+} from "../common/filter-schema.js";
+import { orderSchema } from "../common/options-schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
 export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
+
+export const inventoryItemSortBySchema = z.enum([
+  "name",
+  "unit",
+  "quantity",
+  "category",
+]);
+export type InventoryItemSortBySchema = z.infer<
+  typeof inventoryItemSortBySchema
+>;
+
+// --- Options ---
+export const inventoryItemOptionsSchema = z.object({
+  sortBy: inventoryItemSortBySchema.optional(),
+  order: orderSchema.optional(),
+  lastItemId: objectIdSchema.optional(),
+});
+export type inventoryItemOptionsSchema = z.infer<
+  typeof inventoryItemOptionsSchema
+>;
+
+// --- Filter ---
+export const inventoryItemFilterSchema = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  categoryId: z.array(objectIdSchema).optional(),
+  createdAt: isoDateFilterSchema.optional(),
+  quantity: numberFilterSchema.optional(),
+  unit: z.array(inventoryItemUnitSchema).optional(),
+});
+
+export type InventoryItemFilterSchema = z.infer<
+  typeof inventoryItemFilterSchema
+>;
+export type InventoryItemFilterInput = z.input<
+  typeof inventoryItemFilterSchema
+>;
 
 // --- Create ---
 export const createInventoryItemSchema = z.object({
@@ -14,7 +60,7 @@ export const createInventoryItemSchema = z.object({
   quantity: z.union([z.number(), z.coerce.number()]).default(0),
   unit: inventoryItemUnitSchema.default("G"),
   imageUrl: stringNullableSchema,
-  categoryId: stringNullableSchema,
+  categoryId: objectIdNullableSchema,
 });
 export type CreateInventoryItemInput = z.input<
   typeof createInventoryItemSchema
@@ -44,12 +90,21 @@ export type DeleteInventoryResult = InventoryItemDto & DateMetaData;
 export type DeleteInventoryItemResBody = ResponseBody<DeleteInventoryResult>;
 
 // --- Get ---
+export const getInventoryItemsReqQuerySchema = z.object({
+  filter: inventoryItemFilterSchema.optional(),
+  options: inventoryItemOptionsSchema.optional(),
+});
+
 export type GetInventoryItemsResult = InventoryItemDto[];
 export type GetInventoryItemsResBody = ResponseBody<GetInventoryItemsResult>;
+export type GetInventoryItemsReqQuery = z.infer<
+  typeof getInventoryItemsReqQuerySchema
+>;
 
 // --- Get By Id ---
-export type GetInventoryItemResult = InventoryItemDto & DateMetaData;
-export type GetInventoryItemResBody = ResponseBody<GetInventoryItemResult>;
+export type GetInventoryItemByIdResult = InventoryItemDto & DateMetaData;
+export type GetInventoryItemByIdResBody =
+  ResponseBody<GetInventoryItemByIdResult>;
 
 // --- Stock In ---
 export const stockInInventoryItemSchema = z.object({

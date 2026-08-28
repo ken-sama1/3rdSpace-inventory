@@ -4,11 +4,11 @@ import type {
   CreateInventoryItemResult,
   DeleteInventoryItemResBody,
   DeleteInventoryResult,
-  GetInventoryItemResBody,
-  GetInventoryItemResult,
+  GetInventoryItemByIdResult,
+  GetInventoryItemByIdResBody,
+  GetInventoryItemsReqQuery,
   GetInventoryItemsResBody,
   GetInventoryItemsResult,
-  InventoryItemFilterSchema,
   StockInInventoryItemInput,
   StockInInventoryItemResBody,
   StockInInventoryItemResult,
@@ -26,10 +26,13 @@ const baseUrl = "/inventory-items";
 const get = async (
   id: string,
   config?: AxiosRequestConfig
-): Promise<GetInventoryItemResult> => {
-  const { data } = await api.get<GetInventoryItemResBody>(`${baseUrl}/${id}`, {
-    ...config,
-  });
+): Promise<GetInventoryItemByIdResult> => {
+  const { data } = await api.get<GetInventoryItemByIdResBody>(
+    `${baseUrl}/${id}`,
+    {
+      ...config,
+    }
+  );
 
   return data.data;
 };
@@ -38,13 +41,14 @@ const get = async (
  * Remember to add filter
  * */
 const getAll = async (
-  filter: InventoryItemFilterSchema = {},
+  { filter, options }: GetInventoryItemsReqQuery = {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
   const { data } = await api.get<GetInventoryItemsResBody>(baseUrl, {
     ...config,
     params: {
-      ...filter,
+      filter,
+      options,
     },
   });
 

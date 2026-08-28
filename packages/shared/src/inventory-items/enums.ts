@@ -1,4 +1,4 @@
-import type { InventoryItemUnit } from "./schema.js";
+import type { InventoryItemSortBySchema, InventoryItemUnit } from "./schema.js";
 
 export const inventoryItemUnits: InventoryItemUnit[] = [
   "MG",
@@ -6,4 +6,11 @@ export const inventoryItemUnits: InventoryItemUnit[] = [
   "G",
   "KG",
   "PCS",
+];
+
+export const inventoryItemSortBy: InventoryItemSortBySchema[] = [
+  "quantity",
+  "name",
+  "unit",
+  "category",
 ];
