@@ -1,5 +1,6 @@
 import { prisma } from "@repo/database";
 import type {
+  IdSchema,
   UpdateInventoryItemCategoryResult,
   UpdateInventoryItemCategorySchema,
 } from "@repo/shared";
@@ -7,7 +8,7 @@ import { AppError } from "../../errors/AppError.js";
 import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mappper.js";
 
 export const update = async (
-  id: string,
+  id: IdSchema,
   { name }: UpdateInventoryItemCategorySchema
 ): Promise<UpdateInventoryItemCategoryResult> => {
   const category = await prisma.inventoryItemCategory.findUnique({

@@ -1,17 +1,17 @@
 import z from "zod";
 import type { ResponseBody } from "../Response.js";
 import {
-  objectIdNullableSchema,
-  objectIdSchema,
+  idNullableSchema,
+  idSchema,
   stringNullableSchema,
 } from "../common/schema.js";
+import type { DateMetaData } from "../common/types.js";
 import type { InventoryItemDto } from "../inventory-items/types.js";
 import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
-import type { DateMetaData } from "../common/types.js";
 
 // --- Recipe Item ---
 export const recipeItemSchema = z.object({
-  inventoryItemId: objectIdSchema,
+  inventoryItemId: idSchema,
   quantity: z.union([
     z.number(),
     z.coerce.number().positive("Quantity must be greater than zero"),
@@ -25,7 +25,7 @@ export const createProductSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: stringNullableSchema,
   imageUrl: stringNullableSchema,
-  categoryId: objectIdNullableSchema,
+  categoryId: idNullableSchema,
   price: z.union([z.number(), z.coerce.number().nonnegative()]),
   recipeItems: z.array(recipeItemSchema).default([]),
 });

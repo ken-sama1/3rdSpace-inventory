@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetProducts = (filter: ProductFilterSchema = {}) => {
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ["products", filter],
-    queryFn: ({ signal }) => productsApi.getAll(filter, { signal }),
+    queryFn: ({ signal }) => productsApi.getMany(filter, { signal }),
   });
 
   return {

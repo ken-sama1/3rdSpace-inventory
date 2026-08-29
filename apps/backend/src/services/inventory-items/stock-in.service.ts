@@ -1,13 +1,14 @@
 import { prisma } from "@repo/database";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 import type {
+  IdSchema,
   StockInInventoryItemResult,
   StockInInventoryItemSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
+import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const stockIn = async (
-  id: string,
+  id: IdSchema,
   { quantity }: StockInInventoryItemSchema
 ): Promise<StockInInventoryItemResult> => {
   const item = await prisma.inventoryItem.findUnique({

@@ -3,11 +3,12 @@ import useGetProductById from "@/hooks/products/useGetProductById";
 import { useState, type FC } from "react";
 import EditProductForm from "./EditProductForm";
 import ProduceProduct from "./ProduceProduct";
+import type { IdSchema } from "@repo/shared";
 
 interface ProductModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  productId: string;
+  productId: IdSchema;
 }
 
 const ProductModal: FC<ProductModalProps> = ({

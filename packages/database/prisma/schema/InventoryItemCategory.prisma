@@ -6,5 +6,5 @@ model InventoryItemCategory {
 
   inventoryItems InventoryItem[]
 
-  @@map("inventory_items_categories")
+  @@map("inventory_item_categories")
 }

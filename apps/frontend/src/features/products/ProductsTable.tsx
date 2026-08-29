@@ -1,6 +1,6 @@
 import Table from "@/components/ui/Table";
 import useStockConfig from "@/hooks/useStockConfig";
-import type { ProductWithInventoryItemsDto } from "@repo/shared";
+import type { IdSchema, ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import ProductDetailModal from "./ProductModal";
 import ProductStatusBadge from "./ProductStatusBadge";
@@ -12,7 +12,7 @@ interface ProductsTableProps {
 const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
   const { getMaxServings } = useStockConfig();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [productId, setProductId] = useState<string | null>(null);
+  const [productId, setProductId] = useState<IdSchema | null>(null);
 
   return (
     <section className="w-full ">

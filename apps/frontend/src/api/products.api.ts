@@ -11,6 +11,7 @@ import type {
   GetProductByIdResult,
   GetProductsResBody,
   GetProductsResult,
+  IdSchema,
   ProductFilterSchema,
   UpdateProductInput,
   UpdateProductResBody,
@@ -21,8 +22,8 @@ import { api } from "./api";
 
 const baseUrl = "/products";
 
-const get = async (
-  productId: string,
+const getById = async (
+  productId: IdSchema,
   config?: AxiosRequestConfig
 ): Promise<GetProductByIdResult> => {
   const { data } = await api.get<GetProductByIdResBody>(
@@ -35,7 +36,7 @@ const get = async (
   return data.data;
 };
 
-const getAll = async (
+const getMany = async (
   filter: ProductFilterSchema = {},
   config: AxiosRequestConfig
 ): Promise<GetProductsResult> => {
@@ -59,7 +60,7 @@ const create = async (
 };
 
 const update = async (
-  id: string,
+  id: IdSchema,
   updatedFields: UpdateProductInput
 ): Promise<UpdateProductResult> => {
   const { data } = await api.patch<UpdateProductResBody>(
@@ -70,14 +71,14 @@ const update = async (
   return data.data;
 };
 
-const remove = async (id: string): Promise<DeleteProductResult> => {
+const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
   const { data } = await api.delete<DeleteProductResBody>(`${baseUrl}/${id}`);
 
   return data.data;
 };
 
 const deductStockForProduct = async (
-  id: string,
+  id: IdSchema,
   { quantity }: DeductStockForProductInput
 ): Promise<DeductStockForProductResult> => {
   const { data } = await api.post<DeductStockForProductResBody>(
@@ -90,8 +91,8 @@ const deductStockForProduct = async (
 
 export const productsApi = {
   create,
-  get,
-  getAll,
+  getById,
+  getMany,
   update,
   delete: remove,
   deductStockForProduct,

@@ -17,14 +17,15 @@ import type {
   StockOutInventoryItemResult,
   UpdateInventoryItemInput,
   UpdateInventoryResult,
+  IdSchema,
 } from "@repo/shared";
 import type { AxiosRequestConfig } from "axios";
 import { api } from "./api";
 
 const baseUrl = "/inventory-items";
 
-const get = async (
-  id: string,
+const getById = async (
+  id: IdSchema,
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemByIdResult> => {
   const { data } = await api.get<GetInventoryItemByIdResBody>(
@@ -37,10 +38,7 @@ const get = async (
   return data.data;
 };
 
-/**
- * Remember to add filter
- * */
-const getAll = async (
+const getMany = async (
   { filter, options }: GetInventoryItemsReqQuery = {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
@@ -67,7 +65,7 @@ const create = async (
 };
 
 const update = async (
-  id: string,
+  id: IdSchema,
   fields: UpdateInventoryItemInput
 ): Promise<UpdateInventoryResult> => {
   const { data } = await api.patch<CreateInventoryItemResBody>(
@@ -78,7 +76,7 @@ const update = async (
   return data.data;
 };
 
-const remove = async (id: string): Promise<DeleteInventoryResult> => {
+const remove = async (id: IdSchema): Promise<DeleteInventoryResult> => {
   const { data } = await api.delete<DeleteInventoryItemResBody>(
     `${baseUrl}/${id}`
   );
@@ -87,7 +85,7 @@ const remove = async (id: string): Promise<DeleteInventoryResult> => {
 };
 
 const stockIn = async (
-  id: string,
+  id: IdSchema,
   { quantity }: StockInInventoryItemInput
 ): Promise<StockInInventoryItemResult> => {
   const { data } = await api.post<StockInInventoryItemResBody>(
@@ -99,7 +97,7 @@ const stockIn = async (
 };
 
 const stockOut = async (
-  id: string,
+  id: IdSchema,
   { quantity, reason }: StockOutInventoryItemInput
 ): Promise<StockOutInventoryItemResult> => {
   const { data } = await api.post<StockOutInventoryItemResBody>(
@@ -111,8 +109,8 @@ const stockOut = async (
 };
 
 export const inventoryItemApi = {
-  get,
-  getAll,
+  getById,
+  getMany,
   create,
   update,
   delete: remove,

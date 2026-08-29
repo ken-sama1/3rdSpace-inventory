@@ -1,7 +1,7 @@
 import z from "zod";
 import {
-  objectIdNullableSchema,
-  objectIdSchema,
+  idSchema,
+  idNullableSchema,
   stringNullableSchema,
 } from "../common/schema.js";
 import type { DateMetaData } from "../common/types.js";
@@ -30,7 +30,7 @@ export type InventoryItemSortBySchema = z.infer<
 export const inventoryItemOptionsSchema = z.object({
   sortBy: inventoryItemSortBySchema.optional(),
   order: sortOrderSchema.optional(),
-  lastItemId: objectIdSchema.optional(),
+  lastItemId: idSchema.optional(),
 });
 export type InventoryItemOptionsSchema = z.infer<
   typeof inventoryItemOptionsSchema
@@ -40,7 +40,7 @@ export type InventoryItemOptionsSchema = z.infer<
 export const inventoryItemFilterSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
-  categoryId: z.array(objectIdSchema).optional(),
+  categoryId: z.array(idSchema).optional(),
   createdAt: isoDateFilterSchema.optional(),
   quantity: numberFilterSchema.optional(),
   unit: z.array(inventoryItemUnitSchema).optional(),
@@ -60,7 +60,7 @@ export const createInventoryItemSchema = z.object({
   quantity: z.union([z.number(), z.coerce.number()]).default(0),
   unit: inventoryItemUnitSchema.default("G"),
   imageUrl: stringNullableSchema,
-  categoryId: objectIdNullableSchema,
+  categoryId: idNullableSchema,
 });
 export type CreateInventoryItemInput = z.input<
   typeof createInventoryItemSchema
@@ -108,7 +108,7 @@ export type GetInventoryItemByIdResBody =
 
 // --- Stock In ---
 export const stockInInventoryItemSchema = z.object({
-  quantity: z.union([z.number(), z.coerce.number()]),
+  quantity: z.coerce.number(),
 });
 export type StockInInventoryItemSchema = z.infer<
   typeof stockInInventoryItemSchema

@@ -1,13 +1,10 @@
-import { type InventoryItem, type InventoryItemCategory } from "@repo/database";
+import { type InventoryItemCategory } from "@repo/database";
 import type {
   InventoryItemCategoryDto,
   InventoryItemCategoryWithItemsDto,
 } from "@repo/shared";
+import type { InventoryItemCategoryWithItems } from "../types/InventoryItemCategoryWithItems.js";
 import { toInventoryItemDto } from "./inventory-item.mapper.js";
-
-type ToInventoryItemCategoryWithItemsDtoInput = InventoryItemCategory & {
-  inventoryItems: InventoryItem[];
-};
 
 export const toInventoryItemCategoryDto = (
   category: InventoryItemCategory
@@ -19,7 +16,7 @@ export const toInventoryItemCategoryDto = (
 };
 
 export const toInventoryItemCategoryWithItemsDto = (
-  category: ToInventoryItemCategoryWithItemsDtoInput & {}
+  category: InventoryItemCategoryWithItems
 ): InventoryItemCategoryWithItemsDto => {
   return {
     name: category.name,

@@ -4,7 +4,7 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "npx prisma generate && rimraf dist && tsc -b"
+    "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b"
   },
   "exports": {
     ".": {

@@ -3,14 +3,8 @@ import type {
   ProductCategoryDto,
   ProductCategoryWithProductsDto,
 } from "@repo/shared";
-import {
-  toProductDto,
-  type ToProductWithInventoryItemsDtoInput,
-} from "./product.mapper.js";
-
-type ToProductCategoryWithProductDtoInput = ProductCategory & {
-  products: ToProductWithInventoryItemsDtoInput[];
-};
+import type { ProductCategoryWithProducts } from "../types/ProductCategoryWithProducts.js";
+import { toProductDto } from "./product.mapper.js";
 
 export const toProductCategoryDto = (
   category: ProductCategory
@@ -25,10 +19,13 @@ export const toProductCategoryWithProductsDto = ({
   products,
   id,
   name,
-}: ToProductCategoryWithProductDtoInput): ProductCategoryWithProductsDto => {
+}: ProductCategoryWithProducts): ProductCategoryWithProductsDto => {
   return {
     id,
     name,
-    products: products.map(toProductDto),
+    products: products.map((product) => {
+      const { category, ...rest } = toProductDto(product);
+      return { ...rest };
+    }),
   };
 };

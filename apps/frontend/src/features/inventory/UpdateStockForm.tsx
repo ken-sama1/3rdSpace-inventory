@@ -6,6 +6,7 @@ import useStockOutInventoryItem from "@/hooks/inventory/useStockOutInventoryItem
 import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,
+  type IdSchema,
   type ResponseError,
 } from "@repo/shared";
 import { isAxiosError } from "axios";
@@ -14,7 +15,7 @@ import { useRef, useState, type FC } from "react";
 interface UpdateStockFormProps {
   onEdit?: () => void;
   onSave: () => void;
-  itemId: string;
+  itemId: IdSchema;
   isActive: boolean;
 }
 

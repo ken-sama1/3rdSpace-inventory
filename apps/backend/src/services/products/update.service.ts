@@ -1,10 +1,14 @@
 import { prisma } from "@repo/database";
-import type { UpdateProductResult, UpdateProductSchema } from "@repo/shared";
+import type {
+  IdSchema,
+  UpdateProductResult,
+  UpdateProductSchema,
+} from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
 import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
 
 export const update = async (
-  id: string,
+  id: IdSchema,
   data: UpdateProductSchema
 ): Promise<UpdateProductResult> => {
   const { categoryId, description, name, price, imageUrl, recipeItems } = data;

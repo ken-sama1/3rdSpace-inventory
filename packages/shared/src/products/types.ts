@@ -1,8 +1,9 @@
+import type { IdSchema } from "../common/schema.js";
 import type { InventoryItemUnit } from "../inventory-items/schema.js";
 import type { InventoryItemDto } from "../inventory-items/types.js";
 
 export interface RecipeItemDto {
-  id: string;
+  id: IdSchema;
   inventoryItemId: string;
   quantity: number;
   unit: InventoryItemUnit;
@@ -13,7 +14,7 @@ export interface RecipeItemWithInventoryItemDto extends RecipeItemDto {
 }
 
 export interface ProductDto {
-  id: string;
+  id: IdSchema;
   name: string;
   description: string | null;
   imageUrl: string | null;

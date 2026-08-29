@@ -1,7 +1,8 @@
+import type { ObjectIdSchema } from "../common/schema.js";
 import type { InventoryItemUnit } from "./schema.js";
 
 export interface InventoryItemDto {
-  id: string;
+  id: ObjectIdSchema;
   name: string;
   description: string | null;
   quantity: number;

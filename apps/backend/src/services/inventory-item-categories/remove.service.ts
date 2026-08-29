@@ -1,10 +1,10 @@
 import { prisma } from "@repo/database";
-import type { DeleteInventoryItemCategoryResult } from "@repo/shared";
-import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mappper.js";
+import type { DeleteInventoryItemCategoryResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
+import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mappper.js";
 
 export const remove = async (
-  id: string
+  id: IdSchema
 ): Promise<DeleteInventoryItemCategoryResult> => {
   const category = await prisma.inventoryItemCategory.findUnique({
     where: { id },

@@ -13,7 +13,7 @@ const useGetInventoryItems = ({
     {
       queryKey: ["inventory-items", filter, options],
       queryFn: ({ signal }) =>
-        inventoryItemApi.getAll({ filter, options }, { signal }),
+        inventoryItemApi.getMany({ filter, options }, { signal }),
     }
   );
 

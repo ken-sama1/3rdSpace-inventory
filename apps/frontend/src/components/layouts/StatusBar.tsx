@@ -1,7 +1,5 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
+import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
 import useStockConfig from "@/hooks/useStockConfig";
-import type { GetInventoryItemsResult } from "@repo/shared";
-import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
   /* Banknote,*/ Boxes,
@@ -12,16 +10,7 @@ import { useMemo } from "react";
 
 const StatusBar = () => {
   const { getStatus } = useStockConfig();
-  const { data, isLoading } = useQuery<GetInventoryItemsResult>({
-    queryKey: ["inventory-items"],
-    queryFn: ({ signal }) =>
-      inventoryItemApi.getAll(
-        {},
-        {
-          signal,
-        }
-      ),
-  });
+  const { data, isLoading } = useGetInventoryItems();
 
   const {
     lowStockCount = 0,

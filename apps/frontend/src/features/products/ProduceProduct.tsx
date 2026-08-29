@@ -8,13 +8,14 @@ import useStockConfig from "@/hooks/useStockConfig";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,
+  type IdSchema,
   type ResponseError,
 } from "@repo/shared";
 import { isAxiosError } from "axios";
 import { useState, type FC } from "react";
 
 interface ProduceProductProps {
-  productId: string;
+  productId: IdSchema;
   onClose?: () => void;
   onEdit?: () => void;
 }

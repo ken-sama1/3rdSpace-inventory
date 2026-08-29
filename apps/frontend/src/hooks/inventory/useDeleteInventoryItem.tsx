@@ -1,12 +1,12 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
-import type { DeleteInventoryResult, ObjectIdSchema } from "@repo/shared";
+import type { DeleteInventoryResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useDeleteInventoryItem = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
-    useMutation<DeleteInventoryResult, Error, ObjectIdSchema>({
+    useMutation<DeleteInventoryResult, Error, IdSchema>({
       mutationFn: inventoryItemApi.delete,
       mutationKey: ["inventory-items", "delete"],
       onSuccess: () => {

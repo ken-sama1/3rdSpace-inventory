@@ -14,7 +14,7 @@ export type ApiErrorCode = keyof typeof ApiErrorCode;
 export const API_ERROR_CODE_TO_MESSAGE: Record<ApiErrorCode, string> = {
   [ApiErrorCode.ITEM_IN_USE]: "This item is in use and cannot be deleted.",
   [ApiErrorCode.STOCK_INSUFFICIENT]: "Stock insufficient",
-  [ApiErrorCode.VALIDATION_ERROR]: "Invalid Request",
+  [ApiErrorCode.VALIDATION_ERROR]: "Invalid value",
   [ApiErrorCode.NOT_FOUND]: "Not found",
   [ApiErrorCode.UNKNOWN_ERROR]: "Something went wrong!",
   [ApiErrorCode.INTERNAL_ERROR]: "Unexpected error occured, try again later",

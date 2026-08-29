@@ -10,9 +10,17 @@ export const objectIdNullableSchema = z
   .union([objectIdSchema, z.null()])
   .default(null);
 
+// --- Generic Id Schema ---
+// So when I transfer database can easily change the types
+export const idSchema = objectIdSchema;
+
+export type IdSchema = z.infer<typeof idSchema>;
+
+export const idNullableSchema = objectIdNullableSchema;
+
 // --- Params ---
 export const idParamSchema = z.object({
-  id: objectIdSchema,
+  id: idSchema,
 });
 
 export type IdParam = z.infer<typeof idParamSchema>;

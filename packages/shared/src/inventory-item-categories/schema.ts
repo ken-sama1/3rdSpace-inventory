@@ -38,7 +38,7 @@ export const updateInventoryItemCategorySchema =
 export type UpdateInventoryItemCategorySchema = z.infer<
   typeof updateInventoryItemCategorySchema
 >;
-export type UpdateInventoryItemCategoryIput = z.input<
+export type UpdateInventoryItemCategoryInput = z.input<
   typeof updateInventoryItemCategorySchema
 >;
 export type UpdateInventoryItemCategoryResult = InventoryItemCategoryDto;

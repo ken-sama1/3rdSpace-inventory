@@ -38,10 +38,6 @@ export const list = async (
       ...(price !== null && { price: toNumberFilter(price) }),
       ...(createdAt !== null && { createdAt: toDateFilter(createdAt) }),
     },
-    omit: {
-      createdAt: true,
-      updatedAt: true,
-    },
     include: {
       recipeItems: {
         include: {

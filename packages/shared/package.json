@@ -13,7 +13,7 @@
     "dev": "rimraf dist && tsc -w",
     "clean": "rimraf dist ./src/index.ts",
     "gen:index": "node ./generate-index.js",
-    "build": "pnpm run clean && pnpm run gen:index && tsc -b"
+    "build": "pnpm run clean && pnpm run gen:index && rimraf dist"
   },
   "dependencies": {
     "zod": "^4.4.3"

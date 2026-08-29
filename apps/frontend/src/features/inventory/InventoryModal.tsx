@@ -3,11 +3,12 @@ import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";
 import UpdateStockForm from "./UpdateStockForm";
 import useGetInventoryItemById from "@/hooks/inventory/useGetInventoryItemById";
+import type { IdSchema } from "@repo/shared";
 
 interface InventoryModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  itemId: string;
+  itemId: IdSchema;
 }
 
 const InventoryModal: FC<InventoryModalProps> = ({

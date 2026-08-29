@@ -1,5 +1,5 @@
 import { productsApi } from "@/api/products.api";
-import type { DeleteProductResult, ObjectIdSchema } from "@repo/shared";
+import type { DeleteProductResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useDeleteProduct = () => {
@@ -8,10 +8,10 @@ const useDeleteProduct = () => {
   const { data, isPending, mutateAsync, isError, error } = useMutation<
     DeleteProductResult,
     Error,
-    ObjectIdSchema
+    IdSchema
   >({
     mutationKey: ["products", "delete"],
-    mutationFn: (id: string) => productsApi.delete(id),
+    mutationFn: productsApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["products"],

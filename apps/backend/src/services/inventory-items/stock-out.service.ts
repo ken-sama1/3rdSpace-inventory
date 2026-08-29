@@ -1,13 +1,14 @@
 import { prisma } from "@repo/database";
 import type {
+  IdSchema,
   StockOutInventoryItemResult,
   StockOutInventoryItemSchema,
 } from "@repo/shared";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 import { AppError } from "../../errors/AppError.js";
+import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const stockOut = async (
-  id: string,
+  id: IdSchema,
   { quantity, reason }: StockOutInventoryItemSchema
 ): Promise<StockOutInventoryItemResult> => {
   const result = await prisma.$transaction(async (tx) => {

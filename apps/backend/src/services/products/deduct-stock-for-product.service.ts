@@ -2,12 +2,13 @@ import { prisma, type Prisma } from "@repo/database";
 import type {
   DeductStockForProductResult,
   DeductStockForProductSchema,
+  IdSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
 import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const deductStockForProduct = async (
-  id: string,
+  id: IdSchema,
   { quantity: productQuantity }: DeductStockForProductSchema
 ): Promise<DeductStockForProductResult> => {
   const product = await prisma.product.findUnique({

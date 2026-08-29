@@ -20,10 +20,6 @@ export const create = async (
         },
       }),
     },
-    omit: {
-      updatedAt: true,
-      createdAt: true,
-    },
     include: {
       recipeItems: {
         include: {

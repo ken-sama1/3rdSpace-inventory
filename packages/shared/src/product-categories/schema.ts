@@ -1,11 +1,10 @@
 import z from "zod";
+import type { ResponseBody } from "../Response.js";
+import type { DateMetaData } from "../common/types.js";
 import type {
   ProductCategoryDto,
   ProductCategoryWithProductsDto,
 } from "./types.js";
-import type { ResponseBody } from "../Response.js";
-import type { DateMetaData } from "../common/types.js";
-import type { ProductWithInventoryItemsDto } from "../products/types.js";
 
 // --- Create ---
 export const createProductCategorySchema = z.object({
@@ -45,6 +44,6 @@ export type GetProductCategoriesResBody =
   ResponseBody<GetProductCategoriesResult>;
 
 // --- Get By Id ---
-export type GetProductCategoryByIdResult = ProductWithInventoryItemsDto;
+export type GetProductCategoryByIdResult = ProductCategoryWithProductsDto;
 export type GetProductCategoryByIdResBody =
   ResponseBody<GetProductCategoryByIdResult>;

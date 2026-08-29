@@ -1,15 +1,15 @@
 import { productsApi } from "@/api/products.api";
-import type { ObjectIdSchema } from "@repo/shared";
+import type { IdSchema } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
 interface UseGetProductByIdProps {
-  productId: ObjectIdSchema;
+  productId: IdSchema;
 }
 
 const useGetProductById = ({ productId }: UseGetProductByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
     queryKey: ["products", productId],
-    queryFn: ({ signal }) => productsApi.get(productId, { signal }),
+    queryFn: ({ signal }) => productsApi.getById(productId, { signal }),
   });
 
   return {

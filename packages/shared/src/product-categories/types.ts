@@ -1,10 +1,11 @@
+import type { IdSchema } from "../common/schema.js";
 import type { ProductDto } from "../products/types.js";
 
 export type ProductCategoryDto = {
-  id: string;
+  id: IdSchema;
   name: string;
 };
 
 export type ProductCategoryWithProductsDto = ProductCategoryDto & {
-  products: ProductDto[];
+  products: Omit<ProductDto, "category">[];
 };

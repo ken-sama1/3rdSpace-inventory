@@ -7,9 +7,10 @@ import useGetProductById from "@/hooks/products/useGetProductById";
 import useUpdateProduct from "@/hooks/products/useUpdateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
+import type { IdSchema } from "@repo/shared";
 
 interface EditProductFormProps {
-  productId: string;
+  productId: IdSchema;
   onCancel?: () => void;
   onSave?: () => void;
 }
