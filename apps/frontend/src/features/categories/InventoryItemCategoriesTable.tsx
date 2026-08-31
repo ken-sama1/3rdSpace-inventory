@@ -1,6 +1,7 @@
 import Table from "@/components/ui/Table";
 import type { InventoryItemCategoryWithItemsDto } from "@repo/shared";
-import type { FC } from "react";
+import { useState, type FC } from "react";
+import InventoryItemCategoryModal from "./InventoryItemCategoryModal";
 
 interface InventoryItemCategoriesTableProps {
   categories: InventoryItemCategoryWithItemsDto[];
@@ -9,19 +10,26 @@ interface InventoryItemCategoriesTableProps {
 const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
   categories,
 }) => {
+  const [category, setCategory] =
+    useState<null | InventoryItemCategoryWithItemsDto>(null);
+  const [showItemModal, setShowItemModal] = useState<boolean>(false);
+
   return (
     <div className="size-full">
       <Table
         data={categories.map((category) => {
           return {
             ...category,
-            status: "",
           };
         })}
         options={{
           row: {
             style: {
               cursor: "pointer",
+            },
+            onClick: (v) => {
+              setCategory(v);
+              setShowItemModal(true);
             },
           },
           columns: 9,
@@ -39,13 +47,18 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
                 return <span>{items.length}</span>;
               },
             },
-            status: {
-              colspan: 3,
-            },
           },
           exlude: ["id"],
         }}
       />
+
+      {category && (
+        <InventoryItemCategoryModal
+          isOpen={showItemModal}
+          onClose={() => setShowItemModal(false)}
+          category={category}
+        />
+      )}
     </div>
   );
 };

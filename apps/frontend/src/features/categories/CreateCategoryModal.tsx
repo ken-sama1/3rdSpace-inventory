@@ -111,6 +111,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
               forceToTop: true,
               variant: "success",
             });
+            formRef.current.reset();
           } catch (error) {
             setShowDialog(false);
             showToast({

@@ -61,7 +61,7 @@ const Categories = () => {
                 backgroundColor: "var(--accent)",
               }),
             }}
-            className="button-outlined w-1/5"
+            className="button-outlined py-1! w-1/5"
           >
             Items
           </button>
@@ -75,7 +75,7 @@ const Categories = () => {
                 backgroundColor: "var(--accent)",
               }),
             }}
-            className="button-outlined w-1/5"
+            className="button-outlined py-1! w-1/5"
           >
             Products
           </button>
@@ -83,7 +83,7 @@ const Categories = () => {
 
         <div className="size-full">
           {view === "products" && productCategories && (
-            <ProductCategoriesTable />
+            <ProductCategoriesTable categories={productCategories} />
           )}
           {view === "items" && itemsCategories && (
             <InventoryItemCategoriesTable categories={itemsCategories} />

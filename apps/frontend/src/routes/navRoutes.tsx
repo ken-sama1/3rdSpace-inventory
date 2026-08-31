@@ -2,10 +2,8 @@ import Categories from "@/pages/Categories";
 import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
-import Reports from "@/pages/Reports";
 import Settings from "@/pages/Settings";
 import {
-  BarChart3Icon,
   FolderTreeIcon,
   LayersIcon,
   LayoutDashboardIcon,
@@ -50,12 +48,12 @@ export const navRoutes: NavRoute[] = [
     element: <Inventory />,
     path: "/inventory",
   },
-  {
-    label: "Reports",
-    icon: BarChart3Icon,
-    element: <Reports />,
-    path: "/reports",
-  },
+  // {
+  //   label: "Reports",
+  //   icon: BarChart3Icon,
+  //   element: <Reports />,
+  //   path: "/reports",
+  // },
   {
     label: "Settings",
     icon: SettingsIcon,
