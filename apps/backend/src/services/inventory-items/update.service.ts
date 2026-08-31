@@ -25,6 +25,21 @@ export const update = async (
   if (!item)
     throw new AppError({ message: "Item not found", code: "NOT_FOUND" });
 
+  if (categoryId) {
+    const category = await prisma.inventoryItemCategory.findUnique({
+      where: { id: categoryId },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!category)
+      throw new AppError({
+        message: "Inventory item category not found",
+        code: "NOT_FOUND",
+      });
+  }
+
   const result = await prisma.inventoryItem.update({
     where: {
       id,

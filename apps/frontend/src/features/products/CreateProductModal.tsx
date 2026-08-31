@@ -84,16 +84,15 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
 
             const formData = new FormData(formRef.current);
             const name = formData.get("product-name") as string;
-            const price = formData.get("product-price") as number | null;
-            const description = formData.get("product-description") as
-              string | undefined;
-            const image = formData.get("product-image") as
-              | {
-                  name: string;
-                }
-              | undefined;
-            const categoryId = formData.get("product-category") as
-              string | string;
+            const price = (formData.get("product-price") || null) as
+              number | null;
+            const description = (formData.get("product-description") ||
+              null) as string | null;
+            const image = (formData.get("product-image") || null) as {
+              name: string;
+            } | null;
+            const categoryId = (formData.get("product-category") || null) as
+              string | null;
 
             try {
               setDialog(null);

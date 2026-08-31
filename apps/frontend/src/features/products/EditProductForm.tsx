@@ -88,14 +88,16 @@ const EditProductForm: FC<EditProductFormProps> = ({
               description,
               categoryId,
               imageUrl: image?.name,
-              ...(requiredItems.length >= 1 && {
-                recipeItems: requiredItems.map((item) => {
-                  return {
-                    inventoryItemId: item.id,
-                    quantity: item.quantity,
-                  };
-                }),
-              }),
+              ...(requiredItems.length >= 1
+                ? {
+                    recipeItems: requiredItems.map((item) => {
+                      return {
+                        inventoryItemId: item.id,
+                        quantity: item.quantity,
+                      };
+                    }),
+                  }
+                : { recipeItems: [] }),
             },
           });
 

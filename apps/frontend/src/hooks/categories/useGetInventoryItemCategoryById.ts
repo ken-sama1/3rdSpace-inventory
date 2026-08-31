@@ -10,7 +10,7 @@ const useGetInventoryItemCategoryById = ({
   categoryId,
 }: UseGetInventoryItemByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["categories", "inventory-items", categoryId],
     queryFn: async ({ signal }) =>
       inventoryItemCategories.getById(categoryId, { signal }),
   });

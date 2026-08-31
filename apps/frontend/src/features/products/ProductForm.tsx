@@ -19,9 +19,9 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
   const [requiredItems, setRequiredItems] = useState<
     SelectRecipeItemsSelectedItem[]
   >(
-    product?.recipeItems.map(({ id, unit, quantity, inventoryItem }) => {
+    product?.recipeItems.map(({ unit, quantity, inventoryItem }) => {
       return {
-        id,
+        id: inventoryItem.id,
         quantity,
         unit,
         name: inventoryItem.name,

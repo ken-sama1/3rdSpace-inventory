@@ -28,7 +28,12 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
 
       <Table
         className="border"
-        data={items}
+        data={items.map((item) => {
+          return {
+            ...item,
+            status: getStatus(item.quantity, item.unit),
+          };
+        })}
         options={{
           cell: {
             style: {
@@ -43,17 +48,8 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
             style: {
               cursor: "pointer",
             },
-            element: (rowData) => {
-              const stockStatus = getStatus(rowData.quantity, rowData.unit);
-
-              return (
-                <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                  <StockStatus variant={stockStatus} />
-                </div>
-              );
-            },
           },
-          columns: 11,
+          columns: 12,
           column: {
             name: {
               index: 0,
@@ -76,6 +72,12 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
               colspan: 3,
               value: (v) => {
                 return !v ? "Uncategorized" : v;
+              },
+            },
+            status: {
+              colspan: 2,
+              value: (v) => {
+                return <StockStatus variant={v} />;
               },
             },
           },

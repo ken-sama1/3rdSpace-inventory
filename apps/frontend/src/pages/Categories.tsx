@@ -1,8 +1,17 @@
+import CreateCategoryModal from "@/features/categories/CreateCategoryModal";
+import InventoryItemCategoriesTable from "@/features/categories/InventoryItemCategoriesTable";
+import ProductCategoriesTable from "@/features/categories/ProductCategoriesTable";
+import useGetInventoryItemCategories from "@/hooks/categories/useGetInventoryItemCategories";
+import useGetProductCategories from "@/hooks/categories/useGetProductCategories";
 import { FolderPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
 
 const Categories = () => {
-  const [view, setView] = useState<"item" | "product">("item");
+  const [view, setView] = useState<"items" | "products">("items");
+  const [showCreateCategory, setShowCreateCategory] = useState<boolean>(false);
+
+  const { data: itemsCategories } = useGetInventoryItemCategories();
+  const { data: productCategories } = useGetProductCategories();
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
@@ -26,6 +35,9 @@ const Categories = () => {
 
         {/* Add new item */}
         <button
+          onClick={() => {
+            setShowCreateCategory(true);
+          }}
           title="New Category"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
@@ -41,36 +53,50 @@ const Categories = () => {
         <div className="w-full flex gap-2 justify-start items-center">
           <button
             onClick={() => {
-              setView("item");
+              setView("items");
             }}
-            disabled={view === "item"}
+            disabled={view === "items"}
             style={{
-              ...(view === "item" && {
+              ...(view === "items" && {
                 backgroundColor: "var(--accent)",
               }),
             }}
             className="button-outlined w-1/5"
           >
-            Item
+            Items
           </button>
           <button
             onClick={() => {
-              setView("product");
+              setView("products");
             }}
-            disabled={view === "product"}
+            disabled={view === "products"}
             style={{
-              ...(view === "product" && {
+              ...(view === "products" && {
                 backgroundColor: "var(--accent)",
               }),
             }}
             className="button-outlined w-1/5"
           >
-            Product
+            Products
           </button>
         </div>
 
-        <div className="w-full border h-full"></div>
+        <div className="size-full">
+          {view === "products" && productCategories && (
+            <ProductCategoriesTable />
+          )}
+          {view === "items" && itemsCategories && (
+            <InventoryItemCategoriesTable categories={itemsCategories} />
+          )}
+        </div>
       </section>
+
+      <CreateCategoryModal
+        isOpen={showCreateCategory}
+        onClose={() => {
+          setShowCreateCategory(false);
+        }}
+      />
     </main>
   );
 };

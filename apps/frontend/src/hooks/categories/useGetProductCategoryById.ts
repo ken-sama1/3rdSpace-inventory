@@ -8,7 +8,7 @@ interface UseGetProductByIdProps {
 
 const useGetProductCategoryById = ({ categoryId }: UseGetProductByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["categories", "products"],
+    queryKey: ["categories", "products", categoryId],
     queryFn: async ({ signal }) =>
       productCategories.getById(categoryId, { signal }),
   });

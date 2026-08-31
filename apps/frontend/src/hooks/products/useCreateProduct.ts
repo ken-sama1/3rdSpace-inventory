@@ -9,13 +9,28 @@ const useCreateProduct = () => {
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
     useMutation<CreateProductResult, Error, CreateProductInput>({
       mutationKey: ["products", "create"],
-      mutationFn: async ({ imageUrl, ...rest }) => {
+      mutationFn: async ({
+        imageUrl,
+        categoryId,
+        description,
+        name,
+        price,
+        recipeItems,
+      }) => {
+        console.log(imageUrl);
         return await productsApi.create({
-          ...rest,
-          ...(imageUrl !== undefined &&
-            imageUrl !== null && {
-              imageUrl: await cloudinaryApi.upload(imageUrl),
-            }),
+          categoryId,
+          name,
+          price,
+          recipeItems,
+          ...(categoryId && { categoryId }),
+          ...(Boolean(price) && { price }),
+          ...(description && { description }),
+          ...(imageUrl && imageUrl !== null
+            ? {
+                imageUrl: await cloudinaryApi.upload(imageUrl),
+              }
+            : { imageUrl: null }),
         });
       },
       onSuccess: () => {

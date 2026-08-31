@@ -55,9 +55,9 @@ Layout from who knows where.
 
 ┌───────────────────────────────────────────────────────────────────┐
 │ Categories                                                        │
-│ Manage how your inventory items and products are organized.      │
+│ Manage how your inventory items and products are organized.       │
 │                                                                   │
-│                                           [+ New Category]         │
+│                                           [+ New Category]        │
 ├───────────────────────────────────────────────────────────────────┤
 │                                                                   │
 │  [ Inventory Items ]   [ Products ]                               │
@@ -75,9 +75,9 @@ Layout from who knows where.
 │  │ 🥬 Vegetables           24             2           ⋮        │  │
 │  │ 🧂 Seasonings           12             0           ⋮        │  │
 │  │ 🥛 Dairy                 9             1           ⋮        │  │
-│  │ 🌾 Grains               7             0           ⋮        │  │
+│  │ 🌾 Grains               7             0            ⋮        │  │
 │  └─────────────────────────────────────────────────────────────┘  │
 │                                                                   │
-│  Showing 5 of 12 categories                                      │
+│  Showing 5 of 12 categories                                       │
 │                                                                   │
 └───────────────────────────────────────────────────────────────────┘

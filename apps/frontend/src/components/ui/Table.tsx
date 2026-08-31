@@ -95,7 +95,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                 gridColumn: `span ${colspan} / span ${colspan}`,
               }}
             >
-              <span className="h-full uppercase font-bold text-sm tracking-wider text-inherit!">
+              <span className="h-full flex items-center uppercase font-bold text-sm tracking-wider text-inherit!">
                 {String(alias)}
               </span>
             </div>

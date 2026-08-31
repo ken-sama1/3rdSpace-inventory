@@ -22,7 +22,7 @@ const Inventory = () => {
   const params = qs.parse(window.location.search.substring(1));
   const parsedParams = getInventoryItemsReqQuerySchema.safeParse(params).data;
 
-  const [openAddItem, setOpenAddItem] = useState(false);
+  const [openCreateItem, setOpenCreateItem] = useState(false);
   const [openCollapsible, setOpenCollapsible] = useState(false);
   const { data } = useGetInventoryItems({
     ...parsedParams,
@@ -105,9 +105,9 @@ const Inventory = () => {
           </div>
         </div>
 
-        {/* Add new item */}
+        {/* Create new item */}
         <button
-          onClick={() => setOpenAddItem(true)}
+          onClick={() => setOpenCreateItem(true)}
           title="New Item"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
@@ -124,8 +124,8 @@ const Inventory = () => {
       </section>
 
       <CreateItemModal
-        isOpen={openAddItem}
-        onClose={() => setOpenAddItem(false)}
+        isOpen={openCreateItem}
+        onClose={() => setOpenCreateItem(false)}
       />
     </main>
   );

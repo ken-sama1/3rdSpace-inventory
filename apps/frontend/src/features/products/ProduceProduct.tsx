@@ -114,7 +114,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
             </div>
 
             {/* Recipe Item Breakdown */}
-            <ul className="size-full">
+            <ul className="w-full h-[20vh] overflow-auto">
               {recipeItemsBreakdown.map((item) => {
                 return (
                   <li

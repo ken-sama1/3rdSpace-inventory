@@ -30,7 +30,7 @@ const useUpdateProduct = () => {
         ...(typeof price === "number" && { price }),
         ...(categoryId && { categoryId }),
         ...(recipeItems &&
-          recipeItems.length >= 1 && {
+          recipeItems && {
             recipeItems,
           }),
       });

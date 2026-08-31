@@ -15,10 +15,21 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
   const [productId, setProductId] = useState<IdSchema | null>(null);
 
   return (
-    <section className="w-full ">
+    <section className="w-full">
       {products && products.length > 0 && (
         <Table
-          data={products}
+          data={products.map((product) => {
+            const { maxServingsCount, missingItemsCount } = getMaxServings(
+              product.recipeItems
+            );
+            return {
+              ...product,
+              status: {
+                maxServingsCount,
+                missingItemsCount,
+              },
+            };
+          })}
           options={{
             row: {
               onClick: (v) => {
@@ -28,22 +39,6 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               style: {
                 cursor: "pointer",
               },
-              element: (rowproducts) => {
-                const { maxServingsCount, missingItemsCount } = getMaxServings(
-                  rowproducts.recipeItems
-                );
-
-                return (
-                  <>
-                    <div className="absolute right-10 top-1/2 -translate-y-1/2">
-                      <ProductStatusBadge
-                        maxServings={maxServingsCount}
-                        missingItems={missingItemsCount}
-                      />
-                    </div>
-                  </>
-                );
-              },
             },
             column: {
               name: {
@@ -52,17 +47,28 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
                 as: "PRODUCT",
               },
               price: {
-                index: 2,
-                colspan: 1,
+                index: 1,
+                colspan: 3,
               },
               category: {
-                colspan: 4,
+                colspan: 3,
                 value: (v) => {
                   return v ? v : "Uncategorized";
                 },
               },
+              status: {
+                colspan: 3,
+                value: ({ maxServingsCount, missingItemsCount }) => {
+                  return (
+                    <ProductStatusBadge
+                      maxServings={maxServingsCount}
+                      missingItems={missingItemsCount}
+                    />
+                  );
+                },
+              },
             },
-            columns: 10,
+            columns: 12,
             exlude: ["id", "recipeItems", "imageUrl", "description"],
           }}
         />

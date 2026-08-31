@@ -25,7 +25,7 @@ export const toProductDto = ({
     recipeItems: recipeItems.map((recipeItem) => {
       return {
         id: recipeItem.id,
-        inventoryItemId: recipeItem.inventoryItemId,
+        inventoryItemId: recipeItem.inventoryItem.id,
         quantity: recipeItem.quantity,
         unit: recipeItem.inventoryItem.unit,
       } satisfies RecipeItemDto;
@@ -52,7 +52,7 @@ export const toProductWithInventoryItemsDto = ({
     recipeItems: recipeItems.map((recipeItem) => {
       return {
         id: recipeItem.id,
-        inventoryItemId: recipeItem.inventoryItemId,
+        inventoryItemId: recipeItem.inventoryItem.id,
         quantity: recipeItem.quantity,
         unit: recipeItem.inventoryItem.unit,
         inventoryItem: toInventoryItemDto(recipeItem.inventoryItem),
