@@ -1,4 +1,9 @@
-import type { CSSProperties, ReactElement, ReactNode } from "react";
+import {
+  useRef,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 
 type TableData = Record<string, any>;
 
@@ -61,6 +66,8 @@ export type TableProps<T extends TableData> = {
 const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
   const { exlude, columns = 12, row = {}, head } = options;
 
+  const rowRef = useRef<HTMLButtonElement>(null);
+
   const tableDataOrder = [...Object.keys(data[0])]
     .map((k: keyof T) => {
       if (exlude && exlude.includes(k)) return null;
@@ -119,60 +126,63 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
 
           /** Table Row*/
           return (
-            <button
-              onClick={() => {
-                if (row?.onClick) {
-                  row.onClick(rowData);
-                }
-              }}
-              key={rowKey}
-              className="h-10 w-full items-center relative border-b border-(--line) nice-hover"
-              style={{
-                ...rowStyle,
-                display: "grid",
-                gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-              }}
-            >
-              {tableDataOrder.map((k) => {
-                const cell = options.column?.[k];
-                const colspan = cell?.colspan ?? 1;
-                const cellData = rowData?.[k];
-                const cellValue = cell?.value
-                  ? typeof cell.value === "function"
-                    ? cell.value(cellData)
-                    : cell.value
-                  : null;
-                const cellStyle = cell?.style
-                  ? typeof cell.style === "function"
-                    ? cell.style(cellData)
-                    : cell.style
-                  : {};
+            <div className="relative flex">
+              <button
+                ref={rowRef}
+                onClick={() => {
+                  if (row?.onClick) {
+                    row.onClick(rowData);
+                  }
+                }}
+                key={rowKey}
+                className="h-10 w-full items-center border-b border-(--line) nice-hover"
+                style={{
+                  ...rowStyle,
+                  display: "grid",
+                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                }}
+              >
+                {tableDataOrder.map((k) => {
+                  const cell = options.column?.[k];
+                  const colspan = cell?.colspan ?? 1;
+                  const cellData = rowData?.[k];
+                  const cellValue = cell?.value
+                    ? typeof cell.value === "function"
+                      ? cell.value(cellData)
+                      : cell.value
+                    : null;
+                  const cellStyle = cell?.style
+                    ? typeof cell.style === "function"
+                      ? cell.style(cellData)
+                      : cell.style
+                    : {};
 
-                /* Table Cell  */
-                return (
-                  <div
-                    className="w-fit"
-                    key={`cell-data-${idx}-${String(k)}`}
-                    style={{
-                      gridColumn: `span ${colspan} / span ${colspan}`,
-                    }}
-                  >
-                    <span
+                  /* Table Cell  */
+                  return (
+                    <div
+                      className="w-fit"
+                      key={`cell-data-${idx}-${String(k)}`}
                       style={{
-                        ...cellStyle,
-                        alignItems: "center",
-                        display: "flex",
+                        gridColumn: `span ${colspan} / span ${colspan}`,
                       }}
-                      className="text-sm"
                     >
-                      {cellValue ? cellValue : String(cellData)}
-                    </span>
-                  </div>
-                );
-              })}
+                      <span
+                        style={{
+                          ...cellStyle,
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                        className="text-sm"
+                      >
+                        {cellValue ? cellValue : String(cellData)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </button>
 
               {element && element}
-            </button>
+            </div>
           );
         })}
       </div>

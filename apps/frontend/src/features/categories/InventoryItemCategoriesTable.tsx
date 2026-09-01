@@ -1,6 +1,7 @@
 import Table from "@/components/ui/Table";
 import type { InventoryItemCategoryWithItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
+import CategoryContextMenu from "./CategoryContextMenu";
 import InventoryItemCategoryModal from "./InventoryItemCategoryModal";
 
 interface InventoryItemCategoriesTableProps {
@@ -31,6 +32,9 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
               setCategory(v);
               setShowItemModal(true);
             },
+            element: () => {
+              return <CategoryContextMenu />;
+            },
           },
           columns: 9,
           column: {
@@ -48,6 +52,7 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
               },
             },
           },
+
           exlude: ["id"],
         }}
       />

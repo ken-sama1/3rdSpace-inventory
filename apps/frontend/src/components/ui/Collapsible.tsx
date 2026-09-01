@@ -19,6 +19,9 @@ const Collapsible: FC<CollapsibleProps> = ({
   isOpen,
   children,
   onClose,
+  /**
+   * Every reference passed in here won't trigger `onClose` when they are clicked.
+   * */
   refs = [],
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,9 +62,9 @@ const Collapsible: FC<CollapsibleProps> = ({
             bounce: 0.2,
             duration: 0.3,
           }}
-          className="border-2 border-(--accent)/80 overflow-hidden rounded-lg z-99 size-full"
+          className="border-2 border-(--accent)/80 rounded-md z-99 size-full"
         >
-          <div className="bg-(--primary) size-full p-5 rounded-lg">
+          <div className="bg-(--primary) size-full rounded-md overflow-hidden">
             {children}
           </div>
         </motion.div>

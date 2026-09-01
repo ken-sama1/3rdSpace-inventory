@@ -63,7 +63,7 @@ const Inventory = () => {
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
       {/* Idk the top section? */}
-      <div className="mt-3 h-7! w-full flex justify-between align-center gap-2">
+      <div className="mt-3 h-7! w-full z-2 flex justify-between align-center gap-2">
         {/* Search Bar & Filter */}
         <div className="flex gap-2 relative">
           <input
@@ -92,15 +92,17 @@ const Inventory = () => {
               onClose={() => setOpenCollapsible(false)}
               refs={[filterButtonRef]}
             >
-              <ItemFilter
-                initialFilter={parsedParams}
-                onChange={(value) => {
-                  updateSearchParams({
-                    filter: value.filter,
-                    options: value.options,
-                  });
-                }}
-              />
+              <div className="p-5">
+                <ItemFilter
+                  initialFilter={parsedParams}
+                  onChange={(value) => {
+                    updateSearchParams({
+                      filter: value.filter,
+                      options: value.options,
+                    });
+                  }}
+                />
+              </div>
             </Collapsible>
           </div>
         </div>
@@ -119,7 +121,7 @@ const Inventory = () => {
       {/* Literally just a line */}
       <div className="divider"></div>
 
-      <section className="w-full h-[65dvh] overflow-auto">
+      <section className="w-full z-1 h-[65dvh] overflow-auto">
         {data && <ItemsTable items={data} />}
       </section>
 
