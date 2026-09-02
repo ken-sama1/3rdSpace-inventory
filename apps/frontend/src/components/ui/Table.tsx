@@ -68,7 +68,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
 
   const rowRef = useRef<HTMLButtonElement>(null);
 
-  const tableDataOrder = [...Object.keys(data[0])]
+  const tableDataOrder = [...Object.keys(data[0] ?? [])]
     .map((k: keyof T) => {
       if (exlude && exlude.includes(k)) return null;
 
@@ -84,108 +84,113 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
 
   return (
     <div className="min-h-[40vh] h-full w-full overflow-hidden">
-      {/* Table Header */}
-      <div
-        className="grid place-items-center w-full h-10 bg-(--primary) border-b-3 border-(--line) shadow-xs"
-        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      >
-        {tableDataOrder.map((d, idx) => {
-          const colspan = options.column?.[d]?.colspan ?? 1;
-          const alias = options.column?.[d]?.as ?? d;
-          const headStyle = head?.style ?? {};
-          return (
-            <div
-              className="size-full flex items-center"
-              key={`${String(d)}-${idx}`}
-              style={{
-                ...headStyle,
-                gridColumn: `span ${colspan} / span ${colspan}`,
-              }}
-            >
-              <span className="h-full flex items-center uppercase font-bold text-sm tracking-wider text-inherit!">
-                {String(alias)}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+      {data.length >= 1 && (
+        <>
+          {/* Table Header */}
+          <div
+            className="grid place-items-center w-full h-10 bg-(--primary) border-b-3 border-(--line) shadow-xs"
+            style={{
+              gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+            }}
+          >
+            {tableDataOrder.map((d, idx) => {
+              const colspan = options.column?.[d]?.colspan ?? 1;
+              const alias = options.column?.[d]?.as ?? d;
+              const headStyle = head?.style ?? {};
+              return (
+                <div
+                  className="size-full flex items-center"
+                  key={`${String(d)}-${idx}`}
+                  style={{
+                    ...headStyle,
+                    gridColumn: `span ${colspan} / span ${colspan}`,
+                  }}
+                >
+                  <span className="h-full flex items-center uppercase font-bold text-sm tracking-wider text-inherit!">
+                    {String(alias)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
 
-      {/* Table Body */}
-      <div className="w-full h-[calc(100%-40px)] py-1 overflow-auto no-scrollbar bg-(--primary)">
-        {data.map((rowData, idx) => {
-          const element =
-            typeof row.element === "function"
-              ? row.element(rowData)
-              : row.element;
-          const rowKey = `row-data-${idx}`;
-          const rowStyle = row?.style
-            ? typeof row.style === "function"
-              ? row.style(rowData)
-              : row.style
-            : {};
+          {/* Table Body */}
+          <div className="w-full h-[calc(100%-40px)] py-1 overflow-auto no-scrollbar bg-(--primary)">
+            {data.map((rowData, idx) => {
+              const element =
+                typeof row.element === "function"
+                  ? row.element(rowData)
+                  : row.element;
+              const rowKey = `row-data-${idx}`;
+              const rowStyle = row?.style
+                ? typeof row.style === "function"
+                  ? row.style(rowData)
+                  : row.style
+                : {};
 
-          /** Table Row*/
-          return (
-            <div className="relative flex">
-              <button
-                ref={rowRef}
-                onClick={() => {
-                  if (row?.onClick) {
-                    row.onClick(rowData);
-                  }
-                }}
-                key={rowKey}
-                className="h-10 w-full items-center border-b border-(--line) nice-hover"
-                style={{
-                  ...rowStyle,
-                  display: "grid",
-                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-                }}
-              >
-                {tableDataOrder.map((k) => {
-                  const cell = options.column?.[k];
-                  const colspan = cell?.colspan ?? 1;
-                  const cellData = rowData?.[k];
-                  const cellValue = cell?.value
-                    ? typeof cell.value === "function"
-                      ? cell.value(cellData)
-                      : cell.value
-                    : null;
-                  const cellStyle = cell?.style
-                    ? typeof cell.style === "function"
-                      ? cell.style(cellData)
-                      : cell.style
-                    : {};
+              /** Table Row*/
+              return (
+                <div key={rowKey} className="relative flex">
+                  <button
+                    ref={rowRef}
+                    onClick={() => {
+                      if (row?.onClick) {
+                        row.onClick(rowData);
+                      }
+                    }}
+                    className="h-10 w-full items-center border-b border-(--line) nice-hover"
+                    style={{
+                      ...rowStyle,
+                      display: "grid",
+                      gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                    }}
+                  >
+                    {tableDataOrder.map((k) => {
+                      const cell = options.column?.[k];
+                      const colspan = cell?.colspan ?? 1;
+                      const cellData = rowData?.[k];
+                      const cellValue = cell?.value
+                        ? typeof cell.value === "function"
+                          ? cell.value(cellData)
+                          : cell.value
+                        : null;
+                      const cellStyle = cell?.style
+                        ? typeof cell.style === "function"
+                          ? cell.style(cellData)
+                          : cell.style
+                        : {};
 
-                  /* Table Cell  */
-                  return (
-                    <div
-                      className="w-fit"
-                      key={`cell-data-${idx}-${String(k)}`}
-                      style={{
-                        gridColumn: `span ${colspan} / span ${colspan}`,
-                      }}
-                    >
-                      <span
-                        style={{
-                          ...cellStyle,
-                          alignItems: "center",
-                          display: "flex",
-                        }}
-                        className="text-sm"
-                      >
-                        {cellValue ? cellValue : String(cellData)}
-                      </span>
-                    </div>
-                  );
-                })}
-              </button>
+                      /* Table Cell  */
+                      return (
+                        <div
+                          className="w-fit"
+                          key={`cell-data-${idx}-${String(k)}`}
+                          style={{
+                            gridColumn: `span ${colspan} / span ${colspan}`,
+                          }}
+                        >
+                          <span
+                            style={{
+                              ...cellStyle,
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                            className="text-sm"
+                          >
+                            {cellValue ? cellValue : String(cellData)}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </button>
 
-              {element && element}
-            </div>
-          );
-        })}
-      </div>
+                  {element && element}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };

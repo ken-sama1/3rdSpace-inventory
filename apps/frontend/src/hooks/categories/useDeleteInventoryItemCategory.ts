@@ -28,7 +28,7 @@ const useDeleteInventoryItemCategory = () => {
 
   return {
     data,
-    create: mutateAsync,
+    delete: mutateAsync,
     isError,
     error,
     isPending,

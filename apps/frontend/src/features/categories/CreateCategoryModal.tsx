@@ -16,11 +16,11 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
 }) => {
   const { showToast } = useToastContext();
   const formRef = useRef<HTMLFormElement>(null);
-  const [categoryOf, setCategoryOf] = useState<"items" | "products">("items");
+  const [categoryOf, setCategoryOf] = useState<"item" | "product">("item");
   const [showDialog, setShowDialog] = useState(false);
 
   const { create } =
-    categoryOf === "items"
+    categoryOf === "item"
       ? useCreateInventoryItemCategory()
       : useCreateProductCategory();
 
@@ -64,6 +64,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
               </label>
               <select
                 required
+                defaultValue="item"
                 id="category-of"
                 name="category-of"
                 className="rounded-md! h-7! text-xs!"
@@ -71,9 +72,8 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
                   setCategoryOf(e.target.value as typeof categoryOf);
                 }}
               >
-                <option value="items">Inventory Items</option>
-
-                <option value="products">Products</option>
+                <option value="item">Inventory Item</option>
+                <option value="product">Product</option>
               </select>
             </div>
           </div>
@@ -94,6 +94,8 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
       </div>
 
       <Dialog
+        cancelText="No"
+        confirmText="Yes"
         title="Create Category?"
         isOpen={showDialog}
         onClose={() => setShowDialog(false)}
@@ -107,7 +109,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
             await create({ name });
             setShowDialog(false);
             showToast({
-              message: `${categoryOf === "products" ? "Product" : "Inventory item"} category created`,
+              message: `${categoryOf === "product" ? "Product" : "Inventory item"} category created`,
               forceToTop: true,
               variant: "success",
             });
@@ -124,7 +126,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
         }}
       >
         <AlertBanner
-          message={`This will be added ${categoryOf === "products" ? "product" : "Inventory item"} categories to immediately.`}
+          message={`This will be added ${categoryOf === "product" ? "product" : "Inventory item"} categories to immediately.`}
           variant="info"
         />
       </Dialog>

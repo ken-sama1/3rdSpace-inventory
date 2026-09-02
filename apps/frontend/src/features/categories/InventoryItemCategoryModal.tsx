@@ -51,7 +51,10 @@ const InventoryItemCategoryModal: FC<InventoryItemCategoryModalProps> = ({
           <div className="grid-cols-4 max-h-[20vh] overflow-auto grid">
             {category.inventoryItems.map((item) => {
               return (
-                <div className="col-span-4 grid grid-cols-4 py-2 px-4 border-b border-(--line)">
+                <div
+                  key={`item-category-${item.id}`}
+                  className="col-span-4 grid grid-cols-4 py-2 px-4 border-b border-(--line)"
+                >
                   {/* Name */}
                   <span className="col-span-1 text-center text-sm truncate">
                     {item.name}

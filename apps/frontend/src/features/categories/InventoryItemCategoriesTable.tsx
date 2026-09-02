@@ -32,8 +32,10 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
               setCategory(v);
               setShowItemModal(true);
             },
-            element: () => {
-              return <CategoryContextMenu />;
+            element: ({ id, name }) => {
+              return (
+                <CategoryContextMenu type="item" name={name} categoryId={id} />
+              );
             },
           },
           columns: 9,

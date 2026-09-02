@@ -28,7 +28,7 @@ const useDeleteProductCategory = () => {
 
   return {
     data,
-    create: mutateAsync,
+    delete: mutateAsync,
     isError,
     error,
     isPending,
