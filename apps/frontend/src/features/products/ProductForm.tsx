@@ -1,3 +1,4 @@
+import SelectCategory from "@/components/shared/SelectCategory";
 import SelectRecipeItemsModal, {
   type SelectRecipeItemsSelectedItem,
 } from "@/components/shared/SelectRecipeItemsModal";
@@ -37,7 +38,6 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
     }
 
     const formData = new FormData(formRef.current);
-
     if (onSubmit) onSubmit(formData, requiredItems);
   };
 
@@ -95,13 +95,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
               Category:
             </label>
 
-            <input
-              defaultValue={product?.category ?? ""}
-              id="product-category"
-              type="text"
-              name="product-category"
-              className="rounded-md! h-7! text-xs!"
-            />
+            <SelectCategory initialValue={product?.category} type="product" />
           </div>
 
           {/* Image */}

@@ -6,7 +6,9 @@ export interface UseGetInventoryItemProps {
   itemId: IdSchema;
 }
 
-const useGetInventoryItemById = ({ itemId }: UseGetInventoryItemProps) => {
+export const useGetInventoryItemById = ({
+  itemId,
+}: UseGetInventoryItemProps) => {
   const { data, isLoading, isError, error } =
     useQuery<GetInventoryItemByIdResult>({
       queryKey: ["inventory-item", itemId],
@@ -20,5 +22,3 @@ const useGetInventoryItemById = ({ itemId }: UseGetInventoryItemProps) => {
     error,
   };
 };
-
-export default useGetInventoryItemById;

@@ -19,10 +19,21 @@ export const remove = async (
       code: "NOT_FOUND",
     });
 
-  const result = await prisma.inventoryItemCategory.delete({
-    where: {
-      id,
-    },
+  const result = await prisma.$transaction(async (tsx) => {
+    await tsx.inventoryItem.updateMany({
+      where: {
+        categoryId: id,
+      },
+      data: {
+        categoryId: null,
+      },
+    });
+
+    return await tsx.inventoryItemCategory.delete({
+      where: {
+        id,
+      },
+    });
   });
 
   return {

@@ -1,6 +1,6 @@
 import CreateProductModal from "@/features/products/CreateProductModal";
 import ProductsTable from "@/features/products/ProductsTable";
-import useGetProducts from "@/hooks/products/useGetProducts";
+import { useGetProducts } from "@/hooks/products/useGetProducts";
 import { debounce } from "@/utils/debounce";
 import type { InventoryItemFilterSchema } from "@repo/shared";
 import { ListFilter, PackagePlus } from "lucide-react";

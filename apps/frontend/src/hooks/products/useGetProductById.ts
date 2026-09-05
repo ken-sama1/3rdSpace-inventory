@@ -6,7 +6,7 @@ interface UseGetProductByIdProps {
   productId: IdSchema;
 }
 
-const useGetProductById = ({ productId }: UseGetProductByIdProps) => {
+export const useGetProductById = ({ productId }: UseGetProductByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
     queryKey: ["products", productId],
     queryFn: ({ signal }) => productsApi.getById(productId, { signal }),
@@ -19,5 +19,3 @@ const useGetProductById = ({ productId }: UseGetProductByIdProps) => {
     error,
   };
 };
-
-export default useGetProductById;

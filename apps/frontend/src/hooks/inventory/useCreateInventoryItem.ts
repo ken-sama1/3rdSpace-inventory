@@ -5,7 +5,7 @@ import type {
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useCreateInventoryItem = () => {
+export const useCreateInventoryItem = () => {
   const queryClient = useQueryClient();
 
   const { data, error, isPending, isError, mutateAsync, isSuccess } =
@@ -28,5 +28,3 @@ const useCreateInventoryItem = () => {
     create: mutateAsync,
   };
 };
-
-export default useCreateInventoryItem;

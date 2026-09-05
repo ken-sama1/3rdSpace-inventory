@@ -1,4 +1,5 @@
-import type { ObjectIdSchema } from "../common/schema.js";
+import type { IdSchema, ObjectIdSchema } from "../common/schema.js";
+import type { InventoryItemCategoryDto } from "../inventory-item-categories/types.js";
 import type { InventoryItemUnit } from "./schema.js";
 
 export interface InventoryItemDto {
@@ -8,5 +9,6 @@ export interface InventoryItemDto {
   quantity: number;
   unit: InventoryItemUnit;
   imageUrl: string | null;
-  category: string | null;
+  categoryId: IdSchema | null;
+  category: InventoryItemCategoryDto | null;
 }

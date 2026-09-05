@@ -1,8 +1,8 @@
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import useStockInInventoryItem from "@/hooks/inventory/useStockInInventoryItem";
-import useStockOutInventoryItem from "@/hooks/inventory/useStockOutInventoryItem";
+import { useStockInInventoryItem } from "@/hooks/inventory/useStockInInventoryItem";
+import { useStockOutInventoryItem } from "@/hooks/inventory/useStockOutInventoryItem";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,

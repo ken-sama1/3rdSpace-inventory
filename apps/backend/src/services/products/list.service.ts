@@ -48,6 +48,7 @@ export const list = async (
           },
         },
       },
+      category: true,
     },
   });
 

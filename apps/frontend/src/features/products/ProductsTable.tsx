@@ -1,5 +1,5 @@
 import Table from "@/components/ui/Table";
-import useStockConfig from "@/hooks/useStockConfig";
+import { useStockConfig } from "@/hooks/useStockConfig";
 import type { IdSchema, ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import ProductDetailModal from "./ProductModal";
@@ -53,7 +53,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               category: {
                 colspan: 3,
                 value: (v) => {
-                  return v ? v : "Uncategorized";
+                  return v ? v.name : "Uncategorized";
                 },
               },
               status: {
@@ -69,7 +69,13 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               },
             },
             columns: 12,
-            exlude: ["id", "recipeItems", "imageUrl", "description"],
+            exlude: [
+              "id",
+              "categoryId",
+              "recipeItems",
+              "imageUrl",
+              "description",
+            ],
           }}
         />
       )}

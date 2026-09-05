@@ -2,9 +2,9 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import QuantityStepper from "@/components/ui/QuantityStepper";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import useDeductStockForProduct from "@/hooks/products/useDeductStockForProduct";
-import useGetProductById from "@/hooks/products/useGetProductById";
-import useStockConfig from "@/hooks/useStockConfig";
+import { useDeductStockForProduct } from "@/hooks/products/useDeductStockForProduct";
+import { useGetProductById } from "@/hooks/products/useGetProductById";
+import { useStockConfig } from "@/hooks/useStockConfig";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,
@@ -55,7 +55,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
               Category:
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border status-info">
-              {product.category || "Uncategorized"}
+              {product.category?.name || "Uncategorized"}
             </span>
           </div>
 

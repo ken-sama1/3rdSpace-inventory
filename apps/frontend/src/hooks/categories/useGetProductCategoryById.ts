@@ -6,7 +6,9 @@ interface UseGetProductByIdProps {
   categoryId: IdSchema;
 }
 
-const useGetProductCategoryById = ({ categoryId }: UseGetProductByIdProps) => {
+export const useGetProductCategoryById = ({
+  categoryId,
+}: UseGetProductByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
     queryKey: ["categories", "products", categoryId],
     queryFn: async ({ signal }) =>
@@ -20,5 +22,3 @@ const useGetProductCategoryById = ({ categoryId }: UseGetProductByIdProps) => {
     isLoading,
   };
 };
-
-export default useGetProductCategoryById;

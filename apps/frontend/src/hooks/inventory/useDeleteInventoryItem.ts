@@ -2,7 +2,7 @@ import { inventoryItemApi } from "@/api/inventory-items.api";
 import type { DeleteInventoryResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useDeleteInventoryItem = () => {
+export const useDeleteInventoryItem = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
@@ -25,5 +25,3 @@ const useDeleteInventoryItem = () => {
     isError,
   };
 };
-
-export default useDeleteInventoryItem;

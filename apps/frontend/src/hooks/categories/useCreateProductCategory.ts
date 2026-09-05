@@ -5,7 +5,7 @@ import type {
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useCreateProductCategory = () => {
+export const useCreateProductCategory = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, isError, error, isPending } = useMutation<
@@ -37,5 +37,3 @@ const useCreateProductCategory = () => {
     isPending,
   };
 };
-
-export default useCreateProductCategory;

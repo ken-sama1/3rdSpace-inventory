@@ -6,7 +6,7 @@ interface UseGetInventoryItemByIdProps {
   categoryId: IdSchema;
 }
 
-const useGetInventoryItemCategoryById = ({
+export const useGetInventoryItemCategoryById = ({
   categoryId,
 }: UseGetInventoryItemByIdProps) => {
   const { data, isError, error, isLoading } = useQuery({
@@ -22,5 +22,3 @@ const useGetInventoryItemCategoryById = ({
     isLoading,
   };
 };
-
-export default useGetInventoryItemCategoryById;

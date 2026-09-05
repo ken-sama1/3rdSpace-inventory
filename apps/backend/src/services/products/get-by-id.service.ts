@@ -18,6 +18,7 @@ export const getById = async (id: IdSchema): Promise<GetProductByIdResult> => {
           },
         },
       },
+      category: true,
     },
   });
 

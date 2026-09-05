@@ -5,7 +5,7 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
-import useCreateProduct from "@/hooks/products/useCreateProduct";
+import { useCreateProduct } from "@/hooks/products/useCreateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 
@@ -91,8 +91,9 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             const image = (formData.get("product-image") || null) as {
               name: string;
             } | null;
-            const categoryId = (formData.get("product-category") || null) as
-              string | null;
+            const categoryId = formData.get("product-category") as
+              string | undefined;
+            console.log(categoryId, "as");
 
             try {
               setDialog(null);
@@ -122,6 +123,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
               showToast({
                 variant: "danger",
                 message: "Something went wrong!",
+                forceToTop: true,
               });
               console.error(error);
             }

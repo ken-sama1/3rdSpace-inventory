@@ -2,9 +2,9 @@ import type { SelectRecipeItemsSelectedItem } from "@/components/shared/SelectRe
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import useDeleteProduct from "@/hooks/products/useDeleteProduct";
-import useGetProductById from "@/hooks/products/useGetProductById";
-import useUpdateProduct from "@/hooks/products/useUpdateProduct";
+import { useDeleteProduct } from "@/hooks/products/useDeleteProduct";
+import { useGetProductById } from "@/hooks/products/useGetProductById";
+import { useUpdateProduct } from "@/hooks/products/useUpdateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 import type { IdSchema } from "@repo/shared";
@@ -71,12 +71,11 @@ const EditProductForm: FC<EditProductFormProps> = ({
         try {
           if (!formRef.current) throw new Error("No form reference found");
           const formData = new FormData(formRef.current);
-          const name = formData.get("product-name") as string | undefined;
-          const price = formData.get("product-price") as number | null;
-          const description = formData.get("product-description") as
+          const name = (formData.get("product-name") || undefined) as
             string | undefined;
-          const categoryId = formData.get("product-category") as
-            string | undefined;
+          const price = formData.get("product-price") as string | null;
+          const description = formData.get("product-description") as string;
+          const categoryId = formData.get("product-category") as string;
           const image = formData.get("product-image") as
             { name: string } | undefined;
 

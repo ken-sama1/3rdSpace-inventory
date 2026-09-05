@@ -2,9 +2,10 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
-import useCreateInventoryItemCategory from "@/hooks/categories/useCreateInventoryItemCategory";
-import useCreateProductCategory from "@/hooks/categories/useCreateProductCategory";
+import { useCreateInventoryItemCategory } from "@/hooks/categories/useCreateInventoryItemCategory";
+import { useCreateProductCategory } from "@/hooks/categories/useCreateProductCategory";
 import { useRef, useState, type FC } from "react";
+import type { CategoryTypeEnum } from "./const";
 
 interface CreateCategoryModalProps {
   isOpen: boolean;
@@ -16,7 +17,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
 }) => {
   const { showToast } = useToastContext();
   const formRef = useRef<HTMLFormElement>(null);
-  const [categoryOf, setCategoryOf] = useState<"item" | "product">("item");
+  const [categoryOf, setCategoryOf] = useState<CategoryTypeEnum>("item");
   const [showDialog, setShowDialog] = useState(false);
 
   const { create } =

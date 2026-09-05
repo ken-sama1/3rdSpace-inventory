@@ -2,7 +2,7 @@ import Collapsible from "@/components/ui/Collapsible";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemFilter from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
-import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
 import { debounce } from "@/utils/debounce";
 import {
   getInventoryItemsReqQuerySchema,

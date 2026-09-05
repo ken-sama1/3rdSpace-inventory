@@ -1,5 +1,5 @@
-import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
-import useStockConfig from "@/hooks/useStockConfig";
+import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
+import { useStockConfig } from "@/hooks/useStockConfig";
 import {
   AlertTriangle,
   /* Banknote,*/ Boxes,

@@ -1,9 +1,14 @@
+import SelectInventoryItemCategory from "@/components/shared/SelectCategory";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
-import useCreateInventoryItem from "@/hooks/inventory/useCreateInventoryItem";
-import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
+import { useCreateInventoryItem } from "@/hooks/inventory/useCreateInventoryItem";
+import {
+  inventoryItemUnits,
+  type IdSchema,
+  type InventoryItemUnit,
+} from "@repo/shared";
 import { useRef, useState } from "react";
 
 interface CreateItemModalProps {
@@ -15,6 +20,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
   const { create, isPending } = useCreateInventoryItem();
 
   const [dialog, setDialog] = useState<"confirm" | null>(null);
+  const [categoryId, setCategoryId] = useState<IdSchema | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -40,7 +46,6 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
         : null;
       const description = form.get("item-description") as string | null;
       const imageUrl = form.get("item-image") as string | null;
-      const categoryId = form.get("item-category") as string | null;
 
       setDialog(null);
 
@@ -110,11 +115,11 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
                 >
                   Category
                 </label>
-                <input
-                  id="item-category"
-                  type="text"
-                  name="item-category"
-                  className="rounded-md! h-7! text-xs!"
+                <SelectInventoryItemCategory
+                  type="item"
+                  onChange={(v) => {
+                    setCategoryId(v?.id ?? null);
+                  }}
                 />
               </div>
 

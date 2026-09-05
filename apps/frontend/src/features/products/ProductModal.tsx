@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/Modal";
-import useGetProductById from "@/hooks/products/useGetProductById";
+import { useGetProductById } from "@/hooks/products/useGetProductById";
 import { useState, type FC } from "react";
 import EditProductForm from "./EditProductForm";
 import ProduceProduct from "./ProduceProduct";

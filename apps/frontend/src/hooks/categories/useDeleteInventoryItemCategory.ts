@@ -2,7 +2,7 @@ import { inventoryItemCategories } from "@/api/inventory-item-categories";
 import type { DeleteInventoryItemCategoryResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useDeleteInventoryItemCategory = () => {
+export const useDeleteInventoryItemCategory = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, isError, error, isPending } = useMutation<
@@ -34,5 +34,3 @@ const useDeleteInventoryItemCategory = () => {
     isPending,
   };
 };
-
-export default useDeleteInventoryItemCategory;

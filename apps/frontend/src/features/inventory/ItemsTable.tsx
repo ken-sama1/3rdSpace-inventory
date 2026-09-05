@@ -1,6 +1,6 @@
 import StockStatus from "@/components/ui/StockStatus";
 import Table from "@/components/ui/Table";
-import useStockConfig from "@/hooks/useStockConfig";
+import { useStockConfig } from "@/hooks/useStockConfig";
 import type { InventoryItemDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import InventoryModal from "./InventoryModal";
@@ -71,7 +71,7 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
               index: 3,
               colspan: 3,
               value: (v) => {
-                return !v ? "Uncategorized" : v;
+                return !v?.name ? "Uncategorized" : v.name;
               },
             },
             status: {
@@ -81,7 +81,7 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
               },
             },
           },
-          exlude: ["id", "description", "imageUrl"],
+          exlude: ["id", "categoryId", "description", "imageUrl"],
         }}
       />
     </div>

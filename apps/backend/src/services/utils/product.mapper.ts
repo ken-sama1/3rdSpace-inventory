@@ -5,6 +5,7 @@ import type {
 } from "@repo/shared";
 import type { ProductWithInventoryItems } from "../types/ProductWithInventoryItems.js";
 import { toInventoryItemDto } from "./inventory-item.mapper.js";
+import { toProductCategoryDto } from "./product-category.mapper.js";
 
 export const toProductDto = ({
   id,
@@ -14,11 +15,13 @@ export const toProductDto = ({
   imageUrl,
   price,
   recipeItems,
+  categoryId,
 }: ProductWithInventoryItems): ProductDto => {
   return {
     price,
     id,
-    category: category?.name ?? null,
+    categoryId,
+    category: category ?? null,
     description,
     imageUrl,
     name,
@@ -41,10 +44,12 @@ export const toProductWithInventoryItemsDto = ({
   name,
   price,
   recipeItems,
+  categoryId,
 }: ProductWithInventoryItems): ProductWithInventoryItemsDto => {
   return {
     id,
-    category: category?.name ?? null,
+    categoryId: categoryId,
+    category: category ? toProductCategoryDto(category) : null,
     description,
     imageUrl,
     name,

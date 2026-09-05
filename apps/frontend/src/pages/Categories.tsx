@@ -1,8 +1,8 @@
 import CreateCategoryModal from "@/features/categories/CreateCategoryModal";
 import InventoryItemCategoriesTable from "@/features/categories/InventoryItemCategoriesTable";
 import ProductCategoriesTable from "@/features/categories/ProductCategoriesTable";
-import useGetInventoryItemCategories from "@/hooks/categories/useGetInventoryItemCategories";
-import useGetProductCategories from "@/hooks/categories/useGetProductCategories";
+import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
+import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
 import { FolderPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
 

@@ -6,7 +6,7 @@ import {
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useStockOutInventoryItem = () => {
+export const useStockOutInventoryItem = () => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, data, error, isPending, isError } = useMutation<
@@ -32,5 +32,3 @@ const useStockOutInventoryItem = () => {
     isError,
   };
 };
-
-export default useStockOutInventoryItem;

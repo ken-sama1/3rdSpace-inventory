@@ -2,7 +2,7 @@ import { inventoryItemCategories } from "@/api/inventory-item-categories";
 import type { GetInventoryItemCategoriesResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetInventoryItemCategories = () => {
+export const useGetInventoryItemCategories = () => {
   const { data, isError, error, isLoading } =
     useQuery<GetInventoryItemCategoriesResult>({
       queryKey: ["categories", "inventory-items"],
@@ -16,5 +16,3 @@ const useGetInventoryItemCategories = () => {
     isLoading,
   };
 };
-
-export default useGetInventoryItemCategories;

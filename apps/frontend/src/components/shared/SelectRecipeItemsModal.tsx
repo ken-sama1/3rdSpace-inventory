@@ -1,4 +1,4 @@
-import useGetInventoryItems from "@/hooks/inventory/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
 import type { InventoryItemUnit } from "@repo/shared";
 import { X } from "lucide-react";
 import { useEffect, useState, type FC } from "react";

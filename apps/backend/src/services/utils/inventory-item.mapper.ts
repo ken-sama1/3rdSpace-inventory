@@ -1,5 +1,6 @@
 import type { InventoryItem, InventoryItemCategory } from "@repo/database";
 import type { InventoryItemDto, PartialSome } from "@repo/shared";
+import { toInventoryItemCategoryDto } from "./inventory-item-category.mappper.js";
 
 export const toInventoryItemDto = ({
   id,
@@ -9,6 +10,7 @@ export const toInventoryItemDto = ({
   imageUrl,
   name,
   unit,
+  categoryId,
 }: PartialSome<
   InventoryItem & { category: InventoryItemCategory | null },
   "createdAt" | "updatedAt" | "category"
@@ -16,7 +18,8 @@ export const toInventoryItemDto = ({
   return {
     id,
     quantity,
-    category: category?.name ?? null,
+    categoryId,
+    category: category ? toInventoryItemCategoryDto(category) : null,
     description,
     imageUrl,
     name,

@@ -3,17 +3,18 @@ import Collapsible from "@/components/ui/Collapsible";
 import type { DialogProps } from "@/components/ui/Dialog";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import useDeleteInventoryItemCategory from "@/hooks/categories/useDeleteInventoryItemCategory";
-import useDeleteProductCategory from "@/hooks/categories/useDeleteProductCategory";
-import useUpdateInventoryItemCategory from "@/hooks/categories/useUpdateInventoryItemCategory";
-import useUpdateProductCategory from "@/hooks/categories/useUpdateProductCategory";
+import { useDeleteInventoryItemCategory } from "@/hooks/categories/useDeleteInventoryItemCategory";
+import { useDeleteProductCategory } from "@/hooks/categories/useDeleteProductCategory";
+import { useUpdateInventoryItemCategory } from "@/hooks/categories/useUpdateInventoryItemCategory";
+import { useUpdateProductCategory } from "@/hooks/categories/useUpdateProductCategory";
 import type { IdSchema } from "@repo/shared";
 import { EllipsisVertical } from "lucide-react";
 import { useRef, useState, type FC } from "react";
+import type { CategoryTypeEnum } from "./const";
 
 interface CategoryContextMenuProps {
   categoryId: IdSchema;
-  type: "item" | "product";
+  type: CategoryTypeEnum;
   name: string;
 }
 
@@ -99,7 +100,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
           await action.delete(categoryId);
           setDialog(null);
           showToast({
-            message: "Category successfully deleted",
+            message: `Category ${name} successfullt deleted`,
             variant: "success",
           });
         } catch (error: any) {

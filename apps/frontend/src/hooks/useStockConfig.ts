@@ -50,7 +50,7 @@ type RecipeItemsBreakdown = {
   unit: InventoryItemUnit;
 };
 
-const useStockConfig = () => {
+export const useStockConfig = () => {
   const getStatus = (stock: number, unit: InventoryItemUnit): StockStatus => {
     const status = stockStatusByUnitMap[unit];
 
@@ -101,5 +101,3 @@ const useStockConfig = () => {
     getMaxServings,
   };
 };
-
-export default useStockConfig;

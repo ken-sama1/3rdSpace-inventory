@@ -3,7 +3,7 @@ import { productsApi } from "@/api/products.api";
 import type { CreateProductInput, CreateProductResult } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useCreateProduct = () => {
+export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, error, isPending, isError, isSuccess } =
@@ -49,5 +49,3 @@ const useCreateProduct = () => {
     isSuccess,
   };
 };
-
-export default useCreateProduct;

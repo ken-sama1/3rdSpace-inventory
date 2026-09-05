@@ -1,12 +1,14 @@
+import SelectInventoryItemCategory from "@/components/shared/SelectCategory";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import useDeleteInventoryItem from "@/hooks/inventory/useDeleteInventoryItem";
-import useUpdateInventoryItem from "@/hooks/inventory/useUpdateInventoryItem";
+import { useDeleteInventoryItem } from "@/hooks/inventory/useDeleteInventoryItem";
+import { useUpdateInventoryItem } from "@/hooks/inventory/useUpdateInventoryItem";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   ApiErrorCode,
   inventoryItemUnits,
+  type IdSchema,
   type InventoryItemDto,
   type InventoryItemUnit,
   type ResponseError,
@@ -29,8 +31,8 @@ const EditItemForm: FC<EditItemFormProps> = ({
 }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const [hasChanges, setHasChanges] = useState<boolean>(false);
   const [dialog, setDialog] = useState<"update" | "delete" | null>(null);
+  const [categoryId, setCategoryId] = useState<IdSchema | null>(null);
 
   const { delete: deleteItem, isPending: deletePending } =
     useDeleteInventoryItem();
@@ -84,7 +86,6 @@ const EditItemForm: FC<EditItemFormProps> = ({
       const name = formitem.get("item-name") as string | undefined;
       const unit = formitem.get("item-unit") as InventoryItemUnit | undefined;
       const imageUrl = formitem.get("item-image") as string | undefined;
-      const categoryId = formitem.get("item-category") as string | undefined;
       const description = formitem.get("item-description") as
         string | undefined;
       await updateItem({
@@ -140,9 +141,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
               Name:
             </label>
             <input
-              onChange={() => {
-                if (!hasChanges) setHasChanges(true);
-              }}
+              onChange={() => {}}
               defaultValue={item.name}
               required
               type="text"
@@ -160,15 +159,13 @@ const EditItemForm: FC<EditItemFormProps> = ({
             >
               Category
             </label>
-            <input
-              onChange={() => {
-                if (!hasChanges) setHasChanges(true);
+
+            <SelectInventoryItemCategory
+              type="item"
+              initialValue={item.category}
+              onChange={(v) => {
+                setCategoryId(v?.id ?? null);
               }}
-              defaultValue={item.category ?? ""}
-              id="item-category"
-              type="text"
-              name="item-category"
-              className="rounded-md! h-7! text-xs!"
             />
           </div>
 
@@ -181,9 +178,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
               Unit:
             </label>
             <select
-              onChange={() => {
-                if (!hasChanges) setHasChanges(true);
-              }}
+              onChange={() => {}}
               defaultValue={item.unit}
               required
               id="item-unit"
@@ -231,11 +226,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
             </button>
 
             {/* Save Button */}
-            <button
-              disabled={!hasChanges || updatePending}
-              type="submit"
-              className={`${hasChanges ? "button-accent" : "button-muted"} h-7! py-0!`}
-            >
+            <button type="submit" className={`button-accent h-7! py-0!`}>
               {updatePending ? "Saving..." : "Save"}
             </button>
           </div>

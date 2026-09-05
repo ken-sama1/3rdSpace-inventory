@@ -2,7 +2,7 @@ import { productCategories } from "@/api/product-categories";
 import type { DeleteProductCategoryResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useDeleteProductCategory = () => {
+export const useDeleteProductCategory = () => {
   const queryClient = useQueryClient();
 
   const { data, mutateAsync, isError, error, isPending } = useMutation<
@@ -34,5 +34,3 @@ const useDeleteProductCategory = () => {
     isPending,
   };
 };
-
-export default useDeleteProductCategory;

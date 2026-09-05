@@ -2,7 +2,7 @@ import { productCategories } from "@/api/product-categories";
 import type { GetProductCategoriesResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetProductCategories = () => {
+export const useGetProductCategories = () => {
   const { data, isError, error, isLoading } =
     useQuery<GetProductCategoriesResult>({
       queryKey: ["categories", "products"],
@@ -17,5 +17,3 @@ const useGetProductCategories = () => {
     isLoading,
   };
 };
-
-export default useGetProductCategories;

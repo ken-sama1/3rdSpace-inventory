@@ -5,7 +5,7 @@ import type {
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetInventoryItems = ({
+export const useGetInventoryItems = ({
   filter,
   options,
 }: GetInventoryItemsReqQuery = {}) => {
@@ -24,5 +24,3 @@ const useGetInventoryItems = ({
     error,
   };
 };
-
-export default useGetInventoryItems;
