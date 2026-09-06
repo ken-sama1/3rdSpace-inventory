@@ -1,3 +1,4 @@
+import { assignItems } from "./assign-items.service.js";
 import { create } from "./create.service.js";
 import { getById } from "./get-by-id.service.js";
 import { list } from "./list.service.js";
@@ -10,4 +11,5 @@ export const inventoryItemCategoriesService = {
   delete: remove,
   getById,
   update,
+  assignItems,
 };

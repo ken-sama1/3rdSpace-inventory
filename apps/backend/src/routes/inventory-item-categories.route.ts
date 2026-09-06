@@ -1,14 +1,15 @@
-import express, { type Router } from "express";
 import {
-  validateReqBody,
-  validateReqParams,
-} from "../middleware/validate-schema.middleware.js";
-import {
+  assignInventoryItemsToCategorySchema,
   createInventoryItemCategorySchema,
   idParamSchema,
   updateInventoryItemCategorySchema,
 } from "@repo/shared";
+import express, { type Router } from "express";
 import { inventoryItemCategoriesController } from "../controllers/inventory-item-categories/index.js";
+import {
+  validateReqBody,
+  validateReqParams,
+} from "../middleware/validate-schema.middleware.js";
 
 export const inventoryItemCategoriesRouter: Router = express.Router();
 
@@ -16,6 +17,13 @@ inventoryItemCategoriesRouter.post(
   "/create",
   validateReqBody(createInventoryItemCategorySchema),
   inventoryItemCategoriesController.create
+);
+
+inventoryItemCategoriesRouter.post(
+  "/:id/assign-items",
+  validateReqParams(idParamSchema),
+  validateReqBody(assignInventoryItemsToCategorySchema),
+  inventoryItemCategoriesController.assignItems
 );
 
 inventoryItemCategoriesRouter

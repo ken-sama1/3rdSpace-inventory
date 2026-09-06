@@ -5,6 +5,8 @@ import type {
 } from "./types.js";
 import type { ResponseBody } from "../Response.js";
 import type { DateMetaData } from "../common/types.js";
+import { idSchema } from "../common/schema.js";
+import type { InventoryItemDto } from "../inventory-items/types.js";
 
 // --- Create ---
 export const createInventoryItemCategorySchema = z.object({
@@ -50,3 +52,18 @@ export type DeleteInventoryItemCategoryResult = InventoryItemCategoryDto &
   DateMetaData;
 export type DeleteInventoryItemCategoryResBody =
   ResponseBody<DeleteInventoryItemCategoryResult>;
+
+// --- Assign Inventory Items to Category ---
+export const assignInventoryItemsToCategorySchema = z.object({
+  inventoryItemIds: z.array(idSchema),
+});
+
+export type AssignInventoryItemsToCategorySchema = z.infer<
+  typeof assignInventoryItemsToCategorySchema
+>;
+export type AssignInventoryItemsToCategoryInput = z.input<
+  typeof assignInventoryItemsToCategorySchema
+>;
+export type AssignInventoryItemsToCategoryResult = InventoryItemDto[];
+export type AssignInventoryItemsToCategoryResBody =
+  ResponseBody<AssignInventoryItemsToCategoryResult>;

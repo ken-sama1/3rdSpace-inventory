@@ -2,7 +2,7 @@ import Table from "@/components/ui/Table";
 import type { InventoryItemCategoryWithItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import CategoryContextMenu from "./CategoryContextMenu";
-import InventoryItemCategoryModal from "./InventoryItemCategoryModal";
+import InventoryItemCategoryModal from "./CategoryModal";
 
 interface InventoryItemCategoriesTableProps {
   categories: InventoryItemCategoryWithItemsDto[];
@@ -61,6 +61,7 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
 
       {category && (
         <InventoryItemCategoryModal
+          type="item"
           isOpen={showItemModal}
           onClose={() => setShowItemModal(false)}
           category={category}

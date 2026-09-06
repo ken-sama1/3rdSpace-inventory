@@ -4,15 +4,15 @@ import { useGetProductCategories } from "@/hooks/categories/useGetProductCategor
 import type { IdSchema } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
 
-export interface SelectedCategory {
+export interface SelectCategorySelectedCategory {
   id: IdSchema;
   name: string;
 }
 
 interface SelectCategoryProps {
   type: CategoryTypeEnum;
-  onChange?: (selectedCategory: SelectedCategory | null) => void;
-  initialValue?: SelectedCategory | null;
+  onChange?: (selectedCategory: SelectCategorySelectedCategory | null) => void;
+  initialValue?: SelectCategorySelectedCategory | null;
 }
 
 const SelectCategory: FC<SelectCategoryProps> = ({
@@ -25,7 +25,7 @@ const SelectCategory: FC<SelectCategoryProps> = ({
       ? useGetInventoryItemCategories()
       : useGetProductCategories();
   const [selectedCategory, setSelectedCategory] =
-    useState<SelectedCategory | null>(initialValue);
+    useState<SelectCategorySelectedCategory | null>(initialValue);
 
   useEffect(() => {
     if (onChange) onChange(selectedCategory);

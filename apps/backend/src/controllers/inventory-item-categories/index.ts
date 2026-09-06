@@ -1,3 +1,4 @@
+import { assignItems } from "./assign-items.controller.js";
 import { create } from "./create.controller.js";
 import { getById } from "./get-by-id.controller.js";
 import { list } from "./list.controller.js";
@@ -10,4 +11,5 @@ export const inventoryItemCategoriesController = {
   getById,
   delete: remove,
   update,
+  assignItems,
 };

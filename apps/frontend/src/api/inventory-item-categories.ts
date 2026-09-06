@@ -1,4 +1,7 @@
 import {
+  type AssignInventoryItemsToCategoryInput,
+  type AssignInventoryItemsToCategoryResBody,
+  type AssignInventoryItemsToCategoryResult,
   type CreateInventoryItemCategoryInput,
   type CreateInventoryItemCategoryResBody,
   type CreateInventoryItemCategoryResult,
@@ -13,8 +16,8 @@ import {
   type UpdateInventoryItemCategoryResBody,
   type UpdateInventoryItemCategoryResult,
 } from "@repo/shared";
-import { api } from "./api";
 import type { AxiosRequestConfig } from "axios";
+import { api } from "./api";
 
 const baseUrl = "/inventory-item-categories";
 
@@ -79,10 +82,24 @@ const getMany = async (
   return data.data;
 };
 
+// --- Assign Items ---
+export const assignItems = async (
+  id: IdSchema,
+  { inventoryItemIds }: AssignInventoryItemsToCategoryInput
+): Promise<AssignInventoryItemsToCategoryResult> => {
+  const { data } = await api.post<AssignInventoryItemsToCategoryResBody>(
+    `${baseUrl}/${id}`,
+    { inventoryItemIds }
+  );
+
+  return data.data;
+};
+
 export const inventoryItemCategories = {
   getById,
   getMany,
   create,
   update,
   delete: remove,
+  assignItems,
 };

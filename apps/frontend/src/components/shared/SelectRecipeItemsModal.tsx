@@ -123,8 +123,8 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
 
               let quantity: number = 0;
 
-              const element = (
-                <div className="flex flex-col gap-y-3 py-1 w-76">
+              const dialogChild = (
+                <div className="flex flex-col gap-y-3 py-1 w-xl">
                   <p className="text-sm!">
                     Set how much of this item will be used per production.
                   </p>
@@ -169,7 +169,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                           children: null,
                         });
                       },
-                      children: element,
+                      children: dialogChild,
                     });
                   }}
                   key={`inventory-items-${item.id}`}

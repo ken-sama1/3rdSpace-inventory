@@ -1,18 +1,36 @@
+import SelectInventoryItemsModal from "@/components/shared/SelectInventoryItemsModal";
 import Modal from "@/components/ui/Modal";
-import type { InventoryItemCategoryWithItemsDto } from "@repo/shared";
-import type { FC } from "react";
+import { useState, type FC } from "react";
+import type { CategoryTypeEnum } from "./const";
+import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
+import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
 
-interface InventoryItemCategoryModalProps {
-  category: InventoryItemCategoryWithItemsDto;
+interface CategoryModalProps {
+  category: {
+    id: string;
+    name: string;
+  };
   isOpen: boolean;
+  type: CategoryTypeEnum;
   onClose?: () => void;
 }
 
-const InventoryItemCategoryModal: FC<InventoryItemCategoryModalProps> = ({
+const CategoryModal: FC<CategoryModalProps> = ({
   isOpen,
   onClose,
   category,
+  type,
 }) => {
+  const [showSelectItemsModal, setShowSelectItemsModal] =
+    useState<boolean>(false);
+
+  const { data } =
+    type === "item"
+      ? useGetInventoryItemCategories()
+      : useGetProductCategories();
+
+  if (!data) return;
+
   return (
     <Modal title={category.name} onClose={onClose} isOpen={isOpen}>
       <div className="w-lg">
@@ -20,7 +38,7 @@ const InventoryItemCategoryModal: FC<InventoryItemCategoryModalProps> = ({
           {/* Label */}
           <div className="w-full">
             <span className="font-semibold text-sm text-(--text-muted)! uppercase tracking-wider">
-              Items:
+              {type === "item" ? "Items" : "Products"}:
             </span>
           </div>
 
@@ -29,50 +47,30 @@ const InventoryItemCategoryModal: FC<InventoryItemCategoryModalProps> = ({
             {/* List Header */}
             <div className="grid grid-cols-4 py-2 px-4 border-b border-(--line)">
               {/* Name */}
-              <span className="col-span-1 text-center font-semibold uppercase text-sm truncate">
+              <span className="col-span-2 text-center font-semibold uppercase text-sm truncate">
                 Name
               </span>
 
-              {/* Available / Qyantity  */}
-              <span className="col-span-1 text-center font-semibold uppercase text-sm truncate">
-                Available
-              </span>
-
-              {/* Unit */}
-              <span className="col-span-1 text-center font-semibold uppercase text-sm truncate">
-                Unit
-              </span>
-
               {/* Action */}
-              <span className="col-span-1 text-center font-semibold uppercase text-sm truncate">
+              <span className="col-span-2 text-center font-semibold uppercase text-sm truncate">
                 Action
               </span>
             </div>
 
             {/* List */}
             <div className="grid-cols-4 max-h-[30vh] overflow-auto grid">
-              {category.inventoryItems.map((item) => {
+              {data.map((d) => {
                 return (
                   <div
-                    key={`item-category-${item.id}`}
+                    key={`item-category-${d.id}`}
                     className="col-span-4 grid grid-cols-4 py-2 px-4 border-b border-(--line)"
                   >
                     {/* Name */}
-                    <span className="col-span-1 text-center text-sm truncate">
-                      {item.name}
+                    <span className="col-span-2 text-center text-sm truncate">
+                      {d.name}
                     </span>
 
-                    {/* Available / Qyantity  */}
-                    <span className="col-span-1 text-center text-sm truncate">
-                      {item.quantity}
-                    </span>
-
-                    {/* Unit */}
-                    <span className="col-span-1 text-center lowercase text-sm truncate">
-                      {item.unit}
-                    </span>
-
-                    <div className="col-span-1 flex justify-center">
+                    <div className="col-span-2 flex justify-center">
                       <button className="button-danger py-1! text-sm!">
                         Remove
                       </button>
@@ -91,14 +89,29 @@ const InventoryItemCategoryModal: FC<InventoryItemCategoryModalProps> = ({
             >
               Cancel
             </button>
-            <button type="button" className="button-accent py-1!">
+
+            <button
+              onClick={() => setShowSelectItemsModal(true)}
+              type="button"
+              className="button-accent py-1!"
+            >
               Add
             </button>
           </div>
         </div>
       </div>
+
+      <SelectInventoryItemsModal
+        hideItemsWithIds={data.map((item) => item.id)}
+        isOpen={showSelectItemsModal}
+        onSave={() => {
+          try {
+          } catch (error) {}
+        }}
+        onClose={() => setShowSelectItemsModal(false)}
+      />
     </Modal>
   );
 };
 
-export default InventoryItemCategoryModal;
+export default CategoryModal;
