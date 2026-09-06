@@ -1,6 +1,6 @@
 import type { InventoryItem, InventoryItemCategory } from "@repo/database";
 import type { InventoryItemDto, PartialSome } from "@repo/shared";
-import { toInventoryItemCategoryDto } from "./inventory-item-category.mappper.js";
+import { toInventoryItemCategoryDto } from "./inventory-item-category.mapper.js";
 
 export const toInventoryItemDto = ({
   id,

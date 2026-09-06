@@ -1,5 +1,5 @@
 import type { Product, ProductCategory } from "@repo/database";
-import type { RecipeItemWithInventoryItems } from "./RecipeItemWithInventorItems.js";
+import type { RecipeItemWithInventoryItems } from "./RecipeItemWithInventoryItems.js";
 
 export interface ProductWithInventoryItems extends Product {
   recipeItems: RecipeItemWithInventoryItems[];

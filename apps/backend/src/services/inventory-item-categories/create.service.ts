@@ -3,7 +3,7 @@ import type {
   CreateInventoryItemCategoryResult,
   CreateInventoryItemCategorySchema,
 } from "@repo/shared";
-import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mappper.js";
+import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mapper.js";
 
 export const create = async (
   data: CreateInventoryItemCategorySchema

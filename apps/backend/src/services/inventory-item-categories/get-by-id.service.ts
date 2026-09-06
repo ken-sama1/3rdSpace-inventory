@@ -1,6 +1,6 @@
 import { prisma } from "@repo/database";
 import { AppError } from "../../errors/AppError.js";
-import { toInventoryItemCategoryWithItemsDto } from "../utils/inventory-item-category.mappper.js";
+import { toInventoryItemCategoryWithItemsDto } from "../utils/inventory-item-category.mapper.js";
 import type { IdSchema } from "@repo/shared";
 
 export const getById = async (id: IdSchema) => {

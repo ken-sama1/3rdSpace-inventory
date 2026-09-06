@@ -3,7 +3,7 @@ export * from "./common/filter-schema.js";
 export * from "./common/options-schema.js";
 export * from "./common/schema.js";
 export * from "./common/types.js";
-export * from "./errors/ApiError.js";
+export * from "./errors/api-error.js";
 export * from "./inventory-item-categories/schema.js";
 export * from "./inventory-item-categories/types.js";
 export * from "./inventory-items/enums.js";

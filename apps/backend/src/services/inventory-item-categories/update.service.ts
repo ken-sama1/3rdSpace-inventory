@@ -5,7 +5,7 @@ import type {
   UpdateInventoryItemCategorySchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mappper.js";
+import { toInventoryItemCategoryDto } from "../utils/inventory-item-category.mapper.js";
 
 export const update = async (
   id: IdSchema,

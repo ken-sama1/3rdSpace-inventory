@@ -1,4 +1,4 @@
-import type { ApiErrorCode } from "./errors/ApiError.js";
+import type { ApiErrorCode } from "./errors/api-error.js";
 
 export type ResponseBody<T = any> = {
   message: string;
