@@ -12,6 +12,9 @@ import {
   type GetInventoryItemCategoryByIdResBody,
   type GetInventoryItemCategoryByIdResult,
   type IdSchema,
+  type UnassignInventoryItemsToCategoryInput,
+  type UnassignInventoryItemsToCategoryResBody,
+  type UnassignInventoryItemsToCategoryResult,
   type UpdateInventoryItemCategoryInput,
   type UpdateInventoryItemCategoryResBody,
   type UpdateInventoryItemCategoryResult,
@@ -83,12 +86,25 @@ const getMany = async (
 };
 
 // --- Assign Items ---
-export const assignItems = async (
+const assignItems = async (
   id: IdSchema,
   { inventoryItemIds }: AssignInventoryItemsToCategoryInput
 ): Promise<AssignInventoryItemsToCategoryResult> => {
   const { data } = await api.post<AssignInventoryItemsToCategoryResBody>(
-    `${baseUrl}/${id}`,
+    `${baseUrl}/${id}/assign-items`,
+    { inventoryItemIds }
+  );
+
+  return data.data;
+};
+
+// --- Unassign Items ---
+const unassignItems = async (
+  id: IdSchema,
+  { inventoryItemIds }: UnassignInventoryItemsToCategoryInput
+): Promise<UnassignInventoryItemsToCategoryResult> => {
+  const { data } = await api.post<UnassignInventoryItemsToCategoryResBody>(
+    `${baseUrl}/${id}/unassign-items`,
     { inventoryItemIds }
   );
 
@@ -102,4 +118,5 @@ export const inventoryItemCategories = {
   update,
   delete: remove,
   assignItems,
+  unassignItems,
 };

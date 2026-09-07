@@ -100,7 +100,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
           await action.delete(categoryId);
           setDialog(null);
           showToast({
-            message: `Category ${name} successfullt deleted`,
+            message: `Category ${name} successfully deleted`,
             variant: "success",
           });
         } catch (error: any) {

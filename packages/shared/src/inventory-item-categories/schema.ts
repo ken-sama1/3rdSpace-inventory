@@ -57,7 +57,6 @@ export type DeleteInventoryItemCategoryResBody =
 export const assignInventoryItemsToCategorySchema = z.object({
   inventoryItemIds: z.array(idSchema),
 });
-
 export type AssignInventoryItemsToCategorySchema = z.infer<
   typeof assignInventoryItemsToCategorySchema
 >;
@@ -67,3 +66,16 @@ export type AssignInventoryItemsToCategoryInput = z.input<
 export type AssignInventoryItemsToCategoryResult = InventoryItemDto[];
 export type AssignInventoryItemsToCategoryResBody =
   ResponseBody<AssignInventoryItemsToCategoryResult>;
+
+// --- Unassign Inventory Items to Category ---
+export const unassignInventoryItemsToCategorySchema =
+  assignInventoryItemsToCategorySchema;
+export type UnassignInventoryItemsToCategorySchema = z.infer<
+  typeof unassignInventoryItemsToCategorySchema
+>;
+export type UnassignInventoryItemsToCategoryInput = z.input<
+  typeof unassignInventoryItemsToCategorySchema
+>;
+export type UnassignInventoryItemsToCategoryResult = InventoryItemDto[];
+export type UnassignInventoryItemsToCategoryResBody =
+  ResponseBody<UnassignInventoryItemsToCategoryResult>;

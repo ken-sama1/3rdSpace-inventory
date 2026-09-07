@@ -64,7 +64,7 @@ const InventoryItemCategoriesTable: FC<InventoryItemCategoriesTableProps> = ({
           type="item"
           isOpen={showItemModal}
           onClose={() => setShowItemModal(false)}
-          category={category}
+          categoryId={category.id}
         />
       )}
     </div>

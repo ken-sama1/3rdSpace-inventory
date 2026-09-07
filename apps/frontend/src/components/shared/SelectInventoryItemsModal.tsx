@@ -91,6 +91,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
             if (isSelected) return;
             const hasCategory = item.categoryId;
 
+            console.log(hideItemsWithIds, item.id, item.name);
             if (hideItemsWithIds.includes(item.id)) return;
 
             return (

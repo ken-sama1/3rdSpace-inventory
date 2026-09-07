@@ -2,6 +2,7 @@ import {
   assignInventoryItemsToCategorySchema,
   createInventoryItemCategorySchema,
   idParamSchema,
+  unassignInventoryItemsToCategorySchema,
   updateInventoryItemCategorySchema,
 } from "@repo/shared";
 import express, { type Router } from "express";
@@ -24,6 +25,13 @@ inventoryItemCategoriesRouter.post(
   validateReqParams(idParamSchema),
   validateReqBody(assignInventoryItemsToCategorySchema),
   inventoryItemCategoriesController.assignItems
+);
+
+inventoryItemCategoriesRouter.post(
+  "/:id/unassign-items",
+  validateReqParams(idParamSchema),
+  validateReqBody(unassignInventoryItemsToCategorySchema),
+  inventoryItemCategoriesController.unassignItems
 );
 
 inventoryItemCategoriesRouter

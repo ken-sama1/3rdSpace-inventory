@@ -1,15 +1,16 @@
 import SelectInventoryItemsModal from "@/components/shared/SelectInventoryItemsModal";
 import Modal from "@/components/ui/Modal";
+import { useGetInventoryItemCategoryById } from "@/hooks/categories/useGetInventoryItemCategoryById";
+import { useGetProductCategoryById } from "@/hooks/categories/useGetProductCategoryById";
+import type { IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./const";
-import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
-import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
+import { isProductCategory } from "./utils";
+import { useAssignInventoryItemsToCategory } from "@/hooks/categories/useAssignInventoryItemsToCategory";
+import { useToastContext } from "@/context/ToastContext";
 
 interface CategoryModalProps {
-  category: {
-    id: string;
-    name: string;
-  };
+  categoryId: IdSchema;
   isOpen: boolean;
   type: CategoryTypeEnum;
   onClose?: () => void;
@@ -18,18 +19,28 @@ interface CategoryModalProps {
 const CategoryModal: FC<CategoryModalProps> = ({
   isOpen,
   onClose,
-  category,
+  categoryId,
   type,
 }) => {
   const [showSelectItemsModal, setShowSelectItemsModal] =
     useState<boolean>(false);
 
-  const { data } =
-    type === "item"
-      ? useGetInventoryItemCategories()
-      : useGetProductCategories();
+  const { showToast } = useToastContext();
 
-  if (!data) return;
+  const config = {
+    item: useGetInventoryItemCategoryById({ categoryId }),
+    product: useGetProductCategoryById({ categoryId }),
+  } as const;
+
+  const { data: category } = config[type];
+
+  const { assignItems } = useAssignInventoryItemsToCategory();
+
+  const data = isProductCategory(category)
+    ? category.products
+    : category?.inventoryItems;
+
+  if (!data || !category) return;
 
   return (
     <Modal title={category.name} onClose={onClose} isOpen={isOpen}>
@@ -101,15 +112,32 @@ const CategoryModal: FC<CategoryModalProps> = ({
         </div>
       </div>
 
-      <SelectInventoryItemsModal
-        hideItemsWithIds={data.map((item) => item.id)}
-        isOpen={showSelectItemsModal}
-        onSave={() => {
-          try {
-          } catch (error) {}
-        }}
-        onClose={() => setShowSelectItemsModal(false)}
-      />
+      {type === "item" && (
+        <SelectInventoryItemsModal
+          hideItemsWithIds={data.map((v) => v.id)}
+          isOpen={showSelectItemsModal}
+          onSave={async (selectedItems) => {
+            try {
+              if (selectedItems.length <= 0) return;
+              const res = await assignItems({
+                id: categoryId,
+                data: {
+                  inventoryItemIds: selectedItems.map((v) => v.id),
+                },
+              });
+
+              setShowSelectItemsModal(false);
+              showToast({
+                variant: "success",
+                message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+          onClose={() => setShowSelectItemsModal(false)}
+        />
+      )}
     </Modal>
   );
 };
