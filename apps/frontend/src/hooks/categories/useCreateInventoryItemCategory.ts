@@ -1,4 +1,4 @@
-import { inventoryItemCategories } from "@/api/inventory-item-categories";
+import { inventoryItemCategoriesApi } from "@/api/inventory-item-categories.api";
 import type {
   CreateInventoryItemCategoryInput,
   CreateInventoryItemCategoryResult,
@@ -8,13 +8,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useCreateInventoryItemCategory = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync: create, ...rest } = useMutation<
     CreateInventoryItemCategoryResult,
     Error,
     CreateInventoryItemCategoryInput
   >({
     mutationKey: ["categories", "inventory-items", "create"],
-    mutationFn: inventoryItemCategories.create,
+    mutationFn: inventoryItemCategoriesApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -30,10 +30,7 @@ export const useCreateInventoryItemCategory = () => {
   });
 
   return {
-    data,
-    create: mutateAsync,
-    isError,
-    error,
-    isPending,
+    create,
+    ...rest,
   };
 };

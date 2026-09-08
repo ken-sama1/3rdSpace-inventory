@@ -1,6 +1,6 @@
-import { inventoryItemCategories } from "@/api/inventory-item-categories";
+import { inventoryItemCategoriesApi } from "@/api/inventory-item-categories.api";
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateInventoryItemCategoryInput,
   UpdateInventoryItemCategoryResult,
 } from "@repo/shared";
@@ -9,16 +9,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useUpdateInventoryItemCategory = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync: update, ...rest } = useMutation<
     UpdateInventoryItemCategoryResult,
     Error,
-    IdParam & {
+    IdParamSchema & {
       data: UpdateInventoryItemCategoryInput;
     }
   >({
     mutationKey: ["categories", "inventory-items", "update"],
     mutationFn: async ({ id, data }) =>
-      await inventoryItemCategories.update(id, data),
+      await inventoryItemCategoriesApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -34,10 +34,7 @@ export const useUpdateInventoryItemCategory = () => {
   });
 
   return {
-    data,
-    update: mutateAsync,
-    isError,
-    error,
-    isPending,
+    update,
+    ...rest,
   };
 };

@@ -1,5 +1,5 @@
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateInventoryItemCategoryResBody,
   UpdateProductCategoryResBody,
   UpdateProductCategorySchema,
@@ -9,7 +9,7 @@ import { productCategoriesService } from "../../services/product-categories/inde
 
 export const update = async (
   req: Request<
-    IdParam,
+    IdParamSchema,
     UpdateProductCategoryResBody,
     UpdateProductCategorySchema
   >,

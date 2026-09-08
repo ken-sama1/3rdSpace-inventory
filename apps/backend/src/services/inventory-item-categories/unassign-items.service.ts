@@ -1,14 +1,14 @@
 import { prisma } from "@repo/database";
 import type {
   IdSchema,
-  UnassignInventoryItemsToCategorySchema,
+  UnassignInventoryItemsFromCategorySchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
 import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const unassignItems = async (
   id: IdSchema,
-  { inventoryItemIds }: UnassignInventoryItemsToCategorySchema
+  { inventoryItemIds }: UnassignInventoryItemsFromCategorySchema
 ) => {
   const category = await prisma.inventoryItemCategory.findUnique({
     where: { id },

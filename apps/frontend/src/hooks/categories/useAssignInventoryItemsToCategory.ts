@@ -1,27 +1,22 @@
-import { inventoryItemCategories } from "@/api/inventory-item-categories";
+import { inventoryItemCategoriesApi } from "@/api/inventory-item-categories.api";
 import type {
   AssignInventoryItemsToCategoryInput,
   AssignInventoryItemsToCategoryResult,
-  IdParam,
+  IdParamSchema,
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useAssignInventoryItemsToCategory = () => {
   const queryClient = useQueryClient();
 
-  const {
-    data,
-    mutateAsync: assignItems,
-    isError,
-    error,
-    isPending,
-  } = useMutation<
+  const { mutateAsync: assignItems, ...rest } = useMutation<
     AssignInventoryItemsToCategoryResult,
     Error,
-    IdParam & { data: AssignInventoryItemsToCategoryInput }
+    IdParamSchema & { data: AssignInventoryItemsToCategoryInput }
   >({
     mutationKey: ["categories", "inventory-items", "assign"],
-    mutationFn: ({ id, data }) => inventoryItemCategories.assignItems(id, data),
+    mutationFn: ({ id, data }) =>
+      inventoryItemCategoriesApi.assignItems(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -37,10 +32,7 @@ export const useAssignInventoryItemsToCategory = () => {
   });
 
   return {
-    data,
     assignItems,
-    isError,
-    error,
-    isPending,
+    ...rest,
   };
 };

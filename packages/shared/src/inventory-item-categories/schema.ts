@@ -67,15 +67,15 @@ export type AssignInventoryItemsToCategoryResult = InventoryItemDto[];
 export type AssignInventoryItemsToCategoryResBody =
   ResponseBody<AssignInventoryItemsToCategoryResult>;
 
-// --- Unassign Inventory Items to Category ---
-export const unassignInventoryItemsToCategorySchema =
+// --- Unassign Inventory Items from Category ---
+export const unassignInventoryItemsFromCategorySchema =
   assignInventoryItemsToCategorySchema;
-export type UnassignInventoryItemsToCategorySchema = z.infer<
-  typeof unassignInventoryItemsToCategorySchema
+export type UnassignInventoryItemsFromCategorySchema = z.infer<
+  typeof unassignInventoryItemsFromCategorySchema
 >;
-export type UnassignInventoryItemsToCategoryInput = z.input<
-  typeof unassignInventoryItemsToCategorySchema
+export type UnassignInventoryItemsFromCategoryInput = z.input<
+  typeof unassignInventoryItemsFromCategorySchema
 >;
-export type UnassignInventoryItemsToCategoryResult = InventoryItemDto[];
-export type UnassignInventoryItemsToCategoryResBody =
-  ResponseBody<UnassignInventoryItemsToCategoryResult>;
+export type UnassignInventoryItemsFromCategoryResult = InventoryItemDto[];
+export type UnassignInventoryItemsFromCategoryResBody =
+  ResponseBody<UnassignInventoryItemsFromCategoryResult>;

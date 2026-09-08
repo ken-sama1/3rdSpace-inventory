@@ -23,7 +23,7 @@ export const idParamSchema = z.object({
   id: idSchema,
 });
 
-export type IdParam = z.infer<typeof idParamSchema>;
+export type IdParamSchema = z.infer<typeof idParamSchema>;
 
 // --- String ---
 export const stringNullableSchema = z

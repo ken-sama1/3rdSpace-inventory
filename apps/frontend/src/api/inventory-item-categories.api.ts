@@ -12,9 +12,9 @@ import {
   type GetInventoryItemCategoryByIdResBody,
   type GetInventoryItemCategoryByIdResult,
   type IdSchema,
-  type UnassignInventoryItemsToCategoryInput,
-  type UnassignInventoryItemsToCategoryResBody,
-  type UnassignInventoryItemsToCategoryResult,
+  type UnassignInventoryItemsFromCategoryInput,
+  type UnassignInventoryItemsFromCategoryResBody,
+  type UnassignInventoryItemsFromCategoryResult,
   type UpdateInventoryItemCategoryInput,
   type UpdateInventoryItemCategoryResBody,
   type UpdateInventoryItemCategoryResult,
@@ -101,9 +101,9 @@ const assignItems = async (
 // --- Unassign Items ---
 const unassignItems = async (
   id: IdSchema,
-  { inventoryItemIds }: UnassignInventoryItemsToCategoryInput
-): Promise<UnassignInventoryItemsToCategoryResult> => {
-  const { data } = await api.post<UnassignInventoryItemsToCategoryResBody>(
+  { inventoryItemIds }: UnassignInventoryItemsFromCategoryInput
+): Promise<UnassignInventoryItemsFromCategoryResult> => {
+  const { data } = await api.post<UnassignInventoryItemsFromCategoryResBody>(
     `${baseUrl}/${id}/unassign-items`,
     { inventoryItemIds }
   );
@@ -111,7 +111,7 @@ const unassignItems = async (
   return data.data;
 };
 
-export const inventoryItemCategories = {
+export const inventoryItemCategoriesApi = {
   getById,
   getMany,
   create,

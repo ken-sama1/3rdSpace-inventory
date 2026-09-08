@@ -1,18 +1,11 @@
-import { inventoryItemCategories } from "@/api/inventory-item-categories";
+import { inventoryItemCategoriesApi } from "@/api/inventory-item-categories.api";
 import type { GetInventoryItemCategoriesResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetInventoryItemCategories = () => {
-  const { data, isError, error, isLoading } =
-    useQuery<GetInventoryItemCategoriesResult>({
-      queryKey: ["categories", "inventory-items"],
-      queryFn: async ({ signal }) =>
-        await inventoryItemCategories.getMany({}, { signal }),
-    });
-  return {
-    data,
-    isError,
-    error,
-    isLoading,
-  };
+  return useQuery<GetInventoryItemCategoriesResult>({
+    queryKey: ["categories", "inventory-items"],
+    queryFn: async ({ signal }) =>
+      await inventoryItemCategoriesApi.getMany({}, { signal }),
+  });
 };

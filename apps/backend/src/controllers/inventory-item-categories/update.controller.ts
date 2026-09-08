@@ -1,5 +1,5 @@
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateInventoryItemCategoryResBody,
   UpdateInventoryItemCategorySchema,
 } from "@repo/shared";
@@ -8,7 +8,7 @@ import { inventoryItemCategoriesService } from "../../services/inventory-item-ca
 
 export const update = async (
   req: Request<
-    IdParam,
+    IdParamSchema,
     UpdateInventoryItemCategoryResBody,
     UpdateInventoryItemCategorySchema
   >,

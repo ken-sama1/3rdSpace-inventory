@@ -1,18 +1,18 @@
 import type {
-  IdParam,
-  UnassignInventoryItemsToCategoryResBody,
-  UnassignInventoryItemsToCategorySchema,
+  IdParamSchema,
+  UnassignInventoryItemsFromCategoryResBody,
+  UnassignInventoryItemsFromCategorySchema,
 } from "@repo/shared";
 import type { Request, Response } from "express";
 import { inventoryItemCategoriesService } from "../../services/inventory-item-categories/index.js";
 
 export const unassignItems = async (
   req: Request<
-    IdParam,
-    UnassignInventoryItemsToCategoryResBody,
-    UnassignInventoryItemsToCategorySchema
+    IdParamSchema,
+    UnassignInventoryItemsFromCategoryResBody,
+    UnassignInventoryItemsFromCategorySchema
   >,
-  res: Response<UnassignInventoryItemsToCategoryResBody>
+  res: Response<UnassignInventoryItemsFromCategoryResBody>
 ): Promise<void> => {
   const result = await inventoryItemCategoriesService.unassignItems(
     req.params.id,

@@ -1,5 +1,5 @@
 import type {
-  IdParam,
+  IdParamSchema,
   StockOutInventoryItemResBody,
   StockOutInventoryItemSchema,
 } from "@repo/shared";
@@ -8,7 +8,7 @@ import { inventoryItemsService } from "../../services/inventory-items/index.js";
 
 export const stockOut = async (
   req: Request<
-    IdParam,
+    IdParamSchema,
     StockOutInventoryItemResBody,
     StockOutInventoryItemSchema
   >,

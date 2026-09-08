@@ -79,7 +79,7 @@ const getMany = async (
   return data.data;
 };
 
-export const productCategories = {
+export const productCategoriesApi = {
   getById,
   getMany,
   create,

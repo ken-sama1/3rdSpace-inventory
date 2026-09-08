@@ -1,14 +1,14 @@
 import type {
   AssignInventoryItemsToCategoryResBody,
   AssignInventoryItemsToCategorySchema,
-  IdParam,
+  IdParamSchema,
 } from "@repo/shared";
 import type { Request, Response } from "express";
 import { inventoryItemCategoriesService } from "../../services/inventory-item-categories/index.js";
 
 export const assignItems = async (
   req: Request<
-    IdParam,
+    IdParamSchema,
     AssignInventoryItemsToCategoryResBody,
     AssignInventoryItemsToCategorySchema
   >,

@@ -1,17 +1,17 @@
-import { inventoryItemCategories } from "@/api/inventory-item-categories";
+import { inventoryItemCategoriesApi } from "@/api/inventory-item-categories.api";
 import type { DeleteInventoryItemCategoryResult, IdSchema } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useDeleteInventoryItemCategory = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync, ...rest } = useMutation<
     DeleteInventoryItemCategoryResult,
     Error,
     IdSchema
   >({
     mutationKey: ["categories", "inventory-items", "delete"],
-    mutationFn: inventoryItemCategories.delete,
+    mutationFn: inventoryItemCategoriesApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -27,10 +27,7 @@ export const useDeleteInventoryItemCategory = () => {
   });
 
   return {
-    data,
     delete: mutateAsync,
-    isError,
-    error,
-    isPending,
+    ...rest,
   };
 };

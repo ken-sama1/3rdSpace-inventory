@@ -2,7 +2,7 @@ import { productsApi } from "@/api/products.api";
 import type {
   DeductStockForProductInput,
   DeductStockForProductResult,
-  IdParam,
+  IdParamSchema,
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -12,7 +12,7 @@ export const useDeductStockForProduct = () => {
   const { data, mutateAsync, error, isError, isPending } = useMutation<
     DeductStockForProductResult,
     Error,
-    DeductStockForProductInput & IdParam
+    DeductStockForProductInput & IdParamSchema
   >({
     mutationKey: ["products", "deduct-stock-for-product"],
     mutationFn: async ({ id, quantity }) =>

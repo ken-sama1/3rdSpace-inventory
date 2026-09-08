@@ -1,5 +1,5 @@
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateProductResBody,
   UpdateProductSchema,
 } from "@repo/shared";
@@ -7,7 +7,7 @@ import type { Request, Response } from "express";
 import { productsService } from "../../services/products/index.js";
 
 export const update = async (
-  req: Request<IdParam, UpdateProductResBody, UpdateProductSchema>,
+  req: Request<IdParamSchema, UpdateProductResBody, UpdateProductSchema>,
   res: Response<UpdateProductResBody>
 ): Promise<void> => {
   const result = await productsService.update(req.params.id, req.body);

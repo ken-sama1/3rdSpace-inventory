@@ -1,14 +1,14 @@
 import type {
   DeductStockForProductResBody,
   DeductStockForProductSchema,
-  IdParam,
+  IdParamSchema,
 } from "@repo/shared";
 import type { Request, Response } from "express";
 import { productsService } from "../../services/products/index.js";
 
 export const deductStockForProduct = async (
   req: Request<
-    IdParam,
+    IdParamSchema,
     DeductStockForProductResBody,
     DeductStockForProductSchema
   >,

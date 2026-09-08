@@ -1,4 +1,4 @@
-import { productCategories } from "@/api/product-categories";
+import { productCategoriesApi } from "@/api/product-categories.api";
 import type {
   CreateProductCategoryInput,
   CreateProductCategoryResult,
@@ -8,13 +8,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useCreateProductCategory = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync: create, ...rest } = useMutation<
     CreateProductCategoryResult,
     Error,
     CreateProductCategoryInput
   >({
     mutationKey: ["categories", "products", "create"],
-    mutationFn: productCategories.create,
+    mutationFn: productCategoriesApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -30,10 +30,7 @@ export const useCreateProductCategory = () => {
   });
 
   return {
-    data,
-    create: mutateAsync,
-    isError,
-    error,
-    isPending,
+    create,
+    ...rest,
   };
 };

@@ -1,6 +1,6 @@
-import { productCategories } from "@/api/product-categories";
+import { productCategoriesApi } from "@/api/product-categories.api";
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateProductCategoryInput,
   UpdateProductCategoryResult,
 } from "@repo/shared";
@@ -9,16 +9,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useUpdateProductCategory = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync: update, ...rest } = useMutation<
     UpdateProductCategoryResult,
     Error,
-    IdParam & {
+    IdParamSchema & {
       data: UpdateProductCategoryInput;
     }
   >({
     mutationKey: ["categories", "products", "update"],
     mutationFn: async ({ id, data }) =>
-      await productCategories.update(id, data),
+      await productCategoriesApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (q) => {
@@ -34,10 +34,7 @@ export const useUpdateProductCategory = () => {
   });
 
   return {
-    data,
-    update: mutateAsync,
-    isError,
-    error,
-    isPending,
+    update,
+    ...rest,
   };
 };
