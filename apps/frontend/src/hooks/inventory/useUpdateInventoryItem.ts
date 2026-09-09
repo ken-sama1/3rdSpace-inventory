@@ -9,29 +9,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useUpdateInventoryItem = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, error, data, isError, isSuccess, isPending } =
-    useMutation<
-      UpdateInventoryResult,
-      Error,
-      {
-        data: UpdateInventoryItemInput;
-      } & IdParamSchema
-    >({
-      mutationFn: ({ id, data }) => inventoryItemApi.update(id, data),
-      mutationKey: ["inventory-items", "update"],
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["inventory-items"],
-        });
-      },
-    });
+  const { mutateAsync: update, ...rest } = useMutation<
+    UpdateInventoryResult,
+    Error,
+    {
+      data: UpdateInventoryItemInput;
+    } & IdParamSchema
+  >({
+    mutationFn: ({ id, data }) => inventoryItemApi.update(id, data),
+    mutationKey: ["inventory-items", "update"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["inventory-items"],
+      });
+    },
+  });
 
   return {
-    update: mutateAsync,
-    error,
-    data,
-    isError,
-    isSuccess,
-    isPending,
+    update,
+    ...rest,
   };
 };

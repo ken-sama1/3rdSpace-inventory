@@ -9,14 +9,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useDeductStockForProduct = () => {
   const queryClient = useQueryClient();
 
-  const { data, mutateAsync, error, isError, isPending } = useMutation<
+  const { mutateAsync: deduct, ...rest } = useMutation<
     DeductStockForProductResult,
     Error,
-    DeductStockForProductInput & IdParamSchema
+    { data: DeductStockForProductInput } & IdParamSchema
   >({
     mutationKey: ["products", "deduct-stock-for-product"],
-    mutationFn: async ({ id, quantity }) =>
-      productsApi.deductStockForProduct(id, { quantity }),
+    mutationFn: async ({ id, data }) =>
+      productsApi.deductStockForProduct(id, data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -30,10 +30,7 @@ export const useDeductStockForProduct = () => {
   });
 
   return {
-    data,
-    deduct: mutateAsync,
-    error,
-    isError,
-    isPending,
+    deduct,
+    ...rest,
   };
 };

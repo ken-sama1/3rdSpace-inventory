@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
-  const { data, isPending, mutateAsync, isError, error } = useMutation<
+  const { mutateAsync, ...rest } = useMutation<
     DeleteProductResult,
     Error,
     IdSchema
@@ -20,10 +20,7 @@ export const useDeleteProduct = () => {
   });
 
   return {
-    data,
-    isPending,
-    isError,
-    error,
     delete: mutateAsync,
+    ...rest,
   };
 };

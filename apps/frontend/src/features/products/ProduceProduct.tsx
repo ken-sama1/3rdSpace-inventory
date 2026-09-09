@@ -1,6 +1,6 @@
 import AlertBanner from "@/components/ui/AlertBanner";
-import QuantityStepper from "@/components/ui/QuantityStepper";
 import Dialog from "@/components/ui/Dialog";
+import QuantityStepper from "@/components/ui/QuantityStepper";
 import { useToastContext } from "@/context/ToastContext";
 import { useDeductStockForProduct } from "@/hooks/products/useDeductStockForProduct";
 import { useGetProductById } from "@/hooks/products/useGetProductById";
@@ -212,7 +212,9 @@ const ProduceProduct: FC<ProduceProductProps> = ({
           try {
             await deduct({
               id: product.id,
-              quantity: productQuantity,
+              data: {
+                quantity: productQuantity,
+              },
             });
             setShowDialog(false);
             showToast({

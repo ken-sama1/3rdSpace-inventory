@@ -1,7 +1,7 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
 import {
   type StockOutInventoryItemResult,
-  type IdParam,
+  type IdParamSchema,
   type StockOutInventoryItemInput,
 } from "@repo/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -9,10 +9,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useStockOutInventoryItem = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, data, error, isPending, isError } = useMutation<
+  const { mutateAsync: stockOut, ...rest } = useMutation<
     StockOutInventoryItemResult,
     Error,
-    IdParam & { data: StockOutInventoryItemInput }
+    IdParamSchema & { data: StockOutInventoryItemInput }
   >({
     mutationKey: ["inventory-items", "stock-out"],
     mutationFn: async ({ id, data }) => {
@@ -25,10 +25,7 @@ export const useStockOutInventoryItem = () => {
     },
   });
   return {
-    stockOut: mutateAsync,
-    data,
-    error,
-    isPending,
-    isError,
+    stockOut,
+    ...rest,
   };
 };

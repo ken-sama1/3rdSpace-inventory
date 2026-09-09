@@ -9,18 +9,9 @@ export const useGetInventoryItems = ({
   filter,
   options,
 }: GetInventoryItemsReqQuery = {}) => {
-  const { data, isLoading, isError, error } = useQuery<GetInventoryItemsResult>(
-    {
-      queryKey: ["inventory-items", filter, options],
-      queryFn: ({ signal }) =>
-        inventoryItemApi.getMany({ filter, options }, { signal }),
-    }
-  );
-
-  return {
-    data,
-    isLoading,
-    isError,
-    error,
-  };
+  return useQuery<GetInventoryItemsResult>({
+    queryKey: ["inventory-items", filter, options],
+    queryFn: ({ signal }) =>
+      inventoryItemApi.getMany({ filter, options }, { signal }),
+  });
 };

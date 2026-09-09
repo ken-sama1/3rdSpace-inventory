@@ -29,7 +29,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
 
   const { showToast } = useToastContext();
 
-  const action = {
+  const categoryMap = {
     product: {
       update: useUpdateProductCategory().update,
       delete: useDeleteProductCategory().delete,
@@ -38,7 +38,9 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
       update: useUpdateInventoryItemCategory().update,
       delete: useDeleteInventoryItemCategory().delete,
     },
-  }[type];
+  };
+
+  const category = categoryMap[type];
 
   const handleRename = () => {
     let newName: string = "";
@@ -62,7 +64,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
         try {
           if (!newName) throw new Error("Invalid Name");
 
-          await action.update({
+          await category.update({
             id: categoryId,
             data: { name: newName },
           });
@@ -97,7 +99,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
       cancelText: "No",
       onConfirm: async () => {
         try {
-          await action.delete(categoryId);
+          await category.delete(categoryId);
           setDialog(null);
           showToast({
             message: `Category ${name} successfully deleted`,

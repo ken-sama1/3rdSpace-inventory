@@ -1,7 +1,7 @@
 import { cloudinaryApi } from "@/api/cloudinary.api";
 import { productsApi } from "@/api/products.api";
 import type {
-  IdParam,
+  IdParamSchema,
   UpdateProductInput,
   UpdateProductResult,
 } from "@repo/shared";
@@ -10,10 +10,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, data, isError, isPending, error } = useMutation<
+  const { mutateAsync: update, ...rest } = useMutation<
     UpdateProductResult,
     Error,
-    IdParam & {
+    IdParamSchema & {
       data: UpdateProductInput;
     }
   >({
@@ -43,10 +43,7 @@ export const useUpdateProduct = () => {
   });
 
   return {
-    update: mutateAsync,
-    data,
-    isError,
-    isPending,
-    error,
+    update,
+    ...rest,
   };
 };

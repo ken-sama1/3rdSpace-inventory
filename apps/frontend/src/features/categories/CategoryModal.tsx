@@ -1,13 +1,16 @@
 import SelectInventoryItemsModal from "@/components/shared/SelectInventoryItemsModal";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
+import { useToastContext } from "@/context/ToastContext";
+import { useAssignInventoryItemsToCategory } from "@/hooks/categories/useAssignInventoryItemsToCategory";
 import { useGetInventoryItemCategoryById } from "@/hooks/categories/useGetInventoryItemCategoryById";
 import { useGetProductCategoryById } from "@/hooks/categories/useGetProductCategoryById";
+import { useUnassignInventoryItemsFromCategory } from "@/hooks/categories/useUnassignInventoryItemsFromCategory";
 import type { IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./const";
 import { isProductCategory } from "./utils";
-import { useAssignInventoryItemsToCategory } from "@/hooks/categories/useAssignInventoryItemsToCategory";
-import { useToastContext } from "@/context/ToastContext";
 
 interface CategoryModalProps {
   categoryId: IdSchema;
@@ -22,25 +25,46 @@ const CategoryModal: FC<CategoryModalProps> = ({
   categoryId,
   type,
 }) => {
+  const [dialog, setDialog] = useState<DialogProps | null>(null);
   const [showSelectItemsModal, setShowSelectItemsModal] =
     useState<boolean>(false);
 
   const { showToast } = useToastContext();
 
-  const config = {
+  const categoryMap = {
     item: useGetInventoryItemCategoryById({ categoryId }),
     product: useGetProductCategoryById({ categoryId }),
   } as const;
 
-  const { data: category } = config[type];
+  const { data: category } = categoryMap[type];
 
   const { assignItems } = useAssignInventoryItemsToCategory();
+  const { unassignItems } = useUnassignInventoryItemsFromCategory();
 
   const data = isProductCategory(category)
     ? category.products
     : category?.inventoryItems;
 
   if (!data || !category) return;
+
+  const handleCloseAll = () => {
+    setDialog(null);
+    if (onClose) onClose();
+  };
+
+  const handleRemoveItem = ({ name, id }: { name: string; id: IdSchema }) => {
+    setDialog({
+      isOpen: true,
+      variant: "danger",
+      title: `${name}`,
+      children: (
+        <AlertBanner
+          variant="info"
+          message={`${name} will be removed in category "${category.name}" immediately`}
+        />
+      ),
+    });
+  };
 
   return (
     <Modal title={category.name} onClose={onClose} isOpen={isOpen}>
@@ -82,8 +106,16 @@ const CategoryModal: FC<CategoryModalProps> = ({
                     </span>
 
                     <div className="col-span-2 flex justify-center">
-                      <button className="button-danger py-1! text-sm!">
-                        Remove
+                      <button
+                        onClick={() =>
+                          handleRemoveItem({
+                            name: d.name,
+                            id: d.id,
+                          })
+                        }
+                        className="button-danger py-1! text-sm!"
+                      >
+                        Unassign
                       </button>
                     </div>
                   </div>
@@ -98,7 +130,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
               type="button"
               className="button-outlined py-1!"
             >
-              Cancel
+              Close
             </button>
 
             <button
@@ -137,6 +169,17 @@ const CategoryModal: FC<CategoryModalProps> = ({
           }}
           onClose={() => setShowSelectItemsModal(false)}
         />
+      )}
+
+      {dialog && (
+        <Dialog
+          title={dialog.title}
+          isOpen={dialog.isOpen}
+          onClose={() => setDialog(null)}
+          onConfirm={dialog.onConfirm}
+        >
+          <div className="w-sm">{dialog.children}</div>
+        </Dialog>
       )}
     </Modal>
   );

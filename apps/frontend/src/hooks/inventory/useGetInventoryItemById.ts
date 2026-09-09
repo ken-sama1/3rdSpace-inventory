@@ -9,16 +9,8 @@ export interface UseGetInventoryItemProps {
 export const useGetInventoryItemById = ({
   itemId,
 }: UseGetInventoryItemProps) => {
-  const { data, isLoading, isError, error } =
-    useQuery<GetInventoryItemByIdResult>({
-      queryKey: ["inventory-item", itemId],
-      queryFn: ({ signal }) => inventoryItemApi.getById(itemId, { signal }),
-    });
-
-  return {
-    data,
-    isLoading,
-    isError,
-    error,
-  };
+  return useQuery<GetInventoryItemByIdResult>({
+    queryKey: ["inventory-item", itemId],
+    queryFn: ({ signal }) => inventoryItemApi.getById(itemId, { signal }),
+  });
 };

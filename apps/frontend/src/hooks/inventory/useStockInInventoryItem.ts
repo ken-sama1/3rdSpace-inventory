@@ -1,6 +1,6 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
 import type {
-  IdParam,
+  IdParamSchema,
   StockInInventoryItemInput,
   StockInInventoryItemResult,
 } from "@repo/shared";
@@ -8,10 +8,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useStockInInventoryItem = () => {
   const queryClient = useQueryClient();
-  const { data, mutateAsync, isError, error, isPending } = useMutation<
+  const { mutateAsync: stockIn, ...rest } = useMutation<
     StockInInventoryItemResult,
     Error,
-    IdParam & {
+    IdParamSchema & {
       data: StockInInventoryItemInput;
     }
   >({
@@ -26,10 +26,7 @@ export const useStockInInventoryItem = () => {
   });
 
   return {
-    data,
-    stockIn: mutateAsync,
-    isError,
-    error,
-    isPending,
+    stockIn,
+    ...rest,
   };
 };
