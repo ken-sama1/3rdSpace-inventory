@@ -1,4 +1,7 @@
 import {
+  type AssignProductsToCategoryInput,
+  type AssignProductsToCategoryResBody,
+  type AssignProductsToCategoryResult,
   type CreateProductCategoryInput,
   type CreateProductCategoryResBody,
   type CreateProductCategoryResult,
@@ -9,6 +12,9 @@ import {
   type GetProductCategoryByIdResBody,
   type GetProductCategoryByIdResult,
   type IdSchema,
+  type UnassignProductsFromCategoryInput,
+  type UnassignProductsFromCategoryResBody,
+  type UnassignProductsFromCategoryResult,
   type UpdateProductCategoryInput,
   type UpdateProductCategoryResBody,
   type UpdateProductCategoryResult,
@@ -79,10 +85,38 @@ const getMany = async (
   return data.data;
 };
 
+// --- Assign Products ---
+const assignProducts = async (
+  id: IdSchema,
+  { productIds }: AssignProductsToCategoryInput
+): Promise<AssignProductsToCategoryResult> => {
+  const { data } = await api.post<AssignProductsToCategoryResBody>(
+    `${baseUrl}/${id}/assign-items`,
+    { productIds }
+  );
+
+  return data.data;
+};
+
+// --- Unassign Products ---
+const unassignProducts = async (
+  id: IdSchema,
+  { productIds }: UnassignProductsFromCategoryInput
+): Promise<UnassignProductsFromCategoryResult> => {
+  const { data } = await api.post<UnassignProductsFromCategoryResBody>(
+    `${baseUrl}/${id}/unassign-items`,
+    { productIds }
+  );
+
+  return data.data;
+};
+
 export const productCategoriesApi = {
   getById,
   getMany,
   create,
   update,
   delete: remove,
+  unassignProducts,
+  assignProducts,
 };

@@ -5,6 +5,8 @@ import type {
   ProductCategoryDto,
   ProductCategoryWithProductsDto,
 } from "./types.js";
+import { idSchema } from "../common/schema.js";
+import type { ProductDto } from "../products/types.js";
 
 // --- Create ---
 export const createProductCategorySchema = z.object({
@@ -47,3 +49,30 @@ export type GetProductCategoriesResBody =
 export type GetProductCategoryByIdResult = ProductCategoryWithProductsDto;
 export type GetProductCategoryByIdResBody =
   ResponseBody<GetProductCategoryByIdResult>;
+
+// --- Assign Products ---
+export const assignProductsToCategorySchema = z.object({
+  productIds: z.array(idSchema),
+});
+export type AssignProductsToCategorySchema = z.infer<
+  typeof assignProductsToCategorySchema
+>;
+export type AssignProductsToCategoryInput = z.input<
+  typeof assignProductsToCategorySchema
+>;
+export type AssignProductsToCategoryResult = ProductDto[];
+export type AssignProductsToCategoryResBody =
+  ResponseBody<AssignProductsToCategoryResult>;
+
+// --- Unassign Products ---
+export const unassignProductsFromCategorySchema =
+  assignProductsToCategorySchema;
+export type UnassignProductsFromCategorySchema = z.infer<
+  typeof unassignProductsFromCategorySchema
+>;
+export type UnassignProductsFromCategoryInput = z.input<
+  typeof unassignProductsFromCategorySchema
+>;
+export type UnassignProductsFromCategoryResult = ProductDto[];
+export type UnassignProductsFromCategoryResBody =
+  ResponseBody<UnassignProductsFromCategoryResult>;

@@ -21,10 +21,10 @@ export const toProductDto = ({
     price,
     id,
     categoryId,
-    category: category ?? null,
     description,
     imageUrl,
     name,
+    category: category ?? null,
     recipeItems: recipeItems.map((recipeItem) => {
       return {
         id: recipeItem.id,

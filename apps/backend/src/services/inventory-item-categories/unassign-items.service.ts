@@ -24,9 +24,9 @@ export const unassignItems = async (
     });
 
   const result = await prisma.$transaction(async (tx) => {
-    return await Promise.all(
-      inventoryItemIds.map(async (itemId) => {
-        return await tx.inventoryItem.update({
+    return Promise.all(
+      inventoryItemIds.map((itemId) => {
+        return tx.inventoryItem.update({
           where: { id: itemId },
           data: { categoryId: null },
           include: {

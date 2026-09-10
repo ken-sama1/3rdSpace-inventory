@@ -25,8 +25,8 @@ export const useUnassignInventoryItemsFromCategory = () => {
           const [resource, type] = q.queryKey;
 
           return (
-            resource === "products" ||
-            (resource === "categories" && type === "products")
+            resource === "inventory-items" ||
+            (resource === "categories" && type === "inventory-items")
           );
         },
       });

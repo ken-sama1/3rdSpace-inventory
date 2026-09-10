@@ -1,6 +1,8 @@
 import Table from "@/components/ui/Table";
 import type { ProductCategoryWithProductsDto } from "@repo/shared";
-import type { FC } from "react";
+import { useState, type FC } from "react";
+import CategoryContextMenu from "./CategoryContextMenu";
+import CategoryModal from "./CategoryModal";
 
 interface ProductCategoriesTableProps {
   categories: ProductCategoryWithProductsDto[];
@@ -9,6 +11,10 @@ interface ProductCategoriesTableProps {
 const ProductCategoriesTable: FC<ProductCategoriesTableProps> = ({
   categories,
 }) => {
+  const [category, setCategory] =
+    useState<null | ProductCategoryWithProductsDto>(null);
+  const [showProductModal, setShowProductModal] = useState<boolean>(false);
+
   return (
     <div className="size-full">
       <Table
@@ -21,6 +27,19 @@ const ProductCategoriesTable: FC<ProductCategoriesTableProps> = ({
           row: {
             style: {
               cursor: "pointer",
+            },
+            onClick: (v) => {
+              setCategory(v);
+              setShowProductModal(true);
+            },
+            element: ({ id, name }) => {
+              return (
+                <CategoryContextMenu
+                  type="product"
+                  name={name}
+                  categoryId={id}
+                />
+              );
             },
           },
           columns: 9,
@@ -42,6 +61,15 @@ const ProductCategoriesTable: FC<ProductCategoriesTableProps> = ({
           exlude: ["id"],
         }}
       />
+
+      {category && (
+        <CategoryModal
+          type="product"
+          isOpen={showProductModal}
+          onClose={() => setShowProductModal(false)}
+          categoryId={category.id}
+        />
+      )}
     </div>
   );
 };

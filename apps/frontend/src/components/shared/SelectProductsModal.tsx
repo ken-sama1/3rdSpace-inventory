@@ -1,4 +1,4 @@
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
+import { useGetProducts } from "@/hooks/products/useGetProducts";
 import type { IdSchema } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
 import AlertBanner from "../ui/AlertBanner";
@@ -6,73 +6,68 @@ import Dialog, { type DialogProps } from "../ui/Dialog";
 import Modal from "../ui/Modal";
 import { X } from "lucide-react";
 
-export interface SelectInventoryItemsSelectedItem {
+export interface SelectProductsSelectedProduct {
   id: IdSchema;
   name: string;
 }
 
-interface SelectInventoryItemsModalProps {
+interface SelectProductsModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  initialSelectedItems?: SelectInventoryItemsSelectedItem[];
-  hideItemsWithIds?: IdSchema[];
-  onSave?: (selectedItems: SelectInventoryItemsSelectedItem[]) => void;
+  initialSelectedProducts?: SelectProductsSelectedProduct[];
+  hideProductsWithIds?: IdSchema[];
+  onSave?: (selectedProducts: SelectProductsSelectedProduct[]) => void;
 }
 
-const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
+const SelectProductsModal: FC<SelectProductsModalProps> = ({
   isOpen,
   onClose,
-  initialSelectedItems = [],
-  hideItemsWithIds = [],
+  initialSelectedProducts = [],
+  hideProductsWithIds = [],
   onSave,
 }) => {
-  const { data: items } = useGetInventoryItems();
+  const { data: products } = useGetProducts();
 
   const [dialog, setDialog] = useState<DialogProps | null>(null);
-  const [selectedItems, setSelectedItems] = useState<
-    SelectInventoryItemsSelectedItem[]
+  const [selectedProducts, setSelectedProducts] = useState<
+    SelectProductsSelectedProduct[]
   >([]);
 
   useEffect(() => {
     if (!isOpen) return;
 
-    setSelectedItems(initialSelectedItems);
-  }, [isOpen, initialSelectedItems]);
+    setSelectedProducts(initialSelectedProducts);
+  }, [isOpen, initialSelectedProducts]);
 
-  if (!items) return;
+  if (!products) return;
 
   return (
-    <Modal
-      noBackdrop
-      title="Select Inventory Items"
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      {/* Inventory Items */}
-      <div className="w-max min-w-xl  h-auto max-h-[60vh] no-scrollbar overflow-auto">
-        {/* Selected Items */}
-        {selectedItems.length > 0 && (
+    <Modal noBackdrop title="Select Products" isOpen={isOpen} onClose={onClose}>
+      {/* Inventory Products */}
+      <div className="w-max min-w-xl h-auto max-h-[60vh] no-scrollbar overflow-auto">
+        {/* Selected Products */}
+        {selectedProducts.length > 0 && (
           <>
             <div className="h-auto w-full flex-wrap flex gap-2">
-              {/* Selected Items Headers */}
-              <div className="flex w-full justify-between items-center">
+              {/* Selected Products Headers */}
+              <div className="flex w-full justify-between products-center">
                 <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                  Selected Inventory Items ({selectedItems.length})
+                  Selected Products ({selectedProducts.length})
                 </h4>
               </div>
 
-              {selectedItems.map((item) => {
-                if (hideItemsWithIds.includes(item.id)) return;
+              {selectedProducts.map((item) => {
+                if (hideProductsWithIds.includes(item.id)) return;
 
                 return (
                   <div
-                    key={`inventory-items-${item.id}`}
-                    className="w-auto border flex gap-x-3 items-center status-info rounded-md"
+                    key={`inventory-products-${item.id}`}
+                    className="w-auto border flex gap-x-3 products-center status-info rounded-md"
                   >
                     <span className="line-clamp-1">{item.name}</span>
                     <button
                       onClick={() => {
-                        setSelectedItems((prev) => {
+                        setSelectedProducts((prev) => {
                           return prev.filter((f) => f.id !== item.id);
                         });
                       }}
@@ -90,16 +85,16 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
 
         <div className="h-auto grid grid-cols-4 gap-2">
           <h4 className="text-sm col-span-4 font-semibold text-muted-foreground uppercase tracking-wider">
-            Available Inventory Items
+            Available Inventory Products
           </h4>
 
-          {items.map((item) => {
-            const isSelected = selectedItems.find((e) => e.id === item.id);
+          {products.map((item) => {
+            const isSelected = selectedProducts.find((e) => e.id === item.id);
             if (isSelected) return;
             const hasCategory = item.categoryId;
 
-            console.log(hideItemsWithIds, item.id, item.name);
-            if (hideItemsWithIds.includes(item.id)) return;
+            console.log(hideProductsWithIds, item.id, item.name);
+            if (hideProductsWithIds.includes(item.id)) return;
 
             return (
               <button
@@ -110,7 +105,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                       title: `${item.name}`,
                       onConfirm: () => {
                         setDialog(null);
-                        setSelectedItems((prev) => [
+                        setSelectedProducts((prev) => [
                           ...prev,
                           {
                             id: item.id,
@@ -129,7 +124,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                     });
                     return;
                   }
-                  setSelectedItems((prev) => [
+                  setSelectedProducts((prev) => [
                     ...prev,
                     {
                       id: item.id,
@@ -138,8 +133,8 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                   ]);
                 }}
                 title={item.name}
-                key={`inventory-items-${item.id}`}
-                className="col-span-1 border border-(--accent)/60 flex justify-start items-center button-outlined"
+                key={`inventory-products-${item.id}`}
+                className="col-span-1 border border-(--accent)/60 flex justify-start products-center button-outlined"
               >
                 <span className="text-sm! line-clamp-1 w-full">
                   {item.name}
@@ -149,7 +144,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
           })}
         </div>
 
-        <div className="mt-5 gap-2 w-full flex items-center justify-end">
+        <div className="mt-5 gap-2 w-full flex products-center justify-end">
           <button onClick={onClose} type="button" className="button-outlined">
             Close
           </button>
@@ -157,7 +152,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
           <button
             onClick={() => {
               if (onSave) {
-                onSave(selectedItems);
+                onSave(selectedProducts);
               }
             }}
             type="button"
@@ -187,4 +182,4 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
   );
 };
 
-export default SelectInventoryItemsModal;
+export default SelectProductsModal;

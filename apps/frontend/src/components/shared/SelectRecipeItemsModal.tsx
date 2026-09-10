@@ -37,7 +37,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
     if (!isOpen) return;
 
     setSelectedItems(initialSelectedItems);
-  }, [isOpen]);
+  }, [isOpen, initialSelectedItems]);
 
   const [dialog, setDialog] = useState<Omit<DialogProps, "onClose">>({
     isOpen: false,
@@ -70,7 +70,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
         }
       />
 
-      <div className="w-max h-[60vh] overflow-auto no-scrollbar">
+      <div className="w-max min-w-xl h-auto max-h-[60vh] overflow-auto no-scrollbar">
         {/* Selected Items */}
         {selectedItems.length > 0 && (
           <>

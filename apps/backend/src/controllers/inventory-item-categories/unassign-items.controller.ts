@@ -19,10 +19,8 @@ export const unassignItems = async (
     req.body
   );
 
-  const count = result.length;
-
   res.status(200).json({
-    message: `Successfully removed ${count} ${count > 1 ? "items" : "item"} from category`,
+    message: "Category successfully updated",
     data: result,
   });
 };

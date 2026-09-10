@@ -1,13 +1,16 @@
 import SelectInventoryItemsModal from "@/components/shared/SelectInventoryItemsModal";
+import SelectProductsModal from "@/components/shared/SelectProductsModal";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToastContext } from "@/context/ToastContext";
 import { useAssignInventoryItemsToCategory } from "@/hooks/categories/useAssignInventoryItemsToCategory";
+import { useAssignProductsToCategory } from "@/hooks/categories/useAssignProductsToCategory";
 import { useGetInventoryItemCategoryById } from "@/hooks/categories/useGetInventoryItemCategoryById";
 import { useGetProductCategoryById } from "@/hooks/categories/useGetProductCategoryById";
 import { useUnassignInventoryItemsFromCategory } from "@/hooks/categories/useUnassignInventoryItemsFromCategory";
-import type { IdSchema } from "@repo/shared";
+import { useUnassignProductsFromCategory } from "@/hooks/categories/useUnassignProductsFromCategory";
+import { type IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./const";
 import { isProductCategory } from "./utils";
@@ -26,7 +29,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
   type,
 }) => {
   const [dialog, setDialog] = useState<DialogProps | null>(null);
-  const [showSelectItemsModal, setShowSelectItemsModal] =
+  const [showSelectSomethingModal, setShowSelectSomethingModal] =
     useState<boolean>(false);
 
   const { showToast } = useToastContext();
@@ -40,6 +43,8 @@ const CategoryModal: FC<CategoryModalProps> = ({
 
   const { assignItems } = useAssignInventoryItemsToCategory();
   const { unassignItems } = useUnassignInventoryItemsFromCategory();
+  const { assignProducts } = useAssignProductsToCategory();
+  const { unassignProducts } = useUnassignProductsFromCategory();
 
   const data = isProductCategory(category)
     ? category.products
@@ -52,7 +57,13 @@ const CategoryModal: FC<CategoryModalProps> = ({
     if (onClose) onClose();
   };
 
-  const handleRemoveItem = ({ name, id }: { name: string; id: IdSchema }) => {
+  const handleRemoveSomething = ({
+    name,
+    somethingId,
+  }: {
+    name: string;
+    somethingId: IdSchema;
+  }) => {
     setDialog({
       isOpen: true,
       variant: "danger",
@@ -63,11 +74,45 @@ const CategoryModal: FC<CategoryModalProps> = ({
           message={`${name} will be removed in category "${category.name}" immediately`}
         />
       ),
+      onConfirm: async () => {
+        try {
+          if (type === "item") {
+            await unassignItems({
+              id: category.id,
+              data: {
+                inventoryItemIds: [somethingId],
+              },
+            });
+          }
+
+          if (type === "product") {
+            await unassignProducts({
+              id: category.id,
+              data: {
+                productIds: [somethingId],
+              },
+            });
+          }
+
+          setDialog(null);
+          showToast({
+            variant: "success",
+            message: `${name} removed from category ${category.name}`,
+          });
+        } catch (error) {
+          console.error(error);
+          setDialog(null);
+          showToast({
+            message: "Something went wrong!",
+            variant: "danger",
+          });
+        }
+      },
     });
   };
 
   return (
-    <Modal title={category.name} onClose={onClose} isOpen={isOpen}>
+    <Modal title={category.name} onClose={handleCloseAll} isOpen={isOpen}>
       <div className="w-lg">
         <div className="w-full flex gap-2 flex-col">
           {/* Label */}
@@ -108,14 +153,14 @@ const CategoryModal: FC<CategoryModalProps> = ({
                     <div className="col-span-2 flex justify-center">
                       <button
                         onClick={() =>
-                          handleRemoveItem({
+                          handleRemoveSomething({
                             name: d.name,
-                            id: d.id,
+                            somethingId: d.id,
                           })
                         }
                         className="button-danger py-1! text-sm!"
                       >
-                        Unassign
+                        Remove
                       </button>
                     </div>
                   </div>
@@ -134,7 +179,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
             </button>
 
             <button
-              onClick={() => setShowSelectItemsModal(true)}
+              onClick={() => setShowSelectSomethingModal(true)}
               type="button"
               className="button-accent py-1!"
             >
@@ -147,7 +192,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
       {type === "item" && (
         <SelectInventoryItemsModal
           hideItemsWithIds={data.map((v) => v.id)}
-          isOpen={showSelectItemsModal}
+          isOpen={showSelectSomethingModal}
           onSave={async (selectedItems) => {
             try {
               if (selectedItems.length <= 0) return;
@@ -158,16 +203,52 @@ const CategoryModal: FC<CategoryModalProps> = ({
                 },
               });
 
-              setShowSelectItemsModal(false);
+              setShowSelectSomethingModal(false);
+              showToast({
+                variant: "success",
+                message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
+              });
+            } catch (error) {
+              setShowSelectSomethingModal(false);
+              showToast({
+                message: "Something went wrong!",
+                variant: "danger",
+              });
+            }
+          }}
+          onClose={() => setShowSelectSomethingModal(false)}
+        />
+      )}
+
+      {type === "product" && (
+        <SelectProductsModal
+          isOpen={showSelectSomethingModal}
+          hideProductsWithIds={data.map((v) => v.id)}
+          onClose={() => setShowSelectSomethingModal(false)}
+          onSave={async (selectedProducts) => {
+            try {
+              if (selectedProducts.length <= 0) return;
+              const res = await assignProducts({
+                id: categoryId,
+                data: {
+                  productIds: selectedProducts.map((v) => v.id),
+                },
+              });
+
+              setShowSelectSomethingModal(false);
               showToast({
                 variant: "success",
                 message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
               });
             } catch (error) {
               console.error(error);
+              setShowSelectSomethingModal(false);
+              showToast({
+                message: "Something went wrong!",
+                variant: "danger",
+              });
             }
           }}
-          onClose={() => setShowSelectItemsModal(false)}
         />
       )}
 

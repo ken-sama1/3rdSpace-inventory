@@ -29,7 +29,7 @@ export const assignItems = async (
       inventoryItemIds.map(async (itemId) => {
         return await tx.inventoryItem.update({
           where: { id: itemId },
-          data: { categoryId: id },
+          data: { categoryId: category.id },
           include: {
             category: true,
           },

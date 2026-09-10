@@ -1,7 +1,9 @@
+import { assignProducts } from "./assign-products.service.js";
 import { create } from "./create.service.js";
 import { getById } from "./get-by-id.service.js";
 import { list } from "./list.service.js";
 import { remove } from "./remove.service.js";
+import { unassignProducts } from "./unassign-products.service.js";
 import { update } from "./update.service.js";
 
 export const productCategoriesService = {
@@ -10,4 +12,6 @@ export const productCategoriesService = {
   delete: remove,
   getById,
   list,
+  assignProducts,
+  unassignProducts,
 };
