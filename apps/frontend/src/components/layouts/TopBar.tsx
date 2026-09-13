@@ -1,22 +1,22 @@
-import LOGO from "@/assets/logo.png";
 import { Bell, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const TopBar = () => {
+  const location = useLocation();
+
+  console.log(location);
   return (
     <header
       className="
       shadow-[0_2px_8px_0] shadow-black/10
-      border-(--line) border-b h-12 w-full fixed top-0 z-10"
+      border-(--line) border-b h-12 w-[calc(100%-288px)] fixed right-0 top-0 z-10"
     >
       <div className="size-full relative flex justify-start items-center bg-(--primary)">
-        {/* Logo Section */}
-        <div className="h-8 absolute left-5 flex items-center justify-center">
-          <Link to="/" className="size-full">
-            <img src={LOGO} loading="lazy" className="size-full object-cover" />
-          </Link>
+        <div className="h-full w-fit ms-2 flex justify-center items-center">
+          <h3 className="font-semibold! text-lg! capitalize">
+            {location.pathname.substring(1)}
+          </h3>
         </div>
-
         {/* Right Side  */}
         <div className="h-10 absolute right-5 flex items-center justify-center gap-5">
           <span className="text-sm!">Admin</span>

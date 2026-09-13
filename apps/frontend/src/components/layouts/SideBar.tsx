@@ -1,14 +1,23 @@
 import { navRoutes } from "@/routes/nav-routes";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import LOGO from "@/assets/logo.png";
 
 const SideBar = () => {
   return (
     // SideBar Container
     <nav
       className="
+      h-dvh
       shadow-black/10 shadow-[2px_0_8px_0] 
-      h-[calc(100dvh-96px)] w-2xs relative top-12 z-10 border-r border-(--line)"
+      w-2xs relative top-0 z-10 border-r border-(--line)"
     >
+      {/* Logo Section */}
+      <div className="h-12 mb-2 ps-5 w-full flex items-center justify-start">
+        <Link to="/" className="h-8 w-fit">
+          <img src={LOGO} loading="lazy" className="size-full object-cover" />
+        </Link>
+      </div>
+
       {/* Wrapper */}
       <div className="size-full bg-(--primary) p-2 overflow-auto">
         {/* Navigation Section Start*/}
