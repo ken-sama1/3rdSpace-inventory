@@ -79,6 +79,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
           const image = formData.get("product-image") as
             { name: string } | undefined;
 
+          console.log(price);
           await update({
             id: productId,
             data: {

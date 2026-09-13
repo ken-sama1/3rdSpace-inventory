@@ -10,7 +10,7 @@ import {
   inventoryItemUnits,
   type IdSchema,
   type InventoryItemDto,
-  type InventoryItemUnit,
+  type InventoryItemUnitSchema,
   type ResponseError,
 } from "@repo/shared";
 import { isAxiosError } from "axios";
@@ -84,7 +84,8 @@ const EditItemForm: FC<EditItemFormProps> = ({
       const formitem = new FormData(formRef.current);
 
       const name = formitem.get("item-name") as string | undefined;
-      const unit = formitem.get("item-unit") as InventoryItemUnit | undefined;
+      const unit = formitem.get("item-unit") as
+        InventoryItemUnitSchema | undefined;
       const imageUrl = formitem.get("item-image") as string | undefined;
       const description = formitem.get("item-description") as
         string | undefined;

@@ -9,10 +9,12 @@ import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,
   type IdSchema,
+  type RecipeItemSchema,
   type ResponseError,
 } from "@repo/shared";
 import { isAxiosError } from "axios";
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
+import ProduceProductContextMenu from "./ProduceProductContextMenu";
 
 interface ProduceProductProps {
   productId: IdSchema;
@@ -29,11 +31,33 @@ const ProduceProduct: FC<ProduceProductProps> = ({
   const { data: product } = useGetProductById({ productId });
   const [productQuantity, setProductQuantity] = useState<number>(0);
   const { getMaxServings } = useStockConfig();
-  const { maxServingsCount, missingItemsCount, recipeItemsBreakdown } =
-    getMaxServings(product?.recipeItems ?? []);
-
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [recipeItems, setRecipeItems] = useState<RecipeItemSchema[]>([]);
+  const { maxServingsCount, missingItemsCount, recipeItemsBreakdown } =
+    getMaxServings(
+      product?.recipeItems.map((v) => {
+        return {
+          ...v,
+          quantity:
+            recipeItems.find(
+              (item) => item.inventoryItemId === v.inventoryItemId
+            )?.quantity ?? v.quantity,
+        };
+      }) ?? []
+    );
+
   const { showToast } = useToastContext();
+
+  useEffect(() => {
+    setRecipeItems(
+      product?.recipeItems.map((recipeItem) => {
+        return {
+          inventoryItemId: recipeItem.inventoryItemId,
+          quantity: recipeItem.quantity,
+        };
+      }) ?? []
+    );
+  }, [product]);
 
   if (!product) return <></>;
 
@@ -96,7 +120,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
           <div className="size-full flex flex-col gap-2">
             {/* List Heading */}
             <div className="grid grid-cols-12 items-center py-2 px-4 border-b border-(--line)">
-              <span className="col-span-4 font-semibold uppercase text-sm truncate">
+              <span className="col-span-3 font-semibold uppercase text-sm truncate">
                 Name
               </span>
 
@@ -122,19 +146,19 @@ const ProduceProduct: FC<ProduceProductProps> = ({
                     className="grid grid-cols-12 items-center py-2 px-3 border-b border-(--line) text-sm hover:bg-(--surface-hover)/50 transition-colors"
                   >
                     {/* Name */}
-                    <span className="col-span-4 font-medium truncate">
+                    <span className="col-span-3 font-medium truncate">
                       {item.name}
                     </span>
 
                     {/* Required Quantity */}
                     <span className="col-span-3 text-center text-(--text-muted)!">
-                      {item.required}{" "}
+                      {item.required}
                       <span className="text-xs">{item.unit}</span>
                     </span>
 
                     {/* Available Stock */}
                     <span className="col-span-3 text-center font-mono text-(--text-muted)!">
-                      {item.available}{" "}
+                      {item.available}
                       <span className="text-xs text-(--text-muted)">
                         {item.unit}
                       </span>
@@ -151,6 +175,29 @@ const ProduceProduct: FC<ProduceProductProps> = ({
                           OK
                         </span>
                       )}
+                    </div>
+
+                    <div className="col-span-1 flex justify-center items-center relative">
+                      <ProduceProductContextMenu
+                        unit={item.unit}
+                        name={item.name}
+                        availableQuantity={item.available}
+                        requiredQuantity={item.required}
+                        onChange={({ quantity }) =>
+                          setRecipeItems((prev) => {
+                            return [
+                              ...prev.filter(
+                                (v) =>
+                                  v.inventoryItemId !== item.inventoryItemId
+                              ),
+                              {
+                                quantity,
+                                inventoryItemId: item.inventoryItemId,
+                              },
+                            ];
+                          })
+                        }
+                      />
                     </div>
                   </li>
                 );
@@ -214,6 +261,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
               id: product.id,
               data: {
                 quantity: productQuantity,
+                recipeItems: recipeItems,
               },
             });
             setShowDialog(false);

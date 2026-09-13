@@ -1,9 +1,9 @@
-import { inventoryItemUnits, type InventoryItemUnit } from "@repo/shared";
+import { inventoryItemUnits, type InventoryItemUnitSchema } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
 
 interface SelectInventoryItemUnitsProps {
-  onChange?: (selectedUnits: InventoryItemUnit[]) => void;
-  initialSelectedUnits?: InventoryItemUnit[];
+  onChange?: (selectedUnits: InventoryItemUnitSchema[]) => void;
+  initialSelectedUnits?: InventoryItemUnitSchema[];
 }
 
 const SelectInventoryItemUnits: FC<SelectInventoryItemUnitsProps> = ({
@@ -11,7 +11,7 @@ const SelectInventoryItemUnits: FC<SelectInventoryItemUnitsProps> = ({
   initialSelectedUnits = [],
 }) => {
   const [selectedUnits, setSelectedUnits] =
-    useState<InventoryItemUnit[]>(initialSelectedUnits);
+    useState<InventoryItemUnitSchema[]>(initialSelectedUnits);
 
   useEffect(() => {
     const isSelectedAll = inventoryItemUnits.every((v) =>

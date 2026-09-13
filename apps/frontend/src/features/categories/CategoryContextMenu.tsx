@@ -51,6 +51,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
       children: (
         <div className="w-xs flex">
           <input
+            placeholder="New Name..."
             type="text"
             className="h-6! w-full!"
             onChange={(e) => {
@@ -137,16 +138,19 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
           isOpen={showMenu}
         >
           <div className="w-30 grid relative">
+            {/* Rename */}
             <button
               onClick={handleRename}
               type="button"
-              className="text-sm nice-hover nice-transition"
+              className="text-sm cursor-pointer nice-hover nice-transition"
             >
               Rename
             </button>
+
+            {/* Delete */}
             <button
               onClick={handlDelete}
-              className="text-sm nice-hover nice-transition"
+              className="text-sm cursor-pointer nice-hover nice-transition"
             >
               Delete
             </button>

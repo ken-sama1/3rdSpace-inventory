@@ -1,7 +1,10 @@
 import type { SortOrderSchema } from "../common/options-schema.js";
-import type { InventoryItemSortBySchema, InventoryItemUnit } from "./schema.js";
+import type {
+  InventoryItemSortBySchema,
+  InventoryItemUnitSchema,
+} from "./schema.js";
 
-export const inventoryItemUnits: InventoryItemUnit[] = [
+export const inventoryItemUnits: InventoryItemUnitSchema[] = [
   "MG",
   "ML",
   "G",

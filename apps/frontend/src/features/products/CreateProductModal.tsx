@@ -93,7 +93,6 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
             } | null;
             const categoryId = formData.get("product-category") as
               string | undefined;
-            console.log(categoryId, "as");
 
             try {
               setDialog(null);
@@ -108,7 +107,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
                 }),
                 price,
                 description,
-                categoryId,
+                categoryId: categoryId || null,
                 imageUrl: image?.name,
               });
 

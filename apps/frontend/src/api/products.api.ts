@@ -79,11 +79,11 @@ const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
 
 const deductStockForProduct = async (
   id: IdSchema,
-  { quantity }: DeductStockForProductInput
+  { quantity, recipeItems }: DeductStockForProductInput
 ): Promise<DeductStockForProductResult> => {
   const { data } = await api.post<DeductStockForProductResBody>(
     `${baseUrl}/${id}/deduct-stock`,
-    { quantity }
+    { quantity, recipeItems }
   );
 
   return data.data;

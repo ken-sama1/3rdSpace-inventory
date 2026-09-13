@@ -1,3 +1,4 @@
+import type { CategoryTypeEnum } from "@/features/categories/const";
 import CreateCategoryModal from "@/features/categories/CreateCategoryModal";
 import InventoryItemCategoriesTable from "@/features/categories/InventoryItemCategoriesTable";
 import ProductCategoriesTable from "@/features/categories/ProductCategoriesTable";
@@ -7,10 +8,10 @@ import { FolderPlus, ListFilter } from "lucide-react";
 import { useState } from "react";
 
 const Categories = () => {
-  const [view, setView] = useState<"items" | "products">("items");
+  const [view, setView] = useState<CategoryTypeEnum>("item");
   const [showCreateCategory, setShowCreateCategory] = useState<boolean>(false);
 
-  const { data: itemsCategories } = useGetInventoryItemCategories();
+  const { data: itemCategories } = useGetInventoryItemCategories();
   const { data: productCategories } = useGetProductCategories();
 
   return (
@@ -53,40 +54,40 @@ const Categories = () => {
         <div className="w-full flex gap-2 justify-start items-center">
           <button
             onClick={() => {
-              setView("items");
+              setView("item");
             }}
-            disabled={view === "items"}
+            disabled={view === "item"}
             style={{
-              ...(view === "items" && {
+              ...(view === "item" && {
                 backgroundColor: "var(--accent)",
               }),
             }}
             className="button-outlined py-1! w-1/5"
           >
-            Items
+            Item
           </button>
           <button
             onClick={() => {
-              setView("products");
+              setView("product");
             }}
-            disabled={view === "products"}
+            disabled={view === "product"}
             style={{
-              ...(view === "products" && {
+              ...(view === "product" && {
                 backgroundColor: "var(--accent)",
               }),
             }}
             className="button-outlined py-1! w-1/5"
           >
-            Products
+            Product
           </button>
         </div>
 
         <div className="size-full">
-          {view === "products" && productCategories && (
+          {view === "product" && productCategories && (
             <ProductCategoriesTable categories={productCategories} />
           )}
-          {view === "items" && itemsCategories && (
-            <InventoryItemCategoriesTable categories={itemsCategories} />
+          {view === "item" && itemCategories && (
+            <InventoryItemCategoriesTable categories={itemCategories} />
           )}
         </div>
       </section>

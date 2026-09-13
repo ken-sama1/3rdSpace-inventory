@@ -14,7 +14,7 @@ import {
 import { sortOrderSchema } from "../common/options-schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
-export type InventoryItemUnit = z.infer<typeof inventoryItemUnitSchema>;
+export type InventoryItemUnitSchema = z.infer<typeof inventoryItemUnitSchema>;
 
 export const inventoryItemSortBySchema = z.enum([
   "name",

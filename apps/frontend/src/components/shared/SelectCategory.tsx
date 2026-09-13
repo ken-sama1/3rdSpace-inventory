@@ -41,7 +41,7 @@ const SelectCategory: FC<SelectCategoryProps> = ({
         setSelectedCategory(category ?? null);
       }}
     >
-      <option className="hidden"></option>
+      <option className="hidden">Select Category</option>
       {categories &&
         categories.map((category) => {
           return (

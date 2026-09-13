@@ -27,7 +27,7 @@ export const useUpdateProduct = () => {
           imageUrl: await cloudinaryApi.upload(imageUrl),
         }),
         ...(description && { description }),
-        ...(typeof price === "number" && { price }),
+        ...(price !== undefined && { price: Number(price) }),
         ...(categoryId && { categoryId }),
         ...(recipeItems &&
           recipeItems && {

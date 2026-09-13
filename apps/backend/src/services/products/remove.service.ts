@@ -19,21 +19,29 @@ export const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
       code: "NOT_FOUND",
     });
 
-  const result = await prisma.product.delete({
-    where: {
-      id,
-    },
-    include: {
-      recipeItems: {
-        include: {
-          inventoryItem: {
-            include: {
-              category: true,
+  const result = await prisma.$transaction(async (tx) => {
+    await tx.recipeItem.deleteMany({
+      where: {
+        productId: id,
+      },
+    });
+
+    return tx.product.delete({
+      where: {
+        id,
+      },
+      include: {
+        recipeItems: {
+          include: {
+            inventoryItem: {
+              include: {
+                category: true,
+              },
             },
           },
         },
       },
-    },
+    });
   });
 
   return {

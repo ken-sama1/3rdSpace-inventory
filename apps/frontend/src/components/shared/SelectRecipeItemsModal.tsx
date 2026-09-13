@@ -1,9 +1,10 @@
 import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
-import type { InventoryItemUnit } from "@repo/shared";
+import type { InventoryItemUnitSchema } from "@repo/shared";
 import { X } from "lucide-react";
 import { useEffect, useState, type FC } from "react";
 import Dialog, { type DialogProps } from "../ui/Dialog";
 import Modal from "../ui/Modal";
+import AlertBanner from "../ui/AlertBanner";
 
 export interface SelectRecipeItemsSelectedItem {
   // Inventory item id
@@ -12,7 +13,7 @@ export interface SelectRecipeItemsSelectedItem {
   // Damn it, I wrote too many quantity even I starting to get confuse
   /** Quantity of the item requires by the product*/
   quantity: number;
-  unit: InventoryItemUnit;
+  unit: InventoryItemUnitSchema;
 }
 
 export interface SelectRecipeItemsModalProps {
@@ -92,6 +93,8 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
                       {item.name} {item.quantity}
                       {item.unit.toLocaleLowerCase()}
                     </span>
+
+                    {/* Unselect Item */}
                     <button
                       onClick={() => {
                         setSelectedItems((prev) =>
@@ -124,10 +127,11 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
               let quantity: number = 0;
 
               const dialogChild = (
-                <div className="flex flex-col gap-y-3 py-1 w-xl">
-                  <p className="text-sm!">
-                    Set how much of this item will be used per production.
-                  </p>
+                <div className="flex flex-col gap-y-3 py-1 w-xs">
+                  <AlertBanner
+                    variant="info"
+                    message="Set how much of this item will be used per production."
+                  />
 
                   <div className="flex size-full gap-2">
                     <input

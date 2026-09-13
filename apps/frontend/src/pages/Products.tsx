@@ -3,7 +3,7 @@ import ProductsTable from "@/features/products/ProductsTable";
 import { useGetProducts } from "@/hooks/products/useGetProducts";
 import { debounce } from "@/utils/debounce";
 import type { InventoryItemFilterSchema } from "@repo/shared";
-import { ListFilter, PackagePlus } from "lucide-react";
+import { PackagePlus, SlidersHorizontal } from "lucide-react";
 import qs from "qs";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -45,7 +45,7 @@ const Products = () => {
             title="Filter"
             className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
           >
-            <ListFilter className="stroke-2 h-5 stroke-inherit!" />
+            <SlidersHorizontal className="stroke-2 h-5 stroke-inherit!" />
           </button>
         </div>
 

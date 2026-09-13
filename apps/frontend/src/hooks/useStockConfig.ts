@@ -1,10 +1,11 @@
 import type {
-  InventoryItemUnit,
+  IdSchema,
+  InventoryItemUnitSchema,
   RecipeItemWithInventoryItemDto,
 } from "@repo/shared";
 
 const stockStatusByUnitMap: Record<
-  InventoryItemUnit,
+  InventoryItemUnitSchema,
   {
     // Minimum that is considered low stock
     low: number;
@@ -43,15 +44,19 @@ const stockStatusByUnitMap: Record<
 
 type StockStatus = "low" | "out" | "in";
 
-type RecipeItemsBreakdown = {
+export type RecipeItemsBreakdown = {
   required: number;
   available: number;
   name: string;
-  unit: InventoryItemUnit;
+  unit: InventoryItemUnitSchema;
+  inventoryItemId: IdSchema;
 };
 
 export const useStockConfig = () => {
-  const getStatus = (stock: number, unit: InventoryItemUnit): StockStatus => {
+  const getStatus = (
+    stock: number,
+    unit: InventoryItemUnitSchema
+  ): StockStatus => {
     const status = stockStatusByUnitMap[unit];
 
     if (stock >= status.in) {
@@ -76,6 +81,7 @@ export const useStockConfig = () => {
         available,
         name: recipeItem.inventoryItem.name,
         unit: recipeItem.inventoryItem.unit,
+        inventoryItemId: recipeItem.inventoryItemId,
       });
 
       if (required > available) {

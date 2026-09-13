@@ -7,7 +7,7 @@ import { useCreateInventoryItem } from "@/hooks/inventory/useCreateInventoryItem
 import {
   inventoryItemUnits,
   type IdSchema,
-  type InventoryItemUnit,
+  type InventoryItemUnitSchema,
 } from "@repo/shared";
 import { useRef, useState } from "react";
 
@@ -51,7 +51,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
 
       await create({
         name: form.get("item-name") as string,
-        unit: form.get("item-unit") as InventoryItemUnit,
+        unit: form.get("item-unit") as InventoryItemUnitSchema,
         quantity,
         description,
         imageUrl,

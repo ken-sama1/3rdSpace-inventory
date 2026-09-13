@@ -58,14 +58,7 @@ export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 // --- Deduct Stock for Product ---
 export const deductStockForProductSchema = z.object({
   quantity: z.union([z.number(), z.coerce.number()]),
-  // recipeItems: z
-  //   .array(
-  //     z.object({
-  //       inventoryItemId: z.string(),
-  //       quantity: z.string(),
-  //     })
-  //   )
-  //   .optional(),
+  recipeItems: z.array(recipeItemSchema),
 });
 
 export type DeductStockForProductSchema = z.infer<

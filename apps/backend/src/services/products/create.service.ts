@@ -21,6 +21,7 @@ export const create = async ({
         code: "NOT_FOUND",
       });
   }
+
   const result = await prisma.product.create({
     data: {
       name: data.name,

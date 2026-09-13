@@ -1,4 +1,4 @@
-import { prisma, type Prisma } from "@repo/database";
+import { prisma, type InventoryItem, type Prisma } from "@repo/database";
 import type {
   DeductStockForProductResult,
   DeductStockForProductSchema,
@@ -9,7 +9,7 @@ import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
 
 export const deductStockForProduct = async (
   id: IdSchema,
-  { quantity: productQuantity }: DeductStockForProductSchema
+  { quantity: productQuantity, recipeItems }: DeductStockForProductSchema
 ): Promise<DeductStockForProductResult> => {
   const product = await prisma.product.findUnique({
     where: {
@@ -36,17 +36,22 @@ export const deductStockForProduct = async (
     available: number;
   }[] = [];
 
-  const recipeItems = product.recipeItems;
+  const inventoryItems = new Map<string, InventoryItem>([]);
+
+  product.recipeItems.map((recipeItem) => {
+    inventoryItems.set(recipeItem.inventoryItemId, recipeItem.inventoryItem);
+  });
 
   for (const recipeItem of recipeItems) {
+    const inventoryItem = inventoryItems.get(recipeItem.inventoryItemId);
     const requiredQuantity = recipeItem.quantity * productQuantity;
-    const stockQuantity = recipeItem.inventoryItem.quantity;
+    const stockQuantity = inventoryItem?.quantity ?? 0;
 
     if (requiredQuantity > stockQuantity)
       insufficientStocks.push({
-        name: recipeItem.inventoryItem.name,
+        name: inventoryItem?.name ?? "Unkown",
         required: recipeItem.quantity,
-        available: recipeItem.inventoryItem.quantity,
+        available: stockQuantity,
       });
   }
 
@@ -61,12 +66,13 @@ export const deductStockForProduct = async (
   const updatedItems = await prisma.$transaction(async (tx) => {
     await tx.inventoryLog.createMany({
       data: recipeItems.map(
-        (item) =>
+        (recipeItem) =>
           ({
-            quantityChange: -Math.abs(item.quantity * productQuantity),
+            quantityChange: -Math.abs(recipeItem.quantity * productQuantity),
             reason: `Production/Sale of ${product.name}`,
-            inventoryItemId: item.inventoryItemId,
-            itemName: item.inventoryItem.name,
+            inventoryItemId: recipeItem.inventoryItemId,
+            itemName:
+              inventoryItems.get(recipeItem.inventoryItemId)?.name ?? "Unkown",
           }) satisfies Prisma.InventoryLogCreateArgs["data"]
       ),
     });
@@ -76,17 +82,17 @@ export const deductStockForProduct = async (
         quantity: productQuantity,
         unitPrice: product.price,
         transactionPrice: product.price * productQuantity,
-        productId: product.id,
+        productName: product.name,
       },
     });
 
     return await Promise.all(
-      recipeItems.map((item) => {
-        const totalDeduction = item.quantity * productQuantity;
+      recipeItems.map((recipeItem) => {
+        const totalDeduction = recipeItem.quantity * productQuantity;
 
         return tx.inventoryItem.update({
           where: {
-            id: item.inventoryItemId,
+            id: recipeItem.inventoryItemId,
           },
           data: {
             quantity: {

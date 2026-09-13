@@ -88,20 +88,14 @@ const Dialog: FC<DialogProps> = ({
           <div className="w-full gap-2 flex justify-end items-center">
             <button
               type="button"
-              onClick={() => {
-                if (onClose) onClose();
-              }}
+              onClick={onClose}
               className="button-outlined py-1! font-semibold! px-3! text-xs!"
             >
               {cancelText}
             </button>
             <button
               type="button"
-              onClick={() => {
-                if (onConfirm) {
-                  onConfirm();
-                }
-              }}
+              onClick={onConfirm}
               className={`button-${variant} font-semibold! py-1! px-3! text-xs!`}
             >
               {confirmText}

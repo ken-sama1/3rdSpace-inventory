@@ -20,13 +20,13 @@ const SideBar = () => {
                 key={route.label}
                 className="
                 nice-hover
-                group text-sm rounded-sm"
+                group text-sm rounded-sm overflow-hidden"
               >
                 {/* Navigation Link */}
                 <NavLink
                   to={route.path}
                   className={({ isActive }) =>
-                    `${isActive ? "font-bold stroke-(--heading) stroke-3 text-(--heading)!" : "stroke-(--text)"} flex items-center justify-start gap-1 px-1.5 py-1`
+                    `${isActive ? "font-bold bg-(--line) stroke-(--heading) stroke-3 text-(--heading)!" : "stroke-(--text)"} flex items-center justify-start gap-1 px-1.5 py-1`
                   }
                 >
                   {/* Icon  */}
