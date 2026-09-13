@@ -9,7 +9,7 @@ const SideBar = () => {
       className="
       h-dvh
       shadow-black/10 shadow-[2px_0_8px_0] 
-      w-2xs relative top-0 z-10 border-r border-(--line)"
+      w-2xs fixed top-0 z-10 border-r border-(--line)"
     >
       {/* Logo Section */}
       <div className="h-12 mb-2 ps-5 w-full flex items-center justify-start">
