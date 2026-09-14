@@ -163,7 +163,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
 
             <SelectInventoryItemCategory
               type="item"
-              initialValue={item.category}
+              initialValue={item.category?.id}
               onChange={(v) => {
                 setCategoryId(v?.id ?? null);
               }}

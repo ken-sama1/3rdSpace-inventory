@@ -1,3 +1,4 @@
+import SelectCategory from "@/components/shared/SelectCategory";
 import SelectInventoryItemUnits from "@/components/shared/SelectInventoryItemUnits";
 import SelectNumberRange from "@/components/shared/SelectNumberRange";
 import {
@@ -12,19 +13,19 @@ import {
 import { useEffect, useState, type FC } from "react";
 
 interface ItemQueryOptionsProps {
-  initialFilter?: GetInventoryItemsReqQuery;
+  initialQuery?: GetInventoryItemsReqQuery;
   onChange: (value: GetInventoryItemsReqQuery) => void;
 }
 
 const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
   onChange,
-  initialFilter = {},
+  initialQuery = {},
 }) => {
   const [filter, setFilter] = useState<InventoryItemFilterSchema>(
-    initialFilter.filter ?? {}
+    initialQuery.filter ?? {}
   );
   const [options, seOptions] = useState<InventoryItemOptionsSchema>(
-    initialFilter.options ?? {}
+    initialQuery.options ?? {}
   );
 
   useEffect(() => {
@@ -47,9 +48,19 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           <span className="font-semibold text-(--text-muted)! text-sm col-span-1">
             Category:
           </span>
-          <div className="col-span-3 flex">
-            <input type="text" />
-          </div>
+
+          <SelectCategory
+            type="item"
+            initialValue={initialQuery.filter?.categoryId?.[0] ?? null}
+            onChange={(v) => {
+              setFilter((prev) => {
+                return {
+                  ...prev,
+                  categoryId: v?.id ? [v.id] : undefined,
+                };
+              });
+            }}
+          />
         </div>
 
         {/* Unit */}
@@ -59,7 +70,7 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           </span>
           <div className="col-span-3 flex">
             <SelectInventoryItemUnits
-              initialSelectedUnits={initialFilter.filter?.unit}
+              initialSelectedUnits={initialQuery.filter?.unit}
               onChange={(units) =>
                 setFilter((prev) => {
                   return { ...prev, unit: units };
@@ -76,7 +87,7 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           </span>
           <div className="col-span-3 flex">
             <SelectNumberRange
-              initialRange={initialFilter.filter?.quantity}
+              initialRange={initialQuery.filter?.quantity}
               onChange={(value) => {
                 setFilter((prev) => {
                   return {

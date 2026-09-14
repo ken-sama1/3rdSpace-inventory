@@ -12,7 +12,7 @@ export interface SelectCategorySelectedCategory {
 interface SelectCategoryProps {
   type: CategoryTypeEnum;
   onChange?: (selectedCategory: SelectCategorySelectedCategory | null) => void;
-  initialValue?: SelectCategorySelectedCategory | null;
+  initialValue?: IdSchema | null;
 }
 
 const SelectCategory: FC<SelectCategoryProps> = ({
@@ -25,11 +25,15 @@ const SelectCategory: FC<SelectCategoryProps> = ({
       ? useGetInventoryItemCategories()
       : useGetProductCategories();
   const [selectedCategory, setSelectedCategory] =
-    useState<SelectCategorySelectedCategory | null>(initialValue);
+    useState<SelectCategorySelectedCategory | null>(
+      initialValue
+        ? (categories?.find((v) => v.id === initialValue) ?? null)
+        : null
+    );
 
   useEffect(() => {
     if (onChange) onChange(selectedCategory);
-  }, [categories, onChange]);
+  }, [categories, onChange, selectedCategory]);
 
   return (
     <select
@@ -41,9 +45,7 @@ const SelectCategory: FC<SelectCategoryProps> = ({
         setSelectedCategory(category ?? null);
       }}
     >
-      <option className="hidden" value="">
-        Select Category
-      </option>
+      <option value="">Select Category</option>
       {categories &&
         categories.map((category) => {
           return (

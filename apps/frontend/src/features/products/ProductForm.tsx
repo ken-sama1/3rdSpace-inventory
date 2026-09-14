@@ -95,7 +95,10 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
               Category:
             </label>
 
-            <SelectCategory initialValue={product?.category} type="product" />
+            <SelectCategory
+              initialValue={product?.category?.id}
+              type="product"
+            />
           </div>
 
           {/* Image */}

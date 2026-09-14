@@ -94,7 +94,7 @@ const Inventory = () => {
             >
               <div className="p-5">
                 <ItemFilter
-                  initialFilter={parsedParams}
+                  initialQuery={parsedParams}
                   onChange={(value) => {
                     updateSearchParams({
                       filter: value.filter,
