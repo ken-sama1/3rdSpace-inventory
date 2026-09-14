@@ -1,4 +1,4 @@
-import type { CategoryTypeEnum } from "@/features/categories/const";
+import type { CategoryTypeEnum } from "@/features/categories/constants";
 import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
 import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
 import type { IdSchema } from "@repo/shared";
@@ -41,7 +41,9 @@ const SelectCategory: FC<SelectCategoryProps> = ({
         setSelectedCategory(category ?? null);
       }}
     >
-      <option className="hidden">Select Category</option>
+      <option className="hidden" value="">
+        Select Category
+      </option>
       {categories &&
         categories.map((category) => {
           return (

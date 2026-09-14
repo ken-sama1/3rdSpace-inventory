@@ -1,6 +1,5 @@
 import DashboardKpiCard from "@/features/dashboard/DashboardKpiCard";
 import InventoryStatusCard from "@/features/dashboard/InventoryStatusCard";
-import LowStockItems from "@/features/dashboard/LowStockItems";
 import ProductAvailability from "@/features/dashboard/ProductAvailability";
 
 import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
@@ -9,6 +8,7 @@ import { useStockConfig } from "@/hooks/useStockConfig";
 
 import { Boxes, Package, PackageX, TriangleAlert } from "lucide-react";
 
+import StockStatusItems from "@/features/dashboard/StockStatusItems";
 import { useMemo } from "react";
 
 const Dashboard = () => {
@@ -24,10 +24,12 @@ const Dashboard = () => {
         lowStock: 0,
         outOfStock: 0,
         lowStockItems: [],
+        outOfStockItems: [],
       };
     }
 
     const lowStockItems = [];
+    const outOfStockItems = [];
     let lowStock = 0;
     let outOfStock = 0;
 
@@ -41,6 +43,7 @@ const Dashboard = () => {
 
       if (status === "out") {
         outOfStock++;
+        outOfStockItems.push(item);
       }
     }
 
@@ -49,6 +52,7 @@ const Dashboard = () => {
       lowStock,
       outOfStock,
       lowStockItems,
+      outOfStockItems,
     };
   }, [items, getStatus]);
 
@@ -102,7 +106,10 @@ const Dashboard = () => {
           outOfStock={stock.outOfStock}
         />
 
-        <LowStockItems items={stock.lowStockItems} />
+        <StockStatusItems
+          lowStockItems={stock.lowStockItems}
+          outOfStockItems={stock.outOfStockItems}
+        />
       </section>
 
       {/* Products */}

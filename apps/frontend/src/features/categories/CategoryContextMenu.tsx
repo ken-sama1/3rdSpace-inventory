@@ -10,7 +10,7 @@ import { useUpdateProductCategory } from "@/hooks/categories/useUpdateProductCat
 import type { IdSchema } from "@repo/shared";
 import { EllipsisVertical } from "lucide-react";
 import { useRef, useState, type FC } from "react";
-import type { CategoryTypeEnum } from "./const";
+import type { CategoryTypeEnum } from "./constants";
 
 interface CategoryContextMenuProps {
   categoryId: IdSchema;

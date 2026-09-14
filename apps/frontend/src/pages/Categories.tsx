@@ -1,4 +1,4 @@
-import type { CategoryTypeEnum } from "@/features/categories/const";
+import type { CategoryTypeEnum } from "@/features/categories/constants";
 import CreateCategoryModal from "@/features/categories/CreateCategoryModal";
 import InventoryItemCategoriesTable from "@/features/categories/InventoryItemCategoriesTable";
 import ProductCategoriesTable from "@/features/categories/ProductCategoriesTable";
@@ -51,32 +51,26 @@ const Categories = () => {
       <div className="divider"></div>
 
       <section className="w-full h-[65dvh] flex flex-col gap-6">
-        <div className="w-full flex gap-2 justify-start items-center">
+        <div className="w-full flex border-b border-(--line) space-x-1">
           <button
-            onClick={() => {
-              setView("item");
-            }}
-            disabled={view === "item"}
-            style={{
-              ...(view === "item" && {
-                backgroundColor: "var(--accent)",
-              }),
-            }}
-            className="button-outlined py-1! w-1/5"
+            type="button"
+            onClick={() => setView("item")}
+            className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
+              view === "item"
+                ? "border-(--accent)! bg-(--bg-info)"
+                : "border-transparent nice-hover"
+            }`}
           >
             Item
           </button>
           <button
-            onClick={() => {
-              setView("product");
-            }}
-            disabled={view === "product"}
-            style={{
-              ...(view === "product" && {
-                backgroundColor: "var(--accent)",
-              }),
-            }}
-            className="button-outlined py-1! w-1/5"
+            type="button"
+            onClick={() => setView("product")}
+            className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
+              view === "product"
+                ? "border-(--accent)! bg-(--bg-info)"
+                : "border-transparent nice-hover"
+            }`}
           >
             Product
           </button>

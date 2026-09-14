@@ -47,6 +47,7 @@ export const stockIn = async (
         quantityChange: quantity,
         reason: `Stock in`,
         itemName: item.name,
+        sourceType: "ADJUSTMENT",
       },
     }),
   ]);

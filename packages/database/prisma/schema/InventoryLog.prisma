@@ -1,3 +1,8 @@
+enum InventoryLogSourceType {
+  TRANSACTION
+  ADJUSTMENT
+}
+
 model InventoryLog {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   inventoryItemId String        @db.ObjectId
@@ -7,6 +12,9 @@ model InventoryLog {
   price           Float         @default(0)
   reason          String
   createdAt       DateTime      @default(now())
+
+  sourceType InventoryLogSourceType
+  sourceId   String?                @db.ObjectId
 
   @@map("inventory_logs")
 }

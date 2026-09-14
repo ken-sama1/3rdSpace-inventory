@@ -122,7 +122,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                         <div className="max-w-sm">
                           <AlertBanner
                             variant="info"
-                            message={`${item.name} is already in category "${item.category?.name}" do you want to move it in this category?`}
+                            message={`${item.name} is already in category "${item.category?.name}" do you want to move it to this category?`}
                           />
                         </div>
                       ),

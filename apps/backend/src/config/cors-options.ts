@@ -1,5 +1,5 @@
 import { type CorsOptions } from "cors";
-import { ALLOWED_ORIGINS } from "./const.js";
+import { ALLOWED_ORIGINS } from "./constants.js";
 
 const origin: CorsOptions["origin"] = (
   reqFrom: string | undefined,

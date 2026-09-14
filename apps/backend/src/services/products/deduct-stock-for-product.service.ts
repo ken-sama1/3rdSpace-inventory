@@ -64,6 +64,15 @@ export const deductStockForProduct = async (
   }
 
   const updatedItems = await prisma.$transaction(async (tx) => {
+    const record = await tx.transaction.create({
+      data: {
+        quantity: productQuantity,
+        unitPrice: product.price,
+        transactionPrice: product.price * productQuantity,
+        productName: product.name,
+      },
+    });
+
     await tx.inventoryLog.createMany({
       data: recipeItems.map(
         (recipeItem) =>
@@ -71,19 +80,12 @@ export const deductStockForProduct = async (
             quantityChange: -Math.abs(recipeItem.quantity * productQuantity),
             reason: `Production/Sale of ${product.name}`,
             inventoryItemId: recipeItem.inventoryItemId,
+            sourceType: "TRANSACTION",
+            sourceId: record.id,
             itemName:
               inventoryItems.get(recipeItem.inventoryItemId)?.name ?? "Unkown",
           }) satisfies Prisma.InventoryLogCreateArgs["data"]
       ),
-    });
-
-    await tx.transaction.create({
-      data: {
-        quantity: productQuantity,
-        unitPrice: product.price,
-        transactionPrice: product.price * productQuantity,
-        productName: product.name,
-      },
     });
 
     return await Promise.all(

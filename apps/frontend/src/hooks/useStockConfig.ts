@@ -7,44 +7,50 @@ import type {
 const stockStatusByUnitMap: Record<
   InventoryItemUnitSchema,
   {
-    // Minimum that is considered low stock
+    // Minimum quantity considered low stock
     low: number;
-    // Minumum that is considered in stock
+
+    // Minimum quantity considered sufficiently stocked
     in: number;
-    // Minumum that is considered out pf stock
+
+    // Quantity considered out of stock
     out: number;
   }
 > = {
   G: {
-    in: 1000,
-    low: 1,
     out: 0,
+    low: 100,
+    in: 500,
   },
+
   KG: {
     out: 0,
-    in: 1,
     low: 0.1,
+    in: 0.5,
   },
+
   MG: {
     out: 0,
-    low: 1000,
-    in: 1001,
+    low: 100,
+    in: 500,
   },
+
   ML: {
     out: 0,
-    low: 1,
-    in: 100,
+    low: 100,
+    in: 500,
   },
+
   PCS: {
     out: 0,
-    low: 10,
-    in: 11,
+    low: 5,
+    in: 10,
   },
 };
 
 type StockStatus = "low" | "out" | "in";
 
-export type RecipeItemsBreakdown = {
+type RecipeItemsBreakdown = {
   required: number;
   available: number;
   name: string;

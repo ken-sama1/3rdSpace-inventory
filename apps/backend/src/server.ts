@@ -4,7 +4,7 @@ import { errorHandler } from "./middleware/error-handler.middleware.js";
 import { apiV1Router } from "./routes/index.js";
 import { corsOptions } from "./config/cors-options.js";
 
-import { ALLOWED_ORIGINS } from "./config/const.js";
+import { ALLOWED_ORIGINS } from "./config/constants.js";
 const PORT = process.env["PORT"] || 3000;
 const app: Express = express();
 

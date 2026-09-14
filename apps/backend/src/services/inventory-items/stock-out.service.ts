@@ -45,6 +45,7 @@ export const stockOut = async (
         quantityChange: -Math.abs(quantity),
         itemName: item.name,
         reason,
+        sourceType: "ADJUSTMENT",
       },
     });
 

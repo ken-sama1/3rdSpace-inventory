@@ -1,0 +1,14 @@
+enum UserRole {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  password String
+  role     UserRole @default(STAFF)
+
+  sessions UserSession[]
+}

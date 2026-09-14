@@ -1,0 +1,9 @@
+model UserSession {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  token     String
+  expiresAt DateTime
+  isRevoked Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id])
+}

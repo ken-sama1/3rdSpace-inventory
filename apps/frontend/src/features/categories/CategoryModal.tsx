@@ -12,7 +12,7 @@ import { useUnassignInventoryItemsFromCategory } from "@/hooks/categories/useUna
 import { useUnassignProductsFromCategory } from "@/hooks/categories/useUnassignProductsFromCategory";
 import { type IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
-import type { CategoryTypeEnum } from "./const";
+import type { CategoryTypeEnum } from "./constants";
 import { isProductCategory } from "./utils";
 
 interface CategoryModalProps {

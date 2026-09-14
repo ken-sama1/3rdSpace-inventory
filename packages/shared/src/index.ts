@@ -1,4 +1,5 @@
 export * from "./Response.js";
+export * from "./auth/schema.js";
 export * from "./common/filter-schema.js";
 export * from "./common/options-schema.js";
 export * from "./common/schema.js";
@@ -15,4 +16,6 @@ export * from "./products/filter-schema.js";
 export * from "./products/schema.js";
 export * from "./products/types.js";
 export * from "./types/PartialSome.js";
+export * from "./users/schema.js";
+export * from "./users/types.js";
 export * from "./utils/validate-schema.util.js";

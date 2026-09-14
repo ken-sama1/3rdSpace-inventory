@@ -7,13 +7,14 @@
     "apps:dev": "pnpm -F \"./apps/*\" run dev",
     "apps:build": "pnpm -F \"./apps/*\" run build",
     "packages:build": "pnpm -F \"./packages/*\" run build",
-    "packages:dev": "pnpm -F shared run dev"
+    "packages:dev": "pnpm -F shared run dev",
+    "preview": "pnpm -F \"./apps/*\" preview"
   },
   "author": "Ken-Sama1",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "^11.15.1",
+      "version": "^12.4.1",
       "onFail": "download"
     }
   },

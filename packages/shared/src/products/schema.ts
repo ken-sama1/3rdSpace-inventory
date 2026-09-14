@@ -12,10 +12,7 @@ import type { ProductDto, ProductWithInventoryItemsDto } from "./types.js";
 // --- Recipe Item ---
 export const recipeItemSchema = z.object({
   inventoryItemId: idSchema,
-  quantity: z.union([
-    z.number(),
-    z.coerce.number().positive("Quantity must be greater than zero"),
-  ]),
+  quantity: z.coerce.number().positive("Quantity must be greater than zero"),
 });
 
 export type RecipeItemSchema = z.infer<typeof recipeItemSchema>;
@@ -26,8 +23,10 @@ export const createProductSchema = z.object({
   description: stringNullableSchema,
   imageUrl: stringNullableSchema,
   categoryId: idNullableSchema,
-  price: z.union([z.number(), z.coerce.number().nonnegative()]),
-  recipeItems: z.array(recipeItemSchema).default([]),
+  price: z.coerce.number().nonnegative(),
+  recipeItems: z
+    .array(recipeItemSchema)
+    .min(1, "Require at least one item for recipe"),
 });
 
 export type CreateProductInput = z.input<typeof createProductSchema>;
