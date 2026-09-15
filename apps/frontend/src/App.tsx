@@ -23,12 +23,7 @@ const App = () => {
               <Route
                 key={route.path}
                 path={route.path}
-                element={
-                  <>
-                    <div></div>
-                    {route.element}
-                  </>
-                }
+                element={route.element}
               />
             );
           })}

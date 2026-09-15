@@ -1,18 +1,20 @@
 import { prisma } from "@repo/database";
-import bcrypt from "bcrypt";
 import type { LoginResult, LoginSchema } from "@repo/shared";
-import { AppError } from "../../errors/AppError.js";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,
 } from "../../config/constants.js";
-import type { JwtPayload } from "../types/JwtPayload.js";
+import { AppError } from "../../errors/AppError.js";
+
+import type { AuthJwtPayload, WithResfreshToken } from "./types.js";
+import { hashToken } from "./utils.js";
 
 export const login = async ({
   username,
   password,
-}: LoginSchema): Promise<LoginResult & { refreshToken: string }> => {
+}: LoginSchema): Promise<WithResfreshToken<LoginResult>> => {
   const DUMMY_PASSWORD_HASH =
     "$2b$10$yeFqxmBrZ3Q2vL1hzkynBuYNwuNHeD/tsEIdNQcocDJmk4oxwuQQe.....";
 
@@ -36,10 +38,10 @@ export const login = async ({
   if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET)
     throw new AppError({
       code: "INTERNAL_ERROR",
-      message: "Missing socret token",
+      message: "Internal server error",
     });
 
-  const tokenPayload: JwtPayload = {
+  const tokenPayload: AuthJwtPayload = {
     userId: user.id,
   };
 
@@ -51,10 +53,19 @@ export const login = async ({
     expiresIn: "30d",
   });
 
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 30);
+
+  await prisma.userSession.create({
+    data: {
+      expiresAt,
+      isRevoked: false,
+      token: hashToken(refreshToken),
+      userId: user.id,
+    },
+  });
+
   return {
-    id: user.id,
-    username: user.username,
-    role: user.role,
     accessToken,
     refreshToken,
   };

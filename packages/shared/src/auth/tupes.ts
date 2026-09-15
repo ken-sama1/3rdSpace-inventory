@@ -1,5 +1,3 @@
-import type { UserDto } from "../users/types.js";
-
-export interface AuthDto extends UserDto {
+export interface AuthDto {
   accessToken: string;
 }

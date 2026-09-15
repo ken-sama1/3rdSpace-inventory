@@ -1,6 +1,6 @@
 import z from "zod";
-import type { UserDto } from "../users/types.js";
 import type { ResponseBody } from "../Response.js";
+import type { UserDto } from "../users/types.js";
 import type { AuthDto } from "./tupes.js";
 
 // --- Register ---
@@ -18,4 +18,8 @@ export const loginSchema = registerSchema;
 export type LoginSchema = z.infer<typeof loginSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type LoginResult = AuthDto;
-export type LoginResBody = ResponseBody<RegisterResult>;
+export type LoginResBody = ResponseBody<LoginResult>;
+
+// --- Refresh ---
+export type RefreshResult = AuthDto;
+export type RefreshResBody = ResponseBody<RefreshResult>;

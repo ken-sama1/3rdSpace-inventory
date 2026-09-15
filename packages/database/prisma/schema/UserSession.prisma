@@ -1,7 +1,7 @@
 model UserSession {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
-  token     String
+  token     String   @unique
   expiresAt DateTime
   isRevoked Boolean  @default(false)
 
