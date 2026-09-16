@@ -2,8 +2,8 @@ import SelectInventoryItemCategory from "@/components/shared/SelectCategory";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import { useToastContext } from "@/context/ToastContext";
-import { useDeleteInventoryItem } from "@/hooks/inventory/useDeleteInventoryItem";
-import { useUpdateInventoryItem } from "@/hooks/inventory/useUpdateInventoryItem";
+import { useDeleteInventoryItem } from "./hooks/useDeleteInventoryItem";
+import { useUpdateInventoryItem } from "./hooks/useUpdateInventoryItem";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   ApiErrorCode,

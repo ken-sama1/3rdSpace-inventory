@@ -1,7 +1,7 @@
 import SelectCategory from "@/components/shared/SelectCategory";
 import SelectRecipeItemsModal, {
   type SelectRecipeItemsSelectedItem,
-} from "@/components/shared/SelectRecipeItemsModal";
+} from "./SelectRecipeItemsModal.tsx";
 import type { ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC, type RefObject, type SubmitEvent } from "react";
 
