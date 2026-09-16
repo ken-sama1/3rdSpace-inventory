@@ -8,7 +8,8 @@ import {
 } from "../../config/constants.js";
 import { AppError } from "../../errors/AppError.js";
 
-import type { AuthJwtPayload, WithResfreshToken } from "./types.js";
+import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
+import type { WithResfreshToken } from "./types.js";
 import { hashToken } from "./utils.js";
 
 export const login = async ({

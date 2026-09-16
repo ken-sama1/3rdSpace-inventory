@@ -3,15 +3,14 @@ import type { Request, Response } from "express";
 import { authService } from "../../services/auth/index.js";
 import { COOKIE_OPTIONS } from "../../config/constants.js";
 import { AppError } from "../../errors/AppError.js";
+import type { AuthCookies } from "./types.js";
 
 export const refresh = async (
   req: Request,
   res: Response<RefreshResBody>
 ): Promise<void> => {
   res.clearCookie("refreshToken");
-  const cookies = req.cookies as {
-    refreshToken?: string;
-  };
+  const cookies = req.cookies as AuthCookies;
 
   if (!cookies.refreshToken)
     throw new AppError({

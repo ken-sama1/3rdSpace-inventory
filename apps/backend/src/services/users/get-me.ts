@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET } from "../../config/constants.js";
 import { AppError } from "../../errors/AppError.js";
 import { throwTokenError } from "../../errors/throw-token-error.js";
-import type { JwtPayload } from "../types/JwtPayload.js";
+import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
 
 export const getMe = async (accessToken: string): Promise<GetMeResult> => {
   let userId: IdSchema | null = null;
@@ -16,7 +16,10 @@ export const getMe = async (accessToken: string): Promise<GetMeResult> => {
         code: "INTERNAL_ERROR",
       });
     }
-    const decoded = jwt.verify(accessToken, ACCESS_TOKEN_SECRET) as JwtPayload;
+    const decoded = jwt.verify(
+      accessToken,
+      ACCESS_TOKEN_SECRET
+    ) as AuthJwtPayload;
 
     userId = decoded.userId;
   } catch (error) {

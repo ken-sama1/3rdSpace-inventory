@@ -1,5 +1,6 @@
 import type { CookieOptions } from "express";
 
+export const ENV_LOADED = process.env["ENV_LOADED"] === "yes";
 export const ENV = process.env["ENV"] || "dev";
 
 export const IS_IN_PROD = ENV.includes("PROD");

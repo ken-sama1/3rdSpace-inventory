@@ -8,16 +8,16 @@ import {
 import { AppError } from "../../errors/AppError.js";
 import { throwTokenError } from "../../errors/throw-token-error.js";
 import type {
+  AuthDecodedJwtPayload,
   AuthJwtPayload,
-  AuthVerifiedJwtPayload,
-  WithResfreshToken,
-} from "./types.js";
+} from "../types/AuthJwtPayload.js";
 import { hashToken } from "./utils.js";
+import type { WithResfreshToken } from "./types.js";
 
 export const refresh = async (
   token: string
 ): Promise<WithResfreshToken<RefreshResult>> => {
-  let decoded!: AuthVerifiedJwtPayload;
+  let decoded!: AuthDecodedJwtPayload;
 
   if (!REFRESH_TOKEN_SECRET || !ACCESS_TOKEN_SECRET)
     throw new AppError({
@@ -26,7 +26,7 @@ export const refresh = async (
     });
 
   try {
-    decoded = jwt.verify(token, REFRESH_TOKEN_SECRET) as AuthVerifiedJwtPayload;
+    decoded = jwt.verify(token, REFRESH_TOKEN_SECRET) as AuthDecodedJwtPayload;
   } catch (error) {
     throwTokenError(error);
   }
