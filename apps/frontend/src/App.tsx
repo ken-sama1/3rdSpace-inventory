@@ -4,6 +4,7 @@ import StatusBar from "./components/layouts/StatusBar";
 import TopBar from "./components/layouts/TopBar";
 import { navRoutes } from "./routes/nav-routes";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       >
         <Routes>
           <Route index element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<NotFound />} />
           {navRoutes.map((route) => {
             return (
               <Route

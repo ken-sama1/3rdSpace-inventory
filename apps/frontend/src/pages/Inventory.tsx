@@ -61,7 +61,7 @@ const Inventory = () => {
   );
 
   return (
-    <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
+    <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) p-2">
       {/* Idk the top section? */}
       <div className="mt-3 h-7! w-full z-2 flex justify-between align-center gap-2">
         {/* Search Bar & Filter */}

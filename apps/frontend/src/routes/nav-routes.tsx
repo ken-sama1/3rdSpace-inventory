@@ -1,8 +1,8 @@
 import Categories from "@/pages/Categories";
+import ComingSoon from "@/pages/ComingSoon";
 import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
-import Settings from "@/pages/Settings";
 import {
   FolderTreeIcon,
   LayersIcon,
@@ -57,7 +57,7 @@ export const navRoutes: NavRoute[] = [
   {
     label: "Settings",
     icon: SettingsIcon,
-    element: <Settings />,
+    element: <ComingSoon />,
     path: "/settings",
   },
 ];

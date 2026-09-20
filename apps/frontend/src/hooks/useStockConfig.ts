@@ -1,10 +1,6 @@
-import type {
-  IdSchema,
-  InventoryItemUnitSchema,
-  RecipeItemWithInventoryItemDto,
-} from "@repo/shared";
+import type { IdSchema, InventoryItemUnitSchema } from "@repo/shared";
 
-const stockStatusByUnitMap: Record<
+const stockThresholdMap: Record<
   InventoryItemUnitSchema,
   {
     // Minimum quantity considered low stock
@@ -19,7 +15,7 @@ const stockStatusByUnitMap: Record<
 > = {
   G: {
     out: 0,
-    low: 100,
+    low: 1,
     in: 500,
   },
 
@@ -31,19 +27,19 @@ const stockStatusByUnitMap: Record<
 
   MG: {
     out: 0,
-    low: 100,
+    low: 1,
     in: 500,
   },
 
   ML: {
     out: 0,
-    low: 100,
+    low: 1,
     in: 500,
   },
 
   PCS: {
     out: 0,
-    low: 5,
+    low: 1,
     in: 10,
   },
 };
@@ -58,22 +54,38 @@ type RecipeItemsBreakdown = {
   inventoryItemId: IdSchema;
 };
 
+interface GetMaxServingsRecipeItem {
+  inventoryItemId: IdSchema;
+  inventoryItem: {
+    quantity: number;
+    name: string;
+    unit: InventoryItemUnitSchema;
+  };
+  quantity: number;
+}
+
 export const useStockConfig = () => {
   const getStatus = (
     stock: number,
     unit: InventoryItemUnitSchema
   ): StockStatus => {
-    const status = stockStatusByUnitMap[unit];
+    const config = localStorage.getItem(unit);
+    const status = config
+      ? (JSON.parse(
+          config
+        ) as (typeof stockThresholdMap)[InventoryItemUnitSchema])
+      : stockThresholdMap[unit];
 
     if (stock >= status.in) {
       return "in";
     } else if (stock >= status.low) {
       return "low";
     }
+
     return "out";
   };
 
-  const getMaxServings = (recipeItems: RecipeItemWithInventoryItemDto[]) => {
+  const getMaxServings = (recipeItems: GetMaxServingsRecipeItem[]) => {
     let missingItemsCount: number = 0;
     let maxServingsCount: number = Infinity;
     const recipeItemsBreakdown: RecipeItemsBreakdown[] = [];

@@ -1,14 +1,14 @@
-enum UserRole {
-  ADMIN
-  MANAGER
-  STAFF
-}
+// enum UserRole {
+//   ADMIN
+//   MANAGER
+//   STAFF
+// }
 
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  username String   @unique
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
   password String
-  role     UserRole @default(STAFF)
+  // role     UserRole @default(STAFF)
 
   sessions UserSession[]
 }

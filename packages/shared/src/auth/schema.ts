@@ -5,8 +5,8 @@ import type { AuthDto } from "./tupes.js";
 
 // --- Register ---
 export const registerSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(3, "Username must not be less than 3 letters"),
+  password: z.string().min(6, "Password must not be less that 6 letters"),
 });
 export type RegisterSchema = z.infer<typeof registerSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;

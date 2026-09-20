@@ -1,5 +1,5 @@
 import SelectCategory from "@/components/shared/SelectCategory";
-import SelectInventoryItemUnits from "@/components/shared/SelectInventoryItemUnits";
+import SelectInventoryItemUnits from "@/features/inventory/SelectInventoryItemUnits";
 import SelectNumberRange from "@/components/shared/SelectNumberRange";
 import {
   inventoryItemSortBy,

@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 const TopBar = () => {
   const location = useLocation();
 
-  console.log(location);
   return (
     <header
       className="

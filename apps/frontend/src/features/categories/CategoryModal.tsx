@@ -1,5 +1,5 @@
-import SelectInventoryItemsModal from "@/components/shared/SelectInventoryItemsModal";
-import SelectProductsModal from "@/components/shared/SelectProductsModal";
+import SelectInventoryItemsModal from "./SelectInventoryItemsModal";
+import SelectProductsModal from "@/features/categories/SelectProductsModal";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";

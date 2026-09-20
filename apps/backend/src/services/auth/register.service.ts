@@ -19,6 +19,6 @@ export const register = async ({
   return {
     id: user.id,
     username: user.username,
-    role: user.role,
+    // role: user.role,
   };
 };

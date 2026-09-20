@@ -1,9 +1,9 @@
 import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
 import type { IdSchema } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
-import AlertBanner from "../ui/AlertBanner";
-import Dialog, { type DialogProps } from "../ui/Dialog";
-import Modal from "../ui/Modal";
+import AlertBanner from "@/components/ui/AlertBanner";
+import Dialog, { type DialogProps } from "@/components/ui/Dialog";
+import Modal from "@/components/ui/Modal";
 import { X } from "lucide-react";
 
 export interface SelectInventoryItemsSelectedItem {

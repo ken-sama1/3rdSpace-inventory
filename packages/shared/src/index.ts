@@ -16,7 +16,8 @@ export * from "./product-categories/types.js";
 export * from "./products/filter-schema.js";
 export * from "./products/schema.js";
 export * from "./products/types.js";
-export * from "./types/PartialSome.js";
+export * from "./types/Partial.js";
 export * from "./users/schema.js";
 export * from "./users/types.js";
 export * from "./utils/validate-schema.util.js";
+

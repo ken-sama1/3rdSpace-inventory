@@ -14,8 +14,23 @@ const Categories = () => {
   const { data: itemCategories } = useGetInventoryItemCategories();
   const { data: productCategories } = useGetProductCategories();
 
+  const tabs = {
+    item: {
+      label: "Item",
+      element: itemCategories && (
+        <InventoryItemCategoriesTable categories={itemCategories} />
+      ),
+    },
+    product: {
+      label: "Products",
+      element: productCategories && (
+        <ProductCategoriesTable categories={productCategories} />
+      ),
+    },
+  } as const;
+
   return (
-    <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">
+    <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) p-2">
       {/* Idk the top section? */}
       <div className="mt-3 h-7! w-full flex justify-between align-center gap-2">
         {/* Search Bar & Filter */}
@@ -52,38 +67,25 @@ const Categories = () => {
 
       <section className="w-full h-[65dvh] flex flex-col gap-6">
         <div className="w-full flex border-b border-(--line) space-x-1">
-          <button
-            type="button"
-            onClick={() => setView("item")}
-            className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
-              view === "item"
-                ? "border-(--accent)! bg-(--bg-info)"
-                : "border-transparent nice-hover"
-            }`}
-          >
-            Item
-          </button>
-          <button
-            type="button"
-            onClick={() => setView("product")}
-            className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
-              view === "product"
-                ? "border-(--accent)! bg-(--bg-info)"
-                : "border-transparent nice-hover"
-            }`}
-          >
-            Product
-          </button>
+          {Object.entries(tabs).map(([k, v]) => {
+            return (
+              <button
+                key={`category-tab-${k}`}
+                type="button"
+                onClick={() => setView(k as typeof view)}
+                className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
+                  view === k
+                    ? "border-(--accent)! bg-(--bg-info)"
+                    : "border-transparent nice-hover"
+                }`}
+              >
+                {v.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="size-full">
-          {view === "product" && productCategories && (
-            <ProductCategoriesTable categories={productCategories} />
-          )}
-          {view === "item" && itemCategories && (
-            <InventoryItemCategoriesTable categories={itemCategories} />
-          )}
-        </div>
+        <div className="size-full">{tabs[view].element}</div>
       </section>
 
       <CreateCategoryModal
