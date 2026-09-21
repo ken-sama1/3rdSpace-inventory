@@ -1,5 +1,6 @@
 import { type CorsOptions } from "cors";
-import { ALLOWED_ORIGINS } from "./constants.js";
+import { ALLOWED_ORIGINS } from "../constants.js";
+import { AppError } from "../errors/AppError.js";
 
 const origin: CorsOptions["origin"] = (
   reqFrom: string | undefined,
@@ -11,7 +12,12 @@ const origin: CorsOptions["origin"] = (
     return callback(null, true);
   }
 
-  callback(new Error("Blocked by CORS policy: This origin is unauthorized"));
+  callback(
+    new AppError({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Blocked by CORS policy: This origin is unauthorized",
+    })
+  );
 };
 
 export const corsOptions: CorsOptions = {

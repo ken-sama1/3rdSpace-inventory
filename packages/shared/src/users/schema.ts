@@ -10,6 +10,18 @@ export type UserRoleSchema = z.infer<typeof userRoleSchema>;
 export type GetMeResult = UserDto;
 export type GetMeResBody = ResponseBody<GetMeResult>;
 
+// --- Update Me ---
+export const updateMeSchema = z.object({
+  username: z
+    .string()
+    .min(3, "Username must not be less than 3 letters")
+    .optional(),
+});
+export type UpdateMeSchema = z.infer<typeof updateMeSchema>;
+export type UpdateMeInput = z.input<typeof updateMeSchema>;
+export type UpdateMeResult = UserDto;
+export type UpdateMeResBody = ResponseBody<UpdateMeResult>;
+
 // --- Change Password ---
 export const changePasswordSchema = z.object({
   oldPassword: z
@@ -22,7 +34,9 @@ export const changePasswordSchema = z.object({
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 export type ChangePasswordInput = z.input<typeof changePasswordSchema>;
 
-// --- Update ---
-export const updateUserSchema = z.object({
-  username: z.string().min(3, "Username must not be less than 3 letters"),
-});
+// --- Update Schema ---
+export const updateUserSchema = updateMeSchema;
+export type UpdateUserSchema = z.infer<typeof updateUserSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
+export type UpdateUserResult = UserDto;
+export type UpdateUserResBody = ResponseBody<UpdateUserResult>;

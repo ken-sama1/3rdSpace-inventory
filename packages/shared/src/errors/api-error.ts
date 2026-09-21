@@ -5,6 +5,7 @@ export const ApiErrorCode = {
   INTERNAL_ERROR: "INTERNAL_ERROR",
   UNAUTHORIZED_ERROR: "UNAUTHORIZED_ERROR",
   FORBIDDEN_ERROR: "FORBIDDEN_ERROR",
+  CONFLICT: "CONFLICT",
   // Inventory Item
   ITEM_IN_USE: "ITEM_IN_USE",
   STOCK_INSUFFICIENT: "STOCK_INSUFFICIENT",
@@ -21,6 +22,7 @@ export const API_ERROR_CODE_TO_MESSAGE: Record<ApiErrorCode, string> = {
   [ApiErrorCode.INTERNAL_ERROR]: "Unexpected error occured, try again later",
   [ApiErrorCode.UNAUTHORIZED_ERROR]: "Unauthorized",
   [ApiErrorCode.FORBIDDEN_ERROR]: "Forbidden",
+  [ApiErrorCode.CONFLICT]: "Conflict",
 } as const;
 
 export const API_ERROR_CODE_TO_STATUS: Record<ApiErrorCode, number> = {
@@ -32,4 +34,5 @@ export const API_ERROR_CODE_TO_STATUS: Record<ApiErrorCode, number> = {
   [ApiErrorCode.ITEM_IN_USE]: 409,
   [ApiErrorCode.VALIDATION_ERROR]: 400,
   [ApiErrorCode.UNKNOWN_ERROR]: 400,
+  [ApiErrorCode.CONFLICT]: 409,
 };

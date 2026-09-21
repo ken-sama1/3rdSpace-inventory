@@ -3,7 +3,7 @@ import SelectProductsModal from "@/features/categories/SelectProductsModal";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useAssignInventoryItemsToCategory } from "./hooks/useAssignInventoryItemsToCategory";
 import { useAssignProductsToCategory } from "./hooks/useAssignProductsToCategory";
 import { useGetInventoryItemCategoryById } from "@/hooks/categories/useGetInventoryItemCategoryById";
@@ -32,7 +32,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
   const [showSelectSomethingModal, setShowSelectSomethingModal] =
     useState<boolean>(false);
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   const categoryMap = {
     item: useGetInventoryItemCategoryById({ categoryId }),

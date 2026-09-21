@@ -1,7 +1,7 @@
 import type { SelectRecipeItemsSelectedItem } from "./SelectRecipeItemsModal.tsx";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useDeleteProduct } from "./hooks/useDeleteProduct";
 import { useGetProductById } from "@/hooks/products/useGetProductById";
 import { useUpdateProduct } from "./hooks/useUpdateProduct";
@@ -37,7 +37,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
   };
 
   // Persistent Toast
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   const dialogConfigs = {
     delete: {

@@ -1,39 +1,26 @@
 import { prisma } from "@repo/database";
-import type { GetMeResult, IdSchema } from "@repo/shared";
-import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET } from "../../config/constants.js";
+import type { GetMeResult } from "@repo/shared";
+import { ACCESS_TOKEN_SECRET } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
-import { throwTokenError } from "../../errors/throw-token-error.js";
-import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
+import { decodeJwtPayload } from "../utils/decode-jwt-payload.util.js";
 
 export const getMe = async (accessToken: string): Promise<GetMeResult> => {
-  let userId: IdSchema | null = null;
+  if (!ACCESS_TOKEN_SECRET)
+    throw new AppError({
+      code: "INTERNAL_ERROR",
+      message: "Internal server error",
+    });
 
-  try {
-    if (!ACCESS_TOKEN_SECRET) {
-      throw new AppError({
-        message: "ACCESS_TOKEN_SECRET is missing",
-        code: "INTERNAL_ERROR",
-      });
-    }
-    const decoded = jwt.verify(
-      accessToken,
-      ACCESS_TOKEN_SECRET
-    ) as AuthJwtPayload;
+  const decoded = decodeJwtPayload(accessToken, ACCESS_TOKEN_SECRET);
 
-    userId = decoded.userId;
-  } catch (error) {
-    throwTokenError(error);
-  }
-
-  if (!userId)
+  if (!decoded.userId)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Invalid token",
     });
 
   const me = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id: decoded.userId },
   });
 
   if (!me)
@@ -45,6 +32,6 @@ export const getMe = async (accessToken: string): Promise<GetMeResult> => {
   return {
     id: me.id,
     username: me.username,
-    role: me.role,
+    // role: me.role,
   };
 };

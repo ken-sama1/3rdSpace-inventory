@@ -1,17 +1,21 @@
 import { productCategoriesApi } from "@/api/product-categories.api";
-import type { IdSchema } from "@repo/shared";
+import type { GetProductCategoryByIdResult, IdSchema } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
+import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetProductByIdProps {
+interface UseGetProductCategoryByIdProps {
   categoryId: IdSchema;
+  options?: QueryOptions<GetProductCategoryByIdResult>;
 }
 
 export const useGetProductCategoryById = ({
   categoryId,
-}: UseGetProductByIdProps) => {
-  return useQuery({
+  options,
+}: UseGetProductCategoryByIdProps) => {
+  return useQuery<GetProductCategoryByIdResult>({
     queryKey: ["categories", "products", categoryId],
-    queryFn: async ({ signal }) =>
+    queryFn: ({ signal }) =>
       productCategoriesApi.getById(categoryId, { signal }),
+    ...options,
   });
 };

@@ -1,7 +1,7 @@
 import { prisma } from "@repo/database";
 import type { GetInventoryItemByIdResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
+import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 
 export const getById = async (
   id: IdSchema

@@ -1,6 +1,6 @@
 import { prisma } from "@repo/database";
 import type { CreateProductResult, CreateProductSchema } from "@repo/shared";
-import { toProductDto } from "../utils/product.mapper.js";
+import { toProductDto } from "../mappers/product.mapper.js";
 import { AppError } from "../../errors/AppError.js";
 
 export const create = async ({

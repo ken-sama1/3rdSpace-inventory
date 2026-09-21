@@ -1,12 +1,10 @@
 import { prisma } from "@repo/database";
-import { hashToken } from "./utils.js";
+import { REFRESH_TOKEN_SECRET } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
-import type { AuthDecodedJwtPayload } from "../types/AuthJwtPayload.js";
-import jwt from "jsonwebtoken";
-import { REFRESH_TOKEN_SECRET } from "../../config/constants.js";
-import { throwTokenError } from "../../errors/throw-token-error.js";
+import { decodeJwtPayload } from "../utils/decode-jwt-payload.util.js";
+import { hashToken } from "../utils/hashToken.util.js";
 
-export const logout = async (token: string) => {
+export const logout = async (token: string): Promise<void> => {
   const session = await prisma.userSession.findUnique({
     where: {
       token: hashToken(token),
@@ -19,19 +17,13 @@ export const logout = async (token: string) => {
       message: "Invalid token",
     });
 
-  let decoded!: AuthDecodedJwtPayload;
+  if (!REFRESH_TOKEN_SECRET)
+    throw new AppError({
+      code: "INTERNAL_ERROR",
+      message: "Internal server error",
+    });
 
-  try {
-    if (!REFRESH_TOKEN_SECRET)
-      throw new AppError({
-        code: "INTERNAL_ERROR",
-        message: "Internal server error",
-      });
-
-    decoded = jwt.verify(token, REFRESH_TOKEN_SECRET) as AuthDecodedJwtPayload;
-  } catch (error) {
-    throwTokenError(error);
-  }
+  const decoded = decodeJwtPayload(token, REFRESH_TOKEN_SECRET);
 
   if (decoded.userId !== session.userId)
     throw new AppError({

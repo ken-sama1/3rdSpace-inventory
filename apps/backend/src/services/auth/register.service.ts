@@ -1,15 +1,29 @@
 import { prisma } from "@repo/database";
 import type { RegisterResult, RegisterSchema } from "@repo/shared";
-import bcrypt from "bcrypt";
-import { SALT } from "../../config/constants.js";
+import * as bcrypt from "bcrypt";
+import { SALT } from "../../constants.js";
+import { AppError } from "../../errors/AppError.js";
 
 export const register = async ({
   username,
   password,
 }: RegisterSchema): Promise<RegisterResult> => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  if (user) {
+    throw new AppError({
+      code: "CONFLICT",
+      message: "Username already taken",
+    });
+  }
+
   const hashedPwd = await bcrypt.hash(password, SALT);
 
-  const user = await prisma.user.create({
+  const result = await prisma.user.create({
     data: {
       username,
       password: hashedPwd,
@@ -17,8 +31,8 @@ export const register = async ({
   });
 
   return {
-    id: user.id,
-    username: user.username,
+    id: result.id,
+    username: result.username,
     // role: user.role,
   };
 };

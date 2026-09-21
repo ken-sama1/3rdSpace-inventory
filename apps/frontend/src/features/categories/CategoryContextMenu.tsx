@@ -2,7 +2,7 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Collapsible from "@/components/ui/Collapsible";
 import type { DialogProps } from "@/components/ui/Dialog";
 import Dialog from "@/components/ui/Dialog";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useDeleteInventoryItemCategory } from "./hooks/useDeleteInventoryItemCategory";
 import { useDeleteProductCategory } from "./hooks/useDeleteProductCategory";
 import { useUpdateInventoryItemCategory } from "./hooks/useUpdateInventoryItemCategory";
@@ -27,7 +27,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [dialog, setDialog] = useState<DialogProps | null>(null);
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   const categoryMap = {
     product: {

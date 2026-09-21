@@ -1,7 +1,7 @@
 import { prisma } from "@repo/database";
 import type { ChangePasswordSchema, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 export const changePassword = async (
   id: IdSchema,

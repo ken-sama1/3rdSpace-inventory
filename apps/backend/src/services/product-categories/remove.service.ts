@@ -1,7 +1,7 @@
 import { prisma } from "@repo/database";
 import type { DeleteInventoryItemCategoryResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductCategoryDto } from "../utils/product-category.mapper.js";
+import { toProductCategoryDto } from "../mappers/product-category.mapper.js";
 
 export const remove = async (
   id: IdSchema

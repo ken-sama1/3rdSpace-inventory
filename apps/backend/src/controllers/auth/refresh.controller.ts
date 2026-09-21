@@ -1,9 +1,9 @@
 import type { RefreshResBody } from "@repo/shared";
 import type { Request, Response } from "express";
 import { authService } from "../../services/auth/index.js";
-import { COOKIE_OPTIONS } from "../../config/constants.js";
+import { COOKIE_OPTIONS } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
-import type { AuthCookies } from "./types.js";
+import type { AuthCookies } from "../types/AuthCookies.js";
 
 export const refresh = async (
   req: Request,

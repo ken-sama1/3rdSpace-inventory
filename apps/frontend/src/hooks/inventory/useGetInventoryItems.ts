@@ -4,14 +4,24 @@ import type {
   GetInventoryItemsResult,
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
+import type { QueryOptions } from "../types/QueryOptions";
+
+interface UseGetInventoryItemsProps {
+  query?: GetInventoryItemsReqQuery;
+  options?: QueryOptions<GetInventoryItemsResult>;
+}
 
 export const useGetInventoryItems = ({
-  filter,
+  query = {},
   options,
-}: GetInventoryItemsReqQuery = {}) => {
+}: UseGetInventoryItemsProps = {}) => {
   return useQuery<GetInventoryItemsResult>({
-    queryKey: ["inventory-items", filter, options],
+    queryKey: ["inventory-items", query.options, query.filter],
     queryFn: ({ signal }) =>
-      inventoryItemApi.getMany({ filter, options }, { signal }),
+      inventoryItemApi.getMany(
+        { filter: query.filter, options: query.options },
+        { signal }
+      ),
+    ...options,
   });
 };

@@ -25,7 +25,7 @@ const Inventory = () => {
   const [openCreateItem, setOpenCreateItem] = useState(false);
   const [openCollapsible, setOpenCollapsible] = useState(false);
   const { data } = useGetInventoryItems({
-    ...parsedParams,
+    query: parsedParams,
   });
 
   const updateSearch = debounce((query: string) => {

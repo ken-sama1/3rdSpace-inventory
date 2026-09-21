@@ -61,11 +61,10 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const useToastContext = () => {
+export const useToast = () => {
   const context = useContext(ToastContext);
 
-  if (!context)
-    throw new Error("useToastContext must be within a ToastProvider");
+  if (!context) throw new Error("useToast must be within a ToastProvider");
 
   return context;
 };

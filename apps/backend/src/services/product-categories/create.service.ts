@@ -3,7 +3,7 @@ import type {
   CreateProductCategoryResult,
   CreateProductCategorySchema,
 } from "@repo/shared";
-import { toProductCategoryDto } from "../utils/product-category.mapper.js";
+import { toProductCategoryDto } from "../mappers/product-category.mapper.js";
 
 export const create = async (
   data: CreateProductCategorySchema

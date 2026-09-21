@@ -5,7 +5,7 @@ import type {
   StockInInventoryItemSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
+import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 
 export const stockIn = async (
   id: IdSchema,

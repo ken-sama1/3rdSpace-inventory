@@ -5,8 +5,8 @@ import {
   toInFilter,
   toNumberFilter,
   toStringFilter,
-} from "../utils/filter.mapper.js";
-import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
+} from "../mappers/filter.mapper.js";
+import { toProductWithInventoryItemsDto } from "../mappers/product.mapper.js";
 
 export const list = async (
   filter?: ProductFilterSchema

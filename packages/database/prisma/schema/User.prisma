@@ -11,4 +11,6 @@ model User {
   // role     UserRole @default(STAFF)
 
   sessions UserSession[]
+
+  @@map("users")
 }

@@ -1,7 +1,7 @@
 import type { LoginResBody, LoginSchema } from "@repo/shared";
 import type { Request, Response } from "express";
 import { authService } from "../../services/auth/index.js";
-import { COOKIE_OPTIONS } from "../../config/constants.js";
+import { COOKIE_OPTIONS } from "../../constants.js";
 
 export const login = async (
   req: Request<{}, LoginResBody, LoginSchema>,

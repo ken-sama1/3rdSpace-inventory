@@ -1,16 +1,13 @@
-import { idParamSchema, loginSchema, registerSchema } from "@repo/shared";
+import { loginSchema, registerSchema } from "@repo/shared";
 import express, { type Router } from "express";
-import { ENV } from "../config/constants.js";
+import { IS_IN_PROD } from "../constants.js";
 import { authController } from "../controllers/auth/index.js";
-import {
-  validateReqBody,
-  validateReqParams,
-} from "../middleware/validate-schema.middleware.js";
+import { validateReqBody } from "../middleware/validate-schema.middleware.js";
 
 export const authRouter: Router = express.Router();
 
 // Register
-if (ENV === "prod")
+if (!IS_IN_PROD)
   authRouter.post(
     "/register",
     validateReqBody(registerSchema),
@@ -21,15 +18,7 @@ if (ENV === "prod")
 authRouter.post("/login", validateReqBody(loginSchema), authController.login);
 
 // Logout
-authRouter.post(
-  "/:id/logout",
-  validateReqParams(idParamSchema),
-  authController.logout
-);
+authRouter.post("/logout", authController.logout);
 
 // Refresh
-authRouter.post(
-  "/:id/refresh",
-  validateReqParams(idParamSchema),
-  authController.refresh
-);
+authRouter.post("/refresh", authController.refresh);

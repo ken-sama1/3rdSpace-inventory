@@ -9,8 +9,8 @@ import {
   toInFilter,
   toNumberFilter,
   toStringFilter,
-} from "../utils/filter.mapper.js";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
+} from "../mappers/filter.mapper.js";
+import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 
 export const list = async (
   filter?: InventoryItemFilterSchema,

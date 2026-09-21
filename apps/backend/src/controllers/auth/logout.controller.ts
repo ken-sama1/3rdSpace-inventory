@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import type { AuthCookies } from "./types.js";
 import { authService } from "../../services/auth/index.js";
 import { AppError } from "../../errors/AppError.js";
+import type { AuthCookies } from "../types/AuthCookies.js";
 
 export const logout = async (req: Request, res: Response) => {
   const cookies = req.cookies as AuthCookies;
@@ -9,7 +9,7 @@ export const logout = async (req: Request, res: Response) => {
   if (!cookies.refreshToken)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
-      message: "Invalid token",
+      message: "Authentication required",
     });
 
   await authService.logout(cookies.refreshToken);

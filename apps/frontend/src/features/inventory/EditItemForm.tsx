@@ -1,7 +1,7 @@
 import SelectInventoryItemCategory from "@/components/shared/SelectCategory";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useDeleteInventoryItem } from "./hooks/useDeleteInventoryItem";
 import { useUpdateInventoryItem } from "./hooks/useUpdateInventoryItem";
 import {
@@ -40,7 +40,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
   const { update: updateItem, isPending: updatePending } =
     useUpdateInventoryItem();
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   const handleCloseAll = () => {
     setDialog(null);

@@ -14,6 +14,8 @@ export const REFRESH_TOKEN_SECRET = process.env["REFRESH_TOKEN_SECRET"];
 
 export const SALT = 10;
 
+export const PORT = process.env["PORT"];
+
 export const COOKIE_OPTIONS: CookieOptions = {
   httpOnly: true,
   secure: ENV === "prod",

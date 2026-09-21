@@ -5,7 +5,7 @@ import type {
   UpdateProductCategorySchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductCategoryDto } from "../utils/product-category.mapper.js";
+import { toProductCategoryDto } from "../mappers/product-category.mapper.js";
 
 export const update = async (
   id: IdSchema,

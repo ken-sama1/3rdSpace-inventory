@@ -3,7 +3,7 @@ import type {
   CreateInventoryItemResult,
   CreateInventoryItemSchema,
 } from "@repo/shared";
-import { toInventoryItemDto } from "../utils/inventory-item.mapper.js";
+import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 import { AppError } from "../../errors/AppError.js";
 
 export const create = async ({

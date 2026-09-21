@@ -1,7 +1,7 @@
 import { prisma } from "@repo/database";
 import type { DeleteProductResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductWithInventoryItemsDto } from "../utils/product.mapper.js";
+import { toProductWithInventoryItemsDto } from "../mappers/product.mapper.js";
 
 export const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
   const product = await prisma.product.findUnique({

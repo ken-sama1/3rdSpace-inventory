@@ -2,7 +2,7 @@ import SelectInventoryItemCategory from "@/components/shared/SelectCategory";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useCreateInventoryItem } from "./hooks/useCreateInventoryItem";
 import {
   inventoryItemUnits,
@@ -24,7 +24,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   if (!isOpen) return <></>;
 

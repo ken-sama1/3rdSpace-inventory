@@ -26,12 +26,16 @@ export const createProductSchema = z.object({
   price: z.coerce.number().nonnegative(),
   recipeItems: z
     .array(
-      z.object({
-        ...recipeItemSchema.shape,
-        ...recipeItemSchema.shape.quantity.positive(
-          "Quantity must be greater than zero"
-        ),
-      })
+      recipeItemSchema
+        .omit({
+          quantity: true,
+        })
+        .extend({
+          quantity: recipeItemSchema.shape.quantity.min(
+            1,
+            "Quantity must not be less than one"
+          ),
+        })
     )
     .min(1, "Require at least one item for recipe"),
 });

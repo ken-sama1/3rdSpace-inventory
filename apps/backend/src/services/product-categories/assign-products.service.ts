@@ -5,7 +5,7 @@ import type {
   IdSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductDto } from "../utils/product.mapper.js";
+import { toProductDto } from "../mappers/product.mapper.js";
 
 export const assignProducts = async (
   id: IdSchema,

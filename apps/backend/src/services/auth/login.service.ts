@@ -1,23 +1,20 @@
 import { prisma } from "@repo/database";
 import type { LoginResult, LoginSchema } from "@repo/shared";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {
-  ACCESS_TOKEN_SECRET,
-  REFRESH_TOKEN_SECRET,
-} from "../../config/constants.js";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
 
 import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
+import { hashToken } from "../utils/hashToken.util.js";
 import type { WithResfreshToken } from "./types.js";
-import { hashToken } from "./utils.js";
 
 export const login = async ({
   username,
   password,
 }: LoginSchema): Promise<WithResfreshToken<LoginResult>> => {
   const DUMMY_PASSWORD_HASH =
-    "$2b$10$yeFqxmBrZ3Q2vL1hzkynBuYNwuNHeD/tsEIdNQcocDJmk4oxwuQQe.....";
+    "$2b$10$yeFqxmBrZ3Q2vL1hzkynBuYNwuNHeD/tsEIdNQcocDJmk4oxwuQQe";
 
   const user = await prisma.user.findUnique({
     where: {

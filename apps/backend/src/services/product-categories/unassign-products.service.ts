@@ -5,7 +5,7 @@ import type {
   UnassignProductsFromCategorySchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductDto } from "../utils/product.mapper.js";
+import { toProductDto } from "../mappers/product.mapper.js";
 
 export const unassignProducts = async (
   id: IdSchema,

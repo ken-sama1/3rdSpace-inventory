@@ -1,6 +1,6 @@
 import { prisma } from "@repo/database";
 import type { GetProductCategoriesResult } from "@repo/shared";
-import { toProductCategoryWithProductsDto } from "../utils/product-category.mapper.js";
+import { toProductCategoryWithProductsDto } from "../mappers/product-category.mapper.js";
 
 export const list = async (): Promise<GetProductCategoriesResult> => {
   const result = await prisma.productCategory.findMany({

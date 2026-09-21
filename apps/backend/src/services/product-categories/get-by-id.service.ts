@@ -1,7 +1,7 @@
 import { prisma } from "@repo/database";
 import type { GetProductCategoryByIdResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
-import { toProductCategoryWithProductsDto } from "../utils/product-category.mapper.js";
+import { toProductCategoryWithProductsDto } from "../mappers/product-category.mapper.js";
 
 export const getById = async (
   id: IdSchema

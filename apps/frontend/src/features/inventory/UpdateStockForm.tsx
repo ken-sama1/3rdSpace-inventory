@@ -1,6 +1,6 @@
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useStockInInventoryItem } from "./hooks/useStockInInventoryItem";
 import { useStockOutInventoryItem } from "./hooks/useStockOutInventoryItem";
 import {
@@ -30,7 +30,7 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
   const [mode, setMode] = useState<"out" | "in">("in");
   const [showDialog, setDialog] = useState<boolean>(false);
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   const { stockIn, isPending: isRestocking } = useStockInInventoryItem();
   const { stockOut, isPending: isDestocking } = useStockOutInventoryItem();

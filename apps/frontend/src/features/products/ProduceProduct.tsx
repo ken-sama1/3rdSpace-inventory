@@ -1,7 +1,7 @@
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import QuantityStepper from "@/components/ui/QuantityStepper";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useDeductStockForProduct } from "./hooks/useDeductStockForProduct";
 import { useGetProductById } from "@/hooks/products/useGetProductById";
 import { useStockConfig } from "@/hooks/useStockConfig";
@@ -46,7 +46,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
       }) ?? []
     );
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   useEffect(() => {
     setRecipeItems(

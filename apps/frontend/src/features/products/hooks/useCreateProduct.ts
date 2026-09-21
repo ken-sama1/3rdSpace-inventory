@@ -20,7 +20,6 @@ export const useCreateProduct = () => {
       price,
       recipeItems,
     }) => {
-      console.log(imageUrl);
       return await productsApi.create({
         categoryId,
         name,

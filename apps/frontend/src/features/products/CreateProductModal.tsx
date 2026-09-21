@@ -4,7 +4,7 @@ import SelectRecipeItemsModal, {
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
-import { useToastContext } from "@/context/ToastContext";
+import { useToast } from "@/context/ToastContext";
 import { useCreateProduct } from "./hooks/useCreateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
@@ -28,7 +28,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
   >([]);
   const { create, isPending } = useCreateProduct();
 
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
 
   return (
     <>
