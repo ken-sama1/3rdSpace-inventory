@@ -1,23 +1,26 @@
 import { prisma } from "@repo/database";
-import type { GetProductsResult, ProductFilterSchema } from "@repo/shared";
+import type {
+  GetProductsReqQuerySchema,
+  GetProductsResult,
+} from "@repo/shared";
 import {
-  toDateFilter,
   toInFilter,
   toNumberFilter,
   toStringFilter,
 } from "../mappers/filter.mapper.js";
 import { toProductWithInventoryItemsDto } from "../mappers/product.mapper.js";
 
-export const list = async (
-  filter?: ProductFilterSchema
-): Promise<GetProductsResult> => {
+export const list = async ({
+  filter = {},
+  options = {},
+}: GetProductsReqQuerySchema = {}): Promise<GetProductsResult> => {
   const {
     name = null,
     description = null,
     categoryId = null,
     price = null,
-    createdAt = null,
   } = filter ?? {};
+  const { order = null, lastProductId = null, sortBy } = options;
   const result = await prisma.product.findMany({
     where: {
       ...(name !== null && {
@@ -36,7 +39,6 @@ export const list = async (
         categoryId: toInFilter(categoryId),
       }),
       ...(price !== null && { price: toNumberFilter(price) }),
-      ...(createdAt !== null && { createdAt: toDateFilter(createdAt) }),
     },
     include: {
       recipeItems: {
@@ -50,6 +52,16 @@ export const list = async (
       },
       category: true,
     },
+    ...(sortBy && {
+      orderBy: {
+        [sortBy]: order,
+      },
+    }),
+    ...(lastProductId && {
+      cursor: {
+        id: lastProductId,
+      },
+    }),
   });
 
   return result.map((res) => {

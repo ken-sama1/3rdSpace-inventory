@@ -1,29 +1,28 @@
 import SelectCategory from "@/components/shared/SelectCategory";
 import SelectNumberRange from "@/components/shared/SelectNumberRange";
 import SelectSortOrder from "@/components/shared/SelectSortOrder";
-import SelectInventoryItemUnits from "@/features/inventory/SelectInventoryItemUnits";
 import {
-  inventoryItemSortBy,
-  type GetInventoryItemsReqQuerySchema,
-  type InventoryItemFilterSchema,
-  type InventoryItemOptionsSchema,
-  type InventoryItemSortBySchema,
+  productSortBy,
+  type GetProductsReqQuerySchema,
+  type ProductFilterSchema,
+  type ProductOptionsSchema,
+  type ProductSortBySchema,
 } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
 
-interface ItemQueryOptionsProps {
-  initialQuery?: GetInventoryItemsReqQuerySchema;
-  onChange: (value: GetInventoryItemsReqQuerySchema) => void;
+interface ProductQueryOptionsProps {
+  initialQuery?: GetProductsReqQuerySchema;
+  onChange: (value: GetProductsReqQuerySchema) => void;
 }
 
-const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
+const ProductQueryOptions: FC<ProductQueryOptionsProps> = ({
   onChange,
   initialQuery = {},
 }) => {
-  const [filter, setFilter] = useState<InventoryItemFilterSchema>(
+  const [filter, setFilter] = useState<ProductFilterSchema>(
     initialQuery.filter ?? {}
   );
-  const [options, seOptions] = useState<InventoryItemOptionsSchema>(
+  const [options, seOptions] = useState<ProductOptionsSchema>(
     initialQuery.options ?? {}
   );
 
@@ -49,7 +48,7 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           </span>
 
           <SelectCategory
-            type="item"
+            type="product"
             initialValue={initialQuery.filter?.categoryId?.[0] ?? null}
             onChange={(v) => {
               setFilter((prev) => {
@@ -62,36 +61,19 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           />
         </div>
 
-        {/* Unit */}
+        {/* Price  */}
         <div className="col-span-4 grid grid-cols-4 items-center">
           <span className="font-semibold text-(--text-muted)! text-sm col-span-1">
-            Units:
-          </span>
-          <div className="col-span-3 flex">
-            <SelectInventoryItemUnits
-              initialSelectedUnits={initialQuery.filter?.unit}
-              onChange={(units) =>
-                setFilter((prev) => {
-                  return { ...prev, unit: units };
-                })
-              }
-            />
-          </div>
-        </div>
-
-        {/* Quantity  */}
-        <div className="col-span-4 grid grid-cols-4 items-center">
-          <span className="font-semibold text-(--text-muted)! text-sm col-span-1">
-            Quantity
+            Price
           </span>
           <div className="col-span-3 flex">
             <SelectNumberRange
-              initialRange={initialQuery.filter?.quantity}
+              initialRange={initialQuery.filter?.price}
               onChange={(value) => {
                 setFilter((prev) => {
                   return {
                     ...prev,
-                    quantity: value ?? undefined,
+                    price: value ?? undefined,
                   };
                 });
               }}
@@ -121,13 +103,13 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
                 seOptions((prev) => {
                   return {
                     ...prev,
-                    sortBy: e.target.value as InventoryItemSortBySchema,
+                    sortBy: e.target.value as ProductSortBySchema,
                   };
                 });
               }}
               className="py-1! text-center!"
             >
-              {inventoryItemSortBy.map((field) => {
+              {productSortBy.map((field) => {
                 return (
                   <option key={field} value={field}>
                     {field}
@@ -163,4 +145,4 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
   );
 };
 
-export default ItemQueryOptions;
+export default ProductQueryOptions;

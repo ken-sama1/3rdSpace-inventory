@@ -24,9 +24,9 @@ export const login = async ({
 
   const passwordHash = user?.password ?? DUMMY_PASSWORD_HASH;
 
-  const passwordValid = await bcrypt.compare(password, passwordHash);
+  const pwdMatched = await bcrypt.compare(password, passwordHash);
 
-  if (!user || !passwordValid) {
+  if (!user || !pwdMatched) {
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Invalid username or password",

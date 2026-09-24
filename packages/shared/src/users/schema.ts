@@ -6,17 +6,28 @@ import type { ResponseBody } from "../Response.js";
 export const userRoleSchema = z.enum(["ADMIN", "STAFF", "MANAGER"]);
 export type UserRoleSchema = z.infer<typeof userRoleSchema>;
 
-// --- Get Me ---
-export type GetMeResult = UserDto;
-export type GetMeResBody = ResponseBody<GetMeResult>;
+// --- Get By Id ---
+export type GetUserByIdResult = UserDto;
+export type GetUserByIdResBody = ResponseBody<GetUserByIdResult>;
 
-// --- Update Me ---
-export const updateMeSchema = z.object({
+// --- Update ---
+export const updateUserSchema = z.object({
   username: z
     .string()
     .min(3, "Username must not be less than 3 letters")
     .optional(),
 });
+export type UpdateUserSchema = z.infer<typeof updateUserSchema>;
+export type UpdateUserInput = z.input<typeof updateUserSchema>;
+export type UpdateUserResult = UserDto;
+export type UpdateUserResBody = ResponseBody<UpdateMeResult>;
+
+// --- Get Me ---
+export type GetMeResult = UserDto;
+export type GetMeResBody = ResponseBody<GetMeResult>;
+
+// --- Update Me ---
+export const updateMeSchema = updateUserSchema;
 export type UpdateMeSchema = z.infer<typeof updateMeSchema>;
 export type UpdateMeInput = z.input<typeof updateMeSchema>;
 export type UpdateMeResult = UserDto;
@@ -33,10 +44,3 @@ export const changePasswordSchema = z.object({
 });
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 export type ChangePasswordInput = z.input<typeof changePasswordSchema>;
-
-// --- Update Schema ---
-export const updateUserSchema = updateMeSchema;
-export type UpdateUserSchema = z.infer<typeof updateUserSchema>;
-export type UpdateUserInput = z.infer<typeof updateUserSchema>;
-export type UpdateUserResult = UserDto;
-export type UpdateUserResBody = ResponseBody<UpdateUserResult>;

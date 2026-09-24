@@ -4,7 +4,7 @@ import InventoryItemCategoriesTable from "@/features/categories/InventoryItemCat
 import ProductCategoriesTable from "@/features/categories/ProductCategoriesTable";
 import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
 import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
-import { FolderPlus, ListFilter } from "lucide-react";
+import { FolderPlus, SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
 
 const Categories = () => {
@@ -45,7 +45,7 @@ const Categories = () => {
             title="Filter"
             className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
           >
-            <ListFilter className="stroke-2 h-5 stroke-inherit!" />
+            <SlidersHorizontal className="stroke-2 h-5 stroke-inherit!" />
           </button>
         </div>
 

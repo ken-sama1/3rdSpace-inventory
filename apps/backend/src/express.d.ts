@@ -6,7 +6,7 @@ declare global {
       auth: {
         userId: IdSchema;
         // role: UserRoleSchema;
-        accessToken: string;
+        // accessToken: string;
       };
     }
   }

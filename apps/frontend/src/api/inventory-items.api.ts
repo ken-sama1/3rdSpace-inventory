@@ -4,11 +4,12 @@ import type {
   CreateInventoryItemResult,
   DeleteInventoryItemResBody,
   DeleteInventoryResult,
-  GetInventoryItemByIdResult,
   GetInventoryItemByIdResBody,
-  GetInventoryItemsReqQuery,
+  GetInventoryItemByIdResult,
+  GetInventoryItemsReqQueryInput,
   GetInventoryItemsResBody,
   GetInventoryItemsResult,
+  IdSchema,
   StockInInventoryItemInput,
   StockInInventoryItemResBody,
   StockInInventoryItemResult,
@@ -17,7 +18,6 @@ import type {
   StockOutInventoryItemResult,
   UpdateInventoryItemInput,
   UpdateInventoryResult,
-  IdSchema,
 } from "@repo/shared";
 import type { AxiosRequestConfig } from "axios";
 import { api } from "./api";
@@ -39,7 +39,7 @@ const getById = async (
 };
 
 const getMany = async (
-  { filter, options }: GetInventoryItemsReqQuery = {},
+  { filter, options }: GetInventoryItemsReqQueryInput = {},
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemsResult> => {
   const { data } = await api.get<GetInventoryItemsResBody>(baseUrl, {

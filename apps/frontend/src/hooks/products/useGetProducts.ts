@@ -1,10 +1,10 @@
 import { productsApi } from "@/api/products.api";
-import type { GetProductsResult, ProductFilterSchema } from "@repo/shared";
+import type { GetProductsReqQueryInput, GetProductsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
 interface UseGetProductsProps {
-  query?: { filter?: ProductFilterSchema };
+  query?: GetProductsReqQueryInput;
   options?: QueryOptions<GetProductsResult>;
 }
 
@@ -13,8 +13,8 @@ export const useGetProducts = ({
   options,
 }: UseGetProductsProps = {}) => {
   return useQuery({
-    queryKey: ["products", query?.filter],
-    queryFn: ({ signal }) => productsApi.getMany(query?.filter, { signal }),
+    queryKey: ["products", query?.filter, query?.options],
+    queryFn: ({ signal }) => productsApi.getMany(query, { signal }),
     ...options,
   });
 };

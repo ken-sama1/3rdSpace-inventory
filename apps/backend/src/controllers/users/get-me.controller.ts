@@ -6,7 +6,7 @@ export const getMe = async (
   req: Request,
   res: Response<GetMeResBody>
 ): Promise<void> => {
-  const result = await usersService.getMe(req.auth.accessToken);
+  const result = await usersService.getById(req.auth.userId);
 
   res.status(200).json({
     data: result,

@@ -97,7 +97,10 @@ export const getInventoryItemsReqQuerySchema = z.object({
 
 export type GetInventoryItemsResult = InventoryItemDto[];
 export type GetInventoryItemsResBody = ResponseBody<GetInventoryItemsResult>;
-export type GetInventoryItemsReqQuery = z.infer<
+export type GetInventoryItemsReqQueryInput = z.input<
+  typeof getInventoryItemsReqQuerySchema
+>;
+export type GetInventoryItemsReqQuerySchema = z.infer<
   typeof getInventoryItemsReqQuerySchema
 >;
 

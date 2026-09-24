@@ -1,6 +1,7 @@
 export * from "./Response.js";
 export * from "./auth/schema.js";
 export * from "./auth/tupes.js";
+export * from "./common/enums.js";
 export * from "./common/filter-schema.js";
 export * from "./common/options-schema.js";
 export * from "./common/schema.js";
@@ -13,7 +14,7 @@ export * from "./inventory-items/schema.js";
 export * from "./inventory-items/types.js";
 export * from "./product-categories/schema.js";
 export * from "./product-categories/types.js";
-export * from "./products/filter-schema.js";
+export * from "./products/enums.js";
 export * from "./products/schema.js";
 export * from "./products/types.js";
 export * from "./types/Partial.js";

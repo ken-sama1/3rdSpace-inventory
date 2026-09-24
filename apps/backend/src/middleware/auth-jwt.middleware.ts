@@ -37,6 +37,9 @@ export const authJwt = async (
     where: {
       id: decoded.userId,
     },
+    select: {
+      id: true,
+    },
   });
 
   if (!user)
@@ -44,6 +47,10 @@ export const authJwt = async (
       code: "UNAUTHORIZED_ERROR",
       message: "Token mismatch",
     });
+
+  req.auth = {
+    userId: user.id,
+  };
 
   next();
 };

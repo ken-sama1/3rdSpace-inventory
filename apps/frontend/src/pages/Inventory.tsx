@@ -1,14 +1,14 @@
 import Collapsible from "@/components/ui/Collapsible";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
-import ItemFilter from "@/features/inventory/ItemQueryOptions";
+import ItemQueryOptions from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
 import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
 import { debounce } from "@/utils/debounce";
 import {
   getInventoryItemsReqQuerySchema,
-  type InventoryItemOptionsSchema,
-  type GetInventoryItemsReqQuery,
+  type GetInventoryItemsReqQuerySchema,
   type InventoryItemFilterSchema,
+  type InventoryItemOptionsSchema,
 } from "@repo/shared";
 import { LayersPlus, SlidersHorizontal } from "lucide-react";
 import qs from "qs";
@@ -35,7 +35,7 @@ const Inventory = () => {
   }, 1000);
 
   const updateSearchParams = debounce(
-    ({ filter = {}, options = {} }: GetInventoryItemsReqQuery) => {
+    ({ filter = {}, options = {} }: GetInventoryItemsReqQuerySchema) => {
       const { description, categoryId, quantity, unit } = filter;
 
       const { sortBy, order } = options;
@@ -93,7 +93,7 @@ const Inventory = () => {
               refs={[filterButtonRef]}
             >
               <div className="p-5">
-                <ItemFilter
+                <ItemQueryOptions
                   initialQuery={parsedParams}
                   onChange={(value) => {
                     updateSearchParams({

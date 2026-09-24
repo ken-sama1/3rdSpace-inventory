@@ -1,13 +1,13 @@
 import { inventoryItemApi } from "@/api/inventory-items.api";
 import type {
-  GetInventoryItemsReqQuery,
+  GetInventoryItemsReqQuerySchema,
   GetInventoryItemsResult,
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
 interface UseGetInventoryItemsProps {
-  query?: GetInventoryItemsReqQuery;
+  query?: GetInventoryItemsReqQuerySchema;
   options?: QueryOptions<GetInventoryItemsResult>;
 }
 

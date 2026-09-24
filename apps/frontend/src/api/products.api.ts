@@ -9,10 +9,10 @@ import type {
   DeleteProductResult,
   GetProductByIdResBody,
   GetProductByIdResult,
+  GetProductsReqQueryInput,
   GetProductsResBody,
   GetProductsResult,
   IdSchema,
-  ProductFilterSchema,
   UpdateProductInput,
   UpdateProductResBody,
   UpdateProductResult,
@@ -37,12 +37,14 @@ const getById = async (
 };
 
 const getMany = async (
-  filter: ProductFilterSchema = {},
+  query: GetProductsReqQueryInput = {},
   config: AxiosRequestConfig
 ): Promise<GetProductsResult> => {
   const { data } = await api.get<GetProductsResBody>(baseUrl, {
     ...config,
-    params: filter,
+    params: {
+      ...query,
+    },
   });
 
   return data.data;

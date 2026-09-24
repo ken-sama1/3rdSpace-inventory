@@ -41,7 +41,8 @@
     "skipLibCheck": true,
   },
   "include": [
-    "src"
+    "src",
+    "express.d.ts"
   ],
   "exclude": [
     "dist"
