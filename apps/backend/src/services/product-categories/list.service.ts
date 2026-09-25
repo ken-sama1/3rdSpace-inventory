@@ -1,9 +1,24 @@
 import { prisma } from "@repo/database";
-import type { GetProductCategoriesResult } from "@repo/shared";
+import type {
+  GetProductCategoriesReqQuerySchema,
+  GetProductCategoriesResult,
+} from "@repo/shared";
 import { toProductCategoryWithProductsDto } from "../mappers/product-category.mapper.js";
+import { toStringFilter } from "../mappers/filter.mapper.js";
 
-export const list = async (): Promise<GetProductCategoriesResult> => {
+export const list = async ({
+  filter,
+}: GetProductCategoriesReqQuerySchema = {}): Promise<GetProductCategoriesResult> => {
+  const { name = null } = filter ?? {};
   const result = await prisma.productCategory.findMany({
+    where: {
+      ...(name !== null && {
+        name: {
+          ...toStringFilter(name),
+          mode: "insensitive",
+        },
+      }),
+    },
     include: {
       products: {
         include: {

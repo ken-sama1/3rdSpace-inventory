@@ -1,12 +1,24 @@
 import z from "zod";
 import type { ResponseBody } from "../Response.js";
+import { idSchema } from "../common/schema.js";
 import type { DateMetaData } from "../common/types.js";
+import { productFilterSchema } from "../products/schema.js";
+import type { ProductDto } from "../products/types.js";
 import type {
   ProductCategoryDto,
   ProductCategoryWithProductsDto,
 } from "./types.js";
-import { idSchema } from "../common/schema.js";
-import type { ProductDto } from "../products/types.js";
+
+//--- Filter ---
+export const productCategoriesFilterSchema = z.object({
+  name: z.string().optional(),
+});
+export type ProductCategoriesFilterSchema = z.infer<
+  typeof productCategoriesFilterSchema
+>;
+export type ProductCategoryFilterSchema = z.input<
+  typeof productCategoriesFilterSchema
+>;
 
 // --- Create ---
 export const createProductCategorySchema = z.object({
@@ -41,6 +53,15 @@ export type DeleteProductCategoryResBody =
   ResponseBody<DeleteProductCategoryResult>;
 
 // --- Get Many ---
+export const getProductCategoriesReqQuerySchema = z.object({
+  filter: productFilterSchema.optional(),
+});
+export type GetProductCategoriesReqQuerySchema = z.infer<
+  typeof getProductCategoriesReqQuerySchema
+>;
+export type GetProductCategoriesReqQueryInput = z.infer<
+  typeof getProductCategoriesReqQuerySchema
+>;
 export type GetProductCategoriesResult = ProductCategoryWithProductsDto[];
 export type GetProductCategoriesResBody =
   ResponseBody<GetProductCategoriesResult>;

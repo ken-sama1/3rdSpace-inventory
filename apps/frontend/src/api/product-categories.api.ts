@@ -7,6 +7,7 @@ import {
   type CreateProductCategoryResult,
   type DeleteProductCategoryResBody,
   type DeleteProductCategoryResult,
+  type GetProductCategoriesReqQueryInput,
   type GetProductCategoriesResBody,
   type GetProductCategoriesResult,
   type GetProductCategoryByIdResBody,
@@ -75,10 +76,11 @@ const getById = async (
 
 // --- Get Many ---
 const getMany = async (
-  {} = {},
+  query?: GetProductCategoriesReqQueryInput,
   config?: AxiosRequestConfig
 ): Promise<GetProductCategoriesResult> => {
   const { data } = await api.get<GetProductCategoriesResBody>(baseUrl, {
+    params: query,
     ...config,
   });
 

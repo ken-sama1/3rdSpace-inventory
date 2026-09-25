@@ -1,12 +1,23 @@
-import type { GetProductCategoriesResBody } from "@repo/shared";
+import {
+  getProductCategoriesReqQuerySchema,
+  validateSchema,
+  type GetProductCategoriesReqQuerySchema,
+  type GetProductCategoriesResBody,
+} from "@repo/shared";
 import type { Request, Response } from "express";
 import { productCategoriesService } from "../../services/product-categories/index.js";
 
 export const list = async (
-  _req: Request,
+  req: Request<
+    {},
+    GetProductCategoriesResBody,
+    {},
+    GetProductCategoriesReqQuerySchema
+  >,
   res: Response<GetProductCategoriesResBody>
 ): Promise<void> => {
-  const result = await productCategoriesService.list();
+  const query = validateSchema(getProductCategoriesReqQuerySchema, req.query);
+  const result = await productCategoriesService.list(query);
 
   res.status(200).json({
     message: "success",

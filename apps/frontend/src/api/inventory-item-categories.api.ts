@@ -7,6 +7,7 @@ import {
   type CreateInventoryItemCategoryResult,
   type DeleteInventoryItemCategoryResBody,
   type DeleteInventoryItemCategoryResult,
+  type GetInventoryItemCategoriesReqQueryInput,
   type GetInventoryItemCategoriesResBody,
   type GetInventoryItemCategoriesResult,
   type GetInventoryItemCategoryByIdResBody,
@@ -75,11 +76,12 @@ const getById = async (
 
 // --- Get Many ---
 const getMany = async (
-  {} = {},
+  query?: GetInventoryItemCategoriesReqQueryInput,
   config?: AxiosRequestConfig
 ): Promise<GetInventoryItemCategoriesResult> => {
   const { data } = await api.get<GetInventoryItemCategoriesResBody>(baseUrl, {
     ...config,
+    params: query,
   });
 
   return data.data;

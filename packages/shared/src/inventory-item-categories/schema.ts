@@ -8,6 +8,17 @@ import type { DateMetaData } from "../common/types.js";
 import { idSchema } from "../common/schema.js";
 import type { InventoryItemDto } from "../inventory-items/types.js";
 
+//--- Filter ---
+export const inventoryItemCategoriesFilterSchema = z.object({
+  name: z.string().optional(),
+});
+export type InventoryItemCategoriesFilterSchema = z.infer<
+  typeof inventoryItemCategoriesFilterSchema
+>;
+export type InventoryItemCategoryFilterSchema = z.input<
+  typeof inventoryItemCategoriesFilterSchema
+>;
+
 // --- Create ---
 export const createInventoryItemCategorySchema = z.object({
   name: z.string(),
@@ -23,6 +34,15 @@ export type CreateInventoryItemCategoryResBody =
   ResponseBody<CreateInventoryItemCategoryResult>;
 
 // --- Get ---
+export const getInventoryItemCategoriesReqQuerySchema = z.object({
+  filter: inventoryItemCategoriesFilterSchema.optional(),
+});
+export type GetInventoryItemCategoriesReqQuerySchema = z.infer<
+  typeof getInventoryItemCategoriesReqQuerySchema
+>;
+export type GetInventoryItemCategoriesReqQueryInput = z.input<
+  typeof getInventoryItemCategoriesReqQuerySchema
+>;
 export type GetInventoryItemCategoriesResult =
   InventoryItemCategoryWithItemsDto[];
 export type GetInventoryItemCategoriesResBody =
