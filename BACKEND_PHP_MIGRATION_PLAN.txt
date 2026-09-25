@@ -1,0 +1,518 @@
+PHP/PDO BACKEND MIGRATION PLAN
+==============================
+
+GOAL
+----
+
+Rewrite the existing TypeScript/Express backend in plain PHP using PDO while
+preserving the external API contract:
+
+- Same /api/v1/... endpoints
+- Same request fields
+- Same JSON response shapes
+- Same status codes
+- Same error codes
+- Same refresh-token cookie behavior
+
+The PHP implementation may simplify internal security, typing, and framework
+concerns, but it must not change the API consumed by the frontend.
+
+The current backend uses MongoDB through Prisma. PDO requires a SQL database,
+so the PHP rewrite requires a migration to MySQL/MariaDB or PostgreSQL.
+MySQL/MariaDB is recommended for a simple PDO implementation.
+
+
+1. RESPONSE CONTRACT
+--------------------
+
+Successful responses:
+
+{
+  "message": "success",
+  "data": {}
+}
+
+Error responses:
+
+{
+  "message": "Invalid value",
+  "errors": [],
+  "code": "VALIDATION_ERROR"
+}
+
+Suggested PHP helpers:
+
+Response::success($data, $message = 'success', $status = 200);
+Response::error($message, $code, $errors = [], $status = 400);
+
+Use json_encode($payload, JSON_UNESCAPED_SLASHES).
+Return dates as ISO-8601 strings.
+
+
+2. PHP PROJECT ARCHITECTURE
+---------------------------
+
+backend-php/
+├── public/
+│   └── index.php
+├── routes/
+│   ├── api.php
+│   ├── auth.php
+│   ├── users.php
+│   ├── inventory-items.php
+│   ├── products.php
+│   ├── inventory-item-categories.php
+│   └── product-categories.php
+├── app/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── UserController.php
+│   │   ├── InventoryItemController.php
+│   │   ├── ProductController.php
+│   │   ├── InventoryItemCategoryController.php
+│   │   └── ProductCategoryController.php
+│   ├── Services/
+│   │   ├── AuthService.php
+│   │   ├── UserService.php
+│   │   ├── InventoryItemService.php
+│   │   ├── ProductService.php
+│   │   ├── InventoryItemCategoryService.php
+│   │   └── ProductCategoryService.php
+│   ├── Repositories/
+│   │   ├── UserRepository.php
+│   │   ├── SessionRepository.php
+│   │   ├── InventoryItemRepository.php
+│   │   ├── ProductRepository.php
+│   │   ├── RecipeItemRepository.php
+│   │   ├── InventoryLogRepository.php
+│   │   └── Category repositories
+│   ├── DTO/
+│   ├── Validators/
+│   ├── Middleware/
+│   ├── Support/
+│   └── Database/
+│       └── Connection.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── config/
+│   ├── app.php
+│   └── database.php
+├── composer.json
+└── .env
+
+Dependency direction:
+
+Route -> Middleware -> Controller -> Service -> Repository -> PDO
+
+Controllers handle HTTP input/output. Services contain business rules.
+Repositories contain SQL and database access. PHP does not need to reproduce
+the TypeScript DTO and type system; associative arrays are acceptable as long
+as the JSON contract remains consistent.
+
+HOW A REQUEST FLOWS
+
+For POST /api/v1/auth/login:
+
+public/index.php
+  -> router matches /api/v1/auth/login
+  -> AuthController::login()
+  -> read JSON body
+  -> AuthService::login()
+  -> UserRepository finds the user through PDO
+  -> AuthService verifies the password and creates tokens
+  -> SessionRepository stores the refresh session
+  -> AuthController sets the cookie
+  -> Response::success() returns JSON
+
+For inventory and product operations:
+
+HTTP request -> route -> controller -> service -> repository -> MySQL
+              -> array/mapper -> response JSON
+
+This is a lightweight separation of responsibilities, not a strict enterprise
+architecture. Use simple classes or functions where they help, and do not add
+interfaces or DTO classes only for formality.
+
+Practical rules:
+
+- Use associative arrays for request and response data.
+- Keep SQL in repositories, not controllers.
+- Use PDO prepared statements for values.
+- Keep response formatting in one Response helper.
+- Use a small API exception for expected errors.
+- Use database transactions for stock changes.
+
+
+3. AUTHENTICATION ENDPOINTS
+---------------------------
+
+POST /api/v1/auth/login
+
+Request:
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+Response:
+
+{
+  "message": "Login successfull",
+  "data": {
+    "accessToken": "jwt-token"
+  }
+}
+
+Status: 200
+
+The refresh token is stored in an HTTP-only cookie and is not included in data.
+
+Invalid credentials:
+
+{
+  "message": "Invalid username or password",
+  "errors": [],
+  "code": "UNAUTHORIZED_ERROR"
+}
+
+Status: 401
+
+POST /api/v1/auth/register
+
+Returns:
+
+{
+  "message": "Account created successfully",
+  "data": {
+    "id": 1,
+    "username": "admin"
+  }
+}
+
+Status: 201
+
+POST /api/v1/auth/refresh
+
+Reads the refresh-token cookie and returns:
+
+{
+  "message": "success",
+  "data": {
+    "accessToken": "new-jwt-token"
+  }
+}
+
+POST /api/v1/auth/logout
+
+Clears the refresh-token cookie and revokes the session:
+
+{
+  "message": "success",
+  "data": null
+}
+
+
+4. INVENTORY ITEM ENDPOINTS
+---------------------------
+
+Base path: /api/v1/inventory-items
+
+GET    /                 InventoryItemDto[]
+POST   /create           InventoryItemDto
+GET    /:id              InventoryItemDto
+PATCH  /:id              InventoryItemDto
+DELETE /:id              Deleted item plus timestamps
+POST   /:id/stock-in     Updated InventoryItemDto
+POST   /:id/stock-out    Updated InventoryItemDto
+
+Inventory item DTO:
+
+{
+  "id": 1,
+  "name": "Coffee beans",
+  "description": null,
+  "quantity": 1000,
+  "unit": "G",
+  "imageUrl": null,
+  "categoryId": null,
+  "category": null
+}
+
+Stock-in request:
+
+{
+  "quantity": 500
+}
+
+Stock-out request:
+
+{
+  "quantity": 100,
+  "reason": "Production"
+}
+
+Insufficient stock uses:
+
+{
+  "message": "Stock insufficient",
+  "errors": [],
+  "code": "STOCK_INSUFFICIENT"
+}
+
+
+5. PRODUCT ENDPOINTS
+--------------------
+
+Base path: /api/v1/products
+
+GET    /                    ProductWithInventoryItemsDto[]
+POST   /create              ProductDto
+GET    /:id                 ProductWithInventoryItemsDto
+PATCH  /:id                 ProductWithInventoryItemsDto
+DELETE /:id                 Deleted product plus timestamps
+POST   /:id/deduct-stock    InventoryItemDto[]
+
+Product DTO:
+
+{
+  "id": 1,
+  "name": "Latte",
+  "description": null,
+  "imageUrl": null,
+  "categoryId": null,
+  "category": null,
+  "price": 120,
+  "recipeItems": [
+    {
+      "id": 1,
+      "inventoryItemId": 1,
+      "quantity": 18,
+      "unit": "G"
+    }
+  ]
+}
+
+Product list and get-by-id responses include the related inventoryItem inside
+each recipe item.
+
+
+6. CATEGORY ENDPOINTS
+---------------------
+
+Inventory item categories:
+
+Base path: /api/v1/inventory-item-categories
+
+GET    /                    Categories with inventory items
+POST   /create              Category
+GET    /:id                 Category with inventory items
+PATCH  /:id                 Category
+DELETE /:id                 Deleted category plus timestamps
+POST   /:id/assign-items    Updated inventory items
+POST   /:id/unassign-items  Updated inventory items
+
+Assign request:
+
+{
+  "inventoryItemIds": [1, 2]
+}
+
+Product categories:
+
+Base path: /api/v1/product-categories
+
+GET    /                    Categories with products
+POST   /create              Category
+GET    /:id                 Category with products
+PATCH  /:id                 Category
+DELETE /:id                 Deleted category plus timestamps
+POST   /:id/assign-items    Updated products
+POST   /:id/unassign-items  Updated products
+
+The product-category endpoint names intentionally retain assign-items and
+unassign-items for frontend compatibility.
+
+
+7. USER ENDPOINTS
+-----------------
+
+Base path: /api/v1/users
+
+GET    /me                 UserDto
+PATCH  /me                 Updated UserDto
+
+Response:
+
+{
+  "message": "success",
+  "data": {
+    "id": 1,
+    "username": "admin"
+  }
+}
+
+The TypeScript users route is defined but is not currently mounted in the
+route index. The PHP implementation should mount it intentionally.
+
+
+8. SQL DATABASE DESIGN
+----------------------
+
+Recommended tables:
+
+users
+user_sessions
+inventory_item_categories
+inventory_items
+product_categories
+products
+recipe_items
+inventory_logs
+transactions
+
+Recommended ID:
+
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+
+The PHP API returns IDs as JSON numbers. Foreign keys use the same integer
+type, for example user_id INT UNSIGNED NOT NULL.
+
+Relationships:
+
+users 1-to-many user_sessions
+inventory_item_categories 1-to-many inventory_items
+product_categories 1-to-many products
+products 1-to-many recipe_items
+inventory_items 1-to-many recipe_items
+inventory_items 1-to-many inventory_logs
+
+
+9. STOCK TRANSACTION RULES
+--------------------------
+
+Stock changes must run inside a database transaction:
+
+BEGIN
+  SELECT inventory item FOR UPDATE
+  validate quantity
+  update inventory_items.quantity
+  insert inventory_logs record
+COMMIT
+
+This prevents incorrect inventory values during concurrent updates.
+
+
+10. AUTHENTICATION IMPLEMENTATION
+---------------------------------
+
+Use:
+
+- password_hash() during registration
+- password_verify() during login
+- JWT access tokens
+- HTTP-only refresh-token cookies
+- user_sessions for refresh-token revocation
+- SHA-256 hashes of refresh tokens in the database
+
+Access-token payload:
+
+{
+  "userId": 1
+}
+
+Suggested configuration:
+
+ACCESS_TOKEN_TTL=900
+REFRESH_TOKEN_TTL=2592000
+
+
+11. QUERY COMPATIBILITY
+-----------------------
+
+Supported examples:
+
+/api/v1/products?filter[name]=latte
+/api/v1/products?filter[categoryId][]=1&filter[categoryId][]=2
+/api/v1/products?options[sortBy]=price&options[order]=asc
+
+Normalize into:
+
+[
+    'filter' => [
+        'name' => 'latte',
+        'categoryId' => [1, 2]
+    ],
+    'options' => [
+        'sortBy' => 'price',
+        'order' => 'asc'
+    ]
+]
+
+Sortable columns must be whitelisted:
+
+[
+    'name' => 'p.name',
+    'price' => 'p.price',
+    'category' => 'pc.name'
+]
+
+Never interpolate arbitrary query values into SQL.
+
+
+12. ERROR MAPPING
+-----------------
+
+VALIDATION_ERROR      400
+UNKNOWN_ERROR         400
+STOCK_INSUFFICIENT    400
+UNAUTHORIZED_ERROR    401
+FORBIDDEN_ERROR       403
+NOT_FOUND             404
+ITEM_IN_USE           409
+CONFLICT              409
+INTERNAL_ERROR        500
+
+
+13. IMPLEMENTATION PHASES
+-------------------------
+
+1. Freeze API contracts.
+   Copy routes, request fields, DTOs, messages, status codes, and error codes.
+   Add request/response fixtures.
+
+2. Create the SQL schema.
+   Convert Prisma models to migrations. Preserve relationships and IDs.
+   Migrate MongoDB data if required.
+
+3. Build the PHP foundation.
+   Add Composer autoloading, PDO, front controller, router, response helpers,
+   exception handling, and environment configuration.
+
+4. Implement authentication.
+   Add login, register, refresh, logout, cookies, JWT middleware, and session
+   revocation.
+
+5. Implement inventory items.
+   Add CRUD, stock-in, stock-out, inventory logs, and transaction locking.
+
+6. Implement products.
+   Add CRUD, recipe items, and product stock deduction.
+
+7. Implement categories.
+   Add product categories, inventory item categories, assign, and unassign.
+
+8. Implement users.
+   Add /users/me and mount the route explicitly.
+
+9. Run compatibility tests.
+   Compare PHP responses with the TypeScript backend. Verify JSON keys,
+   nesting, null values, status codes, messages, cookies, and filters.
+
+
+CORE RULE
+---------
+
+PHP may simplify the internals, but it must not simplify or alter the external
+API contract.
