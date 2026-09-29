@@ -27,3 +27,18 @@ export const validateReqParams = <T extends ZodObject>(schema: T) => {
     }
   };
 };
+
+export const validateReqQuery = <T extends ZodObject>(schema: T) => {
+  return (
+    req: Request<{}, unknown, unknown, output<T>>,
+    _: Response,
+    next: NextFunction
+  ): void => {
+    try {
+      req.query = validateSchema<T>(schema, req.query);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+};

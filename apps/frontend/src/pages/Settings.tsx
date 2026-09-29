@@ -1,21 +1,42 @@
-import { BellIcon, UserIcon } from "lucide-react";
+import AccountSettings from "@/features/settings/AccountSettings";
+import GeneralSettings from "@/features/settings/GeneralSettings";
+import { BellIcon, Settings2, UserIcon } from "lucide-react";
 import { useState } from "react";
 
 const Settings = () => {
   const tabs = {
-    // general: {
-    //   label: "General",
-    //   element: <GeneralSettings />,
-    //   icon: <SettingsIcon size={18} />,
-    // },
+    general: {
+      label: "General",
+      element: <GeneralSettings />,
+      icon: <Settings2 size={18} />,
+    },
     account: {
       label: "Account",
-      element: null,
+      element: <AccountSettings />,
       icon: <UserIcon size={18} />,
     },
     notification: {
       label: "Notifications",
-      element: null,
+      element: (
+        <section className="max-w-2xl rounded-md border border-(--line) p-4">
+          <h4 className="text-base!">Notifications</h4>
+          <p className="mt-1 text-xs! text-(--text-muted)!">
+            Notification preferences will be connected to the notification
+            center when alerts are added.
+          </p>
+          <div className="mt-5 flex items-center justify-between rounded-md border border-(--line) p-3">
+            <div>
+              <p className="text-sm!">Low stock alerts</p>
+              <p className="text-xs! text-(--text-muted)!">
+                Show low-stock indicators throughout the workspace.
+              </p>
+            </div>
+            <span className="status-success rounded-md border text-xs!">
+              Enabled
+            </span>
+          </div>
+        </section>
+      ),
       icon: <BellIcon size={18} />,
     },
   } as const;
@@ -48,7 +69,7 @@ const Settings = () => {
         })}
       </div>
 
-      <div className="w-full flex flex-col h-[73vh] mt-3">
+      <div className="w-full flex flex-col min-h-[73vh] mt-3">
         <h3 className="font-normal! text-xl!">{tabs[view].label}</h3>
 
         <div className="divider m-0! my-2!"></div>

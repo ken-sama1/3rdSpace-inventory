@@ -37,7 +37,7 @@ const logout = async () => {
 };
 
 const refresh = async (): Promise<RefreshResult> => {
-  const { data } = await api.post<RefreshResBody>(baseUrl + "refresh");
+  const { data } = await api.post<RefreshResBody>(`${baseUrl}/refresh`);
 
   return data.data;
 };

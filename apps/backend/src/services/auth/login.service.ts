@@ -41,6 +41,7 @@ export const login = async ({
 
   const tokenPayload: AuthJwtPayload = {
     userId: user.id,
+    role: user.role,
   };
 
   const accessToken = jwt.sign(tokenPayload, ACCESS_TOKEN_SECRET, {

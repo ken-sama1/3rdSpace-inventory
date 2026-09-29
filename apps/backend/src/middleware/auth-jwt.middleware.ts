@@ -39,6 +39,7 @@ export const authJwt = async (
     },
     select: {
       id: true,
+      role: true,
     },
   });
 
@@ -50,6 +51,7 @@ export const authJwt = async (
 
   req.auth = {
     userId: user.id,
+    role: user.role,
   };
 
   next();

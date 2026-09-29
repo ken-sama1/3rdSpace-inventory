@@ -1,9 +1,12 @@
 import Categories from "@/pages/Categories";
-import ComingSoon from "@/pages/ComingSoon";
 import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
+import Reports from "@/pages/Reports";
+import Settings from "@/pages/Settings";
+import type { UserRoleSchema } from "@repo/shared";
 import {
+  BarChart3Icon,
   FolderTreeIcon,
   LayersIcon,
   LayoutDashboardIcon,
@@ -20,6 +23,7 @@ export type NavRoute = {
   children?: NavRoute[];
   element: ReactElement;
   index?: boolean;
+  roles?: UserRoleSchema[];
 };
 
 export const navRoutes: NavRoute[] = [
@@ -35,29 +39,40 @@ export const navRoutes: NavRoute[] = [
     icon: PackageIcon,
     element: <Products />,
     path: "/products",
+    // roles: ["ADMIN", "MANAGER"],
   },
+  // {
+  //   label: "POS",
+  //   icon: ShoppingCartIcon,
+  //   element: <Pos />,
+  //   path: "/pos",
+  // roles: ["ADMIN", "MANAGER", "STAFF"],
+  // },
   {
     label: "Categories",
     icon: FolderTreeIcon,
     element: <Categories />,
     path: "/categories",
+    // roles: ["ADMIN", "MANAGER"],
   },
   {
     label: "Inventory",
     icon: LayersIcon,
     element: <Inventory />,
     path: "/inventory",
+    // roles: ["ADMIN", "MANAGER"],
   },
-  // {
-  //   label: "Reports",
-  //   icon: BarChart3Icon,
-  //   element: <Reports />,
-  //   path: "/reports",
-  // },
+  {
+    label: "Reports",
+    icon: BarChart3Icon,
+    element: <Reports />,
+    path: "/reports",
+    // roles: ["ADMIN", "MANAGER"],
+  },
   {
     label: "Settings",
     icon: SettingsIcon,
-    element: <ComingSoon />,
+    element: <Settings />,
     path: "/settings",
   },
 ];

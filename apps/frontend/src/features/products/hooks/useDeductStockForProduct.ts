@@ -23,7 +23,11 @@ export const useDeductStockForProduct = () => {
         predicate: (query) => {
           const key = query.queryKey;
 
-          return key[0] === "products" || key[0] === "inventory-items";
+          return (
+            key[0] === "products" ||
+            key[0] === "inventory-items" ||
+            key[0] === "reports"
+          );
         },
       });
     },

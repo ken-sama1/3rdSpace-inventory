@@ -1,8 +1,10 @@
 import { Bell, User } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const TopBar = () => {
   const location = useLocation();
+  const { user } = useAuth();
 
   return (
     <header
@@ -18,7 +20,9 @@ const TopBar = () => {
         </div>
         {/* Right Side  */}
         <div className="h-10 absolute right-5 flex items-center justify-center gap-5">
-          <span className="text-sm!">Admin</span>
+          <span className="text-sm!">
+            {user?.username ?? "User"} · {user?.role ?? "—"}
+          </span>
           {/* Literally just the vertical line */}
           <div className="h-8/10 w-0.5 bg-(--line)"></div>
 

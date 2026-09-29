@@ -28,5 +28,6 @@ export const update = async (
   return {
     username: user.username,
     id: user.id,
+    role: user.role,
   };
 };

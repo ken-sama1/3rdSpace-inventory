@@ -14,12 +14,14 @@ const productsRouter: Router = express.Router();
 
 productsRouter.post(
   "/create",
+  //requireRole("ADMIN", "MANAGER"),
   validateReqBody(createProductSchema),
   productsController.create
 );
 
 productsRouter.post(
   "/:id/deduct-stock",
+  //requireRole("ADMIN", "MANAGER", "STAFF"),
   validateReqParams(idParamSchema),
   validateReqBody(deductStockForProductSchema),
   productsController.deductStockForProduct
@@ -29,8 +31,14 @@ productsRouter
   .route("/:id")
   .all(validateReqParams(idParamSchema))
   .get(productsController.getById)
-  .delete(productsController.delete)
-  .patch(productsController.update);
+  .delete(
+    // requireRole("ADMIN", "MANAGER"),
+    productsController.delete
+  )
+  .patch(
+    // requireRole("ADMIN", "MANAGER"),
+    productsController.update
+  );
 
 productsRouter.get("/", productsController.list);
 

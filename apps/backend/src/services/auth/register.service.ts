@@ -33,6 +33,6 @@ export const register = async ({
   return {
     id: result.id,
     username: result.username,
-    // role: user.role,
+    role: result.role,
   };
 };

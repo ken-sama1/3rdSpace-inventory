@@ -1,8 +1,14 @@
 import { navRoutes } from "@/routes/nav-routes";
 import { Link, NavLink } from "react-router-dom";
 import LOGO from "@/assets/logo.png";
+import { useAuth } from "@/hooks/useAuth";
 
 const SideBar = () => {
+  const { user } = useAuth();
+  const visibleRoutes = navRoutes.filter(
+    (route) => !route.roles || (user && route.roles.includes(user.role))
+  );
+
   return (
     // SideBar Container
     <nav
@@ -22,7 +28,7 @@ const SideBar = () => {
       <div className="size-full bg-(--primary) p-2 overflow-auto">
         {/* Navigation Section Start*/}
         <ul className="flex flex-col gap-0.5">
-          {navRoutes.map((route) => {
+          {visibleRoutes.map((route) => {
             return (
               /* Navigation Items */
               <li

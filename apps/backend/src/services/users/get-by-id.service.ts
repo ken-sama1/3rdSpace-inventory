@@ -18,5 +18,6 @@ export const getById = async (id: IdSchema): Promise<GetUserByIdResult> => {
   return {
     id: user.id,
     username: user.username,
+    role: user.role,
   };
 };

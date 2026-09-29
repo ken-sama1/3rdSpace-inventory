@@ -19,38 +19,46 @@ export const refresh = async (
 
   const decoded = decodeJwtPayload(token, REFRESH_TOKEN_SECRET);
 
-  const user = await prisma.userSession.findUnique({
+  const session = await prisma.userSession.findUnique({
     where: {
       token: hashToken(token),
     },
+    include: {
+      user: {
+        select: {
+          role: true,
+        },
+      },
+    },
   });
 
-  if (!user)
+  if (!session)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Invalid token",
     });
 
-  if (decoded.userId !== user.userId)
+  if (decoded.userId !== session.userId)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Token mismatch",
     });
 
-  if (user.isRevoked)
+  if (session.isRevoked)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Session has been revoked",
     });
 
-  if (user.expiresAt < new Date())
+  if (session.expiresAt < new Date())
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
       message: "Session expeired",
     });
 
   const payload: AuthJwtPayload = {
-    userId: user.userId,
+    userId: session.userId,
+    role: session.user.role,
   };
 
   const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET);

@@ -5,7 +5,7 @@ declare global {
     interface Request {
       auth: {
         userId: IdSchema;
-        // role: UserRoleSchema;
+        role: UserRoleSchema;
         // accessToken: string;
       };
     }
