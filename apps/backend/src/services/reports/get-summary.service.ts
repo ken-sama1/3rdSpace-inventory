@@ -3,16 +3,12 @@ import type {
   GetReportSummaryReqQuerySchema,
   GetReportSummaryResult,
 } from "@repo/shared";
+import { toDateFilter } from "../mappers/filter.mapper.js";
 
 export const getSummary = async ({
   filter,
 }: GetReportSummaryReqQuerySchema): Promise<GetReportSummaryResult> => {
   const { period = "7d" } = filter ?? {};
-  const transactions = await prisma.transaction.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
 
   const start = new Date();
   if (period === "7d") {
@@ -23,16 +19,22 @@ export const getSummary = async ({
     start.setTime(0);
   }
 
-  const filteredTransactions =
-    period === "all"
-      ? transactions
-      : transactions.filter((transaction) => transaction.createdAt >= start);
+  const transactions = await prisma.transaction.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    where: {
+      createdAt: toDateFilter({
+        start: start.toISOString(),
+      }),
+    },
+  });
 
-  const totalSales = filteredTransactions.reduce(
+  const totalSales = transactions.reduce(
     (total, transaction) => total + transaction.transactionPrice,
     0
   );
-  const unitsSold = filteredTransactions.reduce(
+  const unitsSold = transactions.reduce(
     (total, transaction) => total + transaction.quantity,
     0
   );
@@ -41,12 +43,13 @@ export const getSummary = async ({
     string,
     { date: string; totalSales: number; transactions: number }
   >();
+  1;
   const products = new Map<
     string,
     { productName: string; unitsSold: number; totalSales: number }
   >();
 
-  for (const transaction of filteredTransactions) {
+  for (const transaction of transactions) {
     const date = transaction.createdAt.toISOString().slice(0, 10);
     const day = salesByDay.get(date) ?? {
       date,
@@ -71,10 +74,10 @@ export const getSummary = async ({
     period,
     summary: {
       totalSales,
-      transactionCount: filteredTransactions.length,
+      transactionCount: transactions.length,
       unitsSold,
-      averageOrderValue: filteredTransactions.length
-        ? totalSales / filteredTransactions.length
+      averageOrderValue: transactions.length
+        ? totalSales / transactions.length
         : 0,
     },
     salesByDay: [...salesByDay.values()].sort((a, b) =>
@@ -83,15 +86,13 @@ export const getSummary = async ({
     topProducts: [...products.values()]
       .sort((a, b) => b.totalSales - a.totalSales)
       .slice(0, 5),
-    recentTransactions: filteredTransactions
-      .slice(0, 20)
-      .map((transaction) => ({
-        id: transaction.id,
-        productName: transaction.productName,
-        quantity: transaction.quantity,
-        unitPrice: transaction.unitPrice,
-        transactionPrice: transaction.transactionPrice,
-        createdAt: transaction.createdAt.toISOString(),
-      })),
+    recentTransactions: transactions.slice(0, 20).map((transaction) => ({
+      id: transaction.id,
+      productName: transaction.productName,
+      quantity: transaction.quantity,
+      unitPrice: transaction.unitPrice,
+      transactionPrice: transaction.transactionPrice,
+      createdAt: transaction.createdAt.toISOString(),
+    })),
   };
 };

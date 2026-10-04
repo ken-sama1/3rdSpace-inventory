@@ -76,8 +76,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
           const price = formData.get("product-price") as string | null;
           const description = formData.get("product-description") as string;
           const categoryId = formData.get("product-category") as string;
-          const image = formData.get("product-image") as
-            { name: string } | undefined;
+          const image = formData.get("product-image") as File;
 
           console.log(price);
           await update({
@@ -87,7 +86,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
               price,
               description,
               categoryId,
-              imageUrl: image?.name,
+              imageUrl: image.name,
               ...(requiredItems.length >= 1
                 ? {
                     recipeItems: requiredItems.map((item) => {

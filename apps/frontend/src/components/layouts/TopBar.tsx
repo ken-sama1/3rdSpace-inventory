@@ -1,9 +1,10 @@
 import { Bell, User } from "lucide-react";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const TopBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   return (
@@ -26,8 +27,11 @@ const TopBar = () => {
           {/* Literally just the vertical line */}
           <div className="h-8/10 w-0.5 bg-(--line)"></div>
 
-          {/* Obviously its the notification button */}
+          {/* Obviously its the notifications button */}
           <button
+            onClick={() => {
+              navigate("/settings?tab=notifications");
+            }}
             title="notification"
             className="
             nice-hover 
@@ -42,6 +46,9 @@ const TopBar = () => {
 
           {/* The user profile button */}
           <button
+            onClick={() => {
+              navigate("/settings?tab=account");
+            }}
             title="account"
             className="
             nice-hover

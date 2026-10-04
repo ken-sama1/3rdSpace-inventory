@@ -4,6 +4,7 @@ import type { IdSchema, ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import ProductDetailModal from "./ProductModal";
 import ProductStatusBadge from "./ProductStatusBadge";
+import { formatCurrency } from "@/utils/format-currency.util";
 
 interface ProductsTableProps {
   products: ProductWithInventoryItemsDto[];
@@ -49,6 +50,9 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               price: {
                 index: 1,
                 colspan: 3,
+                value: (price) => {
+                  return formatCurrency(price);
+                },
               },
               category: {
                 colspan: 3,

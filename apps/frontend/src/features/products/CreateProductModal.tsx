@@ -88,9 +88,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
               number | null;
             const description = (formData.get("product-description") ||
               null) as string | null;
-            const image = (formData.get("product-image") || null) as {
-              name: string;
-            } | null;
+            const image = (formData.get("product-image") || null) as File;
             const categoryId = formData.get("product-category") as
               string | undefined;
 
@@ -108,7 +106,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
                 price,
                 description,
                 categoryId: categoryId || null,
-                imageUrl: image?.name,
+                imageUrl: image.name,
               });
 
               showToast({

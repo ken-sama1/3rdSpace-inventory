@@ -1,12 +1,16 @@
 import { prisma } from "@repo/database";
 import { type RefreshResult } from "@repo/shared";
-import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../constants.js";
+import {
+  ACCESS_TOKEN_SECRET,
+  EXPIRES_AT_30D_FDATE,
+  REFRESH_TOKEN_SECRET,
+} from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
 import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
 import { decodeJwtPayload } from "../utils/decode-jwt-payload.util.js";
-import type { WithResfreshToken } from "./types.js";
 import { hashToken } from "../utils/hashToken.util.js";
+import { signJwtToken } from "../utils/sign-jwt-token.util.js";
+import type { WithResfreshToken } from "./types.js";
 
 export const refresh = async (
   token: string
@@ -53,7 +57,7 @@ export const refresh = async (
   if (session.expiresAt < new Date())
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
-      message: "Session expeired",
+      message: "Session expired",
     });
 
   const payload: AuthJwtPayload = {
@@ -61,8 +65,17 @@ export const refresh = async (
     role: session.user.role,
   };
 
-  const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET);
-  const refreshToken = jwt.sign(payload, REFRESH_TOKEN_SECRET);
+  const accessToken = signJwtToken(payload, "access");
+  const refreshToken = signJwtToken(payload, "refresh");
+
+  await prisma.userSession.create({
+    data: {
+      token: hashToken(refreshToken),
+      expiresAt: EXPIRES_AT_30D_FDATE,
+      userId: decoded.userId,
+      isRevoked: false,
+    },
+  });
 
   return {
     accessToken,

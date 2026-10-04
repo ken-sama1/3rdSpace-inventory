@@ -1,7 +1,7 @@
 import { navRoutes } from "@/routes/nav-routes";
 import { Link, NavLink } from "react-router-dom";
 import LOGO from "@/assets/logo.png";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const SideBar = () => {
   const { user } = useAuth();
@@ -13,7 +13,7 @@ const SideBar = () => {
     // SideBar Container
     <nav
       className="
-      h-dvh
+      h-dvh bg-(--primary)
       shadow-black/10 shadow-[2px_0_8px_0] 
       w-2xs fixed top-0 z-10 border-r border-(--line)"
     >
@@ -25,7 +25,7 @@ const SideBar = () => {
       </div>
 
       {/* Wrapper */}
-      <div className="size-full bg-(--primary) p-2 overflow-auto">
+      <div className="size-full p-2 overflow-auto">
         {/* Navigation Section Start*/}
         <ul className="flex flex-col gap-0.5">
           {visibleRoutes.map((route) => {

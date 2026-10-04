@@ -19,6 +19,9 @@ export const PORT = process.env["PORT"];
 export const COOKIE_OPTIONS: CookieOptions = {
   httpOnly: true,
   secure: ENV === "prod",
-  sameSite: "strict",
+  sameSite: "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
+
+export const EXPIRES_AT_30D_FDATE = new Date();
+EXPIRES_AT_30D_FDATE.setDate(EXPIRES_AT_30D_FDATE.getDate() + 30);

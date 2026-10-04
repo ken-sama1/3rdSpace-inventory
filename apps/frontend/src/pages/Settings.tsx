@@ -1,7 +1,9 @@
 import AccountSettings from "@/features/settings/AccountSettings";
 import GeneralSettings from "@/features/settings/GeneralSettings";
+import NotificationsSettings from "@/features/settings/NotificationsSettings";
 import { BellIcon, Settings2, UserIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Settings = () => {
   const tabs = {
@@ -15,33 +17,29 @@ const Settings = () => {
       element: <AccountSettings />,
       icon: <UserIcon size={18} />,
     },
-    notification: {
+    notifications: {
       label: "Notifications",
-      element: (
-        <section className="max-w-2xl rounded-md border border-(--line) p-4">
-          <h4 className="text-base!">Notifications</h4>
-          <p className="mt-1 text-xs! text-(--text-muted)!">
-            Notification preferences will be connected to the notification
-            center when alerts are added.
-          </p>
-          <div className="mt-5 flex items-center justify-between rounded-md border border-(--line) p-3">
-            <div>
-              <p className="text-sm!">Low stock alerts</p>
-              <p className="text-xs! text-(--text-muted)!">
-                Show low-stock indicators throughout the workspace.
-              </p>
-            </div>
-            <span className="status-success rounded-md border text-xs!">
-              Enabled
-            </span>
-          </div>
-        </section>
-      ),
+      element: <NotificationsSettings />,
       icon: <BellIcon size={18} />,
     },
   } as const;
 
-  const [view, setView] = useState<keyof typeof tabs>("account");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("tab") as undefined | keyof typeof tabs;
+
+  const [view, setView] = useState<keyof typeof tabs>("general");
+
+  useEffect(() => {
+    if (!tab) return;
+
+    if (!Object.keys(tabs).includes(tab)) return;
+
+    setView(tab);
+  }, [searchParams]);
+
+  useEffect(() => {
+    setSearchParams(`tab=${view}`);
+  }, [view]);
 
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) pt-2 p-2">

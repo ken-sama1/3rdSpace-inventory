@@ -12,6 +12,8 @@ export * from "./inventory-item-categories/types.js";
 export * from "./inventory-items/enums.js";
 export * from "./inventory-items/schema.js";
 export * from "./inventory-items/types.js";
+export * from "./inventory-logs/schema.js";
+export * from "./inventory-logs/types.js";
 export * from "./product-categories/schema.js";
 export * from "./product-categories/types.js";
 export * from "./products/enums.js";

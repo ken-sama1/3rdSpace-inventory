@@ -52,6 +52,9 @@ export type TableOptions<T extends TableData> = {
     onClick?: (rowData: T) => void;
     /** Add  Add this element on every row*/
     element?: ReactElement | ((rowData: T) => ReactElement);
+
+    /** Triggered when reached the last row*/
+    onReachEnd?: (rowData: T) => void;
   };
   /** Excluded keys will not be displayed on the table */
   exlude?: (keyof T)[];

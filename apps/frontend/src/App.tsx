@@ -5,8 +5,12 @@ import TopBar from "./components/layouts/TopBar";
 import { navRoutes } from "./routes/nav-routes";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NotFound from "./pages/NotFound";
+import { useSession } from "./hooks/auth/useSession";
+import InitializeSession from "./components/auth/InitializeSession";
 
-const App = () => {
+const AppContent = () => {
+  useSession();
+
   return (
     <div className="relative w-full h-dvh">
       <TopBar />
@@ -34,6 +38,14 @@ const App = () => {
       <StatusBar />
       <ReactQueryDevtools />
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <InitializeSession>
+      <AppContent />
+    </InitializeSession>
   );
 };
 

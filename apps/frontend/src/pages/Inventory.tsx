@@ -3,7 +3,7 @@ import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemQueryOptions from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
 import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
-import { debounce } from "@/utils/debounce";
+import { debounce } from "@/utils/debounce.util";
 import {
   getInventoryItemsReqQuerySchema,
   type GetInventoryItemsReqQuerySchema,

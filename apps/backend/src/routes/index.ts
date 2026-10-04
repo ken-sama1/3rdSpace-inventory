@@ -6,12 +6,13 @@ import { productCategoriesRouter } from "./product-categories.route.js";
 import { productsRouter } from "./products.route.js";
 import { reportsRouter } from "./reports.route.js";
 import { usersRouter } from "./users.route.js";
+import { authJwt } from "../middleware/auth-jwt.middleware.js";
 
 const apiV1Router: Router = express.Router();
 
 apiV1Router.use("/auth", authRouter);
 
-// apiV1Router.use(authJwt);
+apiV1Router.use(authJwt);
 apiV1Router.use("/users", usersRouter);
 apiV1Router.use("/inventory-items", inventoryItemsRouter);
 apiV1Router.use("/products", productsRouter);

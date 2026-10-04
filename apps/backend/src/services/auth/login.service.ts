@@ -1,12 +1,16 @@
 import { prisma } from "@repo/database";
 import type { LoginResult, LoginSchema } from "@repo/shared";
 import * as bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../constants.js";
+import {
+  ACCESS_TOKEN_SECRET,
+  EXPIRES_AT_30D_FDATE,
+  REFRESH_TOKEN_SECRET,
+} from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
 
 import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
 import { hashToken } from "../utils/hashToken.util.js";
+import { signJwtToken } from "../utils/sign-jwt-token.util.js";
 import type { WithResfreshToken } from "./types.js";
 
 export const login = async ({
@@ -44,20 +48,13 @@ export const login = async ({
     role: user.role,
   };
 
-  const accessToken = jwt.sign(tokenPayload, ACCESS_TOKEN_SECRET, {
-    expiresIn: "15m",
-  });
+  const accessToken = signJwtToken(tokenPayload, "access");
 
-  const refreshToken = jwt.sign(tokenPayload, REFRESH_TOKEN_SECRET, {
-    expiresIn: "30d",
-  });
-
-  const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 30);
+  const refreshToken = signJwtToken(tokenPayload, "refresh");
 
   await prisma.userSession.create({
     data: {
-      expiresAt,
+      expiresAt: EXPIRES_AT_30D_FDATE,
       isRevoked: false,
       token: hashToken(refreshToken),
       userId: user.id,

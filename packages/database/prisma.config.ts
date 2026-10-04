@@ -2,7 +2,7 @@
 // npm install --save-dev prisma dotenv
 import dotenv from "dotenv";
 
-if (!process.env.DATABASE_URL)
+if (!process.env?.["DATABASE_URL"])
   dotenv.config({
     path: "../../.env",
   });

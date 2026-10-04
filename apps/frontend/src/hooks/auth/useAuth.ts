@@ -1,7 +1,7 @@
 import { authApi } from "@/api/auth.api";
 import { useAuthContext } from "@/context/AuthContext";
 import { useMutation } from "@tanstack/react-query";
-import { useGetMe } from "./users/useGetMe";
+import { useGetMe } from "../users/useGetMe";
 
 export const useAuth = () => {
   const { setToken, isAuthenticated, clearAuth } = useAuthContext();

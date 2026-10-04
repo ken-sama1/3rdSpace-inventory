@@ -45,7 +45,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
         ? Number(form.get("item-quantity"))
         : null;
       const description = form.get("item-description") as string | null;
-      const imageUrl = form.get("item-image") as string | null;
+      const imageUrl = form.get("item-image") as File;
 
       setDialog(null);
 
@@ -54,7 +54,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
         unit: form.get("item-unit") as InventoryItemUnitSchema,
         quantity,
         description,
-        imageUrl,
+        imageUrl: imageUrl.name,
         categoryId,
       });
 

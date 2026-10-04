@@ -1,24 +1,25 @@
+import type { IsoDateSchema } from "../common/schema.js";
 import type { ReportPeriodSchema } from "./schema.js";
 
-interface Sale {
+export interface Sale {
   date: string;
   totalSales: number;
   transactions: number;
 }
 
-interface TopProduct {
+export interface TopProduct {
   productName: string;
   unitsSold: number;
   totalSales: number;
 }
 
-export interface TransactionDto {
+export interface Transaction {
   id: string;
   productName: string;
   quantity: number;
   unitPrice: number;
   transactionPrice: number;
-  createdAt: string;
+  createdAt: IsoDateSchema;
 }
 
 export interface ReportSummaryDto {
@@ -31,5 +32,5 @@ export interface ReportSummaryDto {
   };
   salesByDay: Sale[];
   topProducts: TopProduct[];
-  recentTransactions: TransactionDto[];
+  recentTransactions: Transaction[];
 }

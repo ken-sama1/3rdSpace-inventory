@@ -1,4 +1,4 @@
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { useUpdateMe } from "./hooks/useUpdateMe";
 import { useToast } from "@/context/ToastContext";
 import { LogOut, Save, UserRound } from "lucide-react";

@@ -1,4 +1,4 @@
-import { clickOutside } from "@/utils/click-outside";
+import { clickOutside } from "@/utils/click-outside.util";
 import { AnimatePresence, motion } from "motion/react";
 import {
   useEffect,

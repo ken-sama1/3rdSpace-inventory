@@ -15,6 +15,7 @@ import {
 import { isAxiosError } from "axios";
 import { useEffect, useState, type FC } from "react";
 import ProduceProductContextMenu from "./ProduceProductContextMenu";
+import { formatCurrency } from "@/utils/format-currency.util";
 
 interface ProduceProductProps {
   productId: IdSchema;
@@ -89,7 +90,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
               Price:
             </span>
             <span className="font-bold text-lg">
-              {product.price?.toFixed(2) ?? "0.00"}
+              {formatCurrency(product.price ?? 0)}
             </span>
           </div>
 

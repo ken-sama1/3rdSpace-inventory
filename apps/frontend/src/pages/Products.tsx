@@ -3,7 +3,7 @@ import CreateProductModal from "@/features/products/CreateProductModal";
 import ProductQueryOptions from "@/features/products/ProductQueryOptions";
 import ProductsTable from "@/features/products/ProductsTable";
 import { useGetProducts } from "@/hooks/products/useGetProducts";
-import { debounce } from "@/utils/debounce";
+import { debounce } from "@/utils/debounce.util";
 import {
   getProductsReqQuerySchema,
   type GetProductsReqQuerySchema,

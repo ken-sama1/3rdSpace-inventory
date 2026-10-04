@@ -1,4 +1,6 @@
+import type { IsoDateSchema } from "./schema.js";
+
 export interface DateMetaData {
-  createdAt: string;
-  updatedAt: string;
+  createdAt: IsoDateSchema;
+  updatedAt: IsoDateSchema;
 }

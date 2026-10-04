@@ -9,7 +9,6 @@ export const refresh = async (
   req: Request,
   res: Response<RefreshResBody>
 ): Promise<void> => {
-  res.clearCookie("refreshToken");
   const cookies = req.cookies as AuthCookies;
 
   if (!cookies.refreshToken)

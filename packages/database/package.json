@@ -1,15 +1,15 @@
 {
   "name": "@repo/database",
   "type": "module",
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
+  "types": "./dist/src/index.d.ts",
+  "main": "./dist/src/index.js",
   "scripts": {
     "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b"
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
     }
   },
   "devDependencies": {
