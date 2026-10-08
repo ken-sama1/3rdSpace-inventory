@@ -1,4 +1,5 @@
 import type { IdSchema, IsoDateSchema } from "../common/schema.js";
+import type { InventoryLogSourceTypeSchema } from "./schema.js";
 
 export interface InventoryLogDto {
   id: IdSchema;
@@ -7,4 +8,6 @@ export interface InventoryLogDto {
   quantityChange: number;
   reason: string;
   createdAt: IsoDateSchema;
+  sourceType: InventoryLogSourceTypeSchema;
+  sourceId: IdSchema | null;
 }

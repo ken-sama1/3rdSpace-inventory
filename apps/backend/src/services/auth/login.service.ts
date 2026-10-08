@@ -1,5 +1,9 @@
 import { prisma } from "@repo/database";
-import type { LoginResult, LoginSchema } from "@repo/shared";
+import {
+  API_ERROR_CODE_TO_MESSAGE,
+  type LoginResult,
+  type LoginSchema,
+} from "@repo/shared";
 import * as bcrypt from "bcrypt";
 import {
   ACCESS_TOKEN_SECRET,
@@ -40,7 +44,7 @@ export const login = async ({
   if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET)
     throw new AppError({
       code: "INTERNAL_ERROR",
-      message: "Internal server error",
+      message: API_ERROR_CODE_TO_MESSAGE["INTERNAL_ERROR"],
     });
 
   const tokenPayload: AuthJwtPayload = {

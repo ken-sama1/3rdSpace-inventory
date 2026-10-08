@@ -10,7 +10,6 @@ export const useAuth = () => {
     options: {
       enabled: isAuthenticated,
       staleTime: 15 * 60 * 1000,
-      retry: false,
     },
   });
 

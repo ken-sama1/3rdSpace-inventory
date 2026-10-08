@@ -131,7 +131,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
         <EllipsisVertical className="size-5" color="var(--text-muted)" />
       </button>
 
-      <div className="absolute z-2 top-full right-5 size-fit">
+      <div className="absolute z-2 top-0 right-12 size-fit">
         <Collapsible
           refs={[buttonRef]}
           onClose={() => setShowMenu(false)}

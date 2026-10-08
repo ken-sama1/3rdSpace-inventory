@@ -3,6 +3,7 @@ import type { NextFunction, Request, Response } from "express";
 import { ACCESS_TOKEN_SECRET } from "../constants.js";
 import { AppError } from "../errors/AppError.js";
 import { decodeJwtPayload } from "../services/utils/decode-jwt-payload.util.js";
+import { API_ERROR_CODE_TO_MESSAGE } from "@repo/shared";
 
 export const authJwt = async (
   req: Request,
@@ -14,7 +15,7 @@ export const authJwt = async (
   if (!authorization)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
-      message: "Authentication required",
+      message: API_ERROR_CODE_TO_MESSAGE["UNAUTHORIZED_ERROR"],
     });
 
   const [scheme, accessToken] = authorization.split(" ");
@@ -28,7 +29,7 @@ export const authJwt = async (
   if (!ACCESS_TOKEN_SECRET)
     throw new AppError({
       code: "INTERNAL_ERROR",
-      message: "Internal server error",
+      message: API_ERROR_CODE_TO_MESSAGE["INTERNAL_ERROR"],
     });
 
   const decoded = decodeJwtPayload(accessToken, ACCESS_TOKEN_SECRET);

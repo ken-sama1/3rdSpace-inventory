@@ -1,4 +1,4 @@
-import type { RefreshResBody } from "@repo/shared";
+import { API_ERROR_CODE_TO_MESSAGE, type RefreshResBody } from "@repo/shared";
 import type { Request, Response } from "express";
 import { authService } from "../../services/auth/index.js";
 import { COOKIE_OPTIONS } from "../../constants.js";
@@ -14,7 +14,7 @@ export const refresh = async (
   if (!cookies.refreshToken)
     throw new AppError({
       code: "UNAUTHORIZED_ERROR",
-      message: "Authentication required",
+      message: API_ERROR_CODE_TO_MESSAGE["UNAUTHORIZED_ERROR"],
     });
 
   const { accessToken, refreshToken } = await authService.refresh(

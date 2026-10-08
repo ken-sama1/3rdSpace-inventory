@@ -3,7 +3,7 @@ import type { CookieOptions } from "express";
 export const ENV_LOADED = process.env["ENV_LOADED"] === "yes";
 export const ENV = process.env["ENV"] || "dev";
 
-export const IS_IN_PROD = ENV.includes("PROD");
+export const IS_IN_PROD = ENV.includes("prod");
 
 export const ALLOWED_ORIGINS = [
   ...(process.env["ALLOWED_ORIGINS"]?.split(",") ?? []),
@@ -18,9 +18,9 @@ export const PORT = process.env["PORT"];
 
 export const COOKIE_OPTIONS: CookieOptions = {
   httpOnly: true,
-  secure: ENV === "prod",
+  secure: IS_IN_PROD,
   sameSite: "lax",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  maxAge: 30 * 24 * 60 * 60 * 1000,
 };
 
 export const EXPIRES_AT_30D_FDATE = new Date();

@@ -31,26 +31,29 @@ const SalesOverview: FC<SalesOverviewProps> = ({ salesByDay, topProducts }) => {
         </div>
         {salesByDay.length ? (
           <div className="flex h-56 items-end gap-2 overflow-x-auto pb-6">
-            {salesByDay.map((day) => (
-              <div
-                key={day.date}
-                className="flex h-full min-w-12 flex-1 flex-col items-center justify-end gap-2"
-              >
-                <span className="text-[10px]! text-(--text-muted)!">
-                  {formatCurrency(day.totalSales)}
-                </span>
+            {salesByDay.map((day) => {
+              console.log(day.date);
+              return (
                 <div
-                  title={`${day.transactions} transaction${day.transactions === 1 ? "" : "s"}`}
-                  className="w-full min-w-6 rounded-t-md bg-(--accent) transition-all hover:bg-(--text-info)"
-                  style={{
-                    height: `${Math.max((day.totalSales / chartMax) * 100, 4)}%`,
-                  }}
-                />
-                <span className="whitespace-nowrap text-[10px]! text-(--text-muted)!">
-                  {dateFormatter.format(new Date(`${day.date}T00:00:00`))}
-                </span>
-              </div>
-            ))}
+                  key={day.date}
+                  className="flex h-full min-w-12 flex-1 flex-col items-center justify-end gap-2"
+                >
+                  <span className="text-[10px]! text-(--text-muted)!">
+                    {formatCurrency(day.totalSales)}
+                  </span>
+                  <div
+                    title={`${day.transactions} transaction${day.transactions === 1 ? "" : "s"}`}
+                    className="w-full min-w-6 rounded-t-md bg-(--accent) transition-all hover:bg-(--text-info)"
+                    style={{
+                      height: `${Math.max((day.totalSales / chartMax) * 100, 4)}%`,
+                    }}
+                  />
+                  <span className="whitespace-nowrap text-[10px]! text-(--text-muted)!">
+                    {dateFormatter.format(new Date(day.date))}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div className="flex h-56 items-center justify-center text-sm text-(--text-muted)">

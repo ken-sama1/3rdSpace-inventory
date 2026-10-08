@@ -50,7 +50,7 @@ export const getSummary = async ({
   >();
 
   for (const transaction of transactions) {
-    const date = transaction.createdAt.toISOString().slice(0, 10);
+    const date = new Intl.DateTimeFormat("en-US").format(transaction.createdAt);
     const day = salesByDay.get(date) ?? {
       date,
       totalSales: 0,

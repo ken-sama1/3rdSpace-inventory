@@ -65,7 +65,7 @@ const Categories = () => {
       {/* Literally just a line */}
       <div className="divider"></div>
 
-      <section className="w-full h-[65dvh] flex flex-col gap-6">
+      <section className="w-full h-[65dvh] overflow-auto flex p-1 flex-col gap-6">
         <div className="w-full flex border-b border-(--line) space-x-1">
           {Object.entries(tabs).map(([k, v]) => {
             return (

@@ -92,7 +92,6 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
       >
         <EllipsisVertical stroke="var(--text-muted)" className="size-5" />
       </button>
-
       <div className="absolute top-full z-2 w-fit mt-2 right-0">
         <Collapsible
           refs={[buttonRef]}
@@ -110,7 +109,6 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
           </div>
         </Collapsible>
       </div>
-
       {dialog && <Dialog {...{ ...dialog }} />}
     </div>
   );

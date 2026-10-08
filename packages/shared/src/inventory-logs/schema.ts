@@ -13,43 +13,46 @@ export type InventoryLogSourceTypeSchema = z.infer<
   typeof inventoryLogSourceTypeSchema
 >;
 
+export const inventoryLogSortBySchema = z.enum([
+  "itemName",
+  "createdAt",
+  "sourceType",
+]);
+
 // --- Filter ---
-export const inventoryLogsFilterSchema = z
+export const inventoryLogFilterSchema = z
   .object({
     sourceId: idSchema,
     itemName: z.string(),
     reason: z.string(),
     createdAt: isoDateFilterSchema,
     inventoryItemId: z.string(),
+    sourceType: inventoryLogSourceTypeSchema,
   })
   .partial();
-export type InventoryLogsFilterSchema = z.infer<
-  typeof inventoryLogsFilterSchema
->;
-export type InventoryLogsFilterInput = z.input<
-  typeof inventoryLogsFilterSchema
->;
+export type InventoryLogFilterSchema = z.infer<typeof inventoryLogFilterSchema>;
+export type InventoryLogsFilterInput = z.input<typeof inventoryLogFilterSchema>;
 
 // --- Options ---
 export const inventoryLogOptionsSchema = z
   .object({
     order: sortOrderSchema,
     // Placeholder for now
-    sortBy: z.object(),
+    sortBy: z.enum(["itemName"]),
     lastInventoryLogId: idSchema,
   })
   .partial();
 export type InventoryLogOptionsSchema = z.infer<
   typeof inventoryLogOptionsSchema
 >;
-export type InventoryLogOptionsInpit = z.input<
+export type InventoryLogOptionsInput = z.input<
   typeof inventoryLogOptionsSchema
 >;
 
 // --- Get Inventory Logs ---
 export const getInventoryLogsReqQuerySchema = z
   .object({
-    filter: inventoryLogsFilterSchema,
+    filter: inventoryLogFilterSchema,
     options: inventoryLogOptionsSchema,
   })
   .partial();
@@ -60,4 +63,4 @@ export type GetInventoryLogsReqQueryInput = z.input<
   typeof getInventoryLogsReqQuerySchema
 >;
 export type GetInventoryLogsResult = InventoryLogDto[];
-export type GetInventorLogsResBody = ResponseBody<GetInventoryLogsResult>;
+export type GetInventoryLogsResBody = ResponseBody<GetInventoryLogsResult>;

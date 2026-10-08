@@ -1,3 +1,4 @@
+import Accounts from "@/pages/Accounts";
 import Categories from "@/pages/Categories";
 import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
@@ -12,6 +13,7 @@ import {
   LayoutDashboardIcon,
   PackageIcon,
   SettingsIcon,
+  Users,
   type LucideProps,
 } from "lucide-react";
 import type { JSXElementConstructor, ReactElement } from "react";
@@ -67,7 +69,14 @@ export const navRoutes: NavRoute[] = [
     icon: BarChart3Icon,
     element: <Reports />,
     path: "/reports",
-    // roles: ["ADMIN", "MANAGER"],
+    roles: ["ADMIN", "MANAGER"],
+  },
+  {
+    label: "Accounts",
+    icon: Users,
+    element: <Accounts />,
+    path: "/accounts",
+    roles: ["ADMIN"],
   },
   {
     label: "Settings",

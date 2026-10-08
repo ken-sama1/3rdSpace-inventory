@@ -44,6 +44,8 @@ export const useSession = () => {
 
     const requestInterceptor = api.interceptors.request.use(
       (config) => {
+        if (config.url?.includes("cloudinary.com")) return config;
+
         if (tokenRef.current && !config._retry) {
           config.headers.Authorization = `Bearer ${tokenRef.current}`;
         }

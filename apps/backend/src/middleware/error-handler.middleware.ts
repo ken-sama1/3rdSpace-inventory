@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError.js";
-import type { ResponseError } from "@repo/shared";
+import { API_ERROR_CODE_TO_MESSAGE, type ResponseError } from "@repo/shared";
 import { ZodError } from "zod";
 
 export const errorHandler = (
@@ -33,7 +33,7 @@ export const errorHandler = (
   }
 
   res.status(500).json({
-    message: "Internal server error",
+    message: API_ERROR_CODE_TO_MESSAGE["INTERNAL_ERROR"],
     errors: [err],
     code: "INTERNAL_ERROR",
   });

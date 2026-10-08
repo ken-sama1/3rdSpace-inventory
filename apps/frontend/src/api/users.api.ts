@@ -7,7 +7,7 @@ import type {
 } from "@repo/shared";
 import { api } from "./api";
 
-const meUrl = "users/me";
+const meUrl = "/users/me";
 // const userUrl = "/user";
 
 const getMe = async (): Promise<GetMeResult> => {

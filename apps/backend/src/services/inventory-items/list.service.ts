@@ -29,6 +29,7 @@ export const list = async (
     sortBy = "quantity",
     order = "asc",
   } = options ?? {};
+
   const result = await prisma.inventoryItem.findMany({
     where: {
       ...(name !== null && {

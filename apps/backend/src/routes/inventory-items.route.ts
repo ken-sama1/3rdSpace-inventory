@@ -17,7 +17,7 @@ inventoryItemsRouter.get("/", inventoryItemsController.list);
 
 inventoryItemsRouter.post(
   "/create",
-  // requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqBody(createInventoryItemSchema),
   inventoryItemsController.create
 );
@@ -26,7 +26,7 @@ inventoryItemsRouter
   .route("/:id")
   .all(validateReqParams(idParamSchema))
   .patch(
-    // requireRole("ADMIN", "MANAGER"),
+    requireRole("ADMIN", "MANAGER"),
     validateReqBody(updateInventoryItemSchema),
     inventoryItemsController.update
   )
@@ -35,14 +35,14 @@ inventoryItemsRouter
 
 inventoryItemsRouter.post(
   "/:id/stock-in",
-  // requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqParams(idParamSchema),
   inventoryItemsController.stockIn
 );
 
 inventoryItemsRouter.post(
   "/:id/stock-out",
-  // requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   inventoryItemsController.stockOut
 );
 

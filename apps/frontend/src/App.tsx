@@ -7,9 +7,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NotFound from "./pages/NotFound";
 import { useSession } from "./hooks/auth/useSession";
 import InitializeSession from "./components/auth/InitializeSession";
+import { useAuth } from "./hooks/auth/useAuth";
 
 const AppContent = () => {
   useSession();
+  const { user } = useAuth();
 
   return (
     <div className="relative w-full h-dvh">
@@ -25,13 +27,14 @@ const AppContent = () => {
           <Route index element={<Navigate to="/dashboard" />} />
           <Route path="*" element={<NotFound />} />
           {navRoutes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            );
+            if (!route.roles || route.roles?.includes(user?.role ?? "STAFF"))
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              );
           })}
         </Routes>
       </div>

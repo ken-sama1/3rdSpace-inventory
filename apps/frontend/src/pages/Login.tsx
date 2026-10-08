@@ -41,7 +41,8 @@ const Login = () => {
                   ? error.response?.data.message
                   : undefined;
                 setLoginError(
-                  message ?? "Unable to sign in. Check your username and password."
+                  message ??
+                    "Unable to sign in. Check your username and password."
                 );
               }
             }}
@@ -128,9 +129,9 @@ const Login = () => {
           </form>
         </div>
 
-        <p className="mt-6 text-center text-xs! text-(--text-muted)!">
-          Inventory management for 3rd Space
-        </p>
+        {/* <p className="mt-6 text-center text-xs! text-(--text-muted)!"> */}
+        {/*   Inventory management for 3rd Space */}
+        {/* </p> */}
       </section>
     </main>
   );

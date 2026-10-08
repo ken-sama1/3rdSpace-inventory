@@ -49,7 +49,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
       onClose={onClose}
     >
       {/* Inventory Items */}
-      <div className="w-max min-w-xl  h-auto max-h-[60vh] no-scrollbar overflow-auto">
+      <div className="w-max min-w-xl h-auto max-h-[60vh] no-scrollbar overflow-auto">
         {/* Selected Items */}
         {selectedItems.length > 0 && (
           <>
@@ -88,8 +88,8 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
           </>
         )}
 
-        <div className="h-auto grid grid-cols-4 gap-2">
-          <h4 className="text-sm col-span-4 font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="h-auto grid grid-cols-4 px-2 gap-2">
+          <h4 className="text-sm col-span-4 px-1 font-semibold text-muted-foreground uppercase tracking-wider">
             Available Inventory Items
           </h4>
 
@@ -98,7 +98,6 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
             if (isSelected) return;
             const hasCategory = item.categoryId;
 
-            console.log(hideItemsWithIds, item.id, item.name);
             if (hideItemsWithIds.includes(item.id)) return;
 
             return (

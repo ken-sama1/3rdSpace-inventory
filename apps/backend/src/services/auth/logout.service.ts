@@ -3,6 +3,7 @@ import { REFRESH_TOKEN_SECRET } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
 import { decodeJwtPayload } from "../utils/decode-jwt-payload.util.js";
 import { hashToken } from "../utils/hashToken.util.js";
+import { API_ERROR_CODE_TO_MESSAGE } from "@repo/shared";
 
 export const logout = async (token: string): Promise<void> => {
   const session = await prisma.userSession.findUnique({
@@ -20,7 +21,7 @@ export const logout = async (token: string): Promise<void> => {
   if (!REFRESH_TOKEN_SECRET)
     throw new AppError({
       code: "INTERNAL_ERROR",
-      message: "Internal server error",
+      message: API_ERROR_CODE_TO_MESSAGE["INTERNAL_ERROR"],
     });
 
   const decoded = decodeJwtPayload(token, REFRESH_TOKEN_SECRET);

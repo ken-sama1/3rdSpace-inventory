@@ -16,7 +16,7 @@ export const updateMe = async (
       message: "Invalid token",
     });
 
-  const result = await usersService.update(refreshToken, req.body);
+  const result = await usersService.update(req.auth.userId, req.body);
 
   res.status(200).json({
     message: "Profile successfully updated",

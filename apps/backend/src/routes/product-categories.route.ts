@@ -11,19 +11,20 @@ import {
   validateReqBody,
   validateReqParams,
 } from "../middleware/validate-schema.middleware.js";
+import { requireRole } from "../middleware/require-role.middleware.js";
 
 export const productCategoriesRouter: Router = express.Router();
 
 productCategoriesRouter.post(
   "/create",
-  //requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqBody(createProductCategorySchema),
   productCategoriesController.create
 );
 
 productCategoriesRouter.post(
   "/:id/assign-items",
-  //requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqParams(idParamSchema),
   validateReqBody(assignProductsToCategorySchema),
   productCategoriesController.assignProducts
@@ -31,7 +32,7 @@ productCategoriesRouter.post(
 
 productCategoriesRouter.post(
   "/:id/unassign-items",
-  //requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqParams(idParamSchema),
   validateReqBody(unassignProductsFromCategorySchema),
   productCategoriesController.unassignProducts
@@ -41,14 +42,11 @@ productCategoriesRouter
   .route("/:id")
   .all(validateReqParams(idParamSchema))
   .patch(
-    //requireRole("ADMIN", "MANAGER"),
+    requireRole("ADMIN", "MANAGER"),
     validateReqBody(updateProductCategorySchema),
     productCategoriesController.update
   )
-  .delete(
-    //requireRole("ADMIN", "MANAGER"),
-    productCategoriesController.delete
-  )
+  .delete(requireRole("ADMIN", "MANAGER"), productCategoriesController.delete)
   .get(productCategoriesController.getById);
 
 productCategoriesRouter.get("/", productCategoriesController.list);

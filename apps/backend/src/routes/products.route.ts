@@ -9,19 +9,20 @@ import {
   idParamSchema,
 } from "@repo/shared";
 import { productsController } from "../controllers/products/index.js";
+import { requireRole } from "../middleware/require-role.middleware.js";
 
 const productsRouter: Router = express.Router();
 
 productsRouter.post(
   "/create",
-  //requireRole("ADMIN", "MANAGER"),
+  requireRole("ADMIN", "MANAGER"),
   validateReqBody(createProductSchema),
   productsController.create
 );
 
 productsRouter.post(
   "/:id/deduct-stock",
-  //requireRole("ADMIN", "MANAGER", "STAFF"),
+  requireRole("ADMIN", "MANAGER", "STAFF"),
   validateReqParams(idParamSchema),
   validateReqBody(deductStockForProductSchema),
   productsController.deductStockForProduct
@@ -31,14 +32,8 @@ productsRouter
   .route("/:id")
   .all(validateReqParams(idParamSchema))
   .get(productsController.getById)
-  .delete(
-    // requireRole("ADMIN", "MANAGER"),
-    productsController.delete
-  )
-  .patch(
-    // requireRole("ADMIN", "MANAGER"),
-    productsController.update
-  );
+  .delete(requireRole("ADMIN", "MANAGER"), productsController.delete)
+  .patch(requireRole("ADMIN", "MANAGER"), productsController.update);
 
 productsRouter.get("/", productsController.list);
 
