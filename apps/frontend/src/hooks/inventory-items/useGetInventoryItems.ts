@@ -1,4 +1,4 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
+import { inventoryItemsApi } from "@/api/inventory-items.api";
 import type {
   GetInventoryItemsReqQuerySchema,
   GetInventoryItemsResult,
@@ -6,7 +6,7 @@ import type {
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetInventoryItemsProps {
+interface UseGetInventoryItemsParams {
   query?: GetInventoryItemsReqQuerySchema;
   options?: QueryOptions<GetInventoryItemsResult>;
 }
@@ -14,11 +14,11 @@ interface UseGetInventoryItemsProps {
 export const useGetInventoryItems = ({
   query = {},
   options,
-}: UseGetInventoryItemsProps = {}) => {
+}: UseGetInventoryItemsParams = {}) => {
   return useQuery<GetInventoryItemsResult>({
     queryKey: ["inventory-items", query.options, query.filter],
     queryFn: ({ signal }) =>
-      inventoryItemApi.getMany(
+      inventoryItemsApi.getMany(
         { filter: query.filter, options: query.options },
         { signal }
       ),

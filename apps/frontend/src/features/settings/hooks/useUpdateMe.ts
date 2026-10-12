@@ -8,8 +8,8 @@ export const useUpdateMe = () => {
   return useMutation<UpdateMeResult, Error, UpdateMeInput>({
     mutationKey: ["users", "update-me"],
     mutationFn: usersApi.updateMe,
-    onSuccess: (user) => {
-      queryClient.setQueryData(["users", "me"], user);
+    onSuccess: async (user) => {
+      await queryClient.setQueryData(["users", "me"], user);
     },
   });
 };

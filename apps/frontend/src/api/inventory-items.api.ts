@@ -108,7 +108,7 @@ const stockOut = async (
   return data.data;
 };
 
-export const inventoryItemApi = {
+export const inventoryItemsApi = {
   getById,
   getMany,
   create,

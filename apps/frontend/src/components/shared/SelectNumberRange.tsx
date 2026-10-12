@@ -29,7 +29,7 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
             className="w-full! py-1!"
             type="number"
             onChange={(e) => {
-              if (!e.target.value) return setRange(null);
+              if (!e.target.value) { setRange(null); return; }
               setRange(Number(e.target.value));
             }}
           />
@@ -80,13 +80,13 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
               value={typeof range === "object" ? (range?.lte ?? "") : ""}
               onChange={(e) => {
                 if (!e.target.value) {
-                  return setRange((prev) => {
+                  setRange((prev) => {
                     if (typeof prev === "object")
                       setRange({
                         ...prev,
                         lte: undefined,
                       });
-                  });
+                  }); return;
                 }
 
                 const value = Number(e.target.value);

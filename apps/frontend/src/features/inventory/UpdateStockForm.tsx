@@ -132,7 +132,9 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
           <button
             type="button"
             aria-pressed={isStockIn}
-            onClick={() => setMode("in")}
+            onClick={() => {
+              setMode("in");
+            }}
             className={`
               w-1/2 rounded-sm py-1.5 text-sm font-medium transition-all
               ${isStockIn ? "button-accent" : "button-outlined"}
@@ -144,7 +146,9 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
           <button
             type="button"
             aria-pressed={isStockOut}
-            onClick={() => setMode("out")}
+            onClick={() => {
+              setMode("out");
+            }}
             className={`
               w-1/2 rounded-sm py-1.5 text-sm font-medium transition-all
               ${isStockOut ? "button-danger" : "button-outlined"}
@@ -247,7 +251,7 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
           cancelText="No"
           variant={isStockIn ? "accent" : "danger"}
           title={isStockIn ? "Restock Item?" : "Destock Item?"}
-          onConfirm={isStockIn ? handleRestock : handleDestock}
+          onConfirm={() => void (isStockIn ? handleRestock() : handleDestock())}
         >
           {isStockIn ? (
             <div className="w-full flex flex-col items-center justify-center text-center p-2">

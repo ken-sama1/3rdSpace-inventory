@@ -12,8 +12,8 @@ export const useDeleteProduct = () => {
   >({
     mutationKey: ["products", "delete"],
     mutationFn: productsApi.delete,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

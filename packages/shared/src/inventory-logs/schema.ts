@@ -1,6 +1,6 @@
 import z from "zod";
 import { isoDateFilterSchema } from "../common/filter-schema.js";
-import { sortOrderSchema } from "../common/options-schema.js";
+import { baseOptionsSchema } from "../common/options-schema.js";
 import { idSchema } from "../common/schema.js";
 import type { ResponseBody } from "../Response.js";
 import type { InventoryLogDto } from "./types.js";
@@ -36,12 +36,11 @@ export type InventoryLogsFilterInput = z.input<typeof inventoryLogFilterSchema>;
 // --- Options ---
 export const inventoryLogOptionsSchema = z
   .object({
-    order: sortOrderSchema,
-    // Placeholder for now
-    sortBy: z.enum(["itemName"]),
+    sortBy: inventoryLogSortBySchema,
     lastInventoryLogId: idSchema,
   })
-  .partial();
+  .partial()
+  .extend(baseOptionsSchema.shape);
 export type InventoryLogOptionsSchema = z.infer<
   typeof inventoryLogOptionsSchema
 >;

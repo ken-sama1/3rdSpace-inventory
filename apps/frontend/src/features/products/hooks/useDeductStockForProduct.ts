@@ -18,8 +18,8 @@ export const useDeductStockForProduct = () => {
     mutationFn: async ({ id, data }) =>
       productsApi.deductStockForProduct(id, data),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (query) => {
           const key = query.queryKey;
 

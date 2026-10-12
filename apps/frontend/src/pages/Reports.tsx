@@ -37,7 +37,7 @@ const Reports = () => {
           <select
             value={period}
             onChange={(event) =>
-              setPeriod(event.target.value as ReportPeriodSchema)
+              { setPeriod(event.target.value as ReportPeriodSchema); }
             }
             className="h-9! rounded-md! pr-3!"
           >

@@ -13,7 +13,12 @@ export const list = async (
   filter;
   options;
 
-  const { lastInventoryLogId = null, order = "asc", sortBy = null } = options;
+  const {
+    lastInventoryLogId = null,
+    limit = null,
+    order = "asc",
+    sortBy = null,
+  } = options;
   const {
     createdAt = null,
     itemName = null,
@@ -41,6 +46,7 @@ export const list = async (
       },
     }),
     ...(sortBy && { orderBy: { [sortBy]: order } }),
+    ...(limit && { take: limit }),
   });
 
   return result.map((res) => {

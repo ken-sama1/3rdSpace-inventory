@@ -136,7 +136,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
               className="button-accent rounded-md! h-7! w-full text-xs!"
             >
               {requiredItems.length > 0
-                ? `${requiredItems.length} item${
+                ? `${String(requiredItems.length)} item${
                     requiredItems.length > 1 ? "s" : ""
                   } selected`
                 : "Recipe Items"}

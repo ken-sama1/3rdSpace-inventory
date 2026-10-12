@@ -50,8 +50,6 @@ const EditItemForm: FC<EditItemFormProps> = ({
     }
   };
 
-  if (!item) return <></>;
-
   const handleDelete = async () => {
     try {
       await deleteItem(item.id);
@@ -205,7 +203,9 @@ const EditItemForm: FC<EditItemFormProps> = ({
             {/* Delete Button */}
             <button
               disabled={deletePending}
-              onClick={() => setDialog("delete")}
+              onClick={() => {
+                setDialog("delete");
+              }}
               type="button"
               className="button-danger h-7! py-0!"
             >
@@ -236,16 +236,20 @@ const EditItemForm: FC<EditItemFormProps> = ({
       {dialog && (
         <Dialog
           isOpen={true}
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
           confirmText="Yes"
           cancelText="No"
           variant={dialog === "delete" ? "danger" : "accent"}
           title={
             dialog === "delete"
-              ? `Delete ${item?.name}?`
-              : `Update ${item?.name}?`
+              ? `Delete ${item.name}?`
+              : `Update ${item.name}?`
           }
-          onConfirm={dialog === "delete" ? handleDelete : handleUpdate}
+          onConfirm={() =>
+            void (dialog === "delete" ? handleDelete() : handleUpdate())
+          }
         >
           {dialog === "delete" ? (
             <AlertBanner

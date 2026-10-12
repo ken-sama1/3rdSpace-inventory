@@ -22,21 +22,20 @@ export const useUpdateProduct = () => {
       const { name, imageUrl, price, categoryId, description, recipeItems } =
         data;
       return productsApi.update(id, {
-        ...(name && name !== null && { name }),
+        ...(name && { name }),
         ...(imageUrl && {
           imageUrl: await cloudinaryApi.upload(imageUrl),
         }),
         ...(description && { description }),
         ...(price !== undefined && { price: Number(price) }),
         ...(categoryId && { categoryId }),
-        ...(recipeItems &&
-          recipeItems && {
-            recipeItems,
-          }),
+        ...(recipeItems && {
+          recipeItems,
+        }),
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

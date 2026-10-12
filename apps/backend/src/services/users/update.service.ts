@@ -5,6 +5,7 @@ import type {
   UpdateUserSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
+import { toUserDto } from "../mappers/user.mapper.js";
 
 export const update = async (
   id: IdSchema,
@@ -25,9 +26,5 @@ export const update = async (
       message: "User not found",
     });
 
-  return {
-    username: user.username,
-    id: user.id,
-    role: user.role,
-  };
+  return toUserDto(user);
 };

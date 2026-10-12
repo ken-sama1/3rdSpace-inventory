@@ -3,6 +3,7 @@ import type { RegisterResult, RegisterSchema } from "@repo/shared";
 import * as bcrypt from "bcrypt";
 import { SALT } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
+import { toUserDto } from "../mappers/user.mapper.js";
 
 export const register = async ({
   username,
@@ -30,9 +31,5 @@ export const register = async ({
     },
   });
 
-  return {
-    id: result.id,
-    username: result.username,
-    role: result.role,
-  };
+  return toUserDto(result);
 };

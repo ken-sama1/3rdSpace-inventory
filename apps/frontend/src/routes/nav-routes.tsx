@@ -43,13 +43,6 @@ export const navRoutes: NavRoute[] = [
     path: "/products",
     // roles: ["ADMIN", "MANAGER"],
   },
-  // {
-  //   label: "POS",
-  //   icon: ShoppingCartIcon,
-  //   element: <Pos />,
-  //   path: "/pos",
-  // roles: ["ADMIN", "MANAGER", "STAFF"],
-  // },
   {
     label: "Categories",
     icon: FolderTreeIcon,

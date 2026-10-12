@@ -1,10 +1,10 @@
 import { useGetProducts } from "@/hooks/products/useGetProducts";
 import type { IdSchema } from "@repo/shared";
-import { useEffect, useState, type FC } from "react";
+import { X } from "lucide-react";
+import { useState, type FC } from "react";
 import AlertBanner from "../../components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "../../components/ui/Dialog";
 import Modal from "../../components/ui/Modal";
-import { X } from "lucide-react";
 
 export interface SelectProductsSelectedProduct {
   id: IdSchema;
@@ -31,13 +31,7 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
   const [dialog, setDialog] = useState<DialogProps | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<
     SelectProductsSelectedProduct[]
-  >([]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    setSelectedProducts(initialSelectedProducts);
-  }, [isOpen, initialSelectedProducts]);
+  >(initialSelectedProducts);
 
   if (!products) return;
 
@@ -102,7 +96,7 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
                   if (hasCategory) {
                     setDialog({
                       isOpen: true,
-                      title: `${item.name}`,
+                      title: item.name,
                       onConfirm: () => {
                         setDialog(null);
                         setSelectedProducts((prev) => [
@@ -117,7 +111,7 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
                         <div className="max-w-sm">
                           <AlertBanner
                             variant="info"
-                            message={`${item.name} is already in category "${item.category?.name}" do you want to move it in this category?`}
+                            message={`${item.name} is already in category "${item.category?.name ?? "name"}" do you want to move it in this category?`}
                           />
                         </div>
                       ),
@@ -172,7 +166,9 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
             cancelText="No"
             confirmText="Yes"
             onConfirm={dialog.onConfirm}
-            onClose={() => setDialog(null)}
+            onClose={() => {
+              setDialog(null);
+            }}
           >
             {dialog.children}
           </Dialog>

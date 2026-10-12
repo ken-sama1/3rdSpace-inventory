@@ -38,7 +38,7 @@ const Collapsible: FC<CollapsibleProps> = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [isOpen, containerRef.current]);
+  }, [isOpen, onClose, refs]);
 
   return (
     <AnimatePresence>

@@ -2,65 +2,66 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import QuantityStepper from "@/components/ui/QuantityStepper";
 import { useToast } from "@/context/ToastContext";
-import { useDeductStockForProduct } from "./hooks/useDeductStockForProduct";
-import { useGetProductById } from "@/hooks/products/useGetProductById";
 import { useStockConfig } from "@/hooks/useStockConfig";
+import { formatCurrency } from "@/utils/format-currency.util";
 import {
   API_ERROR_CODE_TO_MESSAGE,
   type ApiErrorCode,
-  type IdSchema,
-  type RecipeItemSchema,
+  type ProductWithInventoryItemsDto,
   type ResponseError,
 } from "@repo/shared";
 import { isAxiosError } from "axios";
-import { useEffect, useState, type FC } from "react";
-import ProduceProductContextMenu from "./ProduceProductContextMenu";
-import { formatCurrency } from "@/utils/format-currency.util";
+import { useCallback, useState, type FC } from "react";
+import { useDeductStockForProduct } from "./hooks/useDeductStockForProduct";
 
-interface ProduceProductProps {
-  productId: IdSchema;
+import DeductStockContextMenu from "./DeductStockContextMenu";
+
+type Product = ProductWithInventoryItemsDto;
+
+interface DeductStockProps {
   onClose?: () => void;
   onEdit?: () => void;
+  product: Product;
 }
 
-const ProduceProduct: FC<ProduceProductProps> = ({
-  productId,
-  onClose,
-  onEdit,
-}) => {
+const DeductStock: FC<DeductStockProps> = ({ product, onClose, onEdit }) => {
   const { isPending, deduct } = useDeductStockForProduct();
-  const { data: product } = useGetProductById({ productId });
   const [productQuantity, setProductQuantity] = useState<number>(0);
   const { getMaxServings } = useStockConfig();
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [recipeItems, setRecipeItems] = useState<RecipeItemSchema[]>([]);
+  const [recipeItems, setRecipeItems] = useState<Product["recipeItems"]>(
+    product.recipeItems
+  );
   const { maxServingsCount, missingItemsCount, recipeItemsBreakdown } =
     getMaxServings(
-      product?.recipeItems.map((v) => {
-        return {
-          ...v,
-          quantity:
-            recipeItems.find(
-              (item) => item.inventoryItemId === v.inventoryItemId
-            )?.quantity ?? v.quantity,
-        };
-      }) ?? []
-    );
-
-  const { showToast } = useToast();
-
-  useEffect(() => {
-    setRecipeItems(
-      product?.recipeItems.map((recipeItem) => {
+      recipeItems.map((recipeItem) => {
         return {
           inventoryItemId: recipeItem.inventoryItemId,
           quantity: recipeItem.quantity,
+          inventoryItem: recipeItem.inventoryItem,
         };
-      }) ?? []
+      })
     );
-  }, [product]);
 
-  if (!product) return <></>;
+  const modifyAmount = useCallback(
+    (item: (typeof recipeItemsBreakdown)[number], newQuantity: number) => {
+      setRecipeItems((prev) => {
+        return prev.map((v) => {
+          if (v.inventoryItemId === item.inventoryItemId) {
+            return {
+              ...v,
+              quantity: newQuantity,
+            };
+          }
+
+          return v;
+        });
+      });
+    },
+    []
+  );
+
+  const { showToast } = useToast();
 
   const handleCloseAll = () => {
     setShowDialog(false);
@@ -90,7 +91,7 @@ const ProduceProduct: FC<ProduceProductProps> = ({
               Price:
             </span>
             <span className="font-bold text-lg">
-              {formatCurrency(product.price ?? 0)}
+              {formatCurrency(product.price)}
             </span>
           </div>
 
@@ -104,8 +105,8 @@ const ProduceProduct: FC<ProduceProductProps> = ({
                 className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${maxServingsCount >= 6 ? "status-success" : maxServingsCount >= 1 ? "status-warning" : "status-danger"}`}
               >
                 {maxServingsCount >= 1
-                  ? `Possible Servings (${maxServingsCount})`
-                  : `Missing Items ${missingItemsCount} (0 Possible Servings)`}
+                  ? `Possible Servings (${String(maxServingsCount)})`
+                  : `Missing Items ${String(missingItemsCount)} (0 Possible Servings)`}
               </span>
             </div>
           </div>
@@ -179,25 +180,14 @@ const ProduceProduct: FC<ProduceProductProps> = ({
                     </div>
 
                     <div className="col-span-1 flex justify-center items-center relative">
-                      <ProduceProductContextMenu
+                      <DeductStockContextMenu
                         unit={item.unit}
                         name={item.name}
                         availableQuantity={item.available}
                         requiredQuantity={item.required}
-                        onChange={({ quantity }) =>
-                          setRecipeItems((prev) => {
-                            return [
-                              ...prev.filter(
-                                (v) =>
-                                  v.inventoryItemId !== item.inventoryItemId
-                              ),
-                              {
-                                quantity,
-                                inventoryItemId: item.inventoryItemId,
-                              },
-                            ];
-                          })
-                        }
+                        onChange={({ quantity: newQuantity }) => {
+                          modifyAmount(item, newQuantity);
+                        }}
                       />
                     </div>
                   </li>
@@ -241,11 +231,13 @@ const ProduceProduct: FC<ProduceProductProps> = ({
             </button>
             <button
               disabled={isPending || maxServingsCount <= 0}
-              onClick={() => setShowDialog(true)}
+              onClick={() => {
+                setShowDialog(true);
+              }}
               type="button"
               className={`py-1! ${maxServingsCount <= 0 ? "button-muted" : "button-accent"}`}
             >
-              Produce
+              Deduct
             </button>
           </div>
         </div>
@@ -255,37 +247,42 @@ const ProduceProduct: FC<ProduceProductProps> = ({
         isOpen={showDialog}
         title={`Produce ${product.name}?`}
         variant="accent"
-        onClose={() => setShowDialog(false)}
-        onConfirm={async () => {
-          try {
-            await deduct({
-              id: product.id,
-              data: {
-                quantity: productQuantity,
-                recipeItems: recipeItems,
-              },
-            });
-            setShowDialog(false);
-            showToast({
-              variant: "success",
-              message: `Produced ${productQuantity} ${product.name}`,
-              forceToTop: true,
-            });
-          } catch (error) {
-            setShowDialog(false);
-            console.error(error);
-            let code: ApiErrorCode | undefined;
+        onClose={() => {
+          setShowDialog(false);
+        }}
+        onConfirm={() => {
+          void (async () => {
+            try {
+              await deduct({
+                id: product.id,
+                data: {
+                  quantity: productQuantity,
+                  recipeItems: recipeItems,
+                },
+              });
+              setShowDialog(false);
+              showToast({
+                variant: "success",
+                message: `Deducted items for ${String(productQuantity)} ${product.name}`,
+              });
+            } catch (error: unknown) {
+              setShowDialog(false);
+              console.error(error);
+              let code: ApiErrorCode | undefined;
+              if (isAxiosError<ResponseError>(error)) {
+                code = error.response?.data.code;
+              }
 
-            if (isAxiosError<ResponseError>(error)) {
-              code = error.response?.data.code;
+              showToast({
+                variant: "danger",
+                message:
+                  API_ERROR_CODE_TO_MESSAGE[code ?? "STOCK_INSUFFICIENT"],
+                forceToTop: true,
+              });
+            } finally {
+              handleCloseAll();
             }
-
-            showToast({
-              variant: "danger",
-              message: API_ERROR_CODE_TO_MESSAGE[code ?? "STOCK_INSUFFICIENT"],
-              forceToTop: true,
-            });
-          }
+          })();
         }}
       >
         <div className="w-sm flex">
@@ -299,4 +296,4 @@ const ProduceProduct: FC<ProduceProductProps> = ({
   );
 };
 
-export default ProduceProduct;
+export default DeductStock;

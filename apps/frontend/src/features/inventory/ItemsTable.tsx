@@ -9,7 +9,7 @@ interface ItemsTableProps {
   items: InventoryItemDto[];
 }
 
-const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
+const ItemsTable: FC<ItemsTableProps> = ({ items }) => {
   const { getStatus } = useStockConfig();
   const [item, setItem] = useState<InventoryItemDto | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -21,7 +21,7 @@ const ItemsTable: FC<ItemsTableProps> = ({ items = [] }) => {
       {item && (
         <InventoryModal
           isOpen={showEditModal}
-          onClose={() => setShowEditModal(false)}
+          onClose={() => { setShowEditModal(false); }}
           itemId={item.id}
         />
       )}

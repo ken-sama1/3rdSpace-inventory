@@ -19,8 +19,8 @@ export const useUnassignInventoryItemsFromCategory = () => {
     mutationKey: ["categories", "inventory-items", "unassign"],
     mutationFn: ({ id, data }) =>
       inventoryItemCategoriesApi.unassignItems(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

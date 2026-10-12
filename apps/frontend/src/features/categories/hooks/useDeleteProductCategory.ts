@@ -12,8 +12,8 @@ export const useDeleteProductCategory = () => {
   >({
     mutationKey: ["categories", "products", "delete"],
     mutationFn: productCategoriesApi.delete,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

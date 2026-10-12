@@ -12,7 +12,7 @@ import { useEffect, useState, type FC } from "react";
 
 interface ProductQueryOptionsProps {
   initialQuery?: GetProductsReqQuerySchema;
-  onChange: (value: GetProductsReqQuerySchema) => void;
+  onChange?: (value: GetProductsReqQuerySchema) => void;
 }
 
 const ProductQueryOptions: FC<ProductQueryOptionsProps> = ({
@@ -28,7 +28,7 @@ const ProductQueryOptions: FC<ProductQueryOptionsProps> = ({
 
   useEffect(() => {
     if (onChange) onChange({ filter, options });
-  }, [filter, options]);
+  }, [filter, options, onChange]);
 
   return (
     <div className="size-full">

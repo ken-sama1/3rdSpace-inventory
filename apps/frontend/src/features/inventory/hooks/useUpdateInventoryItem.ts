@@ -1,4 +1,4 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
+import { inventoryItemsApi } from "@/api/inventory-items.api";
 import type {
   IdParamSchema,
   UpdateInventoryItemInput,
@@ -16,10 +16,10 @@ export const useUpdateInventoryItem = () => {
       data: UpdateInventoryItemInput;
     } & IdParamSchema
   >({
-    mutationFn: ({ id, data }) => inventoryItemApi.update(id, data),
+    mutationFn: ({ id, data }) => inventoryItemsApi.update(id, data),
     mutationKey: ["inventory-items", "update"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

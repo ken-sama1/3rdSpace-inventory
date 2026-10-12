@@ -2,7 +2,7 @@ import Collapsible from "@/components/ui/Collapsible";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemQueryOptions from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
 import { debounce } from "@/utils/debounce.util";
 import {
   getInventoryItemsReqQuerySchema,
@@ -17,7 +17,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Inventory = () => {
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const params = qs.parse(window.location.search.substring(1));
   const parsedParams = getInventoryItemsReqQuerySchema.safeParse(params).data;
@@ -89,7 +89,9 @@ const Inventory = () => {
           <div className="absolute z-1 w-md top-full left-0 translate-y-10">
             <Collapsible
               isOpen={openCollapsible}
-              onClose={() => setOpenCollapsible(false)}
+              onClose={() => {
+                setOpenCollapsible(false);
+              }}
               refs={[filterButtonRef]}
             >
               <div className="p-5">
@@ -109,7 +111,9 @@ const Inventory = () => {
 
         {/* Create new item */}
         <button
-          onClick={() => setOpenCreateItem(true)}
+          onClick={() => {
+            setOpenCreateItem(true);
+          }}
           title="New Item"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
@@ -127,7 +131,9 @@ const Inventory = () => {
 
       <CreateItemModal
         isOpen={openCreateItem}
-        onClose={() => setOpenCreateItem(false)}
+        onClose={() => {
+          setOpenCreateItem(false);
+        }}
       />
     </main>
   );

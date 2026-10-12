@@ -1,4 +1,4 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
+import { inventoryItemsApi } from "@/api/inventory-items.api";
 import type {
   CreateInventoryItemInput,
   CreateInventoryItemResult,
@@ -14,9 +14,9 @@ export const useCreateInventoryItem = () => {
     CreateInventoryItemInput
   >({
     mutationKey: ["inventory-items", "create"],
-    mutationFn: inventoryItemApi.create,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    mutationFn: inventoryItemsApi.create,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

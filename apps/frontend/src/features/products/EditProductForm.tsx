@@ -41,76 +41,79 @@ const EditProductForm: FC<EditProductFormProps> = ({
 
   const dialogConfigs = {
     delete: {
-      title: `Delete ${product?.name}?`,
+      title: `Delete ${product?.name ?? "product"}?`,
       message: "This will permanently delete this product",
       variant: "danger",
-      onConfirm: async () => {
-        try {
-          setDialog(null);
-          await deleteProduct(productId);
-          handleOnSave();
-          showToast({
-            message: "Product deleted successfully",
-            variant: "success",
-          });
-        } catch (error) {
-          showToast({
-            message: "Something went wrong!",
-            forceToTop: true,
-            variant: "danger",
-          });
-          console.error(error);
-        }
+      onConfirm: () => {
+        void (async () => {
+          try {
+            setDialog(null);
+            await deleteProduct(productId);
+            handleOnSave();
+            showToast({
+              message: "Product deleted successfully",
+              variant: "success",
+            });
+          } catch (error) {
+            showToast({
+              message: "Something went wrong!",
+              forceToTop: true,
+              variant: "danger",
+            });
+            console.error(error);
+          }
+        })();
       },
     },
     edit: {
-      title: `Update ${product?.name}?`,
+      title: `Update ${product?.name ?? "product"}?`,
       message: "Your updates will take effect immediately",
       variant: "info",
-      onConfirm: async () => {
-        try {
-          if (!formRef.current) throw new Error("No form reference found");
-          const formData = new FormData(formRef.current);
-          const name = (formData.get("product-name") || undefined) as
-            string | undefined;
-          const price = formData.get("product-price") as string | null;
-          const description = formData.get("product-description") as string;
-          const categoryId = formData.get("product-category") as string;
-          const image = formData.get("product-image") as File;
+      onConfirm: () => {
+        void (async () => {
+          try {
+            if (!formRef.current) throw new Error("No form reference found");
+            const formData = new FormData(formRef.current);
+            const name = (formData.get("product-name") || undefined) as
+              string | undefined;
+            const price = formData.get("product-price") as string | null;
+            const description = formData.get("product-description") as string;
+            const categoryId = formData.get("product-category") as string;
+            const image = formData.get("product-image") as File;
 
-          console.log(price);
-          await update({
-            id: productId,
-            data: {
-              name,
-              price,
-              description,
-              categoryId,
-              imageUrl: image.name,
-              ...(requiredItems.length >= 1
-                ? {
-                    recipeItems: requiredItems.map((item) => {
-                      return {
-                        inventoryItemId: item.id,
-                        quantity: item.quantity,
-                      };
-                    }),
-                  }
-                : { recipeItems: [] }),
-            },
-          });
+            await update({
+              id: productId,
+              data: {
+                name,
+                price,
+                description: description || null,
+                categoryId: categoryId || null,
+                imageUrl: image.name || null,
+                ...(requiredItems.length >= 1
+                  ? {
+                      recipeItems: requiredItems.map((item) => {
+                        return {
+                          inventoryItemId: item.id,
+                          quantity: item.quantity,
+                        };
+                      }),
+                    }
+                  : { recipeItems: [] }),
+              },
+            });
 
-          handleOnSave();
+            handleOnSave();
 
-          showToast({
-            message: "Product updated successfully",
-            variant: "success",
-          });
-        } catch (error) {
-          console.error(error);
-          setDialog(null);
-          showToast({ variant: "danger", message: "Something went wrong!" });
-        }
+            showToast({
+              message: "Product updated successfully",
+              variant: "success",
+            });
+          } catch (error) {
+            console.error(error);
+            setDialog(null);
+            showToast({ variant: "danger", message: "Something went wrong!" });
+          }
+        })();
       },
     },
   } as const;
@@ -129,7 +132,9 @@ const EditProductForm: FC<EditProductFormProps> = ({
         <div className="w-full mt-3 flex justify-between">
           <div className="w-1/2">
             <button
-              onClick={() => setDialog("delete")}
+              onClick={() => {
+                setDialog("delete");
+              }}
               type="button"
               className="button-danger"
             >
@@ -150,8 +155,10 @@ const EditProductForm: FC<EditProductFormProps> = ({
             <button
               disabled={updatePending}
               onClick={() => {
-                if (!formRef.current)
-                  return console.log("No form reference found");
+                if (!formRef.current) {
+                  console.log("No form reference found");
+                  return;
+                }
                 formRef.current.requestSubmit();
               }}
               type="button"
@@ -169,7 +176,9 @@ const EditProductForm: FC<EditProductFormProps> = ({
           cancelText="No"
           confirmText="Yes"
           isOpen
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
           onConfirm={dialogConfigs[dialog].onConfirm}
         >
           <AlertBanner

@@ -17,7 +17,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const params = qs.parse(window.location.search.substring(1));
   const parsedParams = getProductsReqQuerySchema.safeParse(params).data;
@@ -94,7 +94,9 @@ const Products = () => {
           <div className="absolute z-1 w-md top-full left-0 translate-y-10">
             <Collapsible
               isOpen={openCollapsible}
-              onClose={() => setOpenCollapsible(false)}
+              onClose={() => {
+                setOpenCollapsible(false);
+              }}
               refs={[filterButtonRef]}
             >
               <div className="p-5">
@@ -114,7 +116,9 @@ const Products = () => {
 
         {/* Create new product */}
         <button
-          onClick={() => setOpenCreateProduct(true)}
+          onClick={() => {
+            setOpenCreateProduct(true);
+          }}
           title="New Product"
           className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
@@ -131,7 +135,9 @@ const Products = () => {
 
       <CreateProductModal
         isOpen={openCreateProduct}
-        onClose={() => setOpenCreateProduct(false)}
+        onClose={() => {
+          setOpenCreateProduct(false);
+        }}
       />
     </main>
   );

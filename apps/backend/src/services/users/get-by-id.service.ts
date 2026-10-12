@@ -1,6 +1,7 @@
 import { prisma } from "@repo/database";
 import type { GetUserByIdResult, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
+import { toUserDto } from "../mappers/user.mapper.js";
 
 export const getById = async (id: IdSchema): Promise<GetUserByIdResult> => {
   const user = await prisma.user.findUnique({
@@ -15,9 +16,5 @@ export const getById = async (id: IdSchema): Promise<GetUserByIdResult> => {
       message: "User not found",
     });
 
-  return {
-    id: user.id,
-    username: user.username,
-    role: user.role,
-  };
+  return toUserDto(user);
 };

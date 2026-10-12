@@ -20,7 +20,12 @@ export const list = async ({
     categoryId = null,
     price = null,
   } = filter ?? {};
-  const { order = null, lastProductId = null, sortBy } = options;
+  const {
+    order = "asc",
+    limit = null,
+    lastProductId = null,
+    sortBy = "name",
+  } = options;
   const result = await prisma.product.findMany({
     where: {
       ...(name !== null && {
@@ -62,6 +67,7 @@ export const list = async ({
         id: lastProductId,
       },
     }),
+    ...(limit && { take: limit }),
   });
 
   return result.map((res) => {

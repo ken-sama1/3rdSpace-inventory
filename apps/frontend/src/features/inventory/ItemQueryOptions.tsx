@@ -13,7 +13,7 @@ import { useEffect, useState, type FC } from "react";
 
 interface ItemQueryOptionsProps {
   initialQuery?: GetInventoryItemsReqQuerySchema;
-  onChange: (value: GetInventoryItemsReqQuerySchema) => void;
+  onChange?: (value: GetInventoryItemsReqQuerySchema) => void;
 }
 
 const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
@@ -29,7 +29,7 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
 
   useEffect(() => {
     if (onChange) onChange({ filter, options });
-  }, [filter, options]);
+  }, [filter, options, onChange]);
 
   return (
     <div className="size-full">
@@ -70,11 +70,11 @@ const ItemQueryOptions: FC<ItemQueryOptionsProps> = ({
           <div className="col-span-3 flex">
             <SelectInventoryItemUnits
               initialSelectedUnits={initialQuery.filter?.unit}
-              onChange={(units) =>
+              onChange={(units) => {
                 setFilter((prev) => {
                   return { ...prev, unit: units };
-                })
-              }
+                });
+              }}
             />
           </div>
         </div>

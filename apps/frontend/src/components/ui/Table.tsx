@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 
-type TableData = Record<string, any>;
+type TableData = Record<string, unknown>;
 
 export type TableCustomColumn = {
   /** Column Headet */
@@ -93,7 +93,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
           <div
             className="grid place-items-center w-full h-10 bg-(--primary) border-b-3 border-(--line) shadow-xs"
             style={{
-              gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+              gridTemplateColumns: `repeat(${String(columns)}, minmax(0, 1fr))`,
             }}
           >
             {tableDataOrder.map((d, idx) => {
@@ -103,10 +103,10 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
               return (
                 <div
                   className="size-full flex items-center"
-                  key={`${String(d)}-${idx}`}
+                  key={`${String(d)}-${String(idx)}`}
                   style={{
                     ...headStyle,
-                    gridColumn: `span ${colspan} / span ${colspan}`,
+                    gridColumn: `span ${String(colspan)} / span ${String(colspan)}`,
                   }}
                 >
                   <span className="h-full flex items-center uppercase font-bold text-sm tracking-wider text-inherit!">
@@ -124,8 +124,8 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                 typeof row.element === "function"
                   ? row.element(rowData)
                   : row.element;
-              const rowKey = `row-data-${idx}`;
-              const rowStyle = row?.style
+              const rowKey = `row-data-${String(idx)}`;
+              const rowStyle = row.style
                 ? typeof row.style === "function"
                   ? row.style(rowData)
                   : row.style
@@ -137,7 +137,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                   <button
                     ref={rowRef}
                     onClick={() => {
-                      if (row?.onClick) {
+                      if (row.onClick) {
                         row.onClick(rowData);
                       }
                     }}
@@ -145,13 +145,13 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                     style={{
                       ...rowStyle,
                       display: "grid",
-                      gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                      gridTemplateColumns: `repeat(${String(columns)}, minmax(0, 1fr))`,
                     }}
                   >
                     {tableDataOrder.map((k) => {
                       const cell = options.column?.[k];
                       const colspan = cell?.colspan ?? 1;
-                      const cellData = rowData?.[k];
+                      const cellData = rowData[k];
                       const cellValue = cell?.value
                         ? typeof cell.value === "function"
                           ? cell.value(cellData)
@@ -167,9 +167,9 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
                       return (
                         <div
                           className="w-fit"
-                          key={`cell-data-${idx}-${String(k)}`}
+                          key={`cell-data-${String(idx)}-${String(k)}`}
                           style={{
-                            gridColumn: `span ${colspan} / span ${colspan}`,
+                            gridColumn: `span ${String(colspan)} / span ${String(colspan)}`,
                           }}
                         >
                           <span

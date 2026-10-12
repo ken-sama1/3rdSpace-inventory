@@ -75,7 +75,7 @@ const StatusRow: FC<StatusRowProps> = ({
         <div
           className={`h-full rounded-full`}
           style={{
-            width: `${percentage}%`,
+            width: `${String(percentage)}%`,
             backgroundColor: `var(--text-${variant}`,
           }}
         />

@@ -5,4 +5,5 @@ export interface UserDto {
   id: IdSchema;
   username: string;
   role: UserRoleSchema;
+  createdAt: string;
 }

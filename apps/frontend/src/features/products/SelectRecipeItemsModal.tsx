@@ -1,10 +1,10 @@
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
-import type { InventoryItemUnitSchema } from "@repo/shared";
-import { X } from "lucide-react";
-import { useEffect, useState, type FC } from "react";
+import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
-import AlertBanner from "@/components/ui/AlertBanner";
+import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
+import type { InventoryItemUnitSchema } from "@repo/shared";
+import { X } from "lucide-react";
+import { useState, type FC } from "react";
 
 export interface SelectRecipeItemsSelectedItem {
   // Inventory item id
@@ -30,15 +30,8 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
   onSave,
   initialSelectedItems = [],
 }) => {
-  const [selectedItems, setSelectedItems] = useState<
-    SelectRecipeItemsSelectedItem[]
-  >([]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    setSelectedItems(initialSelectedItems);
-  }, [isOpen, initialSelectedItems]);
+  const [selectedItems, setSelectedItems] =
+    useState<SelectRecipeItemsSelectedItem[]>(initialSelectedItems);
 
   const [dialog, setDialog] = useState<Omit<DialogProps, "onClose">>({
     isOpen: false,
@@ -46,8 +39,6 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
   });
 
   const { data: items } = useGetInventoryItems();
-
-  if (!items) return <></>;
 
   return (
     <Modal
@@ -63,12 +54,12 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
       <Dialog
         noBackdrop={true}
         {...{ ...dialog }}
-        onClose={() =>
+        onClose={() => {
           setDialog({
             isOpen: false,
             children: null,
-          })
-        }
+          });
+        }}
       />
 
       <div className="w-max min-w-xl h-auto max-h-[60vh] overflow-auto no-scrollbar">

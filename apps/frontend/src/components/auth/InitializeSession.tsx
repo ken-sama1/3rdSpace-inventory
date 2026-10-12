@@ -13,12 +13,19 @@ const InitializeSession: FC<{ children: ReactNode }> = ({ children }) => {
         const { accessToken } = await refresh();
         setToken(accessToken);
       } catch (error) {
+        console.error(error);
         setToken(null);
       }
     };
 
-    initializeSession();
-  }, [setToken]);
+    initializeSession()
+      .then(() => {
+        console.log("Session intialized");
+      })
+      .catch((err: unknown) => {
+        console.error("Session failed to initialize: ", err);
+      });
+  }, [setToken, refresh]);
 
   if (isRefreshing) {
     // Show loading screen

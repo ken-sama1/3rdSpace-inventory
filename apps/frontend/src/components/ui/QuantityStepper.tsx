@@ -18,13 +18,10 @@ const QuantityStepper: FC<QuantityStepperProps> = ({
   const [quantity, setQuantity] = useState<number | null>(1);
 
   useEffect(() => {
-    if (!quantity) {
-    }
-
     if (callback && quantity) {
       callback(quantity);
     }
-  }, [quantity]);
+  }, [quantity, callback]);
 
   return (
     <div className="flex gap-2">

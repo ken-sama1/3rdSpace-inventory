@@ -16,8 +16,8 @@ export const useAssignProductsToCategory = () => {
   >({
     mutationKey: ["categories", "products", "assign"],
     mutationFn: ({ id, data }) => productCategoriesApi.assignProducts(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

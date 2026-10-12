@@ -72,7 +72,7 @@ const Categories = () => {
               <button
                 key={`category-tab-${k}`}
                 type="button"
-                onClick={() => setView(k as typeof view)}
+                onClick={() => { setView(k as typeof view); }}
                 className={`px-5 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors border-b-2 ${
                   view === k
                     ? "border-(--accent)! bg-(--bg-info)"

@@ -6,7 +6,7 @@ import type {
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetInventoryItemCategoriesProps {
+interface UseGetInventoryItemCategoriesParams {
   options?: QueryOptions<GetInventoryItemCategoriesResult>;
   query?: GetInventoryItemCategoriesReqQueryInput;
 }
@@ -14,7 +14,7 @@ interface UseGetInventoryItemCategoriesProps {
 export const useGetInventoryItemCategories = ({
   options,
   query,
-}: UseGetInventoryItemCategoriesProps = {}) => {
+}: UseGetInventoryItemCategoriesParams = {}) => {
   return useQuery<GetInventoryItemCategoriesResult>({
     queryKey: ["categories", "inventory-items", query],
     queryFn: ({ signal }) =>

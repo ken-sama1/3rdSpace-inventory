@@ -190,11 +190,13 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
       {dialog && (
         <Dialog
           isOpen={true}
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
           cancelText="No"
           confirmText="Yes"
           title="Create Item?"
-          onConfirm={handleSave}
+          onConfirm={() => void handleSave()}
         >
           <AlertBanner
             message="This will save the new item to your inventory immediately."

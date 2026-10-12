@@ -1,6 +1,6 @@
 import type { InventoryItemUnitSchema } from "@repo/shared";
 import { Check, Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const defaults: Record<InventoryItemUnitSchema, { low: number; in: number }> = {
   G: { low: 1, in: 500 },
@@ -16,19 +16,17 @@ const GeneralSettings = () => {
   const [theme, setTheme] = useState<"dark" | "light">(
     localStorage.getItem("theme") === "light" ? "light" : "dark"
   );
-  const [thresholds, setThresholds] = useState(defaults);
-
-  useEffect(() => {
-    const saved = Object.fromEntries(
+  const [thresholds, setThresholds] = useState({
+    ...defaults,
+    ...Object.fromEntries(
       units.flatMap((unit) => {
         const value = localStorage.getItem(unit);
         return value
           ? [[unit, JSON.parse(value) as { low: number; in: number }]]
           : [];
       })
-    ) as Partial<typeof defaults>;
-    setThresholds({ ...defaults, ...saved });
-  }, []);
+    ),
+  });
 
   const setThemePreference = (nextTheme: "dark" | "light") => {
     setTheme(nextTheme);
@@ -76,15 +74,15 @@ const GeneralSettings = () => {
                   min="0"
                   step="any"
                   value={thresholds[unit].low}
-                  onChange={(event) =>
+                  onChange={(event) => {
                     setThresholds((current) => ({
                       ...current,
                       [unit]: {
                         ...current[unit],
                         low: Number(event.target.value),
                       },
-                    }))
-                  }
+                    }));
+                  }}
                   className="col-span-4 h-8! w-full rounded-md!"
                 />
                 <input
@@ -92,20 +90,22 @@ const GeneralSettings = () => {
                   min="0"
                   step="any"
                   value={thresholds[unit].in}
-                  onChange={(event) =>
+                  onChange={(event) => {
                     setThresholds((current) => ({
                       ...current,
                       [unit]: {
                         ...current[unit],
                         in: Number(event.target.value),
                       },
-                    }))
-                  }
+                    }));
+                  }}
                   className="col-span-4 h-8! w-full rounded-md!"
                 />
                 <button
                   title={`Save ${unit} threshold`}
-                  onClick={() => saveThreshold(unit)}
+                  onClick={() => {
+                    saveThreshold(unit);
+                  }}
                   className="col-span-1 flex justify-center text-(--text-success)"
                 >
                   <Check className="size-4" />
@@ -123,14 +123,18 @@ const GeneralSettings = () => {
         </p>
         <div className="mt-4 grid grid-cols-2 gap-2">
           <button
-            onClick={() => setThemePreference("dark")}
+            onClick={() => {
+              setThemePreference("dark");
+            }}
             className={`flex flex-col items-center gap-2 rounded-md border p-3 text-xs! ${theme === "dark" ? "status-info" : "border-(--line)"}`}
           >
             <Moon className="size-5" />
             Dark
           </button>
           <button
-            onClick={() => setThemePreference("light")}
+            onClick={() => {
+              setThemePreference("light");
+            }}
             className={`flex flex-col items-center gap-2 rounded-md border p-3 text-xs! ${theme === "light" ? "status-info" : "border-(--line)"}`}
           >
             <Sun className="size-5" />

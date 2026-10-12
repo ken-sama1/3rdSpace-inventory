@@ -18,8 +18,8 @@ const ProductStatusBadge: FC<ProductStatusBadgeProps> = ({
 
   return (
     <div className={`${variant} border rounded-md text-sm!`}>
-      {maxServings <= 0 && `Missing Items (${missingItems})`}
-      {maxServings >= 1 && `Max Servings (${maxServings})`}
+      {maxServings <= 0 && `Missing Items (${String(missingItems)})`}
+      {maxServings >= 1 && `Max Servings (${String(maxServings)})`}
     </div>
   );
 };

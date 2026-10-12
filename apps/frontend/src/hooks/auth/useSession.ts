@@ -35,7 +35,8 @@ export const useSession = () => {
     const processQueue = ({ error, token }: ProcessQueueArgs) => {
       failedRequestsRef.current.forEach((failedRequest) => {
         if (error) {
-          return failedRequest.reject(error);
+          failedRequest.reject(error);
+          return;
         }
         failedRequest.resolve(token);
       });
@@ -52,7 +53,10 @@ export const useSession = () => {
 
         return config;
       },
-      (err) => Promise.reject(err)
+      async (err: unknown) => {
+        if (err instanceof Error) return await Promise.reject(err);
+        return await Promise.reject(new Error("Something went wrong"));
+      }
     );
 
     const responseInterceptor = api.interceptors.response.use(
@@ -73,7 +77,6 @@ export const useSession = () => {
           return new Promise<string>((resolve, reject) => {
             failedRequestsRef.current.push({ resolve, reject });
           }).then((token) => {
-            originalReq.headers = originalReq.headers ?? {};
             originalReq.headers.Authorization = `Bearer ${token}`;
 
             return api(originalReq);
@@ -86,14 +89,13 @@ export const useSession = () => {
         try {
           const { accessToken } = await refresh();
 
-          originalReq.headers = originalReq.headers ?? {};
           originalReq.headers.Authorization = `Bearer ${accessToken}`;
 
           tokenRef.current = accessToken;
           setToken(accessToken);
           processQueue({ error: null, token: accessToken });
-          return api(originalReq);
-        } catch (refreshErr) {
+          return await api(originalReq);
+        } catch (refreshErr: unknown) {
           processQueue({ error: refreshErr as Error, token: null });
 
           try {
@@ -109,7 +111,10 @@ export const useSession = () => {
             setToken(null);
           }
 
-          return Promise.reject(refreshErr);
+          if (refreshErr instanceof Error)
+            return await Promise.reject(refreshErr);
+
+          return await Promise.reject(new Error("Something went wrong"));
         } finally {
           isRefreshingRef.current = false;
         }
@@ -120,5 +125,5 @@ export const useSession = () => {
       api.interceptors.request.eject(requestInterceptor);
       api.interceptors.response.eject(responseInterceptor);
     };
-  }, [setToken]);
+  }, [setToken, clearAuth, logout, refresh]);
 };

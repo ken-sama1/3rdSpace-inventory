@@ -15,8 +15,8 @@ export const useCreateProductCategory = () => {
   >({
     mutationKey: ["categories", "products", "create"],
     mutationFn: productCategoriesApi.create,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

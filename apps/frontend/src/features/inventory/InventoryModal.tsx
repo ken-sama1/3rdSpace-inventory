@@ -1,9 +1,9 @@
 import Modal from "@/components/ui/Modal";
+import { useGetInventoryItemById } from "@/hooks/inventory-items/useGetInventoryItemById";
+import type { IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";
 import UpdateStockForm from "./UpdateStockForm";
-import { useGetInventoryItemById } from "@/hooks/inventory/useGetInventoryItemById";
-import type { IdSchema } from "@repo/shared";
 
 interface InventoryModalProps {
   isOpen: boolean;
@@ -18,19 +18,17 @@ const InventoryModal: FC<InventoryModalProps> = ({
 }) => {
   const [view, setView] = useState<"stock" | "edit">("stock");
 
-  const { data: item, isLoading } = useGetInventoryItemById({ itemId });
+  const { data: item } = useGetInventoryItemById({ itemId });
 
   if (!item) return <></>;
 
   return (
-    <Modal
-      title={!isLoading ? (item?.name ?? "Error") : "Loading..."}
-      isOpen={isOpen}
-      onClose={onClose}
-    >
+    <Modal title={item.name} isOpen={isOpen} onClose={onClose}>
       <div className="w-lg">
         <EditItemForm
-          onCancel={() => setView("stock")}
+          onCancel={() => {
+            setView("stock");
+          }}
           onSave={onClose}
           item={item}
           isActive={view === "edit"}
@@ -39,7 +37,9 @@ const InventoryModal: FC<InventoryModalProps> = ({
         <UpdateStockForm
           isActive={view === "stock"}
           itemId={itemId}
-          onEdit={() => setView("edit")}
+          onEdit={() => {
+            setView("edit");
+          }}
           onSave={() => {
             if (onClose) onClose();
           }}

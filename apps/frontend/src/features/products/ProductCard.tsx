@@ -76,7 +76,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <span
               className={`absolute top-2 right-2 rounded-full px-2 py-0.5 text-[10px]! font-semibold! tracking-wide backdrop-blur-md ${statusMap[status].class}`}
             >
-              {statusMap[status].label ?? ""}
+              {statusMap[status].label}
             </span>
           </div>
 

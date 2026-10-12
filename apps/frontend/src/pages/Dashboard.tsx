@@ -2,7 +2,7 @@ import DashboardKpiCard from "@/features/dashboard/DashboardKpiCard";
 import InventoryStatusCard from "@/features/dashboard/InventoryStatusCard";
 import ProductAvailability from "@/features/dashboard/ProductAvailability";
 
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
 import { useGetProducts } from "@/hooks/products/useGetProducts";
 import { useStockConfig } from "@/hooks/useStockConfig";
 

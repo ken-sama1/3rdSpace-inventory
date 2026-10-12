@@ -15,15 +15,18 @@ interface SelectCategoryProps {
   initialValue?: IdSchema | null;
 }
 
+const fetchCategory = {
+  item: useGetInventoryItemCategories,
+  product: useGetProductCategories,
+} as const;
+
 const SelectCategory: FC<SelectCategoryProps> = ({
   onChange,
   type,
   initialValue = null,
 }) => {
-  const { data: categories } =
-    type === "item"
-      ? useGetInventoryItemCategories()
-      : useGetProductCategories();
+  const { data: categories } = fetchCategory[type]();
+
   const [selectedCategory, setSelectedCategory] =
     useState<SelectCategorySelectedCategory | null>(
       initialValue

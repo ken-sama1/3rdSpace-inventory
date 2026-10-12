@@ -1,10 +1,10 @@
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
-import type { IdSchema } from "@repo/shared";
-import { useEffect, useState, type FC } from "react";
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
+import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
+import type { IdSchema } from "@repo/shared";
 import { X } from "lucide-react";
+import { useState, type FC } from "react";
 
 export interface SelectInventoryItemsSelectedItem {
   id: IdSchema;
@@ -29,15 +29,8 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
   const { data: items } = useGetInventoryItems();
 
   const [dialog, setDialog] = useState<DialogProps | null>(null);
-  const [selectedItems, setSelectedItems] = useState<
-    SelectInventoryItemsSelectedItem[]
-  >([]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    setSelectedItems(initialSelectedItems);
-  }, [isOpen, initialSelectedItems]);
+  const [selectedItems, setSelectedItems] =
+    useState<SelectInventoryItemsSelectedItem[]>(initialSelectedItems);
 
   if (!items) return;
 
@@ -106,7 +99,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                   if (hasCategory) {
                     setDialog({
                       isOpen: true,
-                      title: `${item.name}`,
+                      title: item.name,
                       onConfirm: () => {
                         setDialog(null);
                         setSelectedItems((prev) => [
@@ -121,7 +114,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                         <div className="max-w-sm">
                           <AlertBanner
                             variant="info"
-                            message={`${item.name} is already in category "${item.category?.name}" do you want to move it to this category?`}
+                            message={`${item.name} is already in category "${item.category?.name ?? "name"}" do you want to move it to this category?`}
                           />
                         </div>
                       ),
@@ -176,7 +169,9 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
             cancelText="No"
             confirmText="Yes"
             onConfirm={dialog.onConfirm}
-            onClose={() => setDialog(null)}
+            onClose={() => {
+              setDialog(null);
+            }}
           >
             {dialog.children}
           </Dialog>

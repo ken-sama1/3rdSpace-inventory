@@ -44,7 +44,7 @@ const Toast: FC<ToastProps> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose, duration]);
 
   return createPortal(
     <AnimatePresence>

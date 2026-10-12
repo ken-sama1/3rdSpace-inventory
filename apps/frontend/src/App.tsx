@@ -27,7 +27,7 @@ const AppContent = () => {
           <Route index element={<Navigate to="/dashboard" />} />
           <Route path="*" element={<NotFound />} />
           {navRoutes.map((route) => {
-            if (!route.roles || route.roles?.includes(user?.role ?? "STAFF"))
+            if (!route.roles || route.roles.includes(user?.role ?? "STAFF"))
               return (
                 <Route
                   key={route.path}

@@ -1,10 +1,49 @@
 import z from "zod";
-import type { UserDto } from "./types.js";
 import type { ResponseBody } from "../Response.js";
+import type { UserDto } from "./types.js";
+import { baseOptionsSchema } from "../common/options-schema.js";
+import { idSchema } from "../common/schema.js";
 
+export const userSortBySchema = z.enum(["username", "role", "createdAt"]);
 // --- User Role ---
 export const userRoleSchema = z.enum(["ADMIN", "STAFF", "MANAGER"]);
 export type UserRoleSchema = z.infer<typeof userRoleSchema>;
+
+// --- Filter ---
+// Placeholder for now
+export const userFilterSchema = z
+  .object({
+    role: userRoleSchema,
+    username: z.string(),
+    userId: idSchema,
+  })
+  .partial();
+export type UserFilterSchema = z.infer<typeof userFilterSchema>;
+export type UserFilterInput = z.input<typeof userFilterSchema>;
+
+// --- Options ---
+// Placeholder for now
+export const userOptionsSchema = z
+  .object({
+    lastUserId: z.string(),
+    sortBy: userSortBySchema,
+  })
+  .partial()
+  .extend(baseOptionsSchema.shape);
+export type UserOptionsSchema = z.infer<typeof userOptionsSchema>;
+export type UserOptionsInput = z.input<typeof userOptionsSchema>;
+
+// --- Get Users ---
+export const getUsersReqQuerySchema = z
+  .object({
+    filter: userFilterSchema,
+    options: userOptionsSchema,
+  })
+  .partial();
+export type GetUserReqQuerySchema = z.infer<typeof getUsersReqQuerySchema>;
+export type GetUserReqQueryInput = z.input<typeof getUsersReqQuerySchema>;
+export type GetUsersResult = UserDto[];
+export type GetUsersResBody = ResponseBody<GetUsersResult>;
 
 // --- Get By Id ---
 export type GetUserByIdResult = UserDto;

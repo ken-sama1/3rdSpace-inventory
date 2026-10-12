@@ -11,6 +11,12 @@ interface CreateCategoryModalProps {
   isOpen: boolean;
   onClose?: () => void;
 }
+
+const createCategory = {
+  item: useCreateInventoryItemCategory,
+  product: useCreateProductCategory,
+};
+
 const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
   isOpen,
   onClose,
@@ -20,19 +26,15 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
   const [categoryOf, setCategoryOf] = useState<CategoryTypeEnum>("item");
   const [showDialog, setShowDialog] = useState(false);
 
-  const { create } =
-    categoryOf === "item"
-      ? useCreateInventoryItemCategory()
-      : useCreateProductCategory();
+  const { create } = createCategory[categoryOf]();
 
   return (
     <Modal title="Create Category" onClose={onClose} isOpen={isOpen}>
       <div className="w-lg">
         <form
           ref={formRef}
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault();
-
             setShowDialog(true);
           }}
           className="relative w-full h-full flex flex-col gap-5"
@@ -99,31 +101,35 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
         confirmText="Yes"
         title="Create Category?"
         isOpen={showDialog}
-        onClose={() => setShowDialog(false)}
-        onConfirm={async () => {
-          try {
-            if (!formRef.current) throw new Error("No form reference found");
+        onClose={() => {
+          setShowDialog(false);
+        }}
+        onConfirm={() => {
+          void (async () => {
+            try {
+              if (!formRef.current) throw new Error("No form reference found");
 
-            const formData = new FormData(formRef.current);
-            const name = formData.get("category-name") as string;
+              const formData = new FormData(formRef.current);
+              const name = formData.get("category-name") as string;
 
-            await create({ name });
-            setShowDialog(false);
-            showToast({
-              message: `${categoryOf === "product" ? "Product" : "Inventory item"} category created`,
-              forceToTop: true,
-              variant: "success",
-            });
-            formRef.current.reset();
-          } catch (error) {
-            setShowDialog(false);
-            showToast({
-              message: "Something went wrong!",
-              forceToTop: true,
-              variant: "danger",
-            });
-            console.error(error);
-          }
+              await create({ name });
+              setShowDialog(false);
+              showToast({
+                message: `${categoryOf === "product" ? "Product" : "Inventory item"} category created`,
+                forceToTop: true,
+                variant: "success",
+              });
+              formRef.current.reset();
+            } catch (error) {
+              setShowDialog(false);
+              showToast({
+                message: "Something went wrong!",
+                forceToTop: true,
+                variant: "danger",
+              });
+              console.error(error);
+            }
+          })();
         }}
       >
         <AlertBanner

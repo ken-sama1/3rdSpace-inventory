@@ -3,7 +3,7 @@ import type { GetProductCategoryByIdResult, IdSchema } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetProductCategoryByIdProps {
+interface UseGetProductCategoryByIdParams {
   categoryId: IdSchema;
   options?: QueryOptions<GetProductCategoryByIdResult>;
 }
@@ -11,7 +11,7 @@ interface UseGetProductCategoryByIdProps {
 export const useGetProductCategoryById = ({
   categoryId,
   options,
-}: UseGetProductCategoryByIdProps) => {
+}: UseGetProductCategoryByIdParams) => {
   return useQuery<GetProductCategoryByIdResult>({
     queryKey: ["categories", "products", categoryId],
     queryFn: ({ signal }) =>

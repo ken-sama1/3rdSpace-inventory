@@ -1,4 +1,4 @@
-import { list } from "./list.controller.js";
+import { list } from "./list.service.js";
 
 export const inventoryLogsService = {
   list,

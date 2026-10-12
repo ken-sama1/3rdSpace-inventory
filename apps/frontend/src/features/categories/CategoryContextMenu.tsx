@@ -61,26 +61,29 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
         </div>
       ),
       confirmText: "Set",
-      onConfirm: async () => {
-        try {
-          if (!newName) throw new Error("Invalid Name");
+      onConfirm: () => {
+        void (async () => {
+          try {
+            if (!newName) throw new Error("Invalid Name");
 
-          await category.update({
-            id: categoryId,
-            data: { name: newName },
-          });
-          setDialog(null);
-          showToast({
-            message: `Renamed ${name} to ${newName}`,
-            variant: "success",
-          });
-        } catch (error: any) {
-          showToast({
-            message: error.message as string,
-            forceToTop: true,
-            variant: "danger",
-          });
-        }
+            await category.update({
+              id: categoryId,
+              data: { name: newName },
+            });
+            setDialog(null);
+            showToast({
+              message: `Renamed ${name} to ${newName}`,
+              variant: "success",
+            });
+          } catch (error: unknown) {
+            console.log(error);
+            showToast({
+              message: "Something went wrong",
+              forceToTop: true,
+              variant: "danger",
+            });
+          }
+        })();
       },
     });
   };
@@ -98,22 +101,24 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
       variant: "danger",
       confirmText: "Yes",
       cancelText: "No",
-      onConfirm: async () => {
-        try {
-          await category.delete(categoryId);
-          setDialog(null);
-          showToast({
-            message: `Category ${name} successfully deleted`,
-            variant: "success",
-          });
-        } catch (error: any) {
-          console.error(error);
-          setDialog(null);
-          showToast({
-            message: error.message as string,
-            variant: "danger",
-          });
-        }
+      onConfirm: () => {
+        void (async () => {
+          try {
+            await category.delete(categoryId);
+            setDialog(null);
+            showToast({
+              message: `Category ${name} successfully deleted`,
+              variant: "success",
+            });
+          } catch (error: unknown) {
+            console.error(error);
+            setDialog(null);
+            showToast({
+              message: "Something went wrong",
+              variant: "danger",
+            });
+          }
+        })();
       },
     });
   };
@@ -134,7 +139,9 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
       <div className="absolute z-2 top-0 right-12 size-fit">
         <Collapsible
           refs={[buttonRef]}
-          onClose={() => setShowMenu(false)}
+          onClose={() => {
+            setShowMenu(false);
+          }}
           isOpen={showMenu}
         >
           <div className="w-30 grid relative">
@@ -160,7 +167,9 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
 
       {dialog && (
         <Dialog
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
           {...{ ...dialog }}
           isOpen={dialog.isOpen}
         >

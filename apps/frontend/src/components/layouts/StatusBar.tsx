@@ -1,4 +1,4 @@
-import { useGetInventoryItems } from "@/hooks/inventory/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
 import { useStockConfig } from "@/hooks/useStockConfig";
 import {
   AlertTriangle,
@@ -10,7 +10,7 @@ import { useMemo } from "react";
 
 const StatusBar = () => {
   const { getStatus } = useStockConfig();
-  const { data, isLoading } = useGetInventoryItems();
+  const { data } = useGetInventoryItems();
 
   const {
     lowStockCount = 0,
@@ -25,11 +25,11 @@ const StatusBar = () => {
     const noStock = data.filter((v) => getStatus(v.quantity, v.unit) === "out");
 
     return {
-      lowStockCount: lowStock.length ?? 0,
-      noStockCount: noStock.length ?? 0,
+      lowStockCount: lowStock.length,
+      noStockCount: noStock.length,
       inStockCount: data.length - (noStock.length + lowStock.length),
     };
-  }, [data?.length, isLoading]);
+  }, [data, getStatus]);
 
   return (
     // Footer Container
@@ -46,9 +46,7 @@ const StatusBar = () => {
           <div className="h-full w-auto flex items-center justify-center gap-1">
             <Boxes className="stroke-1 h-full" />
             <span className="text-xs! flex items-center">Total Items:</span>
-            <strong className="text-xs! font-bold">
-              {data?.length ?? "loading..."}
-            </strong>
+            <strong className="text-xs! font-bold">{data?.length}</strong>
           </div>
           {/* Total Items End */}
         </div>
@@ -67,7 +65,7 @@ const StatusBar = () => {
               Low Stock:
             </span>
             <strong className="text-xs! font-bold text-inherit!">
-              {lowStockCount ?? "loading..."}
+              {lowStockCount}
             </strong>
           </div>
           {/* Low Stock End */}
@@ -82,7 +80,7 @@ const StatusBar = () => {
               Out of Stock:
             </span>
             <strong className="text-xs! font-bold text-inherit!">
-              {noStockCount ?? "loading..."}
+              {noStockCount}
             </strong>
           </div>
           {/* Out of Stock End */}

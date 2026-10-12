@@ -1,5 +1,5 @@
 import { inventoryItemUnits, type InventoryItemUnitSchema } from "@repo/shared";
-import { useEffect, useState, type FC } from "react";
+import { useState, type FC } from "react";
 
 interface SelectInventoryItemUnitsProps {
   onChange?: (selectedUnits: InventoryItemUnitSchema[]) => void;
@@ -13,32 +13,37 @@ const SelectInventoryItemUnits: FC<SelectInventoryItemUnitsProps> = ({
   const [selectedUnits, setSelectedUnits] =
     useState<InventoryItemUnitSchema[]>(initialSelectedUnits);
 
-  useEffect(() => {
+  const handleUnitClick = (unit: InventoryItemUnitSchema) => {
+    const nextUnits = selectedUnits.includes(unit)
+      ? selectedUnits.filter((v) => v !== unit)
+      : [...selectedUnits, unit];
+
     const isSelectedAll = inventoryItemUnits.every((v) =>
-      selectedUnits.includes(v)
+      nextUnits.includes(v)
     );
 
-    if (isSelectedAll) setSelectedUnits([]);
+    const finalUnits = isSelectedAll ? [] : nextUnits;
 
-    if (onChange) onChange(selectedUnits);
-  }, [selectedUnits, onChange]);
+    setSelectedUnits(finalUnits);
+    onChange?.(finalUnits);
+  };
 
   return (
-    <div className="size-full  grid">
+    <div className="size-full grid">
       <div className="flex flex-wrap justify-start gap-2">
         {inventoryItemUnits.map((unit) => {
           const isSelected = selectedUnits.includes(unit);
 
           return (
             <button
-              onClick={() => {
-                isSelected
-                  ? setSelectedUnits((prev) => prev.filter((v) => v !== unit))
-                  : setSelectedUnits((prev) => [...prev, unit]);
-              }}
-              type="button"
               key={unit}
-              className={`py-1! px-2.5! text-xs! button-outlined ${isSelected && "status-info"}`}
+              type="button"
+              onClick={() => {
+                handleUnitClick(unit);
+              }}
+              className={`py-1! px-2.5! text-xs! button-outlined ${
+                isSelected ? "status-info" : ""
+              }`}
             >
               {unit}
             </button>

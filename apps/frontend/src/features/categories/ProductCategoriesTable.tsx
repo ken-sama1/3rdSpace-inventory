@@ -66,7 +66,7 @@ const ProductCategoriesTable: FC<ProductCategoriesTableProps> = ({
         <CategoryModal
           type="product"
           isOpen={showProductModal}
-          onClose={() => setShowProductModal(false)}
+          onClose={() => { setShowProductModal(false); }}
           categoryId={category.id}
         />
       )}

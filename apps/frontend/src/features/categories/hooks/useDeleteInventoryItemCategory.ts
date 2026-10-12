@@ -12,8 +12,8 @@ export const useDeleteInventoryItemCategory = () => {
   >({
     mutationKey: ["categories", "inventory-items", "delete"],
     mutationFn: inventoryItemCategoriesApi.delete,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

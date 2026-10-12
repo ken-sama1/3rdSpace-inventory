@@ -20,6 +20,7 @@ export const useCreateProduct = () => {
       price,
       recipeItems,
     }) => {
+      console.log(imageUrl);
       return await productsApi.create({
         categoryId,
         name,
@@ -28,15 +29,15 @@ export const useCreateProduct = () => {
         ...(categoryId && { categoryId }),
         ...(Boolean(price) && { price }),
         ...(description && { description }),
-        ...(imageUrl && imageUrl !== null
+        ...(imageUrl
           ? {
               imageUrl: await cloudinaryApi.upload(imageUrl),
             }
           : { imageUrl: null }),
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

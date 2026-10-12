@@ -28,6 +28,7 @@ export const list = async (
     lastItemId = null,
     sortBy = "quantity",
     order = "asc",
+    limit = null,
   } = options ?? {};
 
   const result = await prisma.inventoryItem.findMany({
@@ -70,6 +71,7 @@ export const list = async (
         id: lastItemId,
       },
     }),
+    ...(limit && { take: limit }),
   });
 
   return result.map(toInventoryItemDto);

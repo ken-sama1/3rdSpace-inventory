@@ -1,7 +1,7 @@
 import type { RefObject } from "react";
 
-export const clickOutside = <T extends RefObject<HTMLElement | null>>(
-  refs: T[],
+export const clickOutside = (
+  refs: RefObject<HTMLElement | null>[],
   callback: () => void
 ) => {
   return (e: PointerEvent) => {

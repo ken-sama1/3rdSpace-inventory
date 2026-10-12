@@ -6,7 +6,7 @@ import type {
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetReportSummaryProps {
+interface UseGetReportSummaryParams {
   query?: GetReportSummaryReqQuerySchema;
   options?: QueryOptions<GetReportSummaryResult>;
 }
@@ -14,7 +14,7 @@ interface UseGetReportSummaryProps {
 export const useGetReportSummary = ({
   query,
   options,
-}: UseGetReportSummaryProps) => {
+}: UseGetReportSummaryParams) => {
   return useQuery({
     queryKey: ["reports", query?.filter],
     queryFn: ({ signal }) => reportsApi.getSummary(query, { signal }),

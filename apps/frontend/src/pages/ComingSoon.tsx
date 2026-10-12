@@ -18,7 +18,7 @@ const ComingSoon = () => {
         </p>
 
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => void navigate("/dashboard")}
           className="mt-6 button-accent"
         >
           Back to Dashboard

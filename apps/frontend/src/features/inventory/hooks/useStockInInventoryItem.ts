@@ -1,4 +1,4 @@
-import { inventoryItemApi } from "@/api/inventory-items.api";
+import { inventoryItemsApi } from "@/api/inventory-items.api";
 import type {
   IdParamSchema,
   StockInInventoryItemInput,
@@ -17,9 +17,9 @@ export const useStockInInventoryItem = () => {
   >({
     mutationKey: ["inventory-items", "stock-in"],
     mutationFn: async ({ id, data }) =>
-      await inventoryItemApi.stockIn(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+      await inventoryItemsApi.stockIn(id, data),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

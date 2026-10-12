@@ -29,9 +29,7 @@ const TopBar = () => {
 
           {/* Obviously its the notifications button */}
           <button
-            onClick={() => {
-              navigate("/settings?tab=notifications");
-            }}
+            onClick={() => void navigate("/settings?tab=notifications")}
             title="notification"
             className="
             nice-hover 
@@ -46,9 +44,7 @@ const TopBar = () => {
 
           {/* The user profile button */}
           <button
-            onClick={() => {
-              navigate("/settings?tab=account");
-            }}
+            onClick={() => void navigate("/settings?tab=account")}
             title="account"
             className="
             nice-hover

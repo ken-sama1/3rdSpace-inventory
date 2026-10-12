@@ -3,21 +3,21 @@ import Collapsible from "@/components/ui/Collapsible";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import type { InventoryItemUnitSchema } from "@repo/shared";
 import { EllipsisVertical } from "lucide-react";
-import { useEffect, useRef, useState, type FC } from "react";
+import { useRef, useState, type FC } from "react";
 
-interface ProduceProductConfig {
+interface DeductStockConfig {
   quantity: number;
 }
 
-interface ProduceProductContextMenuProps {
+interface DeductStockContextMenuProps {
   availableQuantity: number;
   requiredQuantity: number;
   name: string;
   unit: InventoryItemUnitSchema;
-  onChange?: (config: ProduceProductConfig) => void;
+  onChange?: (config: DeductStockConfig) => void;
 }
 
-const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
+const DeductStockContextMenu: FC<DeductStockContextMenuProps> = ({
   availableQuantity,
   requiredQuantity,
   unit,
@@ -27,15 +27,6 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [showContextMenu, setShowContextMenu] = useState<boolean>(false);
   const [dialog, setDialog] = useState<DialogProps | null>(null);
-  const [config, setConfig] = useState<ProduceProductConfig>({
-    quantity: availableQuantity,
-  });
-
-  useEffect(() => {
-    if (onChange) {
-      onChange(config);
-    }
-  }, [config]);
 
   const handleModifyAmount = () => {
     let quantity: number = requiredQuantity;
@@ -44,13 +35,17 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
       isOpen: true,
       title: name,
       onConfirm: () => {
-        setConfig({
-          quantity: quantity,
-        });
+        if (onChange) {
+          onChange({
+            quantity: quantity,
+          });
+        }
         setDialog(null);
       },
 
-      onClose: () => setDialog(null),
+      onClose: () => {
+        setDialog(null);
+      },
       children: (
         <div className="flex flex-col gap-y-3 py-1 w-xs">
           <AlertBanner
@@ -63,6 +58,7 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
               onChange={(e) => {
                 quantity = Number(e.target.value);
               }}
+              max={availableQuantity}
               placeholder="Set Quantity: "
               type="number"
               className="w-4/5! text-xs! py-1!"
@@ -92,11 +88,13 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
       >
         <EllipsisVertical stroke="var(--text-muted)" className="size-5" />
       </button>
-      <div className="absolute top-full z-2 w-fit mt-2 right-0">
+      <div className="absolute top-0 z-2 w-fit mt-2 right-full">
         <Collapsible
           refs={[buttonRef]}
           isOpen={showContextMenu}
-          onClose={() => setShowContextMenu(false)}
+          onClose={() => {
+            setShowContextMenu(false);
+          }}
         >
           <div className="w-30 grid relative">
             <button
@@ -114,4 +112,4 @@ const ProduceProductContextMenu: FC<ProduceProductContextMenuProps> = ({
   );
 };
 
-export default ProduceProductContextMenu;
+export default DeductStockContextMenu;

@@ -15,7 +15,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 
 const SalesOverview: FC<SalesOverviewProps> = ({ salesByDay, topProducts }) => {
   const chartMax = useMemo(
-    () => Math.max(...(salesByDay.map((item) => item.totalSales) ?? [1]), 1),
+    () => Math.max(...salesByDay.map((item) => item.totalSales), 1),
     [salesByDay]
   );
 
@@ -32,7 +32,6 @@ const SalesOverview: FC<SalesOverviewProps> = ({ salesByDay, topProducts }) => {
         {salesByDay.length ? (
           <div className="flex h-56 items-end gap-2 overflow-x-auto pb-6">
             {salesByDay.map((day) => {
-              console.log(day.date);
               return (
                 <div
                   key={day.date}
@@ -42,10 +41,10 @@ const SalesOverview: FC<SalesOverviewProps> = ({ salesByDay, topProducts }) => {
                     {formatCurrency(day.totalSales)}
                   </span>
                   <div
-                    title={`${day.transactions} transaction${day.transactions === 1 ? "" : "s"}`}
+                    title={`${String(day.transactions)} transaction${day.transactions === 1 ? "" : "s"}`}
                     className="w-full min-w-6 rounded-t-md bg-(--accent) transition-all hover:bg-(--text-info)"
                     style={{
-                      height: `${Math.max((day.totalSales / chartMax) * 100, 4)}%`,
+                      height: `${String(Math.max((day.totalSales / chartMax) * 100, 4))}%`,
                     }}
                   />
                   <span className="whitespace-nowrap text-[10px]! text-(--text-muted)!">

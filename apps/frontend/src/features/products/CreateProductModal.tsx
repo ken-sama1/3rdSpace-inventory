@@ -30,6 +30,8 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
 
   const { showToast } = useToast();
 
+  console.log("opened");
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} title="Create Product">
@@ -49,8 +51,10 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
 
             <button
               onClick={() => {
-                if (!formRef.current)
-                  return console.log("No form reference found");
+                if (!formRef.current) {
+                  console.log("No form reference found");
+                  return;
+                }
                 formRef.current.requestSubmit();
               }}
               type="button"
@@ -79,57 +83,61 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
           isOpen={true}
           cancelText="No"
           confirmText="Yes"
-          onConfirm={async () => {
-            if (!formRef.current) throw new Error("Form reference not found");
+          onConfirm={() => {
+            void (async () => {
+              if (!formRef.current) throw new Error("Form reference not found");
 
-            const formData = new FormData(formRef.current);
-            const name = formData.get("product-name") as string;
-            const price = (formData.get("product-price") || null) as
-              number | null;
-            const description = (formData.get("product-description") ||
-              null) as string | null;
-            const image = (formData.get("product-image") || null) as File;
-            const categoryId = formData.get("product-category") as
-              string | undefined;
+              const formData = new FormData(formRef.current);
+              const name = formData.get("product-name") as string;
+              const price = (formData.get("product-price") || null) as
+                number | null;
+              const description = (formData.get("product-description") ||
+                null) as string | null;
+              const image = (formData.get("product-image") || null) as File;
+              const categoryId = formData.get("product-category") as
+                string | undefined;
 
-            console.log(image);
+              console.log(image);
 
-            try {
-              setDialog(null);
+              try {
+                setDialog(null);
 
-              await create({
-                name,
-                recipeItems: requiredItems.map(({ quantity, id }) => {
-                  return {
-                    inventoryItemId: id,
-                    quantity,
-                  };
-                }),
-                price,
-                description,
-                categoryId: categoryId || null,
-                imageUrl: image.name,
-              });
+                await create({
+                  name,
+                  recipeItems: requiredItems.map(({ quantity, id }) => {
+                    return {
+                      inventoryItemId: id,
+                      quantity,
+                    };
+                  }),
+                  price,
+                  description,
+                  categoryId: categoryId || null,
+                  imageUrl: image.name,
+                });
 
-              showToast({
-                variant: "success",
-                message: "Product created succesfully",
-              });
+                showToast({
+                  variant: "success",
+                  message: "Product created succesfully",
+                });
 
-              formRef.current.reset();
-            } catch (error) {
-              setDialog(null);
-              showToast({
-                variant: "danger",
-                message: "Something went wrong!",
-                forceToTop: true,
-              });
-              console.error(error);
-            }
+                formRef.current.reset();
+              } catch (error) {
+                setDialog(null);
+                showToast({
+                  variant: "danger",
+                  message: "Something went wrong!",
+                  forceToTop: true,
+                });
+                console.error(error);
+              }
+            })();
           }}
           title="Create Product?"
           noBackdrop={true}
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
         >
           <AlertBanner
             message="This will be added to products immediately."

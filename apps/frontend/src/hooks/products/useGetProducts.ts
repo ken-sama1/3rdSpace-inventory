@@ -3,7 +3,7 @@ import type { GetProductsReqQueryInput, GetProductsResult } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
 import type { QueryOptions } from "../types/QueryOptions";
 
-interface UseGetProductsProps {
+interface UseGetProductsParams {
   query?: GetProductsReqQueryInput;
   options?: QueryOptions<GetProductsResult>;
 }
@@ -11,7 +11,7 @@ interface UseGetProductsProps {
 export const useGetProducts = ({
   query,
   options,
-}: UseGetProductsProps = {}) => {
+}: UseGetProductsParams = {}) => {
   return useQuery({
     queryKey: ["products", query?.filter, query?.options],
     queryFn: ({ signal }) => productsApi.getMany(query, { signal }),

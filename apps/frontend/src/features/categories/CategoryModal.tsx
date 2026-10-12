@@ -67,46 +67,48 @@ const CategoryModal: FC<CategoryModalProps> = ({
     setDialog({
       isOpen: true,
       variant: "danger",
-      title: `${name}`,
+      title: name,
       children: (
         <AlertBanner
           variant="info"
           message={`${name} will be removed in category "${category.name}" immediately`}
         />
       ),
-      onConfirm: async () => {
-        try {
-          if (type === "item") {
-            await unassignItems({
-              id: category.id,
-              data: {
-                inventoryItemIds: [somethingId],
-              },
+      onConfirm: () => {
+        void (async () => {
+          try {
+            if (type === "item") {
+              await unassignItems({
+                id: category.id,
+                data: {
+                  inventoryItemIds: [somethingId],
+                },
+              });
+            }
+
+            if (type === "product") {
+              await unassignProducts({
+                id: category.id,
+                data: {
+                  productIds: [somethingId],
+                },
+              });
+            }
+
+            setDialog(null);
+            showToast({
+              variant: "success",
+              message: `${name} removed from category ${category.name}`,
+            });
+          } catch (error) {
+            console.error(error);
+            setDialog(null);
+            showToast({
+              message: "Something went wrong!",
+              variant: "danger",
             });
           }
-
-          if (type === "product") {
-            await unassignProducts({
-              id: category.id,
-              data: {
-                productIds: [somethingId],
-              },
-            });
-          }
-
-          setDialog(null);
-          showToast({
-            variant: "success",
-            message: `${name} removed from category ${category.name}`,
-          });
-        } catch (error) {
-          console.error(error);
-          setDialog(null);
-          showToast({
-            message: "Something went wrong!",
-            variant: "danger",
-          });
-        }
+        })();
       },
     });
   };
@@ -152,12 +154,12 @@ const CategoryModal: FC<CategoryModalProps> = ({
 
                     <div className="col-span-2 flex justify-center">
                       <button
-                        onClick={() =>
+                        onClick={() => {
                           handleRemoveSomething({
                             name: d.name,
                             somethingId: d.id,
-                          })
-                        }
+                          });
+                        }}
                         className="button-danger py-1! text-sm!"
                       >
                         Remove
@@ -179,7 +181,9 @@ const CategoryModal: FC<CategoryModalProps> = ({
             </button>
 
             <button
-              onClick={() => setShowSelectSomethingModal(true)}
+              onClick={() => {
+                setShowSelectSomethingModal(true);
+              }}
               type="button"
               className="button-accent py-1!"
             >
@@ -189,74 +193,89 @@ const CategoryModal: FC<CategoryModalProps> = ({
         </div>
       </div>
 
-      {type === "item" && (
-        <SelectInventoryItemsModal
-          hideItemsWithIds={data.map((v) => v.id)}
-          isOpen={showSelectSomethingModal}
-          onSave={async (selectedItems) => {
-            try {
-              if (selectedItems.length <= 0) return;
-              const res = await assignItems({
-                id: categoryId,
-                data: {
-                  inventoryItemIds: selectedItems.map((v) => v.id),
-                },
-              });
+      {showSelectSomethingModal && (
+        <>
+          {type === "item" && (
+            <SelectInventoryItemsModal
+              hideItemsWithIds={data.map((v) => v.id)}
+              isOpen={showSelectSomethingModal}
+              onSave={(selectedItems) => {
+                void (async () => {
+                  try {
+                    if (selectedItems.length <= 0) return;
+                    const res = await assignItems({
+                      id: categoryId,
+                      data: {
+                        inventoryItemIds: selectedItems.map((v) => v.id),
+                      },
+                    });
 
-              setShowSelectSomethingModal(false);
-              showToast({
-                variant: "success",
-                message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
-              });
-            } catch (error) {
-              setShowSelectSomethingModal(false);
-              showToast({
-                message: "Something went wrong!",
-                variant: "danger",
-              });
-            }
-          }}
-          onClose={() => setShowSelectSomethingModal(false)}
-        />
-      )}
+                    setShowSelectSomethingModal(false);
+                    showToast({
+                      variant: "success",
+                      message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
+                    });
+                  } catch (error: unknown) {
+                    console.error(error);
+                    setShowSelectSomethingModal(false);
+                    showToast({
+                      message: "Something went wrong!",
+                      variant: "danger",
+                    });
+                  }
+                })();
+              }}
+              onClose={() => {
+                setShowSelectSomethingModal(false);
+              }}
+            />
+          )}
 
-      {type === "product" && (
-        <SelectProductsModal
-          isOpen={showSelectSomethingModal}
-          hideProductsWithIds={data.map((v) => v.id)}
-          onClose={() => setShowSelectSomethingModal(false)}
-          onSave={async (selectedProducts) => {
-            try {
-              if (selectedProducts.length <= 0) return;
-              const res = await assignProducts({
-                id: categoryId,
-                data: {
-                  productIds: selectedProducts.map((v) => v.id),
-                },
-              });
+          {type === "product" && (
+            <SelectProductsModal
+              isOpen={showSelectSomethingModal}
+              hideProductsWithIds={data.map((v) => v.id)}
+              onClose={() => {
+                setShowSelectSomethingModal(false);
+              }}
+              onSave={(selectedProducts) => {
+                void (async () => {
+                  try {
+                    if (selectedProducts.length <= 0) return;
+                    const res = await assignProducts({
+                      id: categoryId,
+                      data: {
+                        productIds: selectedProducts.map((v) => v.id),
+                      },
+                    });
 
-              setShowSelectSomethingModal(false);
-              showToast({
-                variant: "success",
-                message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
-              });
-            } catch (error) {
-              console.error(error);
-              setShowSelectSomethingModal(false);
-              showToast({
-                message: "Something went wrong!",
-                variant: "danger",
-              });
-            }
-          }}
-        />
+                    setShowSelectSomethingModal(false);
+                    showToast({
+                      variant: "success",
+                      message: `${res.length > 1 ? "Items" : "Item"} successfully assigned to ${category.name}`,
+                    });
+                  } catch (error) {
+                    console.error(error);
+                    setShowSelectSomethingModal(false);
+                    showToast({
+                      message: "Something went wrong!",
+                      variant: "danger",
+                    });
+                  }
+                })();
+              }}
+            />
+          )}
+        </>
       )}
 
       {dialog && (
         <Dialog
           title={dialog.title}
           isOpen={dialog.isOpen}
-          onClose={() => setDialog(null)}
+          onClose={() => {
+            setDialog(null);
+          }}
           onConfirm={dialog.onConfirm}
         >
           <div className="w-sm">{dialog.children}</div>

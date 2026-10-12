@@ -1,43 +1,40 @@
-import { useAuth } from "@/hooks/auth/useAuth";
-import { useUpdateMe } from "./hooks/useUpdateMe";
 import { useToast } from "@/context/ToastContext";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { LogOut, Save, UserRound } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useUpdateMe } from "./hooks/useUpdateMe";
+import { useState } from "react";
 
 const AccountSettings = () => {
   const { user, logout, isLoggingOut } = useAuth();
   const { mutateAsync: updateMe, isPending } = useUpdateMe();
   const { showToast } = useToast();
-  const [username, setUsername] = useState("");
+  const [newUsername, setNewUsername] = useState<string | null>(null);
 
-  useEffect(() => {
-    setUsername(user?.username ?? "");
-  }, [user?.username]);
+  const save = () => {
+    void (async () => {
+      const nextUsername = (newUsername ?? "").trim();
+      if (nextUsername.length < 3) {
+        showToast({
+          variant: "warning",
+          message: "Username must be at least 3 characters",
+        });
+        return;
+      }
 
-  const save = async () => {
-    const nextUsername = username.trim();
-    if (nextUsername.length < 3) {
-      showToast({
-        variant: "warning",
-        message: "Username must be at least 3 characters",
-      });
-      return;
-    }
-
-    try {
-      await updateMe({ username: nextUsername });
-      showToast({
-        variant: "success",
-        message: "Account updated successfully",
-      });
-    } catch {
-      showToast({
-        variant: "danger",
-        message: "Unable to update your account",
-      });
-    }
+      try {
+        await updateMe({ username: nextUsername });
+        showToast({
+          variant: "success",
+          message: "Account updated successfully",
+        });
+      } catch {
+        showToast({
+          variant: "danger",
+          message: "Unable to update your account",
+        });
+      }
+    })();
   };
-
   return (
     <section className="grid w-full max-w-3xl gap-3 lg:grid-cols-[minmax(0,1fr)_240px]">
       <div className="rounded-md w-full border border-(--line) p-4">
@@ -58,8 +55,10 @@ const AccountSettings = () => {
             Username
           </span>
           <input
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            defaultValue={user?.username}
+            onChange={(e) => {
+              setNewUsername(e.target.value);
+            }}
             placeholder="Enter username"
             className="h-9! w-full rounded-md!"
           />

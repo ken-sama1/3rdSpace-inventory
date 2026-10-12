@@ -1,17 +1,17 @@
 import z from "zod";
 import {
-  idSchema,
+  isoDateFilterSchema,
+  numberFilterSchema,
+} from "../common/filter-schema.js";
+import { baseOptionsSchema } from "../common/options-schema.js";
+import {
   idNullableSchema,
+  idSchema,
   stringNullableSchema,
 } from "../common/schema.js";
 import type { DateMetaData } from "../common/types.js";
 import type { ResponseBody } from "../Response.js";
 import type { InventoryItemDto } from "./types.js";
-import {
-  isoDateFilterSchema,
-  numberFilterSchema,
-} from "../common/filter-schema.js";
-import { sortOrderSchema } from "../common/options-schema.js";
 
 export const inventoryItemUnitSchema = z.enum(["G", "ML", "MG", "KG", "PCS"]);
 export type InventoryItemUnitSchema = z.infer<typeof inventoryItemUnitSchema>;
@@ -27,11 +27,13 @@ export type InventoryItemSortBySchema = z.infer<
 >;
 
 // --- Options ---
-export const inventoryItemOptionsSchema = z.object({
-  sortBy: inventoryItemSortBySchema.optional(),
-  order: sortOrderSchema.optional(),
-  lastItemId: idSchema.optional(),
-});
+export const inventoryItemOptionsSchema = z
+  .object({
+    sortBy: inventoryItemSortBySchema,
+    lastItemId: idSchema,
+  })
+  .partial()
+  .extend(baseOptionsSchema.shape);
 export type InventoryItemOptionsSchema = z.infer<
   typeof inventoryItemOptionsSchema
 >;

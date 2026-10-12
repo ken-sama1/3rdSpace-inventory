@@ -1,9 +1,9 @@
 import Modal from "@/components/ui/Modal";
 import { useGetProductById } from "@/hooks/products/useGetProductById";
+import { type IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
+import DeductStock from "./DeductStock";
 import EditProductForm from "./EditProductForm";
-import ProduceProduct from "./ProduceProduct";
-import type { IdSchema } from "@repo/shared";
 
 interface ProductModalProps {
   isOpen: boolean;
@@ -17,12 +17,12 @@ const ProductModal: FC<ProductModalProps> = ({
   productId,
 }) => {
   const { data: product } = useGetProductById({ productId });
-  const [view, setView] = useState<"produce" | "edit">("produce");
+  const [view, setView] = useState<"deduct" | "edit">("deduct");
 
   if (!product) return <></>;
 
   const handleOnClose = () => {
-    setView("produce");
+    setView("deduct");
     if (onClose) {
       onClose();
     }
@@ -32,19 +32,23 @@ const ProductModal: FC<ProductModalProps> = ({
     <>
       <Modal isOpen={isOpen} title={product.name} onClose={handleOnClose}>
         <div className="w-2xl">
-          {view === "produce" && (
-            <ProduceProduct
-              productId={productId}
+          {view === "deduct" && (
+            <DeductStock
+              product={product}
               onClose={handleOnClose}
-              onEdit={() => setView("edit")}
+              onEdit={() => {
+                setView("edit");
+              }}
             />
           )}
 
           {view === "edit" && (
             <EditProductForm
-              onCancel={() => setView("produce")}
+              onCancel={() => {
+                setView("deduct");
+              }}
               productId={productId}
-              onSave={onClose}
+              onSave={handleOnClose}
             />
           )}
         </div>

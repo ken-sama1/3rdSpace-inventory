@@ -17,7 +17,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
 
   return (
     <section className="w-full">
-      {products && products.length > 0 && (
+      {products.length > 0 && (
         <Table
           data={products.map((product) => {
             const { maxServingsCount, missingItemsCount } = getMaxServings(
@@ -87,7 +87,9 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
       {productId && (
         <ProductDetailModal
           isOpen={showModal}
-          onClose={() => setShowModal(false)}
+          onClose={() => {
+            setShowModal(false);
+          }}
           productId={productId}
         />
       )}

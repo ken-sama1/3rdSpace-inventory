@@ -1,7 +1,7 @@
 import z from "zod";
 import type { ResponseBody } from "../Response.js";
 import { numberFilterSchema } from "../common/filter-schema.js";
-import { sortOrderSchema } from "../common/options-schema.js";
+import { baseOptionsSchema } from "../common/options-schema.js";
 import {
   idNullableSchema,
   idSchema,
@@ -25,11 +25,13 @@ export type ProductFilterInput = z.input<typeof productFilterSchema>;
 export type ProductFilterSchema = z.infer<typeof productFilterSchema>;
 
 // --- Options ---
-export const productOptionsSchema = z.object({
-  sortBy: productSortBySchema.optional(),
-  order: sortOrderSchema.optional(),
-  lastProductId: idSchema.optional(),
-});
+export const productOptionsSchema = z
+  .object({
+    sortBy: productSortBySchema,
+    lastProductId: idSchema,
+  })
+  .partial()
+  .extend(baseOptionsSchema.shape);
 export type ProductOptionsSchema = z.infer<typeof productOptionsSchema>;
 export type ProductOptionsInput = z.infer<typeof productOptionsSchema>;
 
