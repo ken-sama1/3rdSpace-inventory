@@ -4,9 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "lint": "pnpm -r exec eslint",
     "apps:dev": "pnpm -F \"./apps/*\" run dev",
     "apps:build": "pnpm -F \"./apps/*\" run build",
     "packages:build": "pnpm -F \"./packages/*\" run build",
+    "build": "pnpm lint && pnpm -r --if-present build",
     "packages:dev": "pnpm -F shared run dev",
     "preview": "pnpm -F \"./apps/*\" preview"
   },

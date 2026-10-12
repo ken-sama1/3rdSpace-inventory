@@ -16,7 +16,6 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
   );
 
   useEffect(() => {
-    console.log(range);
     onChange?.(range);
   }, [range, onChange]);
 
@@ -29,7 +28,10 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
             className="w-full! py-1!"
             type="number"
             onChange={(e) => {
-              if (!e.target.value) { setRange(null); return; }
+              if (!e.target.value) {
+                setRange(null);
+                return;
+              }
               setRange(Number(e.target.value));
             }}
           />
@@ -86,7 +88,8 @@ const SelectNumberRange: FC<SelectNumberRangeProps> = ({
                         ...prev,
                         lte: undefined,
                       });
-                  }); return;
+                  });
+                  return;
                 }
 
                 const value = Number(e.target.value);

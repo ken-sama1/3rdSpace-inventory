@@ -5,7 +5,8 @@ import {
   type ReactNode,
 } from "react";
 
-type TableData = Record<string, unknown>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TableData = Record<string, any>;
 
 export type TableCustomColumn = {
   /** Column Headet */
