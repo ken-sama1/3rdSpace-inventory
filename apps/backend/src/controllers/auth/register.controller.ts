@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { authService } from "../../services/auth/index.js";
 
 export const register = async (
-  req: Request<{}, RegisterResBody, RegisterSchema>,
+  req: Request<object, RegisterResBody, RegisterSchema>,
   res: Response<RegisterResBody>
 ): Promise<void> => {
   const result = await authService.register(req.body);

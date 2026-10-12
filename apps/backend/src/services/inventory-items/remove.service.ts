@@ -45,7 +45,7 @@ export const remove = async (id: IdSchema): Promise<DeleteInventoryResult> => {
 
   return {
     createdAt: createdAt.toISOString(),
-    updatedAt: createdAt.toISOString(),
+    updatedAt: updatedAt.toISOString(),
     ...toInventoryItemDto(rest),
   };
 };

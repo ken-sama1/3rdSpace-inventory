@@ -5,7 +5,7 @@ import { usersService } from "../../services/users/index.js";
 import type { AuthCookies } from "../types/AuthCookies.js";
 
 export const updateMe = async (
-  req: Request<{}, UpdateMeResBody, UpdateMeSchema>,
+  req: Request<object, UpdateMeResBody, UpdateMeSchema>,
   res: Response<UpdateMeResBody>
 ): Promise<void> => {
   const { refreshToken } = req.cookies as AuthCookies;

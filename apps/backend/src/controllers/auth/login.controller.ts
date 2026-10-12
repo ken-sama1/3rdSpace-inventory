@@ -4,7 +4,7 @@ import { authService } from "../../services/auth/index.js";
 import { COOKIE_OPTIONS } from "../../constants.js";
 
 export const login = async (
-  req: Request<{}, LoginResBody, LoginSchema>,
+  req: Request<object, LoginResBody, LoginSchema>,
   res: Response<LoginResBody>
 ): Promise<void> => {
   const { refreshToken, ...result } = await authService.login(req.body);

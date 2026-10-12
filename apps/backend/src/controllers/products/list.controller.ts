@@ -8,7 +8,7 @@ import type { Request, Response } from "express";
 import { productsService } from "../../services/products/index.js";
 
 export const list = async (
-  req: Request<{}, GetProductsResBody, {}, GetProductsReqQuerySchema>,
+  req: Request<object, GetProductsResBody, object, GetProductsReqQuerySchema>,
   res: Response<GetProductsResBody>
 ): Promise<void> => {
   const filter = validateSchema(getProductsReqQuerySchema, req.query);

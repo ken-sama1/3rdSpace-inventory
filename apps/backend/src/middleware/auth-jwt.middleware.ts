@@ -7,7 +7,7 @@ import { API_ERROR_CODE_TO_MESSAGE } from "@repo/shared";
 
 export const authJwt = async (
   req: Request,
-  _: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   const authorization = req.headers.authorization;

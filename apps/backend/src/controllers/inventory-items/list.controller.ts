@@ -9,9 +9,9 @@ import { inventoryItemsService } from "../../services/inventory-items/index.js";
 
 export const list = async (
   req: Request<
-    {},
+    object,
     GetInventoryItemsResBody,
-    {},
+    object,
     GetInventoryItemsReqQuerySchema
   >,
   res: Response<GetInventoryItemsResBody>

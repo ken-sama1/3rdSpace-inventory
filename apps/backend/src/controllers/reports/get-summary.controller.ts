@@ -8,7 +8,12 @@ import type { Request, Response } from "express";
 import { reportsService } from "../../services/reports/index.js";
 
 export const getSummary = async (
-  req: Request<{}, GetReportSummaryResBody, {}, GetReportSummaryReqQuerySchema>,
+  req: Request<
+    object,
+    GetReportSummaryResBody,
+    object,
+    GetReportSummaryReqQuerySchema
+  >,
   res: Response<GetReportSummaryResBody>
 ): Promise<void> => {
   const query = validateSchema(getReportSummaryReqQuerySchema, req.query);

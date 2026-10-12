@@ -4,7 +4,7 @@ import { AppError } from "../errors/AppError.js";
 
 export const requireRole =
   (...roles: UserRoleSchema[]) =>
-  (req: Request, _: Response, next: NextFunction): void => {
+  (req: Request, _res: Response, next: NextFunction): void => {
     if (!req.auth || !roles.includes(req.auth.role)) {
       next(
         new AppError({

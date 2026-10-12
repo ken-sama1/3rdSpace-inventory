@@ -1,13 +1,13 @@
 import { API_ERROR_CODE_TO_STATUS, type ApiErrorCode } from "@repo/shared";
 
-export interface AppErrorOptions<T = any> {
+export interface AppErrorOptions<T = unknown> {
   message: string;
   // statusCode?: number;
   errors?: T[];
   code: ApiErrorCode;
 }
 
-export class AppError<T = any> extends Error {
+export class AppError<T = unknown> extends Error {
   statusCode: number;
   errors: T[];
   code: ApiErrorCode;

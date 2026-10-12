@@ -6,7 +6,7 @@ import type { Request, Response } from "express";
 import { inventoryItemsService } from "../../services/inventory-items/index.js";
 
 export const create = async (
-  req: Request<{}, CreateInventoryItemResBody, CreateInventoryItemSchema>,
+  req: Request<object, CreateInventoryItemResBody, CreateInventoryItemSchema>,
   res: Response<CreateInventoryItemResBody>
 ): Promise<void> => {
   const result = await inventoryItemsService.create(req.body);

@@ -7,10 +7,11 @@ type PartialSomeInternal<T, U extends keyof T> = Partial<Pick<T, U>> &
  * */
 export type PartialSome<T, U extends keyof T> = PartialSomeInternal<T, U>;
 
-type PartialAllInternal<T> = {
-  [K in keyof T]?: T[K] extends Record<string, any>
+type PartialAllInternal<T extends Record<string, unknown>> = {
+  [K in keyof T]?: T[K] extends Record<string, unknown>
     ? PartialAllInternal<T[K]>
     : T[K];
 };
 
-export type PartialAll<T> = PartialAllInternal<T>;
+export type PartialAll<T extends Record<string, unknown>> =
+  PartialAllInternal<T>;

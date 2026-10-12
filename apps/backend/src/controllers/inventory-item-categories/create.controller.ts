@@ -7,7 +7,7 @@ import { inventoryItemCategoriesService } from "../../services/inventory-item-ca
 
 export const create = async (
   req: Request<
-    {},
+    object,
     CreateInventoryItemCategoryResBody,
     CreateInventoryItemCategorySchema
   >,

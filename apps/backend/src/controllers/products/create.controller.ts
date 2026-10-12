@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { productsService } from "../../services/products/index.js";
 
 export const create = async (
-  req: Request<{}, {}, CreateProductSchema>,
+  req: Request<object, object, CreateProductSchema>,
   res: Response<CreateProductResBody>
 ): Promise<void> => {
   const result = await productsService.create(req.body);

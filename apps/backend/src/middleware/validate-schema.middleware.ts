@@ -4,8 +4,8 @@ import { ZodObject, type output } from "zod";
 
 export const validateReqBody = <T extends ZodObject>(schema: T) => {
   return (
-    req: Request<{}, {}, output<T>>,
-    _: Response,
+    req: Request<object, object, output<T>>,
+    _res: Response,
     next: NextFunction
   ): void => {
     try {

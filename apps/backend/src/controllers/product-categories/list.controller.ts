@@ -9,9 +9,9 @@ import { productCategoriesService } from "../../services/product-categories/inde
 
 export const list = async (
   req: Request<
-    {},
+    object,
     GetProductCategoriesResBody,
-    {},
+    object,
     GetProductCategoriesReqQuerySchema
   >,
   res: Response<GetProductCategoriesResBody>

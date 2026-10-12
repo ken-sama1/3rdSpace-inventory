@@ -7,7 +7,7 @@ import type {
 
 export const create = async (
   req: Request<
-    {},
+    object,
     CreateInventoryItemCategoryResBody,
     CreateInventoryItemCategorySchema
   >,

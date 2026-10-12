@@ -43,7 +43,7 @@ export const getSummary = async ({
     string,
     { date: string; totalSales: number; transactions: number }
   >();
-  1;
+
   const products = new Map<
     string,
     { productName: string; unitsSold: number; totalSales: number }

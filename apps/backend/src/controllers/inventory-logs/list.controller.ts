@@ -8,7 +8,12 @@ import type { Request, Response } from "express";
 import { inventoryLogsService } from "../../services/inventory-logs/index.js";
 
 export const list = async (
-  req: Request<{}, GetInventoryLogsResBody, {}, GetInventoryLogsReqQueryInput>,
+  req: Request<
+    object,
+    GetInventoryLogsResBody,
+    object,
+    GetInventoryLogsReqQueryInput
+  >,
   res: Response<GetInventoryLogsResBody>
 ) => {
   const query = validateSchema(getInventoryLogsReqQuerySchema, req.query);

@@ -8,7 +8,7 @@ import type { Request, Response } from "express";
 import { usersService } from "../../services/users/index.js";
 
 export const list = async (
-  req: Request<{}, GetUsersResBody, {}, GetUserReqQueryInput>,
+  req: Request<object, GetUsersResBody, object, GetUserReqQueryInput>,
   res: Response<GetUsersResBody>
 ): Promise<void> => {
   const query = validateSchema(getUsersReqQuerySchema, req.query);

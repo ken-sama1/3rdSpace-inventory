@@ -1,7 +1,7 @@
-import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../errors/AppError.js";
 import { API_ERROR_CODE_TO_MESSAGE, type ResponseError } from "@repo/shared";
+import type { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
+import { AppError } from "../errors/AppError.js";
 
 export const errorHandler = (
   err: Error,

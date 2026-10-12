@@ -5,15 +5,27 @@ import type {
   UserOptionsSchema,
 } from "@repo/shared";
 import { toUserDto } from "../mappers/user.mapper.js";
+import { toStringFilter } from "../mappers/filter.mapper.js";
 
 export const list = async (
   filter: UserFilterSchema = {},
   options: UserOptionsSchema = {}
 ): Promise<GetUsersResult> => {
-  const {} = filter;
+  const { role, username, userId } = filter;
   const { lastUserId = null, order = "asc", sortBy = "username" } = options;
   const users = await prisma.user.findMany({
-    where: {},
+    where: {
+      ...(userId && { id: userId }),
+      ...(username && {
+        username: {
+          ...toStringFilter(username),
+          mode: "insensitive",
+        },
+      }),
+      ...(role && {
+        role,
+      }),
+    },
     orderBy: {
       [sortBy]: order,
     },

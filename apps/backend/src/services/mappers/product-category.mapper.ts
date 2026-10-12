@@ -24,8 +24,25 @@ export const toProductCategoryWithProductsDto = ({
     id,
     name,
     products: products.map((product) => {
-      const { category, ...rest } = toProductDto(product);
-      return { ...rest };
+      const {
+        categoryId,
+        price,
+        description,
+        imageUrl,
+        recipeItems,
+        name,
+        id,
+      } = toProductDto(product);
+
+      return {
+        id,
+        categoryId,
+        name,
+        recipeItems,
+        imageUrl,
+        description,
+        price,
+      };
     }),
   };
 };

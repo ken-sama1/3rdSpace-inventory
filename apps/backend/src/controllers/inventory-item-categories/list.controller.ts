@@ -9,9 +9,9 @@ import { inventoryItemCategoriesService } from "../../services/inventory-item-ca
 
 export const list = async (
   req: Request<
-    {},
+    object,
     GetInventoryItemCategoriesResBody,
-    {},
+    object,
     GetInventoryItemCategoriesReqQuerySchema
   >,
   res: Response<GetInventoryItemCategoriesResBody>

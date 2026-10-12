@@ -10,9 +10,6 @@ export const list = async (
   filter: InventoryLogFilterSchema = {},
   options: InventoryLogOptionsInput = {}
 ): Promise<GetInventoryLogsResult> => {
-  filter;
-  options;
-
   const {
     lastInventoryLogId = null,
     limit = null,
