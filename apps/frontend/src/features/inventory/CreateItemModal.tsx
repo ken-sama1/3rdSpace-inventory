@@ -3,7 +3,7 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
-import { useCreateInventoryItem } from "./hooks/useCreateInventoryItem";
+import { useCreateInventoryItem } from "@/hooks/inventory-items/mutations/useCreateInventoryItem";
 import {
   inventoryItemUnits,
   type IdSchema,

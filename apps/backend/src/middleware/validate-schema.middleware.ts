@@ -1,8 +1,8 @@
 import { validateSchema } from "@repo/shared";
 import type { NextFunction, Request, Response } from "express";
-import { ZodObject, type output } from "zod";
+import { ZodObject, ZodType, type output } from "zod";
 
-export const validateReqBody = <T extends ZodObject>(schema: T) => {
+export const validateReqBody = <T extends ZodType>(schema: T) => {
   return (
     req: Request<object, object, output<T>>,
     _res: Response,

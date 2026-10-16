@@ -100,18 +100,24 @@ export type UpdateProductResBody = ResponseBody<UpdateProductResult>;
 export type DeleteProductResult = ProductDto & DateMetaData;
 export type DeleteProductResBody = ResponseBody<DeleteProductResult>;
 
-// --- Deduct Stock for Product ---
-export const deductStockForProductSchema = z.object({
+// --- Deduct Stock ---
+export const deductStockSchema = z.object({
   quantity: z.coerce.number(),
   recipeItems: z.array(recipeItemSchema),
 });
+export type DeductStockSchema = z.infer<typeof deductStockSchema>;
+export type DeductStockInput = z.input<typeof deductStockSchema>;
+export type DeductStockResult = InventoryItemDto[];
+export type DeductStockResBody = ResponseBody<DeductStockResult>;
 
-export type DeductStockForProductSchema = z.infer<
-  typeof deductStockForProductSchema
->;
-export type DeductStockForProductInput = z.input<
-  typeof deductStockForProductSchema
->;
-export type DeductStockForProductResult = InventoryItemDto[];
-export type DeductStockForProductResBody =
-  ResponseBody<DeductStockForProductResult>;
+// --- Deduct Stocks ---
+export const deductStocksSchema = z.array(
+  z.object({
+    id: idSchema,
+    ...deductStockSchema.shape,
+  })
+);
+export type DeductStocksSchema = z.infer<typeof deductStocksSchema>;
+export type DeductStocksInput = z.input<typeof deductStocksSchema>;
+export type DeductStocksResult = InventoryItemDto[];
+export type DeductStocksResBody = ResponseBody<DeductStocksResult>;

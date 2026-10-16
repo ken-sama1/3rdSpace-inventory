@@ -2,9 +2,9 @@ import type { SelectRecipeItemsSelectedItem } from "./SelectRecipeItemsModal.tsx
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import { useToast } from "@/context/ToastContext";
-import { useDeleteProduct } from "./hooks/useDeleteProduct";
-import { useGetProductById } from "@/hooks/products/useGetProductById";
-import { useUpdateProduct } from "./hooks/useUpdateProduct";
+import { useDeleteProduct } from "@/hooks/products/mutations/useDeleteProduct";
+import { useGetProductById } from "@/hooks/products/queries/useGetProductById";
+import { useUpdateProduct } from "@/hooks/products/mutations/useUpdateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 import type { IdSchema } from "@repo/shared";

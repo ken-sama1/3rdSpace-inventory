@@ -2,9 +2,11 @@ import type {
   CreateProductInput,
   CreateProductResBody,
   CreateProductResult,
-  DeductStockForProductInput,
-  DeductStockForProductResBody,
-  DeductStockForProductResult,
+  DeductStockInput,
+  DeductStockResBody,
+  DeductStockResult,
+  DeductStocksInput,
+  DeductStocksResult,
   DeleteProductResBody,
   DeleteProductResult,
   GetProductByIdResBody,
@@ -79,13 +81,24 @@ const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
   return data.data;
 };
 
-const deductStockForProduct = async (
+const deductStock = async (
   id: IdSchema,
-  { quantity, recipeItems }: DeductStockForProductInput
-): Promise<DeductStockForProductResult> => {
-  const { data } = await api.post<DeductStockForProductResBody>(
+  { quantity, recipeItems }: DeductStockInput
+): Promise<DeductStockResult> => {
+  const { data } = await api.post<DeductStockResBody>(
     `${baseUrl}/${id}/deduct-stock`,
     { quantity, recipeItems }
+  );
+
+  return data.data;
+};
+
+const deductStocks = async (
+  deductions: DeductStocksInput
+): Promise<DeductStocksResult> => {
+  const { data } = await api.post<DeductStockResBody>(
+    `${baseUrl}/deduct-stocks`,
+    deductions
   );
 
   return data.data;
@@ -97,5 +110,6 @@ export const productsApi = {
   getMany,
   update,
   delete: remove,
-  deductStockForProduct,
+  deductStock,
+  deductStocks,
 };

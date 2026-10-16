@@ -1,4 +1,4 @@
-import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory-items/queries/useGetInventoryItems";
 import { useStockConfig } from "@/hooks/useStockConfig";
 import {
   AlertTriangle,

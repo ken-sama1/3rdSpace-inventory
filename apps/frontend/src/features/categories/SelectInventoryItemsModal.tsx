@@ -1,7 +1,7 @@
 import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog, { type DialogProps } from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
-import { useGetInventoryItems } from "@/hooks/inventory-items/useGetInventoryItems";
+import { useGetInventoryItems } from "@/hooks/inventory-items/queries/useGetInventoryItems";
 import type { IdSchema } from "@repo/shared";
 import { X } from "lucide-react";
 import { useState, type FC } from "react";

@@ -1,7 +1,7 @@
 import DashboardKpiCard from "@/features/dashboard/DashboardKpiCard";
-import RecentTransactions from "@/features/reports/RecentTransactions";
 import SalesOverview from "@/features/reports/SalesOverview";
-import { useGetReportSummary } from "@/hooks/reports/useGetReportSummary";
+import TransactionsTable from "@/features/reports/TransactionsTable";
+import { useGetReportSummary } from "@/hooks/reports/queries/useGetReportSummary";
 import { formatCurrency } from "@/utils/format-currency.util";
 import type { ReportPeriodSchema } from "@repo/shared";
 import {
@@ -94,7 +94,7 @@ const Reports = () => {
             topProducts={data.topProducts}
           />
 
-          <RecentTransactions recentTransactions={data.recentTransactions} />
+          <TransactionsTable period={period} />
         </>
       )}
     </main>

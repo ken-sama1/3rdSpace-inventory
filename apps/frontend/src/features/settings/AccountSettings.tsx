@@ -1,7 +1,7 @@
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { LogOut, Save, UserRound } from "lucide-react";
-import { useUpdateMe } from "./hooks/useUpdateMe";
+import { useUpdateMe } from "@/hooks/users/mutations/useUpdateMe";
 import { useState } from "react";
 
 const AccountSettings = () => {

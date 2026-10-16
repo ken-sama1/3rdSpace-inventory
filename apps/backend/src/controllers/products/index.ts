@@ -1,5 +1,6 @@
 import { create } from "./create.controller.js";
-import { deductStockForProduct } from "./deduct-stock-for-product.controller.js";
+import { deductStock } from "./deduct-stock.controller.js";
+import { deductStocks } from "./deduct-stocks.controller.js";
 import { getById } from "./get-by-id.controller.js";
 import { list } from "./list.controller.js";
 import { remove } from "./remove.controller.js";
@@ -10,6 +11,7 @@ export const productsController = {
   list,
   delete: remove,
   update,
-  deductStockForProduct,
+  deductStock,
+  deductStocks,
   getById,
 };

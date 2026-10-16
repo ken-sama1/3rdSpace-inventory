@@ -1,7 +1,7 @@
 import Modal from "@/components/ui/Modal";
-import { useGetInventoryLogs } from "@/hooks/inventory-logs/useGetInventoryLogs";
+import { useGetInventoryLogs } from "@/hooks/inventory-logs/queries/useGetInventoryLogs";
 import { formatCurrency } from "@/utils/format-currency.util";
-import type { IdSchema, Transaction } from "@repo/shared";
+import type { IdSchema, TransactionDto } from "@repo/shared";
 import { PackageMinus } from "lucide-react";
 import type { FC } from "react";
 
@@ -9,7 +9,7 @@ interface TransactionDetailModalProps {
   transactionId: IdSchema;
   isOpen: boolean;
   onClose?: () => void;
-  transaction?: Transaction;
+  transaction?: TransactionDto;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -43,31 +43,45 @@ const TransactionDetailModal: FC<TransactionDetailModalProps> = ({
     <Modal title="Transaction details" isOpen={isOpen} onClose={onClose}>
       <div className="w-2xl max-w-full">
         {transaction && (
-          <section className="mb-5 grid grid-cols-2 gap-3 rounded-md border border-(--line) p-4">
+          <section className="mb-5 max-h-54 overflow-auto grid grid-cols-2 gap-3 rounded-md border border-(--line) p-4">
             <div className="col-span-2 flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <h4 className="truncate text-base!">
-                  {transaction.productName}
-                </h4>
+                <h4 className="text-base!">Transaction items</h4>
                 <p className="mt-1 text-xs! text-(--text-muted)!">
                   {dateFormatter.format(new Date(transaction.createdAt))}
                 </p>
               </div>
               <span className="shrink-0 rounded-full border status-info px-2.5 py-0.5 text-xs font-medium">
-                {transaction.quantity} sold
+                {transaction.transactionItems.reduce(
+                  (total, item) => total + item.quantity,
+                  0
+                )}{" "}
+                sold
               </span>
             </div>
-            <div className="border-t border-(--line) pt-3">
-              <p className="text-xs! text-(--text-muted)!">Unit price</p>
-              <p className="mt-1 text-sm! font-semibold!">
-                {formatCurrency(transaction.unitPrice)}
-              </p>
-            </div>
-            <div className="border-t border-(--line) pt-3 text-right">
-              <p className="text-xs! text-(--text-muted)!">Total</p>
-              <p className="mt-1 text-sm! font-semibold! text-(--heading)!">
-                {formatCurrency(transaction.transactionPrice)}
-              </p>
+            <div className="col-span-2 border-t border-(--line) pt-3">
+              {transaction.transactionItems.map((item, index) => (
+                <div
+                  key={`${item.productName}-${String(index)}`}
+                  className="flex items-center justify-between gap-3 py-1.5 text-sm"
+                >
+                  <span className="min-w-0 truncate">
+                    {item.productName} × {item.quantity}
+                    <span className="ml-2 text-xs! text-(--text-muted)!">
+                      {formatCurrency(item.unitPrice)} each
+                    </span>
+                  </span>
+                  <span className="shrink-0 font-medium!">
+                    {formatCurrency(item.unitPrice * item.quantity)}
+                  </span>
+                </div>
+              ))}
+              <div className="mt-2 flex justify-between border-t border-(--line) pt-3">
+                <p className="text-xs! text-(--text-muted)!">Total</p>
+                <p className="text-sm! font-semibold! text-(--heading)!">
+                  {formatCurrency(transaction.totalPrice)}
+                </p>
+              </div>
             </div>
           </section>
         )}
@@ -96,7 +110,7 @@ const TransactionDetailModal: FC<TransactionDetailModalProps> = ({
               No inventory changes were recorded for this transaction.
             </div>
           ) : (
-            <div className="max-h-64 overflow-auto rounded-md border border-(--line)">
+            <div className="max-h-40 overflow-auto rounded-md border border-(--line)">
               <div className="grid grid-cols-12 gap-3 border-b border-(--line) px-4 py-2 text-xs font-semibold uppercase tracking-wide text-(--text-muted)!">
                 <span className="col-span-7">Inventory item</span>
                 <span className="col-span-5 text-right">Quantity change</span>

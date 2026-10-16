@@ -1,4 +1,4 @@
-import { useGetProducts } from "@/hooks/products/useGetProducts";
+import { useGetProducts } from "@/hooks/products/queries/useGetProducts";
 import type { IdSchema } from "@repo/shared";
 import { X } from "lucide-react";
 import { useState, type FC } from "react";

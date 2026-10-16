@@ -28,14 +28,22 @@ export const getSummary = async ({
         start: start.toISOString(),
       }),
     },
+    include: {
+      transactionItems: true,
+    },
   });
 
   const totalSales = transactions.reduce(
-    (total, transaction) => total + transaction.transactionPrice,
+    (total, transaction) => total + transaction.totalPrice,
     0
   );
   const unitsSold = transactions.reduce(
-    (total, transaction) => total + transaction.quantity,
+    (total, transaction) =>
+      total +
+      transaction.transactionItems.reduce(
+        (itemTotal, item) => itemTotal + item.quantity,
+        0
+      ),
     0
   );
 
@@ -56,18 +64,20 @@ export const getSummary = async ({
       totalSales: 0,
       transactions: 0,
     };
-    day.totalSales += transaction.transactionPrice;
+    day.totalSales += transaction.totalPrice;
     day.transactions += 1;
     salesByDay.set(date, day);
 
-    const product = products.get(transaction.productName) ?? {
-      productName: transaction.productName,
-      unitsSold: 0,
-      totalSales: 0,
-    };
-    product.unitsSold += transaction.quantity;
-    product.totalSales += transaction.transactionPrice;
-    products.set(transaction.productName, product);
+    transaction.transactionItems.forEach((ti) => {
+      const product = products.get(ti.productName) ?? {
+        productName: ti.productName,
+        unitsSold: 0,
+        totalSales: 0,
+      };
+      product.unitsSold += ti.quantity;
+      product.totalSales += ti.unitPrice * ti.quantity;
+      products.set(ti.productName, product);
+    });
   }
 
   return {
@@ -86,13 +96,5 @@ export const getSummary = async ({
     topProducts: [...products.values()]
       .sort((a, b) => b.totalSales - a.totalSales)
       .slice(0, 5),
-    recentTransactions: transactions.slice(0, 20).map((transaction) => ({
-      id: transaction.id,
-      productName: transaction.productName,
-      quantity: transaction.quantity,
-      unitPrice: transaction.unitPrice,
-      transactionPrice: transaction.transactionPrice,
-      createdAt: transaction.createdAt.toISOString(),
-    })),
   };
 };

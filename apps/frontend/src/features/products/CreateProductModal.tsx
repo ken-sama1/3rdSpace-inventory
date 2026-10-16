@@ -5,7 +5,7 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
-import { useCreateProduct } from "./hooks/useCreateProduct";
+import { useCreateProduct } from "@/hooks/products/mutations/useCreateProduct";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 

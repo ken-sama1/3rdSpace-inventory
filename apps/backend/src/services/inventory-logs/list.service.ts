@@ -2,13 +2,13 @@ import { prisma } from "@repo/database";
 import type {
   GetInventoryLogsResult,
   InventoryLogFilterSchema,
-  InventoryLogOptionsInput,
+  InventoryLogOptionsSchema,
 } from "@repo/shared";
 import { toDateFilter, toStringFilter } from "../mappers/filter.mapper.js";
 
 export const list = async (
   filter: InventoryLogFilterSchema = {},
-  options: InventoryLogOptionsInput = {}
+  options: InventoryLogOptionsSchema = {}
 ): Promise<GetInventoryLogsResult> => {
   const {
     lastInventoryLogId = null,
@@ -43,7 +43,9 @@ export const list = async (
       },
     }),
     ...(sortBy && { orderBy: { [sortBy]: order } }),
-    ...(limit && { take: limit }),
+    ...(limit && {
+      take: limit,
+    }),
   });
 
   return result.map((res) => {

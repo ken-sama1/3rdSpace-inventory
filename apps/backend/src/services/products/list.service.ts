@@ -57,11 +57,9 @@ export const list = async ({
       },
       category: true,
     },
-    ...(sortBy && {
-      orderBy: {
-        [sortBy]: order,
-      },
-    }),
+    orderBy: {
+      [sortBy]: order,
+    },
     ...(lastProductId && {
       cursor: {
         id: lastProductId,

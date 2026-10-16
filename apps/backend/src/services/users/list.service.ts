@@ -12,7 +12,12 @@ export const list = async (
   options: UserOptionsSchema = {}
 ): Promise<GetUsersResult> => {
   const { role, username, userId } = filter;
-  const { lastUserId = null, order = "asc", sortBy = "username" } = options;
+  const {
+    lastUserId = null,
+    order = "asc",
+    sortBy = "username",
+    limit = null,
+  } = options;
   const users = await prisma.user.findMany({
     where: {
       ...(userId && { id: userId }),
@@ -34,6 +39,8 @@ export const list = async (
         id: lastUserId,
       },
     }),
+
+    ...(limit && { take: limit }),
   });
 
   return users.map(toUserDto);

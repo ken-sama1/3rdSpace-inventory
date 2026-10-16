@@ -1,5 +1,5 @@
 import type { GetUserReqQueryInput, GetUsersResult } from "@repo/shared";
-import type { QueryOptions } from "../types/QueryOptions";
+import type { QueryOptions } from "@/hooks/types/QueryOptions";
 import { useQuery } from "@tanstack/react-query";
 import { usersApi } from "@/api/users.api";
 

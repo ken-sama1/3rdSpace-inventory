@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/Modal";
-import { useGetInventoryItemById } from "@/hooks/inventory-items/useGetInventoryItemById";
+import { useGetInventoryItemById } from "@/hooks/inventory-items/queries/useGetInventoryItemById";
 import type { IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import EditItemForm from "./EditItemForm";

@@ -2,6 +2,9 @@ import Table from "@/components/ui/Table";
 import { useStockConfig } from "@/hooks/useStockConfig";
 import type { IdSchema, ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
+import ProductionBatch, {
+  type ProductionBatchEntry,
+} from "./ProductionBatch";
 import ProductDetailModal from "./ProductModal";
 import ProductStatusBadge from "./ProductStatusBadge";
 import { formatCurrency } from "@/utils/format-currency.util";
@@ -14,9 +17,11 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
   const { getMaxServings } = useStockConfig();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [productId, setProductId] = useState<IdSchema | null>(null);
+  const [batchEntries, setBatchEntries] = useState<ProductionBatchEntry[]>([]);
 
   return (
     <section className="w-full">
+      <ProductionBatch entries={batchEntries} onChange={setBatchEntries} />
       {products.length > 0 && (
         <Table
           data={products.map((product) => {
@@ -91,6 +96,23 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
             setShowModal(false);
           }}
           productId={productId}
+          onAddToBatch={(product, quantity, recipeItems) => {
+            setBatchEntries((current) => [
+              ...current,
+              {
+                lineId: crypto.randomUUID(),
+                productId: product.id,
+                productName: product.name,
+                quantity: String(quantity),
+                recipeItems: recipeItems.map((item) => ({
+                  inventoryItemId: item.inventoryItemId,
+                  name: item.inventoryItem.name,
+                  unit: item.inventoryItem.unit,
+                  quantity: String(item.quantity),
+                })),
+              },
+            ]);
+          }}
         />
       )}
     </section>

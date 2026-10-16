@@ -1,5 +1,6 @@
 import { create } from "./create.service.js";
-import { deductStockForProduct } from "./deduct-stock-for-product.service.js";
+import { deductStock } from "./deduct-stock.service.js";
+import { deductStocks } from "./deduct-stocks.service.js";
 import { getById } from "./get-by-id.service.js";
 import { list } from "./list.service.js";
 import { remove } from "./remove.service.js";
@@ -11,5 +12,6 @@ export const productsService = {
   delete: remove,
   update,
   getById,
-  deductStockForProduct,
+  deductStock,
+  deductStocks,
 };

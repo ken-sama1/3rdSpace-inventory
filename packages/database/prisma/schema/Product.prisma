@@ -10,7 +10,8 @@ model Product {
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
 
-  // transactions Transaction[]
+  transactionItems TransactionItem[]
+  // transactions     Transaction[]
 
   @@map("products")
 }

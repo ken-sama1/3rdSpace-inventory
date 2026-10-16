@@ -2,8 +2,8 @@ import AlertBanner from "@/components/ui/AlertBanner";
 import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
-import { useCreateInventoryItemCategory } from "./hooks/useCreateInventoryItemCategory";
-import { useCreateProductCategory } from "./hooks/useCreateProductCategory";
+import { useCreateInventoryItemCategory } from "@/hooks/categories/mutations/useCreateInventoryItemCategory";
+import { useCreateProductCategory } from "@/hooks/categories/mutations/useCreateProductCategory";
 import { useRef, useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./constants";
 

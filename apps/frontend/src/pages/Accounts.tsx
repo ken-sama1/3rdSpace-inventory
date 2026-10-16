@@ -1,6 +1,6 @@
 import Collapsible from "@/components/ui/Collapsible";
 import UsersTable from "@/features/users/UsersTable";
-import { useGetUsers } from "@/hooks/users/useGetUsers";
+import { useGetUsers } from "@/hooks/users/queries/useGetUsers";
 import type { UserRoleSchema } from "@repo/shared";
 import { SlidersHorizontal } from "lucide-react";
 import { useRef, useState } from "react";

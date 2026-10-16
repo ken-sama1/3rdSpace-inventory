@@ -4,7 +4,7 @@ import type {
   GetInventoryItemsResult,
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
-import type { QueryOptions } from "../types/QueryOptions";
+import type { QueryOptions } from "@/hooks/types/QueryOptions";
 
 interface UseGetInventoryItemsParams {
   query?: GetInventoryItemsReqQuerySchema;

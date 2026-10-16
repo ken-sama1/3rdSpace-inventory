@@ -12,7 +12,7 @@ import {
 } from "@repo/shared";
 import { isAxiosError } from "axios";
 import { useCallback, useState, type FC } from "react";
-import { useDeductStockForProduct } from "./hooks/useDeductStockForProduct";
+import { useDeductStock } from "@/hooks/products/mutations/useDeductStock";
 
 import DeductStockContextMenu from "./DeductStockContextMenu";
 
@@ -21,11 +21,20 @@ type Product = ProductWithInventoryItemsDto;
 interface DeductStockProps {
   onClose?: () => void;
   onEdit?: () => void;
+  onAddToBatch?: (
+    quantity: number,
+    recipeItems: Product["recipeItems"]
+  ) => void;
   product: Product;
 }
 
-const DeductStock: FC<DeductStockProps> = ({ product, onClose, onEdit }) => {
-  const { isPending, deduct } = useDeductStockForProduct();
+const DeductStock: FC<DeductStockProps> = ({
+  product,
+  onClose,
+  onEdit,
+  onAddToBatch,
+}) => {
+  const { isPending, deduct } = useDeductStock();
   const [productQuantity, setProductQuantity] = useState<number>(0);
   const { getMaxServings } = useStockConfig();
   const [showDialog, setShowDialog] = useState<boolean>(false);
@@ -229,6 +238,19 @@ const DeductStock: FC<DeductStockProps> = ({ product, onClose, onEdit }) => {
             >
               Close
             </button>
+            {onAddToBatch && (
+              <button
+                disabled={isPending || maxServingsCount <= 0}
+                onClick={() => {
+                  onAddToBatch(productQuantity, recipeItems);
+                  handleCloseAll();
+                }}
+                type="button"
+                className="py-1! button-outlined"
+              >
+                Add to batch
+              </button>
+            )}
             <button
               disabled={isPending || maxServingsCount <= 0}
               onClick={() => {

@@ -11,8 +11,8 @@ export const list = async (
   req: Request<object, GetProductsResBody, object, GetProductsReqQuerySchema>,
   res: Response<GetProductsResBody>
 ): Promise<void> => {
-  const filter = validateSchema(getProductsReqQuerySchema, req.query);
-  const result = await productsService.list(filter);
+  const query = validateSchema(getProductsReqQuerySchema, req.query);
+  const result = await productsService.list(query);
 
   res.status(200).json({
     message: "success",

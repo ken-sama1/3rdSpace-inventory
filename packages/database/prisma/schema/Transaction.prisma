@@ -1,12 +1,14 @@
 model Transaction {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
   // productId        String   @db.ObjectId
   // product          Product  @relation(fields: [productId], references: [id])
-  productName      String
-  quantity         Int
-  unitPrice        Float
-  transactionPrice Float
-  createdAt        DateTime @default(now())
+  // productName      String
+  // quantity         Int
+  // unitPrice        Float
+  // transactionPrice Float
+  totalPrice       Float
+  transactionItems TransactionItem[]
+  createdAt        DateTime          @default(now())
 
   @@map("transactions")
 }

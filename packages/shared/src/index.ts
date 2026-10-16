@@ -21,6 +21,8 @@ export * from "./products/schema.js";
 export * from "./products/types.js";
 export * from "./reports/schema.js";
 export * from "./reports/types.js";
+export * from "./transactions/schema.js";
+export * from "./transactions/types.js";
 export * from "./types/Partial.js";
 export * from "./users/schema.js";
 export * from "./users/types.js";

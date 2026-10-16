@@ -1,16 +1,16 @@
 import { prisma, type InventoryItem, type Prisma } from "@repo/database";
 import type {
-  DeductStockForProductResult,
-  DeductStockForProductSchema,
+  DeductStockResult,
+  DeductStockSchema,
   IdSchema,
 } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
 import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 
-export const deductStockForProduct = async (
+export const deductStock = async (
   id: IdSchema,
-  { quantity: productQuantity, recipeItems }: DeductStockForProductSchema
-): Promise<DeductStockForProductResult> => {
+  { quantity: productQuantity, recipeItems }: DeductStockSchema
+): Promise<DeductStockResult> => {
   const product = await prisma.product.findUnique({
     where: {
       id,
@@ -66,10 +66,16 @@ export const deductStockForProduct = async (
   const updatedItems = await prisma.$transaction(async (tx) => {
     const record = await tx.transaction.create({
       data: {
-        quantity: productQuantity,
-        unitPrice: product.price,
-        transactionPrice: product.price * productQuantity,
-        productName: product.name,
+        transactionItems: {
+          create: {
+            quantity: productQuantity,
+            unitPrice: product.price,
+            productName: product.name,
+            productId: product.id,
+          },
+        },
+
+        totalPrice: product.price * productQuantity,
       },
     });
 

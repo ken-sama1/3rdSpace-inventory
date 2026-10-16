@@ -8,12 +8,14 @@ import { reportsRouter } from "./reports.route.js";
 import { usersRouter } from "./users.route.js";
 import { authJwt } from "../middleware/auth-jwt.middleware.js";
 import { inventoryLogsRouter } from "./inventory-logs.route.js";
+import { transactionsRouter } from "./transactions.route.js";
 
 const apiV1Router: Router = express.Router();
 
 apiV1Router.use("/auth", authRouter);
 
 apiV1Router.use(authJwt);
+apiV1Router.use("/transactions", transactionsRouter);
 apiV1Router.use("/users", usersRouter);
 apiV1Router.use("/inventory-items", inventoryItemsRouter);
 apiV1Router.use("/products", productsRouter);

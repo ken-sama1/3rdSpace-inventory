@@ -3,7 +3,7 @@ import type {
   GetInventoryLogsResult,
 } from "@repo/shared";
 import { useQuery } from "@tanstack/react-query";
-import type { QueryOptions } from "../types/QueryOptions";
+import type { QueryOptions } from "@/hooks/types/QueryOptions";
 import { inventoryLogsApi } from "@/api/inventory-logs.api";
 
 interface UseGetInventoryLogsParams {

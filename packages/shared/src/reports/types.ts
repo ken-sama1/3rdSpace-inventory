@@ -13,12 +13,16 @@ export interface TopProduct {
   totalSales: number;
 }
 
-export interface Transaction {
-  id: string;
+interface TransactionItem {
   productName: string;
   quantity: number;
   unitPrice: number;
-  transactionPrice: number;
+}
+
+export interface Transaction {
+  id: string;
+  transactionItems: TransactionItem[];
+  totalPrice: number;
   createdAt: IsoDateSchema;
 }
 
@@ -32,5 +36,4 @@ export interface ReportSummaryDto {
   };
   salesByDay: Sale[];
   topProducts: TopProduct[];
-  recentTransactions: Transaction[];
 }

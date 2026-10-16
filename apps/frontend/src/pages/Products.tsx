@@ -2,7 +2,7 @@ import Collapsible from "@/components/ui/Collapsible";
 import CreateProductModal from "@/features/products/CreateProductModal";
 import ProductQueryOptions from "@/features/products/ProductQueryOptions";
 import ProductsTable from "@/features/products/ProductsTable";
-import { useGetProducts } from "@/hooks/products/useGetProducts";
+import { useGetProducts } from "@/hooks/products/queries/useGetProducts";
 import { debounce } from "@/utils/debounce.util";
 import {
   getProductsReqQuerySchema,
@@ -114,16 +114,17 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Create new product */}
-        <button
-          onClick={() => {
-            setOpenCreateProduct(true);
-          }}
-          title="New Product"
-          className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
-        >
-          <PackagePlus className="stroke-2 h-5 stroke-inherit!" />
-        </button>
+        <div className="flex h-full gap-2">
+          <button
+            onClick={() => {
+              setOpenCreateProduct(true);
+            }}
+            title="New Product"
+            className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
+          >
+            <PackagePlus className="stroke-2 h-5 stroke-inherit!" />
+          </button>
+        </div>
       </div>
 
       {/* Divider */}

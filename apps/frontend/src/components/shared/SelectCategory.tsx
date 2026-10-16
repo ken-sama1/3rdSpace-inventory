@@ -1,6 +1,6 @@
 import type { CategoryTypeEnum } from "@/features/categories/constants";
-import { useGetInventoryItemCategories } from "@/hooks/categories/useGetInventoryItemCategories";
-import { useGetProductCategories } from "@/hooks/categories/useGetProductCategories";
+import { useGetInventoryItemCategories } from "@/hooks/categories/queries/useGetInventoryItemCategories";
+import { useGetProductCategories } from "@/hooks/categories/queries/useGetProductCategories";
 import type { IdSchema } from "@repo/shared";
 import { useEffect, useState, type FC } from "react";
 

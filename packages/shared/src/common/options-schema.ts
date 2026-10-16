@@ -8,7 +8,7 @@ export type SortOrderSchema = z.infer<typeof sortOrderSchema>;
 // --- Base Options ---
 export const baseOptionsSchema = z
   .object({
-    limit: z.number().min(1).max(100),
+    limit: z.coerce.number().min(1).max(100),
     order: sortOrderSchema,
   })
   .partial();
