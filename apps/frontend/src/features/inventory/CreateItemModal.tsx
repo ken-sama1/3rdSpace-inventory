@@ -9,6 +9,7 @@ import {
   type IdSchema,
   type InventoryItemUnitSchema,
 } from "@repo/shared";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, useState } from "react";
 
 interface CreateItemModalProps {
@@ -70,7 +71,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
       setDialog(null);
       showToast({
         variant: "danger",
-        message: "Something went wrong",
+        message: getApiErrorMessage(e),
         forceToTop: true,
       });
     }

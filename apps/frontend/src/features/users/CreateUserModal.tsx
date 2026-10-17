@@ -2,6 +2,7 @@ import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import type { RegisterInput } from "@repo/shared";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, type FC, type SyntheticEvent } from "react";
 
 interface CreateUserModalProps {
@@ -37,7 +38,7 @@ const CreateUserModal: FC<CreateUserModalProps> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.error(error);
       showToast({
-        message: "Unable to create user. The username may already be taken.",
+        message: getApiErrorMessage(error),
         variant: "danger",
       });
     }

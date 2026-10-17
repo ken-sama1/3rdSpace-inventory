@@ -1,7 +1,9 @@
 import Collapsible from "@/components/ui/Collapsible";
 import CreateUserModal from "@/features/users/CreateUserModal";
 import UsersTable from "@/features/users/UsersTable";
+import UsersTableSkeleton from "@/features/users/UsersTableSkeleton";
 import { useGetUsers } from "@/hooks/users/queries/useGetUsers";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import type { UserRoleSchema } from "@repo/shared";
 import { SlidersHorizontal, UserPlus } from "lucide-react";
 import { useRef, useState } from "react";
@@ -12,7 +14,13 @@ const Accounts = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState<UserRoleSchema | "ALL">("ALL");
-  const { data: users = [], isLoading, isError, refetch } = useGetUsers({});
+  const {
+    data: users = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useGetUsers({});
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch = user.username
@@ -95,12 +103,10 @@ const Accounts = () => {
 
       <section className="min-h-[40vh] w-full overflow-auto">
         {isLoading ? (
-          <div className="flex min-h-40 items-center justify-center text-sm text-(--text-muted)">
-            Loading accounts...
-          </div>
+          <UsersTableSkeleton />
         ) : isError ? (
           <div className="flex min-h-40 flex-col items-center justify-center gap-3 text-sm text-(--text-danger)!">
-            <p>Unable to load accounts.</p>
+            <p>{getApiErrorMessage(error)}</p>
             <button
               type="button"
               onClick={() => void refetch()}

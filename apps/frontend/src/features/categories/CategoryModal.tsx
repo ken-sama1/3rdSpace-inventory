@@ -10,6 +10,7 @@ import { useGetInventoryItemCategoryById } from "@/hooks/categories/queries/useG
 import { useGetProductCategoryById } from "@/hooks/categories/queries/useGetProductCategoryById";
 import { useUnassignInventoryItemsFromCategory } from "@/hooks/categories/mutations/useUnassignInventoryItemsFromCategory";
 import { useUnassignProductsFromCategory } from "@/hooks/categories/mutations/useUnassignProductsFromCategory";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { type IdSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./constants";
@@ -104,7 +105,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
             console.error(error);
             setDialog(null);
             showToast({
-              message: "Something went wrong!",
+              message: getApiErrorMessage(error),
               variant: "danger",
             });
           }
@@ -219,7 +220,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
                     console.error(error);
                     setShowSelectSomethingModal(false);
                     showToast({
-                      message: "Something went wrong!",
+                      message: getApiErrorMessage(error),
                       variant: "danger",
                     });
                   }
@@ -258,7 +259,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
                     console.error(error);
                     setShowSelectSomethingModal(false);
                     showToast({
-                      message: "Something went wrong!",
+                      message: getApiErrorMessage(error),
                       variant: "danger",
                     });
                   }

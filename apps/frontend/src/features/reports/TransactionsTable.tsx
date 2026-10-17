@@ -1,9 +1,11 @@
 import { useGetTransactions } from "@/hooks/transactions/queries/useGetTransactions";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { formatCurrency } from "@/utils/format-currency.util";
 import type { ReportPeriodSchema, TransactionDto } from "@repo/shared";
-import { CalendarClock, LoaderCircle, ReceiptText } from "lucide-react";
+import { CalendarClock, ReceiptText } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type FC } from "react";
 import TransactionDetailModal from "./TransactionDetailModal";
+import TransactionsTableSkeleton from "./TransactionsTableSkeleton";
 
 interface TransactionsTableProps {
   period: ReportPeriodSchema;
@@ -44,6 +46,7 @@ const TransactionsTable: FC<TransactionsTableProps> = ({ period }) => {
     isFetchingNextPage,
     isFetchNextPageError,
     fetchNextPage,
+    error,
   } = useGetTransactions({
     filter: {
       createdAt: {
@@ -92,7 +95,7 @@ const TransactionsTable: FC<TransactionsTableProps> = ({ period }) => {
 
   return (
     <>
-      <section className="mt-3 rounded-md border border-(--line) p-4">
+      <section className="mt-3 rounded-md border border-(--line) p-3 sm:p-4">
         <div className="mb-4">
           <h3 className="text-base!">Transactions</h3>
           <p className="text-xs! text-(--text-muted)!">
@@ -111,13 +114,10 @@ const TransactionsTable: FC<TransactionsTableProps> = ({ period }) => {
           className="max-h-[min(60vh,40rem)] overflow-y-auto"
         >
           {isLoading ? (
-            <div className="flex min-h-48 items-center justify-center gap-2 text-sm text-(--text-muted)">
-              <LoaderCircle className="size-4 animate-spin" />
-              Loading transactions...
-            </div>
+            <TransactionsTableSkeleton />
           ) : isError && transactions.length === 0 ? (
             <div className="flex min-h-48 items-center justify-center text-sm text-(--text-danger)!">
-              Unable to load transactions.
+              {getApiErrorMessage(error)}
             </div>
           ) : transactions.length === 0 ? (
             <div className="flex min-h-48 flex-col items-center justify-center gap-3 text-center">
@@ -170,7 +170,7 @@ const TransactionsTable: FC<TransactionsTableProps> = ({ period }) => {
 
               {isFetchNextPageError && (
                 <div className="flex items-center justify-center gap-2 px-3 py-3 text-sm text-(--text-danger)!">
-                  <span>Unable to load more transactions.</span>
+                  <span>{getApiErrorMessage(error)}</span>
                   <button
                     type="button"
                     className="underline"
@@ -184,12 +184,7 @@ const TransactionsTable: FC<TransactionsTableProps> = ({ period }) => {
                 ref={loadMoreRef}
                 className="flex min-h-10 items-center justify-center text-xs text-(--text-muted)"
               >
-                {isFetchingNextPage && (
-                  <span className="flex items-center gap-2">
-                    <LoaderCircle className="size-4 animate-spin" />
-                    Loading more transactions...
-                  </span>
-                )}
+                {isFetchingNextPage && <TransactionsTableSkeleton rows={2} />}
               </div>
             </>
           )}

@@ -3,13 +3,8 @@ import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useDeductStocks } from "@/hooks/products/mutations/useDeductStocks";
-import {
-  API_ERROR_CODE_TO_MESSAGE,
-  type ApiErrorCode,
-  type ProductWithInventoryItemsDto,
-  type ResponseError,
-} from "@repo/shared";
-import { isAxiosError } from "axios";
+import type { ProductWithInventoryItemsDto } from "@repo/shared";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { ClipboardList, Minus, X } from "lucide-react";
 import { useMemo, useState, type FC } from "react";
 
@@ -85,14 +80,9 @@ const ProductionBatch: FC<ProductionBatchProps> = ({ entries, onChange }) => {
       close();
     } catch (error: unknown) {
       setIsConfirmOpen(false);
-      let code: ApiErrorCode | undefined;
-
-      if (isAxiosError<ResponseError>(error)) {
-        code = error.response?.data.code;
-      }
       showToast({
         variant: "danger",
-        message: API_ERROR_CODE_TO_MESSAGE[code ?? "UNKNOWN_ERROR"],
+        message: getApiErrorMessage(error),
         forceToTop: true,
       });
     }

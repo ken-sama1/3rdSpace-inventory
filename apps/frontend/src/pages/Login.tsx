@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Eye, EyeOff, LockKeyhole, UserRound, CircleAlert } from "lucide-react";
-import { isAxiosError } from "axios";
 import { useState } from "react";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,13 +37,7 @@ const Login = () => {
                   password,
                 });
               } catch (error) {
-                const message = isAxiosError<{ message?: string }>(error)
-                  ? error.response?.data.message
-                  : undefined;
-                setLoginError(
-                  message ??
-                    "Unable to sign in. Check your username and password."
-                );
+                setLoginError(getApiErrorMessage(error, "UNAUTHORIZED_ERROR"));
               }
             }}
             className="flex flex-col gap-5"

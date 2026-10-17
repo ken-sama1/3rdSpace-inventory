@@ -3,6 +3,7 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { LogOut, Save, UserRound } from "lucide-react";
 import { useUpdateMe } from "@/hooks/users/mutations/useUpdateMe";
 import { useState } from "react";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 
 const AccountSettings = () => {
   const { user, logout, isLoggingOut } = useAuth();
@@ -27,10 +28,10 @@ const AccountSettings = () => {
           variant: "success",
           message: "Account updated successfully",
         });
-      } catch {
+      } catch (error) {
         showToast({
           variant: "danger",
-          message: "Unable to update your account",
+          message: getApiErrorMessage(error),
         });
       }
     })();

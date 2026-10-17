@@ -5,6 +5,7 @@ import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useDeleteUser } from "@/hooks/users/mutations/useDeleteUser";
 import { useUpdateUser } from "@/hooks/users/mutations/useUpdateUser";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import type { UserDto, UserRoleSchema } from "@repo/shared";
 import { useState, type FC } from "react";
 
@@ -47,9 +48,9 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
         message: `User role changed to ${nextRole}`,
         variant: "success",
       });
-    } catch {
+    } catch (error) {
       showToast({
-        message: "Unable to change user role",
+        message: getApiErrorMessage(error),
         variant: "danger",
       });
     }
@@ -142,7 +143,7 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
               console.error(error);
               setConfirmDelete(false);
               showToast({
-                message: "Unable to delete user",
+                message: getApiErrorMessage(error),
                 variant: "danger",
               });
             }

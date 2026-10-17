@@ -5,6 +5,7 @@ import { useToast } from "@/context/ToastContext";
 import { useDeleteProduct } from "@/hooks/products/mutations/useDeleteProduct";
 import { useGetProductById } from "@/hooks/products/queries/useGetProductById";
 import { useUpdateProduct } from "@/hooks/products/mutations/useUpdateProduct";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 import type { IdSchema } from "@repo/shared";
@@ -56,7 +57,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
             });
           } catch (error) {
             showToast({
-              message: "Something went wrong!",
+              message: getApiErrorMessage(error),
               forceToTop: true,
               variant: "danger",
             });
@@ -111,7 +112,10 @@ const EditProductForm: FC<EditProductFormProps> = ({
           } catch (error) {
             console.error(error);
             setDialog(null);
-            showToast({ variant: "danger", message: "Something went wrong!" });
+            showToast({
+              variant: "danger",
+              message: getApiErrorMessage(error),
+            });
           }
         })();
       },

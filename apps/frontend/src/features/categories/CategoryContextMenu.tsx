@@ -7,6 +7,7 @@ import { useDeleteInventoryItemCategory } from "@/hooks/categories/mutations/use
 import { useDeleteProductCategory } from "@/hooks/categories/mutations/useDeleteProductCategory";
 import { useUpdateInventoryItemCategory } from "@/hooks/categories/mutations/useUpdateInventoryItemCategory";
 import { useUpdateProductCategory } from "@/hooks/categories/mutations/useUpdateProductCategory";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import type { IdSchema } from "@repo/shared";
 import { EllipsisVertical } from "lucide-react";
 import { useRef, useState, type FC } from "react";
@@ -78,7 +79,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
           } catch (error: unknown) {
             console.log(error);
             showToast({
-              message: "Something went wrong",
+              message: getApiErrorMessage(error),
               forceToTop: true,
               variant: "danger",
             });
@@ -114,7 +115,7 @@ const CategoryContextMenu: FC<CategoryContextMenuProps> = ({
             console.error(error);
             setDialog(null);
             showToast({
-              message: "Something went wrong",
+              message: getApiErrorMessage(error),
               variant: "danger",
             });
           }

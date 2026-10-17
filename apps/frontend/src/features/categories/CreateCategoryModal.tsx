@@ -4,6 +4,7 @@ import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useCreateInventoryItemCategory } from "@/hooks/categories/mutations/useCreateInventoryItemCategory";
 import { useCreateProductCategory } from "@/hooks/categories/mutations/useCreateProductCategory";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, useState, type FC } from "react";
 import type { CategoryTypeEnum } from "./constants";
 
@@ -123,7 +124,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
             } catch (error) {
               setShowDialog(false);
               showToast({
-                message: "Something went wrong!",
+                message: getApiErrorMessage(error),
                 forceToTop: true,
                 variant: "danger",
               });

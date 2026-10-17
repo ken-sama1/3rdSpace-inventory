@@ -6,6 +6,7 @@ import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useCreateProduct } from "@/hooks/products/mutations/useCreateProduct";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, useState, type FC } from "react";
 import ProductForm from "./ProductForm";
 
@@ -126,7 +127,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
                 setDialog(null);
                 showToast({
                   variant: "danger",
-                  message: "Something went wrong!",
+                  message: getApiErrorMessage(error),
                   forceToTop: true,
                 });
                 console.error(error);

@@ -5,15 +5,12 @@ import { useToast } from "@/context/ToastContext";
 import { useDeleteInventoryItem } from "@/hooks/inventory-items/mutations/useDeleteInventoryItem";
 import { useUpdateInventoryItem } from "@/hooks/inventory-items/mutations/useUpdateInventoryItem";
 import {
-  API_ERROR_CODE_TO_MESSAGE,
-  ApiErrorCode,
   inventoryItemUnits,
   type IdSchema,
   type InventoryItemDto,
   type InventoryItemUnitSchema,
-  type ResponseError,
 } from "@repo/shared";
-import { isAxiosError } from "axios";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useRef, useState, type FC } from "react";
 
 interface EditItemFormProps {
@@ -59,17 +56,10 @@ const EditItemForm: FC<EditItemFormProps> = ({
         message: "Item successfully deleted",
       });
     } catch (error) {
-      let code: ApiErrorCode | undefined;
-
       setDialog(null);
-
-      if (isAxiosError<ResponseError>(error)) {
-        code = error.response?.data.code;
-      }
-
       showToast({
         variant: "danger",
-        message: API_ERROR_CODE_TO_MESSAGE[code ?? "UNKNOWN_ERROR"],
+        message: getApiErrorMessage(error),
         forceToTop: true,
       });
     }
@@ -108,7 +98,7 @@ const EditItemForm: FC<EditItemFormProps> = ({
       setDialog(null);
       showToast({
         variant: "danger",
-        message: "Something went wrong!",
+        message: getApiErrorMessage(error),
         forceToTop: true,
       });
     }

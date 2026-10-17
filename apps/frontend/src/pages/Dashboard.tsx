@@ -10,12 +10,24 @@ import { Boxes, Package, PackageX, TriangleAlert } from "lucide-react";
 
 import StockStatusItems from "@/features/dashboard/StockStatusItems";
 import { useMemo } from "react";
+import DashboardSkeleton from "@/features/dashboard/DashboardSkeleton";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 
 const Dashboard = () => {
   const { getStatus, getMaxServings } = useStockConfig();
 
-  const { data: items } = useGetInventoryItems();
-  const { data: products } = useGetProducts();
+  const {
+    data: items,
+    isLoading: isItemsLoading,
+    isError: isItemsError,
+    error: itemsError,
+  } = useGetInventoryItems();
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    isError: isProductsError,
+    error: productsError,
+  } = useGetProducts();
 
   const stock = useMemo(() => {
     if (!items) {
@@ -58,79 +70,88 @@ const Dashboard = () => {
 
   return (
     <main className="w-full min-h-full bg-(--primary) p-2">
-      {/* KPIs */}
-      <section className="grid grid-cols-4 gap-3">
-        <DashboardKpiCard
-          title="Total Products"
-          value={products?.length ?? "—"}
-          description="Products in catalog"
-          icon={<Package className="size-5" />}
-        />
+      {isItemsLoading || isProductsLoading ? (
+        <DashboardSkeleton />
+      ) : isItemsError || isProductsError ? (
+        <div className="rounded-md border border-(--line-danger) bg-(--bg-danger) p-4 text-sm text-(--text-danger)!">
+          {getApiErrorMessage(itemsError ?? productsError)}
+        </div>
+      ) : (
+        <>
+          {/* KPIs */}
+          <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <DashboardKpiCard
+              title="Total Products"
+              value={products?.length ?? "—"}
+              description="Products in catalog"
+              icon={<Package className="size-5" />}
+            />
 
-        <DashboardKpiCard
-          title="Total Items"
-          value={items?.length ?? "—"}
-          description="Tracked inventory items"
-          icon={<Boxes className="size-5" />}
-        />
+            <DashboardKpiCard
+              title="Total Items"
+              value={items?.length ?? "—"}
+              description="Tracked inventory items"
+              icon={<Boxes className="size-5" />}
+            />
 
-        <DashboardKpiCard
-          title="Low Stock"
-          value={stock.lowStock}
-          description="Items running low"
-          icon={
-            <div className="p-1.5 rounded-md size-fit bg-(--bg-warning)">
-              <TriangleAlert className="size-5 stroke-(--text-warning)" />
-            </div>
-          }
-        />
+            <DashboardKpiCard
+              title="Low Stock"
+              value={stock.lowStock}
+              description="Items running low"
+              icon={
+                <div className="p-1.5 rounded-md size-fit bg-(--bg-warning)">
+                  <TriangleAlert className="size-5 stroke-(--text-warning)" />
+                </div>
+              }
+            />
 
-        <DashboardKpiCard
-          title="Out of Stock"
-          value={stock.outOfStock}
-          description="Items unavailable"
-          icon={
-            <div className="p-1.5 rounded-md size-fit bg-(--bg-danger)">
-              <PackageX className="size-5 stroke-(--text-danger)" />
-            </div>
-          }
-        />
-      </section>
+            <DashboardKpiCard
+              title="Out of Stock"
+              value={stock.outOfStock}
+              description="Items unavailable"
+              icon={
+                <div className="p-1.5 rounded-md size-fit bg-(--bg-danger)">
+                  <PackageX className="size-5 stroke-(--text-danger)" />
+                </div>
+              }
+            />
+          </section>
 
-      {/* Overview */}
-      <section className="grid grid-cols-2 gap-3 mt-3">
-        <InventoryStatusCard
-          total={items?.length ?? 0}
-          inStock={stock.inStock}
-          lowStock={stock.lowStock}
-          outOfStock={stock.outOfStock}
-        />
+          {/* Overview */}
+          <section className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
+            <InventoryStatusCard
+              total={items?.length ?? 0}
+              inStock={stock.inStock}
+              lowStock={stock.lowStock}
+              outOfStock={stock.outOfStock}
+            />
 
-        <StockStatusItems
-          lowStockItems={stock.lowStockItems}
-          outOfStockItems={stock.outOfStockItems}
-        />
-      </section>
+            <StockStatusItems
+              lowStockItems={stock.lowStockItems}
+              outOfStockItems={stock.outOfStockItems}
+            />
+          </section>
 
-      {/* Products */}
-      <section className="mt-3">
-        {products && (
-          <ProductAvailability
-            products={products.map((product) => {
-              const { maxServingsCount, missingItemsCount } = getMaxServings(
-                product.recipeItems
-              );
+          {/* Products */}
+          <section className="mt-3">
+            {products && (
+              <ProductAvailability
+                products={products.map((product) => {
+                  const { maxServingsCount, missingItemsCount } =
+                    getMaxServings(product.recipeItems);
 
-              return {
-                id: product.id,
-                name: product.name,
-                available: maxServingsCount > 0,
-                missingCount: missingItemsCount,
-              };
-            })}
-          />
-        )}
-      </section>
+                  return {
+                    id: product.id,
+                    name: product.name,
+                    available: maxServingsCount > 0,
+                    missingCount: missingItemsCount,
+                  };
+                })}
+              />
+            )}
+          </section>
+        </>
+      )}
     </main>
   );
 };

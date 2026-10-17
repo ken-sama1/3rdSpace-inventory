@@ -1,5 +1,7 @@
 import Modal from "@/components/ui/Modal";
 import { useGetInventoryLogs } from "@/hooks/inventory-logs/queries/useGetInventoryLogs";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
+import Skeleton from "@/components/ui/skeletons/Skeleton";
 import { formatCurrency } from "@/utils/format-currency.util";
 import type { IdSchema, TransactionDto } from "@repo/shared";
 import { PackageMinus } from "lucide-react";
@@ -27,6 +29,7 @@ const TransactionDetailModal: FC<TransactionDetailModalProps> = ({
     data: inventoryLogs = [],
     isLoading,
     isError,
+    error,
   } = useGetInventoryLogs({
     query: {
       filter: {
@@ -98,12 +101,27 @@ const TransactionDetailModal: FC<TransactionDetailModalProps> = ({
           </div>
 
           {isLoading ? (
-            <div className="flex min-h-32 items-center justify-center text-sm text-(--text-muted)">
-              Loading inventory changes...
+            <div
+              aria-label="Loading inventory changes"
+              role="status"
+              className="space-y-3 rounded-md border border-(--line) p-4"
+            >
+              {Array.from({ length: 3 }, (_, index) => (
+                <div
+                  key={`inventory-log-skeleton-${String(index)}`}
+                  className="flex items-center justify-between gap-4"
+                >
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-3 w-1/2" />
+                  </div>
+                  <Skeleton className="h-4 w-16" />
+                </div>
+              ))}
             </div>
           ) : isError ? (
             <div className="rounded-md border border-(--line-danger) bg-(--bg-danger) p-4 text-sm text-(--text-danger)!">
-              Unable to load inventory changes for this transaction.
+              {getApiErrorMessage(error)}
             </div>
           ) : inventoryLogs.length === 0 ? (
             <div className="flex min-h-32 items-center justify-center rounded-md border border-(--line) text-sm text-(--text-muted)">

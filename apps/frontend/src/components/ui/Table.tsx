@@ -87,9 +87,9 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
     });
 
   return (
-    <div className="min-h-[40vh] h-full w-full overflow-hidden">
+    <div className="h-full w-full overflow-auto">
       {data.length >= 1 && (
-        <>
+        <div className="min-h-[40vh] h-full min-w-[36rem]">
           {/* Table Header */}
           <div
             className="grid place-items-center w-full h-10 bg-(--primary) border-b-3 border-(--line) shadow-xs"
@@ -193,7 +193,7 @@ const Table = <T extends TableData>({ data, options = {} }: TableProps<T>) => {
               );
             })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

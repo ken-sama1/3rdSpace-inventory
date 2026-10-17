@@ -5,12 +5,9 @@ import { useToast } from "@/context/ToastContext";
 import { useStockConfig } from "@/hooks/useStockConfig";
 import { formatCurrency } from "@/utils/format-currency.util";
 import {
-  API_ERROR_CODE_TO_MESSAGE,
-  type ApiErrorCode,
   type ProductWithInventoryItemsDto,
-  type ResponseError,
 } from "@repo/shared";
-import { isAxiosError } from "axios";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useCallback, useState, type FC } from "react";
 import { useDeductStock } from "@/hooks/products/mutations/useDeductStock";
 
@@ -290,15 +287,10 @@ const DeductStock: FC<DeductStockProps> = ({
             } catch (error: unknown) {
               setShowDialog(false);
               console.error(error);
-              let code: ApiErrorCode | undefined;
-              if (isAxiosError<ResponseError>(error)) {
-                code = error.response?.data.code;
-              }
 
               showToast({
                 variant: "danger",
-                message:
-                  API_ERROR_CODE_TO_MESSAGE[code ?? "STOCK_INSUFFICIENT"],
+                message: getApiErrorMessage(error, "STOCK_INSUFFICIENT"),
                 forceToTop: true,
               });
             } finally {

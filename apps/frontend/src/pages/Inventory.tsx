@@ -2,7 +2,9 @@ import Collapsible from "@/components/ui/Collapsible";
 import CreateItemModal from "@/features/inventory/CreateItemModal";
 import ItemQueryOptions from "@/features/inventory/ItemQueryOptions";
 import ItemsTable from "@/features/inventory/ItemsTable";
+import ItemsTableSkeleton from "@/features/inventory/ItemsTableSkeleton";
 import { useGetInventoryItems } from "@/hooks/inventory-items/queries/useGetInventoryItems";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { debounce } from "@/utils/debounce.util";
 import {
   getInventoryItemsReqQuerySchema,
@@ -24,7 +26,7 @@ const Inventory = () => {
 
   const [openCreateItem, setOpenCreateItem] = useState(false);
   const [openCollapsible, setOpenCollapsible] = useState(false);
-  const { data } = useGetInventoryItems({
+  const { data, isLoading, isError, error } = useGetInventoryItems({
     query: parsedParams,
   });
 
@@ -63,15 +65,15 @@ const Inventory = () => {
   return (
     <main className="w-full min-h-full h-auto flex flex-col bg-(--primary) p-2">
       {/* Idk the top section? */}
-      <div className="mt-3 h-7! w-full z-2 flex justify-between align-center gap-2">
+      <div className="relative z-2 mt-3 flex min-h-8 w-full flex-wrap items-center justify-between gap-2">
         {/* Search Bar & Filter */}
-        <div className="flex gap-2 relative">
+        <div className="relative flex min-w-0 flex-1 gap-2 sm:flex-none">
           <input
             onChange={(e) => {
               updateSearch(e.target.value);
             }}
             type="search"
-            className="text-xs! rounded-sm! w-50! h-full! py-0!"
+            className="h-8! min-w-0 flex-1 rounded-sm! py-0! text-xs! sm:w-50! sm:flex-none"
             placeholder="Search items..."
           />
 
@@ -81,12 +83,12 @@ const Inventory = () => {
               setOpenCollapsible(!openCollapsible);
             }}
             title="Filter & Sort"
-            className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
+            className="button-accent h-8! shrink-0 rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
           >
             <SlidersHorizontal className="stroke-2 h-5 stroke-inherit!" />
           </button>
 
-          <div className="absolute z-1 w-md top-full left-0 translate-y-10">
+          <div className="absolute left-0 top-full z-10 mt-2 w-[min(24rem,calc(100vw-1rem))] sm:w-md">
             <Collapsible
               isOpen={openCollapsible}
               onClose={() => {
@@ -115,7 +117,7 @@ const Inventory = () => {
             setOpenCreateItem(true);
           }}
           title="New Item"
-          className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
+          className="button-accent h-8! shrink-0 rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
         >
           <LayersPlus className="stroke-2 h-5 stroke-inherit!" />
         </button>
@@ -125,8 +127,16 @@ const Inventory = () => {
       {/* Literally just a line */}
       <div className="divider"></div>
 
-      <section className="w-full z-1 h-[65dvh] overflow-auto">
-        {data && <ItemsTable items={data} />}
+      <section className="z-1 h-[65dvh] w-full overflow-auto">
+        {isLoading ? (
+          <ItemsTableSkeleton />
+        ) : isError ? (
+          <div className="flex min-h-40 items-center justify-center text-sm text-(--text-danger)!">
+            {getApiErrorMessage(error)}
+          </div>
+        ) : data ? (
+          <ItemsTable items={data} />
+        ) : null}
       </section>
 
       <CreateItemModal

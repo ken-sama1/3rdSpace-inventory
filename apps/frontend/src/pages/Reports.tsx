@@ -1,7 +1,9 @@
 import DashboardKpiCard from "@/features/dashboard/DashboardKpiCard";
 import SalesOverview from "@/features/reports/SalesOverview";
+import ReportsSkeleton from "@/features/reports/ReportsSkeleton";
 import TransactionsTable from "@/features/reports/TransactionsTable";
 import { useGetReportSummary } from "@/hooks/reports/queries/useGetReportSummary";
+import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { formatCurrency } from "@/utils/format-currency.util";
 import type { ReportPeriodSchema } from "@repo/shared";
 import {
@@ -15,7 +17,7 @@ import { useState } from "react";
 
 const Reports = () => {
   const [period, setPeriod] = useState<ReportPeriodSchema>("7d");
-  const { data, isLoading, isError } = useGetReportSummary({
+  const { data, isLoading, isError, error } = useGetReportSummary({
     query: {
       filter: {
         period: period,
@@ -36,9 +38,9 @@ const Reports = () => {
           <CalendarDays className="size-4 text-(--text-muted)" />
           <select
             value={period}
-            onChange={(event) =>
-              { setPeriod(event.target.value as ReportPeriodSchema); }
-            }
+            onChange={(event) => {
+              setPeriod(event.target.value as ReportPeriodSchema);
+            }}
             className="h-9! rounded-md! pr-3!"
           >
             <option value="7d">Last 7 days</option>
@@ -49,12 +51,10 @@ const Reports = () => {
       </div>
 
       {isLoading ? (
-        <div className="flex min-h-64 items-center justify-center text-sm text-(--text-muted)">
-          Loading report...
-        </div>
+        <ReportsSkeleton />
       ) : isError || !data ? (
         <div className="rounded-md border border-(--line-danger) bg-(--bg-danger) p-5 text-sm text-(--text-danger)!">
-          Unable to load the sales report.
+          {getApiErrorMessage(error)}
         </div>
       ) : (
         <>
