@@ -1,10 +1,11 @@
 import { authApi } from "@/api/auth.api";
 import { useAuthContext } from "@/context/AuthContext";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetMe } from "../users/queries/useGetMe";
 
 export const useAuth = () => {
   const { setToken, isAuthenticated, clearAuth } = useAuthContext();
+  const queryClient = useQueryClient();
 
   const { data: user } = useGetMe({
     options: {
@@ -59,6 +60,11 @@ export const useAuth = () => {
   } = useMutation({
     mutationKey: ["auth", "register"],
     mutationFn: authApi.register,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+    },
   });
 
   return {

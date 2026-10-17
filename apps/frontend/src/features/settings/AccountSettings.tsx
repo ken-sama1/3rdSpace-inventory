@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const AccountSettings = () => {
   const { user, logout, isLoggingOut } = useAuth();
-  const { mutateAsync: updateMe, isPending } = useUpdateMe();
+  const { updateMe, isPending } = useUpdateMe();
   const { showToast } = useToast();
   const [newUsername, setNewUsername] = useState<string | null>(null);
 

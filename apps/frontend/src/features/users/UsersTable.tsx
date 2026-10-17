@@ -1,9 +1,7 @@
 import Table from "@/components/ui/Table";
-import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/hooks/auth/useAuth";
-import type { IdSchema, UserDto, UserRoleSchema } from "@repo/shared";
-import { useMemo, useState, type FC } from "react";
-import UserContextMenu from "./UserContextMenu";
+import type { UserDto, UserRoleSchema } from "@repo/shared";
+import { useState, type FC } from "react";
 import UserModal from "./UserModal";
 
 interface UsersTableProps {
@@ -22,52 +20,26 @@ const getNextRole = (role: UserRoleSchema): UserRoleSchema | null => {
 
 const UsersTable: FC<UsersTableProps> = ({ users }) => {
   const { user: currentUser } = useAuth();
-  const { showToast } = useToast();
-  const [roleOverrides, setRoleOverrides] = useState<
-    Record<string, UserRoleSchema>
-  >({});
-  const [selectedUserId, setSelectedUserId] = useState<IdSchema | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<UserDto["id"] | null>(
+    null
+  );
   const isAdmin = currentUser?.role === "ADMIN";
 
-  const displayUsers = useMemo(
-    () =>
-      users.map((item) => ({
-        ...item,
-        role: roleOverrides[item.id] ?? item.role,
-      })),
-    [users, roleOverrides]
-  );
   const selectedUser =
-    displayUsers.find((item) => item.id === selectedUserId) ?? null;
+    users.find((item) => item.id === selectedUserId) ?? null;
   const selectedNextRole =
     isAdmin && selectedUser ? getNextRole(selectedUser.role) : null;
-
-  const changeRole = (userId: IdSchema, role: UserRoleSchema) => {
-    setRoleOverrides((overrides) => ({ ...overrides, [userId]: role }));
-    showToast({
-      message: `Role changed to ${role} in this view only. Connect the promote/demote endpoint to persist it.`,
-      variant: "info",
-    });
-  };
 
   return (
     <div className="size-full">
       <Table
-        data={displayUsers}
+        data={users}
         options={{
           row: {
             style: { cursor: "pointer" },
             onClick: (row) => {
               setSelectedUserId(row.id);
             },
-            element: (row) => (
-              <UserContextMenu
-                nextRole={isAdmin ? getNextRole(row.role) : null}
-                onChangeRole={(role) => {
-                  changeRole(row.id, role);
-                }}
-              />
-            ),
           },
           columns: 12,
           column: {
@@ -102,9 +74,6 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
         user={selectedUser}
         isOpen={selectedUser !== null}
         nextRole={selectedNextRole}
-        onChangeRole={(role) => {
-          if (selectedUser) changeRole(selectedUser.id, role);
-        }}
         onClose={() => {
           setSelectedUserId(null);
         }}

@@ -5,11 +5,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useUpdateMe = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<UpdateMeResult, Error, UpdateMeInput>({
+  const { mutateAsync: updateMe, ...rest } = useMutation<
+    UpdateMeResult,
+    Error,
+    UpdateMeInput
+  >({
     mutationKey: ["users", "update-me"],
     mutationFn: usersApi.updateMe,
     onSuccess: async (user) => {
       await queryClient.setQueryData(["users", "me"], user);
     },
   });
+
+  return {
+    updateMe,
+    ...rest,
+  };
 };

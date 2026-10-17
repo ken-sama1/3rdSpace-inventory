@@ -1,13 +1,15 @@
 import Collapsible from "@/components/ui/Collapsible";
+import CreateUserModal from "@/features/users/CreateUserModal";
 import UsersTable from "@/features/users/UsersTable";
 import { useGetUsers } from "@/hooks/users/queries/useGetUsers";
 import type { UserRoleSchema } from "@repo/shared";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, UserPlus } from "lucide-react";
 import { useRef, useState } from "react";
 
 const Accounts = () => {
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const [openCollapsible, setOpenCollapsible] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState<UserRoleSchema | "ALL">("ALL");
   const { data: users = [], isLoading, isError, refetch } = useGetUsers({});
@@ -75,6 +77,18 @@ const Accounts = () => {
             </Collapsible>
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setIsCreateModalOpen(true);
+          }}
+          title="Create user"
+          aria-label="Create user"
+          className="button-accent h-full! rounded-sm! flex justify-center items-center gap-1 text-white! stroke-white!"
+        >
+          <UserPlus className="stroke-2 h-5 stroke-inherit!" />
+        </button>
       </div>
 
       <div className="divider"></div>
@@ -105,6 +119,13 @@ const Accounts = () => {
           <UsersTable users={filteredUsers} />
         )}
       </section>
+
+      <CreateUserModal
+        isOpen={isCreateModalOpen}
+        onClose={() => {
+          setIsCreateModalOpen(false);
+        }}
+      />
     </main>
   );
 };
