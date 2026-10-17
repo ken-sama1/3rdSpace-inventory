@@ -68,13 +68,32 @@ export const refresh = async (
   const accessToken = signJwtToken(payload, "access");
   const refreshToken = signJwtToken(payload, "refresh");
 
-  await prisma.userSession.create({
-    data: {
-      token: hashToken(refreshToken),
-      expiresAt: EXPIRES_AT_30D_FDATE,
-      userId: decoded.userId,
-      isRevoked: false,
-    },
+  await prisma.$transaction(async (tx) => {
+    const result = await tx.userSession.updateMany({
+      data: {
+        isRevoked: true,
+      },
+      where: {
+        id: session.id,
+        userId: decoded.userId,
+        isRevoked: false,
+      },
+    });
+
+    if (result.count !== 1)
+      throw new AppError({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Invalid token",
+      });
+
+    await prisma.userSession.create({
+      data: {
+        token: hashToken(refreshToken),
+        expiresAt: EXPIRES_AT_30D_FDATE,
+        userId: decoded.userId,
+        isRevoked: false,
+      },
+    });
   });
 
   return {

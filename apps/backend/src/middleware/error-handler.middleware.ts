@@ -34,7 +34,7 @@ export const errorHandler = (
 
   res.status(500).json({
     message: API_ERROR_CODE_TO_MESSAGE["INTERNAL_ERROR"],
-    errors: [err],
+    errors: [/*err*/],
     code: "INTERNAL_ERROR",
   });
 };
