@@ -156,7 +156,7 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
           className="full size-full flex flex-col mt-5 gap-5"
         >
           {/* Form Content */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col w-full gap-4">
             {/* Quantity */}
             <div className="flex flex-col gap-2">
               <label
@@ -171,7 +171,7 @@ const UpdateStockForm: FC<UpdateStockFormProps> = ({
                 type="text"
                 id="stock-quantity"
                 name="stock-quantity"
-                className="rounded-md! w-full! h-7! text-xs!"
+                className="rounded-md! h-7! text-xs!"
               />
             </div>
 
