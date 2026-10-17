@@ -62,7 +62,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
         }}
       />
 
-      <div className="w-max min-w-xl h-auto max-h-[60vh] overflow-auto no-scrollbar">
+      <div className="max-h-[60vh] w-full min-w-0 overflow-auto">
         {/* Selected Items */}
         {selectedItems.length > 0 && (
           <>
@@ -105,8 +105,8 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
         )}
 
         {/* Inventory Items Choices*/}
-        <div className="h-auto grid grid-cols-4 gap-2">
-          <h4 className="text-sm col-span-4 font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="grid h-auto grid-cols-2 gap-2 sm:grid-cols-4">
+          <h4 className="col-span-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground sm:col-span-4">
             Available Inventory Items
           </h4>
 
@@ -118,7 +118,7 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
               let quantity: number = 0;
 
               const dialogChild = (
-                <div className="flex flex-col gap-y-3 py-1 w-xs">
+                <div className="flex w-full flex-col gap-y-3 py-1 sm:w-xs">
                   <AlertBanner
                     variant="info"
                     message="Set how much of this item will be used per production."

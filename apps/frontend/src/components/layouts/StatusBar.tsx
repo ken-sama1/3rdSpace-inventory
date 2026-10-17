@@ -33,19 +33,17 @@ const StatusBar = () => {
 
   return (
     // Footer Container
-    <footer
-      className="
-      w-full border-(--line) border-t
-      h-12 z-10 fixed bottom-0 shadow-[0_-2px_8px_0] shadow-black/10"
-    >
+    <footer className="fixed bottom-0 z-10 h-12 w-full border-t border-(--line) shadow-[0_-2px_8px_0] shadow-black/10">
       {/* Wrapper */}
-      <div className="size-full bg-(--primary) flex justify-between items-center px-5">
+      <div className="flex size-full items-center justify-between gap-1 bg-(--primary) px-2 sm:gap-3 sm:px-5">
         {/* Left Side Section */}
-        <div className="h-6 flex justify-center items-center">
+        <div className="flex h-6 shrink-0 items-center justify-center">
           {/* Total Items */}
           <div className="h-full w-auto flex items-center justify-center gap-1">
-            <Boxes className="stroke-1 h-full" />
-            <span className="text-xs! flex items-center">Total Items:</span>
+            <Boxes className="hidden h-full stroke-1 sm:block" />
+            <span className="flex items-center text-[10px]! sm:text-xs!">
+              Total:
+            </span>
             <strong className="text-xs! font-bold">{data?.length}</strong>
           </div>
           {/* Total Items End */}
@@ -53,16 +51,12 @@ const StatusBar = () => {
         {/* Left Side Section End */}
 
         {/* Right Side Section */}
-        <div className="h-6 flex justify-center items-center gap-1.5">
+        <div className="flex h-6 min-w-0 items-center justify-end gap-1 overflow-x-auto sm:gap-1.5">
           {/* Low Stock */}
-          <div
-            className="
-            w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
-            border status-warning stroke-(--text-warning)"
-          >
-            <AlertTriangle className="stroke-2 stroke-inherit! h-full" />
-            <span className="text-xs! text-inherit! flex items-center">
-              Low Stock:
+          <div className="flex h-full shrink-0 items-center justify-center gap-1 rounded-md border px-1 py-0.5 status-warning stroke-(--text-warning) sm:gap-1.5 sm:px-1.5">
+            <AlertTriangle className="h-full stroke-2 stroke-inherit!" />
+            <span className="flex items-center text-[10px]! text-inherit! sm:text-xs!">
+              Low:
             </span>
             <strong className="text-xs! font-bold text-inherit!">
               {lowStockCount}
@@ -70,14 +64,10 @@ const StatusBar = () => {
           </div>
           {/* Low Stock End */}
           {/* Out of Stock */}
-          <div
-            className="
-            w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
-            border status-danger stroke-(--text-danger)"
-          >
+          <div className="flex h-full shrink-0 items-center justify-center gap-1 rounded-md border px-1 py-0.5 status-danger stroke-(--text-danger) sm:gap-1.5 sm:px-1.5">
             <PackageX className="stroke-2 stroke-inherit! h-full" />
-            <span className="text-xs! text-inherit! flex items-center">
-              Out of Stock:
+            <span className="flex items-center text-[10px]! text-inherit! sm:text-xs!">
+              Out:
             </span>
             <strong className="text-xs! font-bold text-inherit!">
               {noStockCount}
@@ -85,13 +75,9 @@ const StatusBar = () => {
           </div>
           {/* Out of Stock End */}
           {/* In Stock */}
-          <div
-            className="
-            w-auto h-full flex items-center justify-center gap-1.5 px-1.5 py-0.5 rounded-md
-            border border-(--line-success) bg-(--bg-success) stroke-(--text-success) text-(--text-heathy)!"
-          >
+          <div className="flex h-full shrink-0 items-center justify-center gap-1 rounded-md border border-(--line-success) bg-(--bg-success) px-1 py-0.5 stroke-(--text-success) text-(--text-heathy)! sm:gap-1.5 sm:px-1.5">
             <Check className="stroke-2 stroke-inherit! size-4.5" />
-            <span className="text-xs! text-inherit!">In Stock:</span>
+            <span className="text-[10px]! text-inherit! sm:text-xs!">In:</span>
             <strong className="text-xs! font-bold text-inherit!">
               {inStockCount}
             </strong>

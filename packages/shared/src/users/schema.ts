@@ -1,8 +1,8 @@
 import z from "zod";
-import type { ResponseBody } from "../Response.js";
-import type { UserDto } from "./types.js";
 import { baseOptionsSchema } from "../common/options-schema.js";
 import { idSchema } from "../common/schema.js";
+import type { ResponseBody } from "../Response.js";
+import type { UserDto } from "./types.js";
 
 export const userSortBySchema = z.enum(["username", "role", "createdAt"]);
 // --- User Role ---
@@ -50,16 +50,16 @@ export type GetUserByIdResult = UserDto;
 export type GetUserByIdResBody = ResponseBody<GetUserByIdResult>;
 
 // --- Update ---
-export const updateUserSchema = z.object({
-  username: z
-    .string()
-    .min(3, "Username must not be less than 3 letters")
-    .optional(),
-});
+export const updateUserSchema = z
+  .object({
+    username: z.string().min(3, "Username must not be less than 3 letters"),
+    role: userRoleSchema,
+  })
+  .partial();
 export type UpdateUserSchema = z.infer<typeof updateUserSchema>;
 export type UpdateUserInput = z.input<typeof updateUserSchema>;
 export type UpdateUserResult = UserDto;
-export type UpdateUserResBody = ResponseBody<UpdateMeResult>;
+export type UpdateUserResBody = ResponseBody<UpdateUserResult>;
 
 // --- Get Me ---
 export type GetMeResult = UserDto;
@@ -83,3 +83,7 @@ export const changePasswordSchema = z.object({
 });
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 export type ChangePasswordInput = z.input<typeof changePasswordSchema>;
+
+// --- Delete User ---
+export type DeleteUserResult = UserDto;
+export type DeleteUserResBody = ResponseBody<DeleteUserResult>;

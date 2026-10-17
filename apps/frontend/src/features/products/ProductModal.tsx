@@ -1,9 +1,6 @@
 import Modal from "@/components/ui/Modal";
 import { useGetProductById } from "@/hooks/products/queries/useGetProductById";
-import type {
-  IdSchema,
-  ProductWithInventoryItemsDto,
-} from "@repo/shared";
+import type { IdSchema, ProductWithInventoryItemsDto } from "@repo/shared";
 import { useState, type FC } from "react";
 import DeductStock from "./DeductStock";
 import EditProductForm from "./EditProductForm";
@@ -40,7 +37,7 @@ const ProductModal: FC<ProductModalProps> = ({
   return (
     <>
       <Modal isOpen={isOpen} title={product.name} onClose={handleOnClose}>
-        <div className="w-2xl">
+        <div className="w-full max-w-full">
           {view === "deduct" && (
             <DeductStock
               product={product}

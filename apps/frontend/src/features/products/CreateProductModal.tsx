@@ -36,7 +36,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} title="Create Product">
-        <div className="w-lg">
+        <div className="w-full max-w-full">
           <ProductForm
             formRef={formRef}
             onSubmit={(_, items) => {

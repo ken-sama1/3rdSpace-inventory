@@ -42,7 +42,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
       onClose={onClose}
     >
       {/* Inventory Items */}
-      <div className="w-max min-w-xl h-auto max-h-[60vh] no-scrollbar overflow-auto">
+      <div className="max-h-[60vh] w-full min-w-0 overflow-auto">
         {/* Selected Items */}
         {selectedItems.length > 0 && (
           <>
@@ -81,8 +81,8 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
           </>
         )}
 
-        <div className="h-auto grid grid-cols-4 px-2 gap-2">
-          <h4 className="text-sm col-span-4 px-1 font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="grid h-auto grid-cols-2 gap-2 px-2 sm:grid-cols-4">
+          <h4 className="col-span-2 px-1 text-sm font-semibold uppercase tracking-wider text-muted-foreground sm:col-span-4">
             Available Inventory Items
           </h4>
 
@@ -131,7 +131,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                 }}
                 title={item.name}
                 key={`inventory-items-${item.id}`}
-                className="col-span-1 border border-(--accent)/60 flex justify-start items-center button-outlined"
+                className="col-span-1 flex items-center justify-start border border-(--accent)/60 button-outlined"
               >
                 <span className="text-sm! line-clamp-1 w-full">
                   {item.name}

@@ -80,7 +80,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
   return (
     <>
       <Modal onClose={handleCloseAll} isOpen={isOpen} title="Create Item">
-        <div className="w-lg">
+        <div className="w-full max-w-full">
           <form
             ref={formRef}
             onSubmit={(e) => {
@@ -90,9 +90,9 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
             className="relative w-full h-full flex flex-col gap-5"
           >
             {/* Form Content Wrapper */}
-            <div className="h-auto grid grid-cols-4 gap-y-2 gap-x-5">
+            <div className="grid h-auto grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-4">
               {/* Name */}
-              <div className="grid col-span-2 gap-y-2">
+              <div className="grid gap-y-2 sm:col-span-2">
                 <label
                   htmlFor="item-name"
                   className="text-sm! text-(--text-muted)! font-semibold!"
@@ -109,7 +109,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
               </div>
 
               {/* Category */}
-              <div className="grid col-span-2 gap-y-2">
+              <div className="grid gap-y-2 sm:col-span-2">
                 <label
                   htmlFor="item-category"
                   className="text-sm! text-(--text-muted)! font-semibold!"
@@ -125,7 +125,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
               </div>
 
               {/* Quantity */}
-              <div className="grid col-span-2 gap-y-2">
+              <div className="grid gap-y-2 sm:col-span-2">
                 <label
                   htmlFor="item-quantity"
                   className="text-sm! text-(--text-muted)! font-semibold!"
@@ -141,7 +141,7 @@ const CreateItemModal = ({ isOpen, onClose }: CreateItemModalProps) => {
               </div>
 
               {/* Unit */}
-              <div className="grid col-span-2 gap-y-2">
+              <div className="grid gap-y-2 sm:col-span-2">
                 <label
                   htmlFor="item-unit"
                   className="text-sm! text-(--text-muted)! font-semibold!"

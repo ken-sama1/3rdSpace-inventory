@@ -1,33 +1,44 @@
-import { Bell, User } from "lucide-react";
+import { Bell, Menu, User, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
 
-const TopBar = () => {
+interface TopBarProps {
+  isNavigationOpen: boolean;
+  onMenuClick: () => void;
+}
+
+const TopBar = ({ isNavigationOpen, onMenuClick }: TopBarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
 
   return (
-    <header
-      className="
-      shadow-[0_2px_8px_0] shadow-black/10
-      border-(--line) border-b h-12 w-[calc(100%-288px)] fixed right-0 top-0 z-10"
-    >
-      <div className="size-full relative flex justify-start items-center bg-(--primary)">
-        <div className="h-full w-fit ms-2 flex justify-center items-center">
-          <h3 className="font-semibold! text-lg! capitalize">
+    <header className="fixed right-0 top-0 z-40 h-12 w-full border-b border-(--line) shadow-[0_2px_8px_0] shadow-black/10 lg:w-[calc(100%-288px)]">
+      <div className="relative flex size-full items-center justify-start bg-(--primary)">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          aria-label={isNavigationOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={isNavigationOpen}
+          className="ml-2 flex size-9 items-center justify-center rounded-sm hover:bg-(--line) lg:hidden"
+        >
+          {isNavigationOpen ? (
+            <X className="size-5" />
+          ) : (
+            <Menu className="size-5" />
+          )}
+        </button>
+        <div className="ml-2 flex h-full w-fit items-center justify-center lg:ml-2">
+          <h3 className="text-base! font-semibold! capitalize sm:text-lg!">
             {location.pathname.substring(1)}
           </h3>
         </div>
-        {/* Right Side  */}
-        <div className="h-10 absolute right-5 flex items-center justify-center gap-5">
-          <span className="text-sm!">
+        <div className="absolute right-2 flex h-10 items-center justify-center gap-2 sm:right-5 sm:gap-5">
+          <span className="hidden text-sm! sm:inline">
             {user?.username ?? "User"} · {user?.role ?? "—"}
           </span>
-          {/* Literally just the vertical line */}
-          <div className="h-8/10 w-0.5 bg-(--line)"></div>
+          <div className="hidden h-8/10 w-0.5 bg-(--line) sm:block"></div>
 
-          {/* Obviously its the notifications button */}
           <button
             onClick={() => void navigate("/settings?tab=notifications")}
             title="notification"
@@ -39,10 +50,8 @@ const TopBar = () => {
             <Bell className="size-full stroke-inherit" />
           </button>
 
-          {/* The vertical divider again */}
-          <div className="h-8/10 w-0.5 bg-(--line)"></div>
+          <div className="hidden h-8/10 w-0.5 bg-(--line) sm:block"></div>
 
-          {/* The user profile button */}
           <button
             onClick={() => void navigate("/settings?tab=account")}
             title="account"

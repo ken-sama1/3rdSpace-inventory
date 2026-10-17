@@ -31,7 +31,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
 
   return (
     <Modal title="Create Category" onClose={onClose} isOpen={isOpen}>
-      <div className="w-lg">
+      <div className="w-full max-w-full">
         <form
           ref={formRef}
           onSubmit={(e) => {
@@ -40,9 +40,9 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
           }}
           className="relative w-full h-full flex flex-col gap-5"
         >
-          <div className="h-auto grid grid-cols-4 gap-y-2 gap-x-5">
+          <div className="grid h-auto grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-4">
             {/* Name */}
-            <div className="grid col-span-2 gap-y-2">
+            <div className="grid gap-y-2 sm:col-span-2">
               <label
                 htmlFor="category-name"
                 className="text-sm! text-(--text-muted)! font-semibold!"
@@ -59,7 +59,7 @@ const CreateCategoryModal: FC<CreateCategoryModalProps> = ({
             </div>
 
             {/* Category of */}
-            <div className="grid col-span-2 gap-y-2">
+            <div className="grid gap-y-2 sm:col-span-2">
               <label
                 htmlFor="category-of"
                 className="text-sm! text-(--text-muted)! font-semibold!"

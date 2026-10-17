@@ -60,15 +60,16 @@ const Modal: FC<ModalProps> = ({
         ref={dialogRef}
         id="modal"
         className={`
-        fixed top-1/2 left-1/2 -translate-1/2 inset-0 z-99 overflow-hidden
-        max-w-2/3 max-h-[calc(100dvh-60px)] rounded-lg 
-        border-3 border-(--accent)/80 outline-0 backdrop:black-blur-sm ${noBackdrop ? "" : "backdrop:bg-black/60"}`}
+        fixed inset-0 top-1/2 left-1/2 z-99 m-0 h-fit max-h-[calc(100dvh-1rem)] w-[calc(100vw-1rem)] max-w-3xl -translate-1/2 overflow-hidden
+        rounded-lg border-3 border-(--accent)/80 outline-0 backdrop:black-blur-sm sm:max-h-[calc(100dvh-2rem)] ${noBackdrop ? "" : "backdrop:bg-black/60"}`}
       >
         {/* Modal Container*/}
-        <div className="flex flex-col w-full h-full max-h-full bg-(--primary) p-5 gap-3">
+        <div className="flex max-h-[calc(100dvh-1rem)] w-full flex-col gap-2 bg-(--primary) p-3 sm:max-h-[calc(100dvh-2rem)] sm:gap-3 sm:p-5">
           {/* Modal Header */}
-          <div className="flex justify-between items-center px-2">
-            <h3 className="text-xl! tracking-wide">{title}</h3>
+          <div className="flex shrink-0 items-center justify-between gap-2 px-1 sm:px-2">
+            <h3 className="min-w-0 truncate text-lg! tracking-wide sm:text-xl!">
+              {title}
+            </h3>
             <button
               title="Close"
 
@@ -82,12 +83,12 @@ const Modal: FC<ModalProps> = ({
           </div>
 
           {/* Divider */}
-          <div className="w-full px-2">
+          <div className="w-full shrink-0 px-1 sm:px-2">
             <div className="divider m-0!"></div>
           </div>
 
           {/* Modal Content */}
-          <div className="size-full px-2 z-1 flex justify-center items-center">
+          <div className="min-h-0 w-full flex-1 overflow-y-auto px-1 sm:px-2">
             {children}
           </div>
         </div>

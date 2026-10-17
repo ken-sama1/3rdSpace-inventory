@@ -8,15 +8,27 @@ import NotFound from "./pages/NotFound";
 import { useSession } from "./hooks/auth/useSession";
 import InitializeSession from "./components/auth/InitializeSession";
 import { useAuth } from "./hooks/auth/useAuth";
+import { useState } from "react";
 
 const AppContent = () => {
   useSession();
   const { user } = useAuth();
+  const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
   return (
     <div className="relative w-full h-dvh">
-      <TopBar />
-      <SideBar />
+      <TopBar
+        isNavigationOpen={isNavigationOpen}
+        onMenuClick={() => {
+          setIsNavigationOpen((open) => !open);
+        }}
+      />
+      <SideBar
+        isOpen={isNavigationOpen}
+        onClose={() => {
+          setIsNavigationOpen(false);
+        }}
+      />
       <div
         className="
         h-[calc(100dvh-96px)] w-full fixed top-12 right-0 overflow-auto

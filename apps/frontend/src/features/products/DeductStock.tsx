@@ -4,9 +4,7 @@ import QuantityStepper from "@/components/ui/QuantityStepper";
 import { useToast } from "@/context/ToastContext";
 import { useStockConfig } from "@/hooks/useStockConfig";
 import { formatCurrency } from "@/utils/format-currency.util";
-import {
-  type ProductWithInventoryItemsDto,
-} from "@repo/shared";
+import { type ProductWithInventoryItemsDto } from "@repo/shared";
 import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import { useCallback, useState, type FC } from "react";
 import { useDeductStock } from "@/hooks/products/mutations/useDeductStock";
@@ -78,11 +76,11 @@ const DeductStock: FC<DeductStockProps> = ({
 
   return (
     <>
-      <div className="w-2xl">
+      <div className="w-full max-w-full">
         {/* Category & Price */}
-        <div className="w-full grid grid-cols-2 gap-4 py-3 border-b border-(--line) my-3">
+        <div className="my-3 grid w-full grid-cols-1 gap-3 border-b border-(--line) py-3 sm:grid-cols-2 sm:gap-4">
           {/* Category Section */}
-          <div className="col-span-1 flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <span className="font-semibold text-sm text-(--text-muted)! uppercase tracking-wider">
               Category:
             </span>
@@ -92,7 +90,7 @@ const DeductStock: FC<DeductStockProps> = ({
           </div>
 
           {/* Price Section */}
-          <div className="col-span-1 flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <span className="font-semibold text-sm text-(--text-muted)! uppercase tracking-wider">
               Price:
             </span>
@@ -102,7 +100,7 @@ const DeductStock: FC<DeductStockProps> = ({
           </div>
 
           {/* Status */}
-          <div className="col-span-2 flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2 sm:col-span-2">
             <div className="flex items-center gap-2">
               <span className="font-semibold text-sm text-(--text-muted)! uppercase tracking-wider">
                 Status:
@@ -126,80 +124,84 @@ const DeductStock: FC<DeductStockProps> = ({
             </span>
           </div>
           <div className="size-full flex flex-col gap-2">
-            {/* List Heading */}
-            <div className="grid grid-cols-12 items-center py-2 px-4 border-b border-(--line)">
-              <span className="col-span-3 font-semibold uppercase text-sm truncate">
-                Name
-              </span>
+            <div className="overflow-x-auto">
+              <div className="min-w-[36rem]">
+                {/* List Heading */}
+                <div className="grid grid-cols-12 items-center py-2 px-4 border-b border-(--line)">
+                  <span className="col-span-3 font-semibold uppercase text-sm truncate">
+                    Name
+                  </span>
 
-              <span className="col-span-3 font-semibold text-sm text-center uppercase">
-                Required
-              </span>
+                  <span className="col-span-3 font-semibold text-sm text-center uppercase">
+                    Required
+                  </span>
 
-              <span className="col-span-3 text-center font-semibold uppercase text-sm">
-                Available
-              </span>
+                  <span className="col-span-3 text-center font-semibold uppercase text-sm">
+                    Available
+                  </span>
 
-              <span className="col-span-2 font-semibold flex justify-center text-sm uppercase">
-                Status
-              </span>
+                  <span className="col-span-2 font-semibold flex justify-center text-sm uppercase">
+                    Status
+                  </span>
+                </div>
+
+                {/* Recipe Item Breakdown */}
+                <ul className="w-full h-[20vh] overflow-auto">
+                  {recipeItemsBreakdown.map((item) => {
+                    return (
+                      <li
+                        key={item.name}
+                        className="grid grid-cols-12 items-center py-2 px-3 border-b border-(--line) text-sm hover:bg-(--surface-hover)/50 transition-colors"
+                      >
+                        {/* Name */}
+                        <span className="col-span-3 font-medium truncate">
+                          {item.name}
+                        </span>
+
+                        {/* Required Quantity */}
+                        <span className="col-span-3 text-center text-(--text-muted)!">
+                          {item.required}
+                          <span className="text-xs">{item.unit}</span>
+                        </span>
+
+                        {/* Available Stock */}
+                        <span className="col-span-3 text-center font-mono text-(--text-muted)!">
+                          {item.available}
+                          <span className="text-xs text-(--text-muted)">
+                            {item.unit}
+                          </span>
+                        </span>
+
+                        {/* Status Badge */}
+                        <div className="col-span-2 flex justify-center">
+                          {item.required > item.available ? (
+                            <span className="px-2 py-0.5 text-xs font-semibold rounded-md border status-danger">
+                              Missing
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 text-xs font-semibold rounded-md border status-success">
+                              OK
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="col-span-1 flex justify-center items-center relative">
+                          <DeductStockContextMenu
+                            unit={item.unit}
+                            name={item.name}
+                            availableQuantity={item.available}
+                            requiredQuantity={item.required}
+                            onChange={({ quantity: newQuantity }) => {
+                              modifyAmount(item, newQuantity);
+                            }}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
-
-            {/* Recipe Item Breakdown */}
-            <ul className="w-full h-[20vh] overflow-auto">
-              {recipeItemsBreakdown.map((item) => {
-                return (
-                  <li
-                    key={item.name}
-                    className="grid grid-cols-12 items-center py-2 px-3 border-b border-(--line) text-sm hover:bg-(--surface-hover)/50 transition-colors"
-                  >
-                    {/* Name */}
-                    <span className="col-span-3 font-medium truncate">
-                      {item.name}
-                    </span>
-
-                    {/* Required Quantity */}
-                    <span className="col-span-3 text-center text-(--text-muted)!">
-                      {item.required}
-                      <span className="text-xs">{item.unit}</span>
-                    </span>
-
-                    {/* Available Stock */}
-                    <span className="col-span-3 text-center font-mono text-(--text-muted)!">
-                      {item.available}
-                      <span className="text-xs text-(--text-muted)">
-                        {item.unit}
-                      </span>
-                    </span>
-
-                    {/* Status Badge */}
-                    <div className="col-span-2 flex justify-center">
-                      {item.required > item.available ? (
-                        <span className="px-2 py-0.5 text-xs font-semibold rounded-md border status-danger">
-                          Missing
-                        </span>
-                      ) : (
-                        <span className="px-2 py-0.5 text-xs font-semibold rounded-md border status-success">
-                          OK
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="col-span-1 flex justify-center items-center relative">
-                      <DeductStockContextMenu
-                        unit={item.unit}
-                        name={item.name}
-                        availableQuantity={item.available}
-                        requiredQuantity={item.required}
-                        onChange={({ quantity: newQuantity }) => {
-                          modifyAmount(item, newQuantity);
-                        }}
-                      />
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
         </div>
 

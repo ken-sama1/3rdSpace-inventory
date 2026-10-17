@@ -116,7 +116,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
 
   return (
     <Modal title={category.name} onClose={handleCloseAll} isOpen={isOpen}>
-      <div className="w-lg">
+      <div className="w-full max-w-full">
         <div className="w-full flex gap-2 flex-col">
           {/* Label */}
           <div className="w-full">
@@ -128,7 +128,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
           {/* List */}
           <div className="size-full flex flex-col">
             {/* List Header */}
-            <div className="grid grid-cols-4 py-2 px-4 border-b border-(--line)">
+            <div className="grid grid-cols-4 border-b border-(--line) px-2 py-2 sm:px-4">
               {/* Name */}
               <span className="col-span-2 text-center font-semibold uppercase text-sm truncate">
                 Name
@@ -146,7 +146,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
                 return (
                   <div
                     key={`item-category-${d.id}`}
-                    className="col-span-4 grid grid-cols-4 py-2 px-4 border-b border-(--line)"
+                    className="col-span-4 grid grid-cols-4 border-b border-(--line) px-2 py-2 sm:px-4"
                   >
                     {/* Name */}
                     <span className="col-span-2 text-center text-sm truncate">

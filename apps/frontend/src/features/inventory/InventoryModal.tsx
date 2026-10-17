@@ -24,7 +24,7 @@ const InventoryModal: FC<InventoryModalProps> = ({
 
   return (
     <Modal title={item.name} isOpen={isOpen} onClose={onClose}>
-      <div className="w-lg">
+      <div className="w-full max-w-full">
         <EditItemForm
           onCancel={() => {
             setView("stock");

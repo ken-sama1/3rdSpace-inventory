@@ -44,7 +44,7 @@ const TransactionDetailModal: FC<TransactionDetailModalProps> = ({
 
   return (
     <Modal title="Transaction details" isOpen={isOpen} onClose={onClose}>
-      <div className="w-2xl max-w-full">
+      <div className="w-full max-w-full">
         {transaction && (
           <section className="mb-5 max-h-54 overflow-auto grid grid-cols-2 gap-3 rounded-md border border-(--line) p-4">
             <div className="col-span-2 flex items-start justify-between gap-3">

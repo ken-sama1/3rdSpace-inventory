@@ -3,11 +3,13 @@ import express, { type Router } from "express";
 import { authController } from "../controllers/auth/index.js";
 import { requireRole } from "../middleware/require-role.middleware.js";
 import { validateReqBody } from "../middleware/validate-schema.middleware.js";
+import { authJwt } from "../middleware/auth-jwt.middleware.js";
 
 export const authRouter: Router = express.Router();
 
 authRouter.post(
   "/register",
+  authJwt,
   requireRole("ADMIN"),
   validateReqBody(registerSchema),
   authController.register

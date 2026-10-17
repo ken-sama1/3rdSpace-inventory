@@ -65,11 +65,11 @@ const Dialog: FC<DialogProps> = ({
         onClose={onClose}
         ref={dialogRef}
         className={`
-        absolute top-1/2 left-1/2 -translate-1/2 inset-0 z-99 overflow-hidden rounded-lg
+        fixed inset-0 top-1/2 left-1/2 z-99 m-0 h-fit max-h-[calc(100dvh-1rem)] w-[calc(100vw-1rem)] max-w-lg -translate-1/2 overflow-hidden rounded-lg
         border-3 border-(--accent)/80 outline-0 backdrop:black-blur-sm ${noBackdrop ? "" : "backdrop:bg-black/60"}`}
       >
         {/* Dialog Container*/}
-        <div className="flex flex-col w-full h-full bg-(--primary) p-3 gap-3">
+        <div className="flex max-h-[calc(100dvh-1rem)] w-full flex-col gap-3 overflow-y-auto bg-(--primary) p-3 sm:p-4">
           {title && (
             <>
               {/* Dialog Header */}
@@ -82,10 +82,10 @@ const Dialog: FC<DialogProps> = ({
             </>
           )}
           {/* Dialog Content */}
-          <div className="size-full">{children}</div>
+          <div className="min-h-0 w-full flex-1">{children}</div>
 
           {/* Dialog Buttons */}
-          <div className="w-full gap-2 flex justify-end items-center">
+          <div className="flex w-full shrink-0 flex-wrap items-center justify-end gap-2">
             <button
               type="button"
               onClick={onClose}

@@ -38,7 +38,7 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
   return (
     <Modal noBackdrop title="Select Products" isOpen={isOpen} onClose={onClose}>
       {/* Inventory Products */}
-      <div className="w-max min-w-xl h-auto max-h-[60vh] no-scrollbar overflow-auto">
+      <div className="max-h-[60vh] w-full min-w-0 overflow-auto">
         {/* Selected Products */}
         {selectedProducts.length > 0 && (
           <>
@@ -77,8 +77,8 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
           </>
         )}
 
-        <div className="h-auto grid grid-cols-4 gap-2">
-          <h4 className="text-sm col-span-4 font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="grid h-auto grid-cols-2 gap-2 sm:grid-cols-4">
+          <h4 className="col-span-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground sm:col-span-4">
             Available Inventory Products
           </h4>
 
@@ -128,7 +128,7 @@ const SelectProductsModal: FC<SelectProductsModalProps> = ({
                 }}
                 title={item.name}
                 key={`inventory-products-${item.id}`}
-                className="col-span-1 border border-(--accent)/60 flex justify-start products-center button-outlined"
+                className="col-span-1 flex items-center justify-start border border-(--accent)/60 button-outlined"
               >
                 <span className="text-sm! line-clamp-1 w-full">
                   {item.name}

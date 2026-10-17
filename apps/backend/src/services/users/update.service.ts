@@ -9,7 +9,7 @@ import { toUserDto } from "../mappers/user.mapper.js";
 
 export const update = async (
   id: IdSchema,
-  { username }: UpdateUserSchema
+  { username, role }: UpdateUserSchema
 ): Promise<UpdateUserResult> => {
   const user = await prisma.user.update({
     where: {
@@ -17,6 +17,7 @@ export const update = async (
     },
     data: {
       ...(username && { username }),
+      ...(role && { role }),
     },
   });
 

@@ -48,9 +48,9 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
         ref={formRef}
         className="relative size-full flex flex-col gap-5"
       >
-        <div className="h-auto grid grid-cols-4 gap-y-2 gap-x-5">
+        <div className="grid h-auto grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-4">
           {/* Name */}
-          <div className="grid col-span-2 gap-y-2">
+          <div className="grid gap-y-2 sm:col-span-2">
             <label
               htmlFor="product-name"
               className="text-sm! text-(--text-muted)! font-semibold!"
@@ -69,7 +69,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
           </div>
 
           {/* Price */}
-          <div className="grid col-span-2 gap-y-2">
+          <div className="grid gap-y-2 sm:col-span-2">
             <label
               htmlFor="product-price"
               className="text-sm! text-(--text-muted)! font-semibold!"
@@ -87,7 +87,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
           </div>
 
           {/* Category */}
-          <div className="grid col-span-2 gap-y-2">
+          <div className="grid gap-y-2 sm:col-span-2">
             <label
               htmlFor="product-category"
               className="text-sm! text-(--text-muted)! font-semibold!"
@@ -102,7 +102,7 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, formRef, product }) => {
           </div>
 
           {/* Image */}
-          <div className="grid col-span-2 gap-y-2">
+          <div className="grid gap-y-2 sm:col-span-2">
             <label
               htmlFor="product-image"
               className="text-sm! text-(--text-muted)! font-semibold!"
