@@ -46,11 +46,11 @@ const CreateUserModal: FC<CreateUserModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Create User">
-      <div className="w-lg max-w-full">
+      <div className="w-full">
         <form
           ref={formRef}
           onSubmit={(event) => void createUser(event)}
-          className="flex flex-col gap-4"
+          className="w-full flex flex-col gap-4"
         >
           <label className="grid gap-2">
             <span className="text-sm! font-semibold! text-(--text-muted)!">

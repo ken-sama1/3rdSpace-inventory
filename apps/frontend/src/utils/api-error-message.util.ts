@@ -15,7 +15,11 @@ export const getApiErrorMessage = (
 
   const code = error.response?.data.code;
 
-  return code !== undefined && Object.hasOwn(API_ERROR_CODE_TO_MESSAGE, code)
-    ? API_ERROR_CODE_TO_MESSAGE[code]
+  // return code !== undefined && Object.hasOwn(API_ERROR_CODE_TO_MESSAGE, code)
+  //   ? API_ERROR_CODE_TO_MESSAGE[code]
+  //   : API_ERROR_CODE_TO_MESSAGE[fallbackCode];
+
+  return code !== undefined
+    ? (error.response?.data.message ?? API_ERROR_CODE_TO_MESSAGE[code])
     : API_ERROR_CODE_TO_MESSAGE[fallbackCode];
 };
