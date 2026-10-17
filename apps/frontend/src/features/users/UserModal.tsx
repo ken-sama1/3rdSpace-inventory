@@ -59,7 +59,7 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
   return (
     <>
       <Modal title={user.username} isOpen={isOpen} onClose={onClose}>
-        <div className="w-lg max-w-full">
+        <div className="w-full">
           <dl className="grid grid-cols-2 gap-4 rounded-md border border-(--line) p-4">
             <div>
               <dt className="text-xs! font-semibold! uppercase tracking-wide text-(--text-muted)!">

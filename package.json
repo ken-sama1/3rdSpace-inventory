@@ -1,6 +1,6 @@
 {
   "name": "3rdSpace-inventory",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,8 @@
     "packages:build": "pnpm -F \"./packages/*\" run build",
     "build": "pnpm lint && pnpm -r --if-present build",
     "packages:dev": "pnpm -F shared run dev",
-    "preview": "pnpm -F \"./apps/*\" preview"
+    "preview": "pnpm -F \"./apps/*\" preview",
+    "start": "pnpm -r --if-present start"
   },
   "author": "Ken-Sama1",
   "devEngines": {
