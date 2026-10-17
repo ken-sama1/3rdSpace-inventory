@@ -4,7 +4,8 @@
   "types": "./dist/src/index.d.ts",
   "main": "./dist/src/index.js",
   "scripts": {
-    "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b"
+    "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b",
+    "sync": "node scripts/sync-databases.mjs"
   },
   "exports": {
     ".": {
@@ -20,6 +21,8 @@
   },
   "dependencies": {
     "@prisma/client": "~6.19.3",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "mongodb": "^7.7.0",
+    "mysql2": "^3.24.6"
   }
 }

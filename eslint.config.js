@@ -26,6 +26,7 @@ export default defineConfig([
       "apps/backend/**/*.{js,ts}",
       "packages/shared/**/*.{js,ts}",
       "packages/database/**/*.{js,ts}",
+      "packages/database/**/*.mjs",
     ],
     languageOptions: {
       globals: {

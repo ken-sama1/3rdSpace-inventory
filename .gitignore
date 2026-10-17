@@ -2,6 +2,7 @@ node_modules
 dist
 .env
 *.tsbuildinfo
+.sync-state.json
 
 # PHP CS Fixer configuration
 /.php-cs-fixer.cache
