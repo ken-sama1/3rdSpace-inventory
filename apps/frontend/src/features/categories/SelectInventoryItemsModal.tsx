@@ -111,7 +111,7 @@ const SelectInventoryItemsModal: FC<SelectInventoryItemsModalProps> = ({
                         ]);
                       },
                       children: (
-                        <div className="max-w-sm">
+                        <div className="w-full">
                           <AlertBanner
                             variant="info"
                             message={`${item.name} is already in category "${item.category?.name ?? "name"}" do you want to move it to this category?`}

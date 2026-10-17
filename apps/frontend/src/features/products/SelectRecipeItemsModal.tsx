@@ -118,13 +118,13 @@ const SelectRecipeItemsModal: FC<SelectRecipeItemsModalProps> = ({
               let quantity: number = 0;
 
               const dialogChild = (
-                <div className="flex w-full flex-col gap-y-3 py-1 sm:w-xs">
+                <div className="flex flex-col w-xs gap-y-3 py-1 sm:w-full">
                   <AlertBanner
                     variant="info"
                     message="Set how much of this item will be used per production."
                   />
 
-                  <div className="flex size-full gap-2">
+                  <div className="flex size-full px-2 gap-2">
                     <input
                       onChange={(e) => {
                         quantity = Number(e.target.value);
