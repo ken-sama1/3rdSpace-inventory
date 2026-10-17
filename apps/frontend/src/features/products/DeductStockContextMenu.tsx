@@ -47,7 +47,7 @@ const DeductStockContextMenu: FC<DeductStockContextMenuProps> = ({
         setDialog(null);
       },
       children: (
-        <div className="flex flex-col gap-y-3 py-1 w-xs">
+        <div className="flex flex-col gap-y-3 py-1 w-full">
           <AlertBanner
             variant="info"
             message="Modify item amount for this order"

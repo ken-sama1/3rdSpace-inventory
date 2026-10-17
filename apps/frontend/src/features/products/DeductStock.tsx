@@ -125,7 +125,7 @@ const DeductStock: FC<DeductStockProps> = ({
           </div>
           <div className="size-full flex flex-col gap-2">
             <div className="overflow-x-auto">
-              <div className="min-w-[36rem]">
+              <div className="min-w-xl">
                 {/* List Heading */}
                 <div className="grid grid-cols-12 items-center py-2 px-4 border-b border-(--line)">
                   <span className="col-span-3 font-semibold uppercase text-sm truncate">
@@ -301,7 +301,7 @@ const DeductStock: FC<DeductStockProps> = ({
           })();
         }}
       >
-        <div className="w-sm flex">
+        <div className="w-full flex">
           <AlertBanner
             variant="info"
             message="This will deduct required items immediately."
