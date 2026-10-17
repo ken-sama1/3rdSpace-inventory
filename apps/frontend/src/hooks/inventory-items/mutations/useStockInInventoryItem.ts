@@ -18,8 +18,8 @@ export const useStockInInventoryItem = () => {
     mutationKey: ["inventory-items", "stock-in"],
     mutationFn: async ({ id, data }) =>
       await inventoryItemsApi.stockIn(id, data),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

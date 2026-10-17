@@ -15,8 +15,8 @@ export const useCreateInventoryItem = () => {
   >({
     mutationKey: ["inventory-items", "create"],
     mutationFn: inventoryItemsApi.create,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

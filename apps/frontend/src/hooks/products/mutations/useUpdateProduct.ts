@@ -34,8 +34,8 @@ export const useUpdateProduct = () => {
         }),
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

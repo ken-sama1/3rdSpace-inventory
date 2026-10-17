@@ -19,8 +19,8 @@ export const useUpdateInventoryItemCategory = () => {
     mutationKey: ["categories", "inventory-items", "update"],
     mutationFn: async ({ id, data }) =>
       await inventoryItemCategoriesApi.update(id, data),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         predicate: (q) => {
           const [resource, type] = q.queryKey;
 

@@ -36,8 +36,8 @@ export const useCreateProduct = () => {
           : { imageUrl: null }),
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },

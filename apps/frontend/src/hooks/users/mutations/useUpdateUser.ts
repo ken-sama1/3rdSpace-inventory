@@ -18,8 +18,8 @@ export const useUpdateUser = () => {
   >({
     mutationKey: ["users", "update"],
     mutationFn: async ({ id, data }) => await usersApi.update(id, data),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         predicate: (q) => {
           const k = q.queryKey;
 

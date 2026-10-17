@@ -18,8 +18,8 @@ export const useStockOutInventoryItem = () => {
     mutationFn: async ({ id, data }) => {
       return await inventoryItemsApi.stockOut(id, data);
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

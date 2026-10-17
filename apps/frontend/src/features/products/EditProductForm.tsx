@@ -48,13 +48,24 @@ const EditProductForm: FC<EditProductFormProps> = ({
       onConfirm: () => {
         void (async () => {
           try {
+            console.time("deleteProduct total");
+
             setDialog(null);
+
+            console.time("deleteProduct");
             await deleteProduct(productId);
+            console.timeEnd("deleteProduct");
+
+            console.time("handleOnSave");
             handleOnSave();
+            console.timeEnd("handleOnSave");
+
             showToast({
               message: "Product deleted successfully",
               variant: "success",
             });
+
+            console.timeEnd("deleteProduct total");
           } catch (error) {
             showToast({
               message: getApiErrorMessage(error),

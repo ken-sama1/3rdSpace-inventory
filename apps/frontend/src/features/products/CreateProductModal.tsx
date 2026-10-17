@@ -31,8 +31,6 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
 
   const { showToast } = useToast();
 
-  console.log("opened");
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} title="Create Product">
@@ -94,11 +92,9 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
                 number | null;
               const description = (formData.get("product-description") ||
                 null) as string | null;
-              const image = (formData.get("product-image") || null) as File;
+              // const image = (formData.get("product-image") || null) as File;
               const categoryId = formData.get("product-category") as
                 string | undefined;
-
-              console.log(image);
 
               try {
                 setDialog(null);
@@ -114,7 +110,7 @@ const CreateProductModal: FC<CreateProductModalProps> = ({
                   price,
                   description,
                   categoryId: categoryId || null,
-                  imageUrl: image.name,
+                  // imageUrl: image.name,
                 });
 
                 showToast({

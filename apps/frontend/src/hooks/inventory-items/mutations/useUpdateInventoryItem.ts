@@ -18,8 +18,8 @@ export const useUpdateInventoryItem = () => {
   >({
     mutationFn: ({ id, data }) => inventoryItemsApi.update(id, data),
     mutationKey: ["inventory-items", "update"],
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["inventory-items"],
       });
     },

@@ -12,8 +12,8 @@ export const useDeleteUser = () => {
   >({
     mutationKey: ["users", "delete"],
     mutationFn: ({ id }) => usersApi.delete(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         predicate: (q) => {
           const k = q.queryKey;
 

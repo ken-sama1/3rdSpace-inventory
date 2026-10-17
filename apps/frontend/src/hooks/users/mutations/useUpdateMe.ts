@@ -12,8 +12,8 @@ export const useUpdateMe = () => {
   >({
     mutationKey: ["users", "update-me"],
     mutationFn: usersApi.updateMe,
-    onSuccess: async (user) => {
-      await queryClient.setQueryData(["users", "me"], user);
+    onSuccess: (user) => {
+      void queryClient.setQueryData(["users", "me"], user);
     },
   });
 
