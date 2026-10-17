@@ -3,9 +3,9 @@ import Dialog from "@/components/ui/Dialog";
 import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useDeductStocks } from "@/hooks/products/mutations/useDeductStocks";
-import type { ProductWithInventoryItemsDto } from "@repo/shared";
 import { getApiErrorMessage } from "@/utils/api-error-message.util";
-import { ClipboardList, Minus, X } from "lucide-react";
+import type { ProductWithInventoryItemsDto } from "@repo/shared";
+import { ClipboardList, X } from "lucide-react";
 import { useMemo, useState, type FC } from "react";
 
 type RecipeItem = ProductWithInventoryItemsDto["recipeItems"][number];
@@ -106,7 +106,7 @@ const ProductionBatch: FC<ProductionBatchProps> = ({ entries, onChange }) => {
       </button>
 
       <Modal isOpen={isOpen} onClose={close} title="Review production batch">
-        <div className="flex max-h-[70vh] w-2xl max-w-full flex-col">
+        <div className="flex max-h-[70vh] w-full flex-col">
           <p className="mb-3 text-sm! text-(--text-muted)!">
             Review each product line and adjust ingredient amounts per serving.
             Add the same product more than once for different customizations.
@@ -230,7 +230,7 @@ const ProductionBatch: FC<ProductionBatchProps> = ({ entries, onChange }) => {
                 }}
                 className="button-accent flex items-center gap-1.5"
               >
-                <Minus className="size-4" />
+                {/* <Minus className="size-4" /> */}
                 Deduct batch
               </button>
             </div>
