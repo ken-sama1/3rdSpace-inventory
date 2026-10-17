@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFile, rename, writeFile } from "node:fs/promises";
+import { readFile, rename, unlink, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import dotenv from "dotenv";
@@ -132,7 +132,7 @@ const tables = [
     indexes: [
       "KEY recipe_items_productId_index (productId)",
       "KEY recipe_items_inventoryItemId_index (inventoryItemId)",
-      "CONSTRAINT recipe_items_productId_fkey FOREIGN KEY (productId) REFERENCES products (id) ON DELETE CASCADE ON UPDATE CASCADE",
+      // Keep legacy Mongo recipes whose products have already been removed.
       "CONSTRAINT recipe_items_inventoryItemId_fkey FOREIGN KEY (inventoryItemId) REFERENCES inventory_items (id) ON DELETE RESTRICT ON UPDATE CASCADE",
     ],
   },
@@ -148,7 +148,7 @@ const tables = [
     indexes: [],
   },
   {
-    name: "TransactionItem",
+    name: "transaction_items",
     collection: "TransactionItem",
     columns: [
       ["id", "CHAR(24) NOT NULL"],
@@ -160,10 +160,9 @@ const tables = [
     ],
     objectIdFields: ["productId", "transactionId"],
     indexes: [
-      "KEY TransactionItem_productId_index (productId)",
-      "KEY TransactionItem_transactionId_index (transactionId)",
-      "CONSTRAINT TransactionItem_productId_fkey FOREIGN KEY (productId) REFERENCES products (id) ON DELETE RESTRICT ON UPDATE CASCADE",
-      "CONSTRAINT TransactionItem_transactionId_fkey FOREIGN KEY (transactionId) REFERENCES transactions (id) ON DELETE RESTRICT ON UPDATE CASCADE",
+      "KEY transaction_items_productId_index (productId)",
+      "KEY transaction_items_transactionId_index (transactionId)",
+      // Keep Mongo transaction items that reference deleted products or transactions.
     ],
   },
   {
@@ -248,6 +247,14 @@ async function loadState() {
   } catch (error) {
     if (error.code === "ENOENT") return null;
     throw error;
+  }
+}
+
+async function clearState() {
+  try {
+    await unlink(statePath);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
   }
 }
 
@@ -346,6 +353,43 @@ async function rebuildMysql(connection) {
   }
 }
 
+async function createMysqlDatabase(connectionUrl, databaseName) {
+  const serverUrl = new URL(connectionUrl);
+  serverUrl.pathname = "/";
+  const connection = await mysql.createConnection(serverUrl.toString());
+  try {
+    await connection.query(
+      `CREATE DATABASE IF NOT EXISTS ${quoteIdentifier(databaseName)} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+    );
+  } finally {
+    await connection.end();
+  }
+}
+
+async function openMysqlDatabase(connectionUrl, databaseName) {
+  let connection = mysql.createPool(connectionUrl);
+  try {
+    await connection.query("SELECT 1");
+    return connection;
+  } catch (error) {
+    await connection.end();
+    if (error.code !== "ER_BAD_DB_ERROR") throw error;
+  }
+
+  await createMysqlDatabase(connectionUrl, databaseName);
+  connection = mysql.createPool(connectionUrl);
+  await connection.query("SELECT 1");
+  return connection;
+}
+
+async function hasAllMysqlTables(connection) {
+  const [rows] = await connection.query(
+    "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()",
+  );
+  const existingTables = new Set(rows.map((row) => row.TABLE_NAME));
+  return tables.every((table) => existingTables.has(table.name));
+}
+
 function snapshot(rows) {
   return Object.fromEntries(
     [...rows.entries()].map(([id, row]) => [
@@ -356,7 +400,7 @@ function snapshot(rows) {
 }
 
 async function initialCopy(database, connection) {
-  console.log("No sync state found. Rebuilding application tables in MySQL from MongoDB.");
+  console.log("Initializing MySQL application tables from MongoDB.");
   await rebuildMysql(connection);
   const snapshots = {};
   for (const table of tables) {
@@ -417,13 +461,13 @@ async function planTable(database, connection, table, previous) {
     let row;
     if (mongoChanged && !mysqlChanged) {
       source = "mongo";
-      row = mongoValue;
+      row = mongoValue ?? null;
     } else if (mysqlChanged && !mongoChanged) {
       source = "mysql";
-      row = mysqlValue;
+      row = mysqlValue ?? null;
     } else {
       source = pickWinner(mongoValue, mysqlValue, oldMongo, oldMysql);
-      row = source === "mongo" ? mongoValue : mysqlValue;
+      row = (source === "mongo" ? mongoValue : mysqlValue) ?? null;
     }
 
     plans.push({ id, source, row });
@@ -444,7 +488,10 @@ async function main() {
   const mongoClient = new MongoClient(mongoUrl);
   const mongoDatabase = mongoClient.db(decodeURIComponent(mongoDatabaseName));
   mysqlConnectionUrl.searchParams.set("timezone", "Z");
-  const connection = mysql.createPool(mysqlConnectionUrl.toString());
+  const connection = await openMysqlDatabase(
+    mysqlConnectionUrl.toString(),
+    "3rdspace_inventory",
+  );
   let stopping = false;
   const requestStop = () => {
     stopping = true;
@@ -455,10 +502,12 @@ async function main() {
 
   try {
     await mongoClient.connect();
-    await connection.query("SELECT 1");
     console.log(`Connected. Polling MongoDB and MySQL every ${pollInterval}ms.`);
     let state = await loadState();
-    if (!state) state = await initialCopy(mongoDatabase, connection);
+    if (!state || !(await hasAllMysqlTables(connection))) {
+      await clearState();
+      state = await initialCopy(mongoDatabase, connection);
+    }
     await saveState(state);
 
     while (!stopping) {

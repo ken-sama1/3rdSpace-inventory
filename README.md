@@ -32,7 +32,9 @@ On the first run, the sync process drops and recreates its application tables
 in MySQL, then copies MongoDB data into them. Back up MySQL first. Subsequent
 runs use `.sync-state.json` to detect inserts, updates, and deletes from either
 database without rebuilding the MySQL tables. Keep that file between runs; if
-it is removed, the next run performs the initial MySQL rebuild again. Only the
+it is removed, or the MySQL database/application tables are missing, the next
+run recreates the database if needed and rebuilds the application tables from
+MongoDB. The MySQL user needs permission to create the database. Only the
 application tables are touched.
 
 When both databases changed the same record since the last sync, the side with
