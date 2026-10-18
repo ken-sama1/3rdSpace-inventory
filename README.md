@@ -12,8 +12,7 @@
 - VITE_API_VERSION=v1
 - VITE_CLD_NAME=
 - VITE_CLD_PRESET=
--
 - DATABASE_URL=mongodb://127.0.0.1:27017/3rdSpace-inventory
--
+
 - ACCESS_TOKEN_SECRET=Your_Secret
 - REFRESH_TOKEN_SECRET=Your_Secret
