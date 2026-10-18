@@ -41,7 +41,9 @@
   },
   "include": [
     "src",
-    "prisma.config.ts"
+    "prisma.config.ts",
+    "scripts",
+    "seeders"
   ],
   "exclude": [
     "dist",

@@ -28,6 +28,7 @@ export const list = async ({
   } = options;
   const result = await prisma.product.findMany({
     where: {
+      ...(price !== null && { price: toNumberFilter(price) }),
       ...(name !== null && {
         name: {
           ...toStringFilter(name),
@@ -43,7 +44,6 @@ export const list = async ({
       ...(categoryId !== null && {
         categoryId: toInFilter(categoryId),
       }),
-      ...(price !== null && { price: toNumberFilter(price) }),
     },
     include: {
       recipeItems: {

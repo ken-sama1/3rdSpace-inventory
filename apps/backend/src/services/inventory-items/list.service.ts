@@ -33,15 +33,15 @@ export const list = async (
 
   const result = await prisma.inventoryItem.findMany({
     where: {
+      ...(quantity !== null && {
+        quantity: {
+          ...toNumberFilter(quantity),
+        },
+      }),
       ...(name !== null && {
         name: {
           ...toStringFilter(name),
           mode: "insensitive",
-        },
-      }),
-      ...(quantity !== null && {
-        quantity: {
-          ...toNumberFilter(quantity),
         },
       }),
       ...(categoryId !== null && { categoryId: toInFilter(categoryId) }),

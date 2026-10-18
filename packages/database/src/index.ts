@@ -9,7 +9,9 @@ if (!process.env["DATABASE_URL"]) {
 }
 
 export const prisma = new PrismaClient({
-  log: ["info", "query", "warn", "error"],
+  ...(process.env["ENV"] === "dev" && {
+    log: ["info", "query", "warn", "error"],
+  }),
 });
 
 export * from "@prisma/client";
