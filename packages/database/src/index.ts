@@ -12,4 +12,4 @@ export const prisma = new PrismaClient({
   log: ["info", "query", "warn", "error"],
 });
 
-export type * from "@prisma/client";
+export * from "@prisma/client";

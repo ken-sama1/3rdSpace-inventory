@@ -16,7 +16,7 @@
 - DATABASE_URL=mongodb://127.0.0.1:27017/3rdSpace-inventory
 - MYSQL_DATABASE_URL=mysql://user:password@127.0.0.1:3306/3rdspace_inventory
 - SYNC_INTERVAL_MS=3000
--
+
 - ACCESS_TOKEN_SECRET=Your_Secret
 - REFRESH_TOKEN_SECRET=Your_Secret
 
