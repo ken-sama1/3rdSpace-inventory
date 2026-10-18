@@ -12,7 +12,7 @@
 - VITE_API_VERSION=v1
 - VITE_CLD_NAME=
 - VITE_CLD_PRESET=
--
+
 - DATABASE_URL=mongodb://127.0.0.1:27017/3rdSpace-inventory
 - MYSQL_DATABASE_URL=mysql://user:password@127.0.0.1:3306/3rdspace_inventory
 - SYNC_INTERVAL_MS=3000
