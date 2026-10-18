@@ -8,8 +8,8 @@ export const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
     where: {
       id,
     },
-    select: {
-      id: true,
+    include: {
+      transactionItems: true,
     },
   });
 
@@ -18,6 +18,15 @@ export const remove = async (id: IdSchema): Promise<DeleteProductResult> => {
       message: "Product not found",
       code: "NOT_FOUND",
     });
+
+  if (product.transactionItems.length) {
+    throw new AppError({
+      code: "CONFLICT",
+      message:
+        "This product cannot be deleted because it is referenced by a transaction record",
+      errors: product.transactionItems,
+    });
+  }
 
   const result = await prisma.$transaction(async (tx) => {
     await tx.recipeItem.deleteMany({

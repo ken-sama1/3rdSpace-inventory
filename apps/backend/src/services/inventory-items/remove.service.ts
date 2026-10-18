@@ -6,7 +6,7 @@ import { toInventoryItemDto } from "../mappers/inventory-item.mapper.js";
 export const remove = async (id: IdSchema): Promise<DeleteInventoryResult> => {
   const item = await prisma.inventoryItem.findUnique({
     where: { id },
-    include: {
+    select: {
       recipeItems: {
         select: {
           productId: true,
@@ -23,15 +23,10 @@ export const remove = async (id: IdSchema): Promise<DeleteInventoryResult> => {
 
   if (item.recipeItems.length)
     throw new AppError({
-      message: `This item cannot be deleted because it is associated with ${item.recipeItems.length} products`,
-      code: "ITEM_IN_USE",
-      errors: [
-        ...item.recipeItems.map((recipeItem) => {
-          return {
-            productId: recipeItem.productId,
-          };
-        }),
-      ],
+      message:
+        "This item cannot be deleted because it is being used by a product",
+      code: "CONFLICT",
+      errors: [],
     });
 
   const { createdAt, updatedAt, ...rest } = await prisma.inventoryItem.delete({
