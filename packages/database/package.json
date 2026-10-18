@@ -4,7 +4,9 @@
   "types": "./dist/src/index.d.ts",
   "main": "./dist/src/index.js",
   "scripts": {
-    "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b"
+    "build": "npx prisma generate && npx prisma db push && rimraf dist && tsc -b",
+    "dev": "tsc -w",
+    "setup": "node ./dist/seeders/index.js && node ./dist/scripts/setup-indexes.js"
   },
   "exports": {
     ".": {

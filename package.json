@@ -6,10 +6,10 @@
   "scripts": {
     "lint": "pnpm -r exec eslint",
     "apps:dev": "pnpm -F \"./apps/*\" run dev",
+    "packages:dev": "pnpm -F shared run dev",
     "apps:build": "pnpm -F \"./apps/*\" run build",
     "packages:build": "pnpm -F \"./packages/*\" run build",
-    "build": "pnpm lint && pnpm -r --if-present build",
-    "packages:dev": "pnpm -F shared run dev",
+    "build": "pnpm lint && pnpm packages:build && pnpm apps:build",
     "preview": "pnpm -F \"./apps/*\" preview",
     "start": "pnpm -r --if-present start"
   },
