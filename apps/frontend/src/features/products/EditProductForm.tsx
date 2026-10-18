@@ -48,24 +48,16 @@ const EditProductForm: FC<EditProductFormProps> = ({
       onConfirm: () => {
         void (async () => {
           try {
-            console.time("deleteProduct total");
-
             setDialog(null);
 
-            console.time("deleteProduct");
             await deleteProduct(productId);
-            console.timeEnd("deleteProduct");
 
-            console.time("handleOnSave");
             handleOnSave();
-            console.timeEnd("handleOnSave");
 
             showToast({
               message: "Product deleted successfully",
               variant: "success",
             });
-
-            console.timeEnd("deleteProduct total");
           } catch (error) {
             showToast({
               message: getApiErrorMessage(error),
@@ -89,7 +81,8 @@ const EditProductForm: FC<EditProductFormProps> = ({
             const name = (formData.get("product-name") || undefined) as
               string | undefined;
             const price = formData.get("product-price") as string | null;
-            const description = formData.get("product-description") as string;
+            const description = (formData.get("product-description") ||
+              null) as string | null;
             const categoryId = formData.get("product-category") as string;
             const image = formData.get("product-image") as File;
 
@@ -98,7 +91,7 @@ const EditProductForm: FC<EditProductFormProps> = ({
               data: {
                 name,
                 price,
-                description: description || null,
+                description: description,
                 categoryId: categoryId || null,
                 imageUrl: image.name || null,
                 ...(requiredItems.length >= 1
