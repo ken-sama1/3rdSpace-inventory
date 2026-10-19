@@ -1,14 +1,13 @@
+import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import InitializeSession from "./components/auth/InitializeSession";
 import SideBar from "./components/layouts/SideBar";
 import StatusBar from "./components/layouts/StatusBar";
 import TopBar from "./components/layouts/TopBar";
-import { navRoutes } from "./routes/nav-routes";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import NotFound from "./pages/NotFound";
-import { useSession } from "./hooks/auth/useSession";
-import InitializeSession from "./components/auth/InitializeSession";
 import { useAuth } from "./hooks/auth/useAuth";
-import { useState } from "react";
+import { useSession } from "./hooks/auth/useSession";
+import NotFound from "./pages/NotFound";
+import { navRoutes } from "./routes/nav-routes";
 
 const AppContent = () => {
   useSession();
@@ -51,7 +50,6 @@ const AppContent = () => {
         </Routes>
       </div>
       <StatusBar />
-      <ReactQueryDevtools />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { prisma } from "@repo/database";
 import type { ChangePasswordSchema, IdSchema } from "@repo/shared";
 import { AppError } from "../../errors/AppError.js";
 import * as bcrypt from "bcrypt";
+import { SALT } from "../../constants.js";
 
 export const changePassword = async (
   id: IdSchema,
@@ -32,7 +33,7 @@ export const changePassword = async (
       id,
     },
     data: {
-      password: newPassword,
+      password: await bcrypt.hash(newPassword, SALT),
     },
   });
 };

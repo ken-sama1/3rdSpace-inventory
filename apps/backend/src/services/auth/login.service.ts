@@ -5,17 +5,14 @@ import {
   type LoginSchema,
 } from "@repo/shared";
 import * as bcrypt from "bcrypt";
-import {
-  ACCESS_TOKEN_SECRET,
-  EXPIRES_AT_30D_FDATE,
-  REFRESH_TOKEN_SECRET,
-} from "../../constants.js";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../constants.js";
 import { AppError } from "../../errors/AppError.js";
 
 import type { AuthJwtPayload } from "../types/AuthJwtPayload.js";
 import { hashToken } from "../utils/hashToken.util.js";
 import { signJwtToken } from "../utils/sign-jwt-token.util.js";
 import type { WithResfreshToken } from "./types.js";
+import { getSessionExpiration } from "./utils.js";
 
 export const login = async ({
   username,
@@ -58,7 +55,7 @@ export const login = async ({
 
   await prisma.userSession.create({
     data: {
-      expiresAt: EXPIRES_AT_30D_FDATE,
+      expiresAt: getSessionExpiration(),
       isRevoked: false,
       token: hashToken(refreshToken),
       userId: user.id,

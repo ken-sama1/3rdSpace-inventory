@@ -22,6 +22,3 @@ export const COOKIE_OPTIONS: CookieOptions = {
   sameSite: "lax",
   maxAge: 30 * 24 * 60 * 60 * 1000,
 };
-
-export const EXPIRES_AT_30D_FDATE = new Date();
-EXPIRES_AT_30D_FDATE.setDate(EXPIRES_AT_30D_FDATE.getDate() + 30);

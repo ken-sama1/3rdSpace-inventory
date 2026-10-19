@@ -20,7 +20,11 @@ export const useStockInInventoryItem = () => {
       await inventoryItemsApi.stockIn(id, data),
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: ["inventory-items"],
+        predicate: (q) => {
+          const [resource] = q.queryKey;
+
+          return resource === "inventory-items";
+        },
       });
     },
   });

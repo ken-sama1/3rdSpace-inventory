@@ -9,8 +9,12 @@ export const userSortBySchema = z.enum(["username", "role", "createdAt"]);
 export const userRoleSchema = z.enum(["ADMIN", "STAFF", "MANAGER"]);
 export type UserRoleSchema = z.infer<typeof userRoleSchema>;
 
+// --- Password ---
+export const passwordSchema = z
+  .string()
+  .min(6, "Old password must not be less that 6 letters");
+
 // --- Filter ---
-// Placeholder for now
 export const userFilterSchema = z
   .object({
     role: userRoleSchema,
@@ -22,7 +26,6 @@ export type UserFilterSchema = z.infer<typeof userFilterSchema>;
 export type UserFilterInput = z.input<typeof userFilterSchema>;
 
 // --- Options ---
-// Placeholder for now
 export const userOptionsSchema = z
   .object({
     lastUserId: z.string(),
@@ -74,15 +77,18 @@ export type UpdateMeResBody = ResponseBody<UpdateMeResult>;
 
 // --- Change Password ---
 export const changePasswordSchema = z.object({
-  oldPassword: z
-    .string()
-    .min(6, "Old password must not be less that 6 letters"),
-  newPassword: z
-    .string()
-    .min(6, "New password must not be less that 6 letters"),
+  oldPassword: passwordSchema,
+  newPassword: passwordSchema,
 });
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 export type ChangePasswordInput = z.input<typeof changePasswordSchema>;
+
+// --- Reset Password ---
+export const resetPasswordSchema = z.object({
+  newPassword: passwordSchema,
+});
+export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
+export type ResetPasswordInput = z.input<typeof resetPasswordSchema>;
 
 // --- Delete User ---
 export type DeleteUserResult = UserDto;

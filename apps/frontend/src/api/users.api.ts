@@ -1,4 +1,5 @@
 import type {
+  ChangePasswordInput,
   DeleteUserResBody,
   DeleteUserResult,
   GetMeResBody,
@@ -7,6 +8,7 @@ import type {
   GetUsersResBody,
   GetUsersResult,
   IdSchema,
+  ResetPasswordInput,
   UpdateMeResBody,
   UpdateMeResult,
   UpdateMeSchema,
@@ -67,10 +69,31 @@ const remove = async (id: IdSchema): Promise<DeleteUserResult> => {
   return data.data;
 };
 
+export const changePassword = async ({
+  oldPassword,
+  newPassword,
+}: ChangePasswordInput): Promise<void> => {
+  await api.post(`${meUrl}/password`, {
+    oldPassword,
+    newPassword,
+  });
+};
+
+export const resetPassword = async (
+  id: IdSchema,
+  { newPassword }: ResetPasswordInput
+): Promise<void> => {
+  await api.post(`${usersUrl}/${id}/password`, {
+    newPassword,
+  });
+};
+
 export const usersApi = {
   getMe,
   updateMe,
   getMany,
   update,
   delete: remove,
+  changePassword,
+  resetPassword,
 };

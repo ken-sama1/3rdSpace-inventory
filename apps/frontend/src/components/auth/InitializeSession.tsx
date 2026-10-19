@@ -1,11 +1,12 @@
 import { useAuthContext } from "@/context/AuthContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import Login from "@/pages/Login";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 import { useEffect, type FC, type ReactNode } from "react";
 
 const InitializeSession: FC<{ children: ReactNode }> = ({ children }) => {
   const { setToken } = useAuthContext();
-  const { refresh, isAuthenticated, isRefreshing } = useAuth();
+  const { refresh, isAuthenticated, isLoggingIn, isRefreshing } = useAuth();
 
   useEffect(() => {
     const initializeSession = async () => {
@@ -27,13 +28,11 @@ const InitializeSession: FC<{ children: ReactNode }> = ({ children }) => {
       });
   }, [setToken, refresh]);
 
-  if (isRefreshing) {
-    // Show loading screen
-    return <div>loding...</div>;
+  if (isRefreshing || isLoggingIn) {
+    return <LoadingScreen message="Loading..." />;
   }
 
   if (!isAuthenticated) {
-    // show login page
     return <Login />;
   }
 

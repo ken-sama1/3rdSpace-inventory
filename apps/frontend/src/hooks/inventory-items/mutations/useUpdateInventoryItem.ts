@@ -20,7 +20,11 @@ export const useUpdateInventoryItem = () => {
     mutationKey: ["inventory-items", "update"],
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: ["inventory-items"],
+        predicate: (q) => {
+          const [resource] = q.queryKey;
+
+          return resource === "inventory-items";
+        },
       });
     },
   });

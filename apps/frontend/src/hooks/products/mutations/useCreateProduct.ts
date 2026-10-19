@@ -38,7 +38,11 @@ export const useCreateProduct = () => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: ["products"],
+        predicate: (q) => {
+          const [resource] = q.queryKey;
+
+          return resource === "products";
+        },
       });
     },
   });

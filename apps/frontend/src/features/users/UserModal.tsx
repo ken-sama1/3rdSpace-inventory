@@ -4,10 +4,11 @@ import Modal from "@/components/ui/Modal";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useDeleteUser } from "@/hooks/users/mutations/useDeleteUser";
+import { useResetPassword } from "@/hooks/users/mutations/useResetPassword";
 import { useUpdateUser } from "@/hooks/users/mutations/useUpdateUser";
 import { getApiErrorMessage } from "@/utils/api-error-message.util";
 import type { UserDto, UserRoleSchema } from "@repo/shared";
-import { useState, type FC } from "react";
+import { useRef, useState, type FC, type SyntheticEvent } from "react";
 
 interface UserModalProps {
   user: UserDto | null;
@@ -24,10 +25,13 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
   const { user: currentUser } = useAuth();
   const { update, isPending } = useUpdateUser();
   const { delete: deleteUser, isPending: isDeleting } = useDeleteUser();
+  const { resetPassword, isPending: isResettingPassword } = useResetPassword();
   const { showToast } = useToast();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const resetPasswordFormRef = useRef<HTMLFormElement>(null);
+  const isAdmin = currentUser?.role === "ADMIN";
   const canDelete =
-    currentUser?.role === "ADMIN" &&
+    isAdmin &&
     currentUser.id !== user?.id &&
     user?.role !== "ADMIN";
 
@@ -46,6 +50,49 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
       });
       showToast({
         message: `User role changed to ${nextRole}`,
+        variant: "success",
+      });
+    } catch (error) {
+      showToast({
+        message: getApiErrorMessage(error),
+        variant: "danger",
+      });
+    }
+  };
+
+  const changeUserPassword = async (
+    event: SyntheticEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const newPassword = formData.get("newPassword");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (
+      typeof newPassword !== "string" ||
+      typeof confirmPassword !== "string"
+    ) {
+      showToast({
+        message: "Complete both password fields",
+        variant: "warning",
+      });
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      showToast({
+        message: "Passwords do not match",
+        variant: "warning",
+      });
+      return;
+    }
+
+    try {
+      await resetPassword({ id: user.id, data: { newPassword } });
+      resetPasswordFormRef.current?.reset();
+      showToast({
+        message: `Password reset for ${user.username}`,
         variant: "success",
       });
     } catch (error) {
@@ -82,6 +129,56 @@ const UserModal: FC<UserModalProps> = ({ user, isOpen, nextRole, onClose }) => {
               </dd>
             </div>
           </dl>
+
+          {isAdmin && (
+            <form
+              ref={resetPasswordFormRef}
+              onSubmit={(event) => void changeUserPassword(event)}
+              className="mt-4 grid gap-4 rounded-md border border-(--line) p-4 sm:grid-cols-2"
+            >
+              <div className="sm:col-span-2">
+                <h4 className="text-base!">Reset password</h4>
+                <p className="mt-1 text-xs! text-(--text-muted)!">
+                  Choose a new password for this user's account.
+                </p>
+              </div>
+              <label className="grid gap-2">
+                <span className="text-sm! font-semibold! text-(--text-muted)!">
+                  New password
+                </span>
+                <input
+                  autoComplete="new-password"
+                  className="h-9! w-full rounded-md!"
+                  minLength={6}
+                  name="newPassword"
+                  required
+                  type="password"
+                />
+              </label>
+              <label className="grid gap-2">
+                <span className="text-sm! font-semibold! text-(--text-muted)!">
+                  Confirm new password
+                </span>
+                <input
+                  autoComplete="new-password"
+                  className="h-9! w-full rounded-md!"
+                  minLength={6}
+                  name="confirmPassword"
+                  required
+                  type="password"
+                />
+              </label>
+              <div className="flex justify-end sm:col-span-2">
+                <button
+                  className="button-accent py-1!"
+                  disabled={isResettingPassword}
+                  type="submit"
+                >
+                  {isResettingPassword ? "Resetting..." : "Reset password"}
+                </button>
+              </div>
+            </form>
+          )}
 
           {(nextRole || canDelete) && (
             <div className="mt-4 flex items-end justify-between gap-3">

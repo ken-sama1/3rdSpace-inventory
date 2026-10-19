@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import AuthProvider from "./context/AuthProvider.tsx";
 import ToastProvider from "./context/ToastProvider.tsx";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ if (root)
             <App />
           </ToastProvider>
         </AuthProvider>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </BrowserRouter>
   );
