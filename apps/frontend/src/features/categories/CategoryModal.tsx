@@ -279,7 +279,7 @@ const CategoryModal: FC<CategoryModalProps> = ({
           }}
           onConfirm={dialog.onConfirm}
         >
-          <div className="w-sm">{dialog.children}</div>
+          <div className="w-full">{dialog.children}</div>
         </Dialog>
       )}
     </Modal>
