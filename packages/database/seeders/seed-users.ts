@@ -1,6 +1,7 @@
 import { createInterface } from "readline/promises";
 import { stdin, stdout } from "process";
 import { prisma } from "../src/index.js";
+import * as bcrypt from "bcrypt";
 
 export const seedUsers = async () => {
   const rl = createInterface({
@@ -39,7 +40,7 @@ export const seedUsers = async () => {
       const user = await prisma.user.create({
         data: {
           username,
-          password,
+          password: await bcrypt.hash(password, 10),
           role: "ADMIN",
         },
       });
