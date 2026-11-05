@@ -129,8 +129,6 @@ Seed inventory items? [y/n]:
 
 The setup script also creates the database indexes defined by the project.
 
-> **Known issue:** The current user seeder stores the password as plain text. The login service checks passwords with `bcrypt.compare`, which expects a bcrypt hash. The seeded administrator may therefore be unable to log in. Fix the seeder to hash the password before you rely on this account.
-
 ## 6. Build the Project
 
 Build all packages and applications:

@@ -42,6 +42,9 @@ The repository uses a pnpm workspace. It contains two applications and two share
 │   ├── frontend/       # React frontend application
 │   └── backend/        # Express REST API
 │
+├── docs/
+│   └── SETUP.md       # Local development setup guide
+│
 ├── packages/
 │   ├── database/       # Prisma client and database definitions
 │   └── shared/         # Shared schemas, types, and API contracts
@@ -50,12 +53,11 @@ The repository uses a pnpm workspace. It contains two applications and two share
 ├── package.json       # Workspace scripts and dependencies
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
-└── SETUP.md            # Local development setup guide
 ```
 
 ## Getting Started
 
-See [SETUP.md](SETUP.md) for the local development setup instructions.
+See [SETUP.md](docs/SETUP.md) for the local development setup instructions.
 
 The guide covers the required tools, dependency installation, environment variables, MongoDB configuration, initial database setup, and development commands.
 
