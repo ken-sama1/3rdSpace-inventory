@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "npx serve dist -l 5173"
+    "start": "npx serve dist -l 5174"
   },
   "dependencies": {
     "@cloudinary/react": "^1.14.4",
