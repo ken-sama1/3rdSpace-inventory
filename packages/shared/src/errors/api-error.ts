@@ -8,6 +8,7 @@ export const ApiErrorCode = {
   CONFLICT: "CONFLICT",
   // Inventory Item
   STOCK_INSUFFICIENT: "STOCK_INSUFFICIENT",
+  TOO_MANY_REQUESTS: "TOO_MANY_REQUESTS",
 } as const;
 
 export type ApiErrorCode = keyof typeof ApiErrorCode;
@@ -21,6 +22,7 @@ export const API_ERROR_CODE_TO_MESSAGE: Record<ApiErrorCode, string> = {
   [ApiErrorCode.UNAUTHORIZED_ERROR]: "Unauthorized",
   [ApiErrorCode.FORBIDDEN_ERROR]: "Forbidden",
   [ApiErrorCode.CONFLICT]: "Conflict",
+  [ApiErrorCode.TOO_MANY_REQUESTS]: "Too many requests",
 } as const;
 
 export const API_ERROR_CODE_TO_STATUS: Record<ApiErrorCode, number> = {
@@ -32,4 +34,5 @@ export const API_ERROR_CODE_TO_STATUS: Record<ApiErrorCode, number> = {
   [ApiErrorCode.VALIDATION_ERROR]: 400,
   [ApiErrorCode.UNKNOWN_ERROR]: 400,
   [ApiErrorCode.CONFLICT]: 409,
+  [ApiErrorCode.TOO_MANY_REQUESTS]: 429,
 };
