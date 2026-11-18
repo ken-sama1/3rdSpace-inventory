@@ -5,6 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 
+const apiBaseUrl = (process.env.VITE_API_URL ??
+  "http://localhost:3000");
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -18,6 +21,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
+  server: {
+    proxy: {
+      "/api/v1": {
+        target: apiBaseUrl,
+        changeOrigin: true,
+      },
+    },
+  },
   envDir: "../../",
 });
